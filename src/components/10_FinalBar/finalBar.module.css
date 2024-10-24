@@ -1,0 +1,26 @@
+.bar {
+    background-color: var(--broom); 
+    display: flex;            
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */         
+    width: 100vw;
+    padding: 10px 0;
+  }
+  
+  .text {
+    font-family: 'Inter', semibold;
+    font-size: 1.125rem;            /* 18px for desktop */
+    letter-spacing: 0.05em;         /* 5% letter spacing */
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .bar {
+        padding: 20px 0;
+    }
+
+    .text {
+        font-size: 1rem; /* 16px for mobile */
+    }
+  }
+  

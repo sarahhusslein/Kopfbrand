@@ -1,0 +1,59 @@
+.bar {
+    background-color: var(--darkest-grey);
+    color: white;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 70px 70px;
+  }
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+
+.logo {
+    height: 19px;
+    width: auto;
+}
+
+.highlightedText {
+    margin: 0; 
+    font-family: 'Open Sans', semibold;
+    font-size: 1rem;
+    line-height: 1.25;
+    padding-bottom: 0;
+}
+
+.text {
+    margin: 0; 
+    font-family: 'Open Sans', light;
+    font-size: 1rem;
+    line-height: 1.25;
+    padding-bottom: 0;
+  }
+
+
+.item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+
+.icon {
+    height: 19px;
+    width: 19px;
+    fill: var(--broom);
+    margin-right: 10px;
+  }
+
+
+
+/***************************** 
+Adjustments for larger screens
+*****************************/

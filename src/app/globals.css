@@ -1,19 +1,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --broom: #F5FF00;
+  --red-ribbon: #E4003E;
+  --darkest-grey: #1D1E22;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  max-width: 100vw; /* Prevent horizontal overflow */
+  overflow-x: hidden; /* Hide horizontal overflow */
 }
 
 body {
@@ -31,12 +28,168 @@ body {
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  color: inherit; /* Links inherit color from parent */
+  text-decoration: none; /* Remove underline from links */
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+
+/***************************** 
+Typography Desktop 
+*****************************/
+
+.h1 {
+  font-family: 'Inter', bold;
+  font-size: 6.25rem; /* 100px */
+  /* font-size: clamp(2rem, 5vw + 2rem, 6.25rem); */
+}
+
+.h2 {
+  font-family: 'Inter', bold;
+  font-size: 2.75rem; /* 44px */
+}
+
+.h3 {
+  font-family: 'Inter', semi-bold;
+  font-size: 1.375rem; /* 22px */
+}
+
+h4 {
+  font-family: 'Open Sans', semi-bold;
+  font-size: 1.5rem; /* 24px */
+  line-height: 1.25; /* 20px */
+}
+
+.subtitle {
+  font-family: 'Open Sans', regular;
+  font-size: 1.5rem; /* 24px */
+}
+
+.subtitle-highlighted {
+  font-family: 'Open Sans', semi-bold;
+  font-size: 1.5rem; /* 24px */
+}
+
+.body {
+  font-family: 'Open Sans', regular;
+  font-size: 1rem; /* 16px */
+}
+
+.body-light {
+  font-family: 'Open Sans', light;
+  font-size: 1rem; /* 16px */
+}
+
+.body-highlighted {
+  font-family: 'Open Sans', semi-bold;
+  font-size: 1.125rem; /* 18px */
+}
+
+.handschrift {
+  font-family: 'Roel', regular;
+  font-size: 2.125rem; /* 34px */
+}
+
+.handschrift-small {
+  font-family: 'Roel', regular;
+  font-size: 1.5rem; /* 24px */
+}
+
+.numbers {
+  font-family: 'Inter', bold;
+  font-size: 5rem; /* 80px */
+}
+
+.numbers-small {
+  font-family: 'Inter', bold;
+  font-size: 3rem; /* 48px */
+}
+
+.button {
+  font-family: 'Inter', semi-bold;
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75; /* 28px */
+}
+
+.tag {
+  font-family: 'Open Sans', semi-bold;
+  font-size: 1rem; /* 16px */
+  line-height: 1.125; /* 18px */
+}
+
+
+
+/***************************** 
+Typography Mobile 
+*****************************/
+
+@media (max-width: 768px) {
+  .h1 {
+    font-family: 'Inter', bold;
+    font-size: 2.75rem; /* 44px */
+  }
+
+ .h2 {
+    font-family: 'Inter', bold;
+    font-size: 2.5rem; /* 40px */
+  }
+
+  .h3 {
+    font-family: 'Inter', semi-bold;
+    font-size: 1.125rem; /* 18px */
+  }
+
+  .h4 {
+    font-family: 'Inter', semi-bold;
+    font-size: 1rem; /* 16px */
+  }
+
+  .subtitle {
+    font-family: 'Open Sans', regular;
+    font-size: 1.25rem; /* 20px */
+  }
+
+  .subtitle-highlighted {
+    font-family: 'Open Sans', semi-bold;
+    font-size: 1.25rem; /* 20px */
+  }
+
+  .body {
+    font-family: 'Open Sans', regular;
+    font-size: 0.875rem; /* 14px */
+  }
+
+  .body-light {
+    font-family: 'Open Sans', light;
+    font-size: 0.875rem; /* 14px */
+  }
+
+  .body-highlighted {
+    font-family: 'Open Sans', semi-bold;
+    font-size: 0.875rem; /* 14px */
+  }
+
+  .body-small {
+    font-family: 'Open Sans', regular;
+    font-size: 0.8125rem; /* 13px */
+  }
+
+  .body-super-small {
+    font-family: 'Open Sans', regular;
+    font-size: 0.75rem; /* 12px */
+  }
+
+  .handschrift {
+    font-family: 'Roel', regular;
+    font-size: 1.25rem; /* 20px */
+  }
+
+  .handschrift-small {
+    font-family: 'Roel', regular;
+    font-size: 1.125rem; /* 18px */
+  }
+
+  .tag {
+    font-family: 'Open Sans', semi-bold;
+    font-size: 0.75rem; /* 12px */
   }
 }
