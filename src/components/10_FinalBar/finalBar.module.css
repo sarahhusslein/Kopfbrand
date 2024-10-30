@@ -1,26 +1,56 @@
 .bar {
     background-color: var(--broom); 
     display: flex;            
-    justify-content: center;  /* Center horizontally */
-    align-items: center;      /* Center vertically */         
+    justify-content: center;
+    align-items: center;            
     width: 100vw;
     padding: 10px 0;
   }
   
   .text {
-    font-family: 'Inter', semibold;
+    font-family: var(--font-inter);
+    font-weight: 600;
     font-size: 1.125rem;            /* 18px for desktop */
     letter-spacing: 0.05em;         /* 5% letter spacing */
   }
   
-  /* Mobile styles */
+
+
+
+/***************************** 
+Adjustments for larger screens
+*****************************/
+
+@media (min-width: 1520px) {
+  .bar {
+    padding: 20px 0;
+  }
+  .text {
+    font-size: 1.25rem;            
+  }
+}
+
+@media (min-width: 1920px) {
+  .text {
+    font-size: 1.4rem;            
+  }
+}
+
+
+
+
+
+/***************************** 
+Adjustments for Mobile
+*****************************/
   @media (max-width: 768px) {
     .bar {
-        padding: 20px 0;
+        padding: 20px 50px;
     }
 
     .text {
         font-size: 1rem; /* 16px for mobile */
+        text-align: center;
     }
   }
   

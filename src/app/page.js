@@ -8,14 +8,16 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <div className="h1">Header</div>
-        <div className="h2">Services</div>
-        <div className="h3">Zahlen</div>
-        <div>Testimonials</div>
-        <div>Cases</div>
-        <div>Team</div>
-        <div>Kreativität</div>
-        <div>Kontakt</div>
+        <div className={styles.placeholder}>
+          <div className="h1">Header</div>
+          <div className="h2">Services</div>
+          <div className="h3">Zahlen</div>
+          <div>Testimonials</div>
+          <div>Cases</div>
+          <div>Team</div>
+          <div>Kreativität</div>
+          <div>Kontakt</div>
+        </div>
         <Footer />
         <FinalBar />
       </main>
