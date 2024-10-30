@@ -1,0 +1,26 @@
+.container {
+    background-color: var(--darkest-grey);
+    width: 100vw;
+    height: 100vh;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.h1 {
+    color: white;
+    text-align: center;
+}
+
+
+.underline {
+    position: relative;
+    display: inline-block;
+}
+
+.SVG {
+    display: block; 
+    width: 100%; /* Ensures the SVG scales to fit the width of the parent */
+    height: auto;
+}

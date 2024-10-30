@@ -1,0 +1,18 @@
+.container {
+    background-color: var(--darkest-grey);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.iconWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 40px; /* Abstand zwischen Logos */
+}
+
+.icon {
+    object-fit: contain; /* Verhindert Verzerrung */
+}
