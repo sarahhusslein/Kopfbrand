@@ -4,6 +4,8 @@ import FinalBar from "@/components/10_FinalBar/finalBar";
 import Footer from "@/components/09_Footer/footer";
 import LogoSlider from "@/components/01_Header/logoSlider";
 import CasesHeadline from "@/components/05_Cases/casesHeadline";
+import Creativity from "@/components/07_Creativity/creativity";
+import DrawingBoard from "@/components/07_Creativity/drawingBoard";
 
 
 export default function Home() {
@@ -20,6 +22,7 @@ export default function Home() {
           <CasesHeadline />
           <div>Team</div>
           <div>Kreativität</div>
+          <Creativity />
           <div>Kontakt</div>
         </div>
         <Footer />
