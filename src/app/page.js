@@ -5,6 +5,7 @@ import Footer from "@/components/09_Footer/footer";
 import LogoSlider from "@/components/01_Header/logoSlider";
 import CasesHeadline from "@/components/05_Cases/casesHeadline";
 import Creativity from "@/components/07_Creativity/creativity";
+import Team from "@/components/06_Team/team";
 
 
 export default function Home() {
@@ -19,8 +20,7 @@ export default function Home() {
           <div>Testimonials</div>
           <div>Cases</div>
           <CasesHeadline />
-          <div>Team</div>
-          <div>Kreativität</div>
+          <Team />
           <Creativity />
           <div>Kontakt</div>
         </div>

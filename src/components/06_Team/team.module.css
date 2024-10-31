@@ -1,0 +1,45 @@
+.container {
+    background-color: var(--darkest-grey);
+    width: 100vw;
+    height: 100vh;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: -4px -4px 100px 10px rgba(2, 2, 2, 1);
+
+}
+
+.h1 {
+    color: white;
+    text-align: center;
+}
+
+.h4 {
+    color: white;
+    text-align: center;
+    padding: 40px 0px;
+}
+
+.switchContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 70px;
+}
+
+.handschrift {
+    color: white;
+    transform: rotate(-1deg);
+}
+
+.arrow {
+    margin-left: 30px;
+}
+
+.switch {
+    margin-left: 25px;
+}

@@ -61,7 +61,8 @@ h4 {
 }
 
 .subtitle {
-  font-family: 'Open Sans', regular;
+  font-family: 'Open Sans';
+  font-weight: 500;
   font-size: 1.5rem; /* 24px */
 }
 
@@ -91,7 +92,8 @@ h4 {
 }
 
 .handschrift-small {
-  font-family: 'Roel', regular;
+  font-family: 'Roel';
+  font-weight: 500;
   font-size: 1.5rem; /* 24px */
 }
 
