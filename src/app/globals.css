@@ -67,7 +67,8 @@ Typography Desktop
 }
 
 .h3 {
-  font-family: 'Inter', semi-bold;
+  font-family: 'Inter';
+  font-weight: 600;
   font-size: 1.375rem; /* 22px */
 }
 

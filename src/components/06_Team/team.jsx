@@ -4,12 +4,58 @@ import styles from './team.module.css';
 import SVG from 'react-inlinesvg';
 
 
+const teamMembers = [
+    {
+        id: 1,
+        name: "Christoph Bäumler",
+        position: "Gründer & CEO",
+        keywords: ["#fastfoodjunkie 🍔", "#berghüttenbesitzer 🏔️️️", "#grünerdaumen 🌱 "],
+    },
+    {
+        id: 2,
+        name: "Victoria Reuter",
+        position: "Art Direction",
+        keywords: ["#rundumversorgerin 🌟", "#coffeejunkie ☕️️", "#fellnasenliebhaberin 🦮"],
+    },
+    {
+        id: 3,
+        name: "Christina Hansen",
+        position: "Freelance Art Direction",
+        keywords: ["#mrssunshine ☀️", "#gipfelstürmerin 🏔️️️", "#everydayisthebestday 🌈 "],
+    },
+    {
+        id: 4,
+        name: "Corinna Moritz",
+        position: "Freelance Art Direction",
+        keywords: ["#immerbilderimkopf 🎨", "#anappleeachday 🍏", "#fürjedenspasszuhaben 🎉 "],
+    },
+    {
+        id: 5,
+        name: "Patricia Reiter",
+        position: "Werkstudentin",
+        keywords: ["#agenturküken 🐣", "#bäckerinmitleidenschaft 🧁", "#filmgeek 🎬 "],
+    }
+];
+
 export default function Team() {
 
     const [SwitchOn, setSwitchOn] = useState(false);
+    const [hoveredMember, setHoveredMember] = useState(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
 
     const handleSwitchToggle = () => {
         setSwitchOn(prevState => !prevState); 
+    };
+
+    const handleMouseMove = (e, memberId) => {
+        // Get the container's position instead of the individual hover area
+        const containerRect = e.currentTarget.closest(`.${styles.teamImageContainer}`).getBoundingClientRect();
+        setMousePosition({
+            x: e.clientX - containerRect.left,
+            y: e.clientY - containerRect.top
+        });
+        setHoveredMember(memberId);
     };
 
 
@@ -31,6 +77,37 @@ export default function Team() {
                     className={styles.switch} 
                     onClick={handleSwitchToggle}
                 />
+            </div>
+            <div className={styles.teamImageContainer}>
+                {hoveredMember && (
+                    <div 
+                        className={styles.personFunFact}
+                        style={{
+                            left: `${mousePosition.x}px`,
+                            top: `${mousePosition.y}px`
+                        }}
+                    >
+                        <h3 className={`h3 ${styles.name}`}>{teamMembers[hoveredMember - 1].name}</h3>
+                        <p className={`body-light ${styles.position}`}>{teamMembers[hoveredMember - 1].position}</p>
+                        <p className={`body ${styles.keywords}`}>
+                            {teamMembers[hoveredMember - 1].keywords.join('\n')}
+                        </p>
+                    </div>
+                )}
+                
+                <div className={styles.hoverAreas}>
+                    {teamMembers.map((member) => (
+                        <div
+                            key={member.id}
+                            className={styles.hoverArea}
+                            data-member-id={member.id}
+                            onMouseMove={(e) => handleMouseMove(e, member.id)}
+                            onMouseLeave={() => setHoveredMember(null)}
+                        />
+                    ))}
+                </div>
+                
+                <img src="images/team.png" alt="teamPicture" className={styles.teamPicture} />
             </div>
         </div>
     );

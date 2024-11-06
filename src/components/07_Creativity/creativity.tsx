@@ -3,7 +3,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import styles from './creativity.module.css';
 import SVG from 'react-inlinesvg';
 import { ReactSketchCanvas, type ReactSketchCanvasRef,} from "react-sketch-canvas";
-import { motion } from 'framer-motion'; // Framer Motion importieren
+import Lottie from 'lottie-react'; 
+import drawingAnimation from '../../../public/animations/drawingAnimation.json';
 
 
 
@@ -64,6 +65,16 @@ export default function Creativity() {
               allowOnlyPointerType="all" 
               onChange={handleDrawing} 
             />
+            {!hasDrawn && (
+              <div className={styles.drawingPrompt}>
+                <Lottie 
+                    animationData={drawingAnimation}
+                    className={styles.drawingAnimation}
+                    loop={true}
+                    autoplay={true}
+                />
+              </div>
+            )}
             {hasDrawn && ( 
               <div className={styles.iconContainer}>
                 <SVG src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
@@ -97,7 +108,7 @@ export default function Creativity() {
           Zeichne<span className={styles.smallSpace}> </span>dich
           <span className={styles.smallSpace}> </span>aus.
         </p>
-        <SVG src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/>
+        {/* <SVG src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/> */}
       </div>
     </div>
   );

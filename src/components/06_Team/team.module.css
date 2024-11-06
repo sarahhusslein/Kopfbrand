@@ -1,7 +1,7 @@
 .container {
     background-color: var(--darkest-grey);
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     border-radius: 20px 20px 0 0;
     display: flex;
     flex-direction: column;
@@ -14,6 +14,7 @@
 .h1 {
     color: white;
     text-align: center;
+    padding-top: 40vh;
 }
 
 .h4 {
@@ -29,6 +30,7 @@
     justify-content: flex-end;
     width: 100%;
     padding-right: 70px;
+    padding-bottom: 10vw;
 }
 
 .handschrift {
@@ -43,3 +45,59 @@
 .switch {
     margin-left: 25px;
 }
+
+
+.teamImageContainer {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.hoverAreas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+}
+
+.hoverArea {
+    position: relative;
+    width: 20%;
+    height: 100%;
+    cursor: pointer;
+}
+
+
+.personFunFact {
+    position: absolute;
+    background-color: white;
+    border-radius: 30px 30px 30px 0px;
+    padding: 25px;
+    width: 290px;
+    z-index: 3;
+    transform: translate(-0%, -100%);
+    pointer-events: none; /* Prevents the bubble from interfering with hover */
+    transition: all 0.1s ease-out;
+}
+
+
+.name {
+    padding-bottom: 6px;
+}
+
+.position {
+    padding-bottom: 16px;
+}
+
+
+.teamPicture {
+    width: 100%;
+    height: auto;
+    max-width: 100vw;
+    object-fit: contain;
+    display: block;
+}
+

@@ -67,7 +67,7 @@
 
 /* Make content initially transparent and visible on hover */
 .rightContainer > * {
-    opacity: 0.01;
+    opacity: 0.0;
     transition: opacity 3s ease-out;
     position: relative;
     z-index: 1;
