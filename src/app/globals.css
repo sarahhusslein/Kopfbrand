@@ -34,6 +34,23 @@ a {
 }
 
 
+/*****************************
+Cursor
+*****************************/
+
+
+/* Apply default cursor to all elements */
+* {
+  cursor: url('/icons/cursorFlame.svg'), auto;
+}
+
+/* Apply pointer cursor to clickable elements */
+a, button, [role="button"], input[type="submit"], input[type="button"] {
+  cursor: url('/icons/cursorFlame.svg'), pointer;
+}
+
+
+
 /***************************** 
 Typography Desktop 
 *****************************/
@@ -77,7 +94,8 @@ h4 {
 }
 
 .body-light {
-  font-family: 'Open Sans', light;
+  font-family: 'Open Sans';
+  font-weight: 300;
   font-size: 1rem; /* 16px */
 }
 

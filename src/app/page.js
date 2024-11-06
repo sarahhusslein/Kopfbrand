@@ -6,6 +6,7 @@ import LogoSlider from "@/components/01_Header/logoSlider";
 import CasesHeadline from "@/components/05_Cases/casesHeadline";
 import Creativity from "@/components/07_Creativity/creativity";
 import Team from "@/components/06_Team/team";
+import Contact from "@/components/08_Contact/contact";
 
 
 export default function Home() {
@@ -22,8 +23,8 @@ export default function Home() {
           <CasesHeadline />
           <Team />
           <Creativity />
-          <div>Kontakt</div>
         </div>
+        <Contact />
         <Footer />
         <FinalBar />
       </main>

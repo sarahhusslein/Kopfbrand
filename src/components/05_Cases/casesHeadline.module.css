@@ -23,4 +23,5 @@
     display: block; 
     width: 100%; /* Ensures the SVG scales to fit the width of the parent */
     height: auto;
+    fill: var(--broom);
 }

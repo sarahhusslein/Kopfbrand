@@ -15,6 +15,7 @@
     padding: 0vh 12vw 0vh 10vw;
 }
 
+
 .textContainer {
     display: flex;
     flex-direction: column;
@@ -67,7 +68,7 @@
     margin-right: -5.5vw;
   }
 
-  .drawingContainer {
+.drawingContainer {
     position: absolute;
     width: 41vw;
     height: 28.7vw;
@@ -75,6 +76,11 @@
     left: 50%; 
     transform: translate(-50%, -48%); 
     z-index: 4;
+    cursor: pointer;
+}
+
+.drawingContainer * {  /* This targets all elements inside textContainer */
+    cursor: url('/icons/cursorDrawing.svg'), auto !important;
 }
 
 .reactSketchCanvas {
@@ -134,6 +140,7 @@
     display: block; 
     width: 100%; /* Ensures the SVG scales to fit the width of the parent */
     height: auto;
+    fill: var(--broom);
 }
 
 .handschrift {

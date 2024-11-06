@@ -22,7 +22,7 @@ export default function Creativity() {
   };
 
   const handleDrawing = (drawingData: any) => { // Specify the correct type for drawingData if known
-    console.log("Drawing detected."); // Log when drawing occurs
+    console.log("Drawing detected."); 
     if (drawingData.length > 0) { // Ensure drawing data is not empty
       setHasDrawn(true);
     }
@@ -45,6 +45,8 @@ export default function Creativity() {
     console.log("hasDrawn:", hasDrawn);
   }, [hasDrawn]); // Runs whenever hasDrawn changes
 
+
+
   return (
     <div className={styles.container}>
       <div className={styles.canvasContainer}>
@@ -60,9 +62,9 @@ export default function Creativity() {
               strokeWidth={3}
               strokeColor={strokeColor}
               allowOnlyPointerType="all" 
-              onChange={handleDrawing} // Ensure this matches expected prop types
+              onChange={handleDrawing} 
             />
-            {hasDrawn && ( // Icons appear only if the user has drawn
+            {hasDrawn && ( 
               <div className={styles.iconContainer}>
                 <SVG src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
                 <SVG src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
@@ -81,26 +83,6 @@ export default function Creativity() {
       </div>
       <div className={styles.textContainer}>
         <h1 className={`h1 ${styles.h1}`}>
-        {/* {"KREAT".split("").map((letter, index) => (
-          <motion.span
-            key={index}
-            initial={{ 
-              rotate: Math.random() * 90 - 45, // Zufällige Rotation zwischen -45° und +45°
-              y: Math.random() * -30 - 10, // Zufällige Startposition entlang der y-Achse
-              opacity: 0 
-            }}
-            whileInView={{ 
-              rotate: 0, // Zielrotation: 0° (gerade Ausrichtung)
-              y: 0, // Zielposition: 0 (zurück zur Ausgangsposition)
-              opacity: 1 
-            }}
-            transition={{ duration: 0.6, delay: index * 0.15 }} // Zeitversetztes Erscheinen
-            viewport={{ once: true }} // Animiert nur beim ersten Eintritt ins Sichtfeld
-            className={styles.letter}
-          >
-            {letter}
-          </motion.span>
-        ))} */}
           KREAT
           <br />
           <span className={styles.underline}> 
@@ -120,4 +102,5 @@ export default function Creativity() {
     </div>
   );
 }
+
 
