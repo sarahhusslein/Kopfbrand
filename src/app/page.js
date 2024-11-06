@@ -4,6 +4,7 @@ import FinalBar from "@/components/10_FinalBar/finalBar";
 import Footer from "@/components/09_Footer/footer";
 import LogoSlider from "@/components/01_Header/logoSlider";
 import CasesHeadline from "@/components/05_Cases/casesHeadline";
+import Cases from "@/components/05_Cases/cases";
 import Creativity from "@/components/07_Creativity/creativity";
 import Team from "@/components/06_Team/team";
 import Contact from "@/components/08_Contact/contact";
@@ -19,8 +20,8 @@ export default function Home() {
           <div className="h2">Services</div>
           <div className="h3">Zahlen</div>
           <div>Testimonials</div>
-          <div>Cases</div>
           <CasesHeadline />
+          <Cases />
           <Team />
           <Creativity />
         </div>

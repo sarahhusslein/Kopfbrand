@@ -41,7 +41,10 @@ export default function Team() {
 
     const [SwitchOn, setSwitchOn] = useState(false);
     const [hoveredMember, setHoveredMember] = useState(null);
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [mousePosition, setMousePosition] = useState({ 
+        x: 0, 
+        y: 0, 
+    });
 
 
     const handleSwitchToggle = () => {
@@ -49,11 +52,22 @@ export default function Team() {
     };
 
     const handleMouseMove = (e, memberId) => {
-        // Get the container's position instead of the individual hover area
         const containerRect = e.currentTarget.closest(`.${styles.teamImageContainer}`).getBoundingClientRect();
+        const x = e.clientX - containerRect.left;
+        const y = e.clientY - containerRect.top;
+        
+        // Calculate if the bubble would go off-screen
+        const bubbleWidth = 290; // width from CSS
+        const screenWidth = window.innerWidth;
+        const bubbleRightEdge = e.clientX + bubbleWidth;
+        
+        // Determine which transform to use
+        const shouldOffsetLeft = bubbleRightEdge > screenWidth;
+    
         setMousePosition({
-            x: e.clientX - containerRect.left,
-            y: e.clientY - containerRect.top
+            x: x,
+            y: y,
+            shouldOffsetLeft: shouldOffsetLeft // Add this to the state
         });
         setHoveredMember(memberId);
     };
@@ -84,7 +98,13 @@ export default function Team() {
                         className={styles.personFunFact}
                         style={{
                             left: `${mousePosition.x}px`,
-                            top: `${mousePosition.y}px`
+                            top: `${mousePosition.y}px`,
+                            transform: mousePosition.shouldOffsetLeft ? 
+                                'translate(-100%, -100%)' : 
+                                'translate(-0%, -100%)',
+                            borderRadius: mousePosition.shouldOffsetLeft ?
+                                '30px 30px 0px 30px' :
+                                '30px 30px 30px 0px'
                         }}
                     >
                         <h3 className={`h3 ${styles.name}`}>{teamMembers[hoveredMember - 1].name}</h3>
