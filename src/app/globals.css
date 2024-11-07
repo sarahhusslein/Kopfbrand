@@ -90,7 +90,8 @@ h4 {
 }
 
 .body {
-  font-family: 'Open Sans', regular;
+  font-family: 'Open Sans';
+  font-weight: 500;
   font-size: 1rem; /* 16px */
 }
 
@@ -101,8 +102,9 @@ h4 {
 }
 
 .body-highlighted {
-  font-family: 'Open Sans', semi-bold;
-  font-size: 1.125rem; /* 18px */
+  font-family: 'Open Sans';
+  font-weight: 600;
+  font-size: 1rem; /* 18px */
 }
 
 .handschrift {
@@ -122,7 +124,8 @@ h4 {
 }
 
 .numbers-small {
-  font-family: 'Inter', bold;
+  font-family: 'Inter';
+  font-weight: 700;
   font-size: 3rem; /* 48px */
 }
 
