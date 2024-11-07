@@ -41,6 +41,9 @@ export default function Team() {
 
     const [SwitchOn, setSwitchOn] = useState(false);
     const [hoveredMember, setHoveredMember] = useState(null);
+    const [displayName, setDisplayName] = useState('');
+    const [displayPosition, setDisplayPosition] = useState('');
+    const [displayKeywords, setDisplayKeywords] = useState('');
     const [mousePosition, setMousePosition] = useState({ 
         x: 0, 
         y: 0, 
@@ -49,6 +52,45 @@ export default function Team() {
 
     const handleSwitchToggle = () => {
         setSwitchOn(prevState => !prevState); 
+    };
+
+    const animateText = (member) => {
+        // Reset all text when starting new animation
+        setDisplayName('');
+        setDisplayPosition('');
+        setDisplayKeywords('');
+        
+        // Animate name first
+        let nameIndex = 0;
+        const nameTimer = setInterval(() => {
+            if (nameIndex <= member.name.length) {
+                setDisplayName(member.name.slice(0, nameIndex));
+                nameIndex++;
+            } else {
+                clearInterval(nameTimer);
+                // Start position animation only after name is complete
+                let posIndex = 0;
+                const posTimer = setInterval(() => {
+                    if (posIndex <= member.position.length) {
+                        setDisplayPosition(member.position.slice(0, posIndex));
+                        posIndex++;
+                    } else {
+                        clearInterval(posTimer);
+                        // Start keywords animation only after position is complete
+                        let keywordsText = member.keywords.join('\n');
+                        let keyIndex = 0;
+                        const keyTimer = setInterval(() => {
+                            if (keyIndex <= keywordsText.length) {
+                                setDisplayKeywords(keywordsText.slice(0, keyIndex));
+                                keyIndex++;
+                            } else {
+                                clearInterval(keyTimer);
+                            }
+                        }, 10);
+                    }
+                }, 10);
+            }
+        }, 10);
     };
 
     const handleMouseMove = (e, memberId) => {
@@ -63,13 +105,22 @@ export default function Team() {
         
         // Determine which transform to use
         const shouldOffsetLeft = bubbleRightEdge > screenWidth;
+
+        if (memberId !== hoveredMember) {
+            // Only trigger animation when hovering a new member
+            const member = teamMembers[memberId - 1];  // Get the correct team member data
+            animateText(member);  // Start animation with this member's data
+        }
     
         setMousePosition({
             x: x,
             y: y,
             shouldOffsetLeft: shouldOffsetLeft // Add this to the state
         });
-        setHoveredMember(memberId);
+         // Only update hoveredMember if it's different
+        if (memberId !== hoveredMember) {
+            setHoveredMember(memberId);
+        }
     };
 
 
@@ -107,10 +158,10 @@ export default function Team() {
                                 '30px 30px 30px 0px'
                         }}
                     >
-                        <h3 className={`h3 ${styles.name}`}>{teamMembers[hoveredMember - 1].name}</h3>
-                        <p className={`body-light ${styles.position}`}>{teamMembers[hoveredMember - 1].position}</p>
+                        <h3 className={`h3 ${styles.name}`}>{displayName}</h3>
+                        <p className={`body-light ${styles.position}`}>{displayPosition}</p>
                         <p className={`body ${styles.keywords}`}>
-                            {teamMembers[hoveredMember - 1].keywords.join('\n')}
+                            {displayKeywords}
                         </p>
                     </div>
                 )}

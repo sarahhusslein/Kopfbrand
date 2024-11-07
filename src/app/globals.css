@@ -133,7 +133,8 @@ h4 {
 }
 
 .tag {
-  font-family: 'Open Sans', semi-bold;
+  font-family: 'Open Sans';
+  font-weight: 600;
   font-size: 1rem; /* 16px */
   line-height: 1.125; /* 18px */
 }

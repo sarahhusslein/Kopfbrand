@@ -14,6 +14,11 @@ export default function Cases() {
             <div className={styles.textContainer}>
                 <h2 className={`h2 ${styles.h2}`}> RUBY HOTELS</h2>
                 <h4 className={`subtitle ${styles.subtitle}`}>Visuelle Gestaltung der kompletten Hotelausstattung von der Bodylotion bis zur Keycard.</h4>
+                <div className={styles.tagRow}>
+                    <p className={`tag ${styles.tag}`}>Konzeption</p>
+                    <p className={`tag ${styles.tag}`}>Werbemittel</p>
+                    <p className={`tag ${styles.tag}`}>Verpackungsdesign</p>
+                </div>
             </div>            
         </div>
     );
