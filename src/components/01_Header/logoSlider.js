@@ -20,11 +20,18 @@ export default function LogoSlider() {
         {icon: '/logos/apeFactory.svg', height: '30px' },
         {icon: '/logos/freieDigitale.svg', height: '20px' },
         {icon: '/logos/berlitz.svg', height: '30px' },
-        ];
+    ];
 
     return (
         <div className={styles.container}>
-            <Marquee speed={70} pauseOnHover={true} autoFill={true}>
+            <Marquee 
+                speed={40}
+                gradient={false}
+                pauseOnHover={true}
+                // Add these optimizations:
+                delay={0}
+                play={true}
+            >
                 {elements.map((element, index) => (
                     <div key={index} className={styles.iconWrapper}>
                         <SVG
@@ -36,5 +43,5 @@ export default function LogoSlider() {
                 ))}
             </Marquee>
         </div>
-        );
-    }
+    );
+}

@@ -1,0 +1,39 @@
+.container {
+    background-color: var(--darkest-grey);
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* margin-top: -15vh; */
+}
+
+.h1 {
+    color: white;
+    text-align: center;
+    padding-top: 40vh;
+}
+
+.h4 {
+    color: white;
+    text-align: center;
+    padding: 12px 200px 30px 200px;
+}
+
+.arrowIcon {
+    height: 20px;
+    width: auto;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    background-color: var(--red-ribbon);
+    border-radius: 15px;
+    border: none;
+    padding: 12px 25px;
+    color: white;
+    cursor: pointer !important;
+}

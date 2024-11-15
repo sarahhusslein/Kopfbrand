@@ -1,18 +1,26 @@
 .container {
     background-color: var(--darkest-grey);
-    display: flex;
-    align-items: center;
+    width: 100%;
+    padding: 100px 0px;
     overflow: hidden;
-    padding: 20px 0;
 }
 
 .iconWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 40px; /* Abstand zwischen Logos */
+    padding: 0 40px; /* Changed from margin to padding for better marquee handling */
+    flex-shrink: 0;
 }
 
 .icon {
-    object-fit: contain; /* Verhindert Verzerrung */
+    object-fit: contain;
+    will-change: transform; /* Optimize for animation performance */
+    backface-visibility: hidden; /* Reduce flickering */
+    -webkit-backface-visibility: hidden;
+}
+
+/* Optional: Add smooth transition when pausing */
+.icon:hover {
+    transition: transform 0.2s ease;
 }
