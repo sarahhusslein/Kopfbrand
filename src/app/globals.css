@@ -119,7 +119,8 @@ h4 {
 }
 
 .numbers {
-  font-family: 'Inter', bold;
+  font-family: 'Inter';
+  font-weight: 700;
   font-size: 5rem; /* 80px */
 }
 

@@ -19,5 +19,94 @@
     color: var(--darkest-grey);
     text-align: center;
     padding: 40px 0px;
-    padding-bottom: 20vh;
+    padding-bottom: 50px;
+}
+
+.servicesWrapper {
+    width: calc(100% - 140px);
+    margin: 0 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 20px;
+    padding-bottom: 150px;
+}
+
+.serviceSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.divider {
+    width: auto;
+    height: auto;
+}
+
+.animationContainer {
+    width: 150px;
+    margin: 0 auto;
+    opacity: 0; /* Hide by default */
+    transition: opacity 1s ease;
+    visibility: hidden;
+}
+
+.serviceSection:hover .animationContainer {
+    opacity: 1;
+    visibility: visible;
+}
+
+.drawingAnimation {
+    width: auto;
+    height: 15vw;
+}
+
+.textContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.number {
+    transition: color 0.1s ease;
+    color: var(--darkest-grey);
+    padding-bottom: 4px;
+}
+
+.serviceSection:hover .number {
+    color: var(--red-ribbon); 
+}
+
+.serviceTitle {
+    transition: color 0.1s ease;
+    color: var(--darkest-grey);
+    padding-bottom: 16px;
+}
+
+.serviceSection:hover .serviceTitle {
+    color: var(--red-ribbon); 
+}
+
+.description {
+    color: var(--darkest-grey);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease;
+}
+
+.serviceSection:hover .description {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Add this new class that mirrors all hover effects */
+.hover .animationContainer,
+.hover .description {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hover .number,
+.hover .serviceTitle {
+    color: var(--red-ribbon);
 }
