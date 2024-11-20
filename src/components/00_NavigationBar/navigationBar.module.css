@@ -1,0 +1,73 @@
+.navbar {
+    position: absolute; /* Changed from fixed to absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(7, 7, 7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 70px;
+    z-index: 1000;
+    transform: translateY(0);
+    transition: all 0.3s ease; /* Changed to all for smooth position type change */
+}
+
+.hidden {
+    transform: translateY(-100%);
+}
+
+.visible {
+    transform: translateY(0);
+}
+
+.fixed {
+    position: fixed;
+}
+
+.logo {
+    height: 18px;
+}
+
+.logo svg {
+    height: 100%;
+    width: auto;
+}
+
+.navItems {
+    display: flex;
+    gap: 8px;
+}
+
+.button {
+    background: transparent;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    padding: 8px 16px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+
+.button:not(:last-child):hover {
+    background: rgba(245, 255, 0, 0.2);
+}
+
+.button.active {
+    background: transparent;
+    color: var(--broom);
+}
+
+.button:last-child {
+    background: transparent;
+    border: 1px solid var(--broom);
+    color: var(--broom);
+}
+
+.button:last-child:hover {
+    background: rgba(245, 255, 0, 0.2);
+    color: var(--broom);
+}

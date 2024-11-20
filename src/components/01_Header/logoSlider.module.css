@@ -1,26 +1,23 @@
-.container {
-    background-color: var(--darkest-grey);
+.marqueeWrapper {
+    background-color: #070707;
     width: 100%;
-    padding: 100px 0px;
+    padding: 100px 0;
     overflow: hidden;
 }
 
-.iconWrapper {
+.marqueeContent {
     display: flex;
+    align-items: center;
+}
+
+.iconContainer {
+    display: inline-flex;
+    height: 65px;
     justify-content: center;
     align-items: center;
-    padding: 0 40px; /* Changed from margin to padding for better marquee handling */
-    flex-shrink: 0;
 }
 
 .icon {
-    object-fit: contain;
-    will-change: transform; /* Optimize for animation performance */
-    backface-visibility: hidden; /* Reduce flickering */
-    -webkit-backface-visibility: hidden;
-}
-
-/* Optional: Add smooth transition when pausing */
-.icon:hover {
-    transition: transform 0.2s ease;
+    padding: 0 40px;
+    width: auto;
 }

@@ -1,24 +1,64 @@
 .container {
-    background-color: var(--darkest-grey);
+    position: relative;
     width: 100vw;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* margin-top: -15vh; */
 }
+
+.heroSection {
+    position: relative;
+    width: 100%;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.heroImage {
+    width: 100vw;
+    height: auto;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(
+        to top,
+        #070707 0%,
+        rgba(7, 7, 7, 0) 100%
+    );
+}
+
+
+.content {
+    position: absolute;
+    bottom: 2%;
+    width: 100%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .h1 {
     color: white;
     text-align: center;
-    padding-top: 40vh;
+    margin-bottom: 20px;
 }
 
 .h4 {
     color: white;
     text-align: center;
-    padding: 12px 200px 30px 200px;
+    padding: 0 200px;
+    margin-bottom: 30px;
 }
 
 .arrowIcon {
@@ -37,3 +77,5 @@
     color: white;
     cursor: pointer !important;
 }
+
+

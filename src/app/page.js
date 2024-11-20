@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import FinalBar from "@/components/10_FinalBar/finalBar";
 import Footer from "@/components/09_Footer/footer";
+import NavigationBar from "@/components/00_NavigationBar/navigationBar";
 import LogoSlider from "@/components/01_Header/logoSlider";
 import Header from "@/components/01_Header/header";
 import Services from "@/components/02_Services/services";
@@ -17,17 +18,28 @@ import Contact from "@/components/08_Contact/contact";
 export default function Home() {
   return (
     <div className={styles.page}>
+      <NavigationBar />
       <main className={styles.main}>
         <Header />
-        <Services />
+        <section id="services">
+          <Services />
+        </section>
         <Numbers />
         <Testimonials />
-        <CasesHeadline />
-        <Cases />
-        <Team />
+        <section id="cases">
+          <CasesHeadline />
+          <Cases />
+        </section>
+        <section id="team">
+          <Team />
+        </section>
         <Creativity />
-        <Contact />
-        <Footer />
+        <section id="contact">
+          <Contact />
+        </section>
+        <section id="footer">
+          <Footer />
+        </section>
         <FinalBar />
       </main>
     </div>
