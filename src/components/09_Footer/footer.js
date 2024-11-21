@@ -7,7 +7,7 @@ const footerServiceItems = [
     { icon: '/icons/konzeption.svg', text: 'Konzeption & Kreation' },
     { icon: '/icons/contentDesign.svg', text: 'Digital Content Design' },
     { icon: '/icons/prototyping.svg', text: 'Prototyping & Produktion' },
-    { icon: '/icons/versand.svg', text: 'Versand & Lagerung' },
+    { icon: '/icons/versand_new.svg', text: 'Versand & Lagerung' },
 ];
 
 const footerContactItems = [
