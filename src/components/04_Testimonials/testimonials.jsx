@@ -2,6 +2,10 @@
 import React, { useState } from 'react';
 import styles from './testimonials.module.css';
 import SVG from 'react-inlinesvg';
+import Lottie from 'lottie-react'; 
+import satelliteAnimation from '../../../public/animations/satelliteAnimation.json';
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 
 const testimonials = [
@@ -54,43 +58,132 @@ const renderDescription = (description) => {
 
 export default function Testimonials() {
 
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [[page, direction], setPage] = useState([0, 0]);
 
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => 
-            prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
-        );
+    // Normalize the page number to handle infinite loop
+    const activeIndex = ((page % testimonials.length) + testimonials.length) % testimonials.length;
+
+
+    const paginate = (newDirection) => {
+        setPage([page + newDirection, newDirection]);
     };
+
+    const dragEndHandler = (event, info) => {
+        const swipeThreshold = 20; // Match this with dragConstraints
+        const velocityThreshold = 20; // Lower this to make it less sensitive
+        
+        // Only trigger swipe if offset is significant OR velocity is high enough
+        if (Math.abs(info.offset.x) > swipeThreshold || Math.abs(info.velocity.x) > velocityThreshold) {
+            if (info.offset.x > 0) {
+                paginate(-1);
+            } else {
+                paginate(1);
+            }
+        }
+    };
+
+    const calculateCardStyle = (index) => {
+        let diff = index - activeIndex;
+        const totalItems = testimonials.length;
+        
+        if (diff > totalItems / 2) diff -= totalItems;
+        if (diff < -totalItems / 2) diff += totalItems;
     
-    const handlePrev = () => {
-        setCurrentIndex((prevIndex) => 
-            prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
-        );
+        const isActive = diff === 0;
+        
+        return {
+            rotateY: diff * 60,
+            x: diff * 50,
+            z: Math.abs(diff) * -100,
+            // Hide cards that are more than 1 position away
+            scale: Math.abs(diff) > 1 ? 0 : Math.max(0.7, 1 - Math.abs(diff) * 0.2),
+            opacity: Math.abs(diff) > 1 ? 0 : Math.max(0.5, 1 - Math.abs(diff) * 0.5),
+            transition: {
+                type: "spring",
+                stiffness: 300,
+                damping: 30
+            },
+            hover: isActive ? 1.03 : 0.85
+        };
     };
+
+    const handleCardClick = (clickedIndex) => {
+        // Skip if clicking the active card
+        if (clickedIndex === activeIndex) return;
+        
+        // Calculate the shortest path to the clicked card
+        let diff = clickedIndex - activeIndex;
+        const totalItems = testimonials.length;
+        
+        // Adjust for wrapping (e.g., going from last to first card)
+        if (diff > totalItems / 2) diff -= totalItems;
+        if (diff < -totalItems / 2) diff += totalItems;
+        
+        // Paginate in the appropriate direction
+        paginate(diff > 0 ? 1 : -1);
+    };
+
+
 
   return (
     <div className={styles.container}>
-        <div className={styles.arrowSection}>
-            <SVG src="/illustrations/arrowBottomRight.svg" className={styles.SVG} onClick={handlePrev}/>
-        </div>
-        <div className={styles.testimonialSection}>
-            {/* <button className={styles.arrowButton}>
-                <SVG src="/icons/chevronLeft.svg" className={styles.chevron}/>
-            </button> */}
-            <div className={styles.testimonialCard}>
-                <div className={styles.quoteContainer}>
-                    <SVG src="/illustrations/quote.svg" className={styles.quoteSVG}/>
-                    <div className={styles.textContent}>
-                        <h3 className={`h3 ${styles.name}`}>{testimonials[currentIndex].name}</h3>
-                        <p className={`body-light ${styles.position}`}>{testimonials[currentIndex].position}</p>
-                        <p className={`body ${styles.description}`}>{renderDescription(testimonials[currentIndex].description)}</p>
-                    </div>
+        {/* <div className={styles.animation}>
+            <Lottie 
+                animationData={satelliteAnimation}
+                className={styles.satelliteAnimation}
+                loop={true}
+                autoplay={true}
+            />
+        </div > */}
+        <div className={styles.animation}>
+                <SVG src="/illustrations/arrowBottomRight.svg"/>
+            </div>
+            <div className={styles.testimonialSection}>
+                <div className={styles.carousel}>
+                    <AnimatePresence initial={false} mode="popLayout">
+                        {testimonials.map((testimonial, index) => (
+                           <motion.div
+                           key={testimonial.id}
+                            className={`${styles.testimonialCard} ${
+                                index === activeIndex 
+                                    ? styles.activeCard 
+                                    : Math.abs(index - activeIndex) === 1 
+                                        ? styles.neighborCard 
+                                        : ''
+                            }`}
+                           style={{ position: 'absolute' }}
+                           animate={calculateCardStyle(index)}
+                           drag="x"
+                           dragConstraints={{ left: -60, right: 60 }}
+                           dragElastic={0.2}
+                           dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+                           onDragEnd={dragEndHandler}
+                           onClick={() => handleCardClick(index)}
+                           whileHover={(custom) => ({ 
+                               scale: custom.hover,
+                               transition: { duration: 0.2 }
+                           })}
+                           custom={calculateCardStyle(index)}
+                       >
+                                <div className={styles.quoteContainer}>
+                                    <SVG src="/illustrations/quote.svg" className={styles.quoteSVG}/>
+                                    <div className={styles.textContent}>
+                                        <h3 className={`h3 ${styles.name}`}>
+                                            {testimonial.name}
+                                        </h3>
+                                        <p className={`body-light ${styles.position}`}>
+                                            {testimonial.position}
+                                        </p>
+                                        <p className={`body ${styles.description}`}>
+                                            {renderDescription(testimonial.description)}
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 </div>
             </div>
-            {/* <button className={styles.arrowButton}>
-                <SVG src="/icons/chevronRight.svg" className={styles.chevron} onClick={handleNext}/>
-            </button> */}
-        </div>
         <div className={styles.headlineSection}>
             <h1 className={`h1 ${styles.h1}`}>
             FLUR
