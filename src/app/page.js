@@ -6,11 +6,13 @@ import Numbers from "@/components/03_Numbers/numbers";
 import Testimonials from "@/components/04_Testimonials/testimonials";
 import CasesHeadline from "@/components/05_Cases/casesHeadline";
 import Cases from "@/components/05_Cases/cases";
+import CasesNew from "@/components/05_Cases/casesNew";
 import Team from "@/components/06_Team/team";
 import Creativity from "@/components/07_Creativity/creativity";
 import Contact from "@/components/08_Contact/contact";
 import Footer from "@/components/09_Footer/footer";
 import FinalBar from "@/components/10_FinalBar/finalBar";
+import CasesOverview from "@/components/05_Cases/casesOverview";
 
 
 export default function Home() {
@@ -26,7 +28,8 @@ export default function Home() {
         <Testimonials />
         <section id="cases">
           <CasesHeadline />
-          <Cases />
+          {/* <Cases /> */}
+          <CasesOverview />
         </section>
         <section id="team">
           <Team />

@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './services.module.css';
 import serviceAnimation from '/public/animations/placeholderServiceAnimation.json';  
+import konzeptionAnimaton from '/public/animations/konzeption.json';
+import testAnimation from '/public/animations/test.json';
+import test2Animation from '/public/animations/test_2.json';
 import SVG from 'react-inlinesvg';
 import Lottie from 'lottie-react'; 
 
@@ -9,6 +12,7 @@ import Lottie from 'lottie-react';
 const services = [
   {
       id: 1,
+      animation: serviceAnimation,
       number: "01",
       title: "Strategie & Beratung",
       description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
@@ -16,6 +20,7 @@ const services = [
   },
   {
       id: 2,
+      animation: test2Animation,
       number: "02",
       title: "Konzeption & Kreation",
       description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
@@ -23,6 +28,7 @@ const services = [
   },
   {
       id: 3,
+      animation: konzeptionAnimaton,
       number: "03",
       title: "Digital Content Design",
       description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
@@ -30,6 +36,7 @@ const services = [
   },
   {
       id: 4,
+      animation: testAnimation,
       number: "04",
       title: "Prototyping & Produktion",
       description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
@@ -37,6 +44,7 @@ const services = [
   },
   {
       id: 5,
+      animation: serviceAnimation,
       number: "05",
       title: "Versand & Lagerung",
       description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
@@ -72,7 +80,7 @@ export default function Services() {
                     >
                         <div className={styles.animationContainer}>
                             <Lottie 
-                                animationData={serviceAnimation}
+                                animationData={service.animation}
                                 className={styles.drawingAnimation}
                                 loop={true}
                                 autoplay={true}

@@ -1,0 +1,50 @@
+.moduleContainer {
+    position: relative;
+    overflow: hidden; 
+    width: 100%; 
+    height: auto; 
+}
+
+.paginationWrapper {
+    position: absolute; 
+    top: 0px;
+    right: 0px; 
+    width: 100%; /* Falls nötig, beschränkt sich auf den Container */
+    z-index: 10; 
+    pointer-events: none; 
+    outline: 2px solid red;
+}
+
+.pagination {
+    position: sticky; /* Bleibt innerhalb des Containers sichtbar */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    pointer-events: auto; /* Erlaubt Interaktionen */
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.activeDot {
+    background-color: var(--red-ribbon);
+}
+
+.casesContainer {
+    position: relative; /* Standard, für normale Scroll-Animation */
+    z-index: 1; /* Liegt unter der Pagination */
+    width: 100%; 
+    height: calc(100vh * 5); /* Platz für alle Cases */
+}
+
+.image {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
