@@ -1,5 +1,6 @@
 "use client"
-import React, { useState } from 'react'; 
+import React, { useState, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer'; 
 import styles from './team.module.css';
 import SVG from 'react-inlinesvg';
 
@@ -48,6 +49,25 @@ export default function Team() {
         x: 0, 
         y: 0, 
     });
+
+    // Add useInView hook
+    const { ref: teamImageRef, inView } = useInView({
+        threshold: 0.8, // Trigger when 50% of the component is visible
+    });
+
+    // Trigger default member display when component comes into view
+    useEffect(() => {
+        if (inView) {
+            const defaultMember = teamMembers[2]; // Index 2 is the third person
+            setHoveredMember(defaultMember.id);
+            setMousePosition({
+                x: window.innerWidth / 2,
+                y: 200,
+                shouldOffsetLeft: false
+            });
+            animateText(defaultMember);
+        }
+    }, [inView]); 
 
 
     const handleSwitchToggle = () => {
@@ -143,7 +163,7 @@ export default function Team() {
                     onClick={handleSwitchToggle}
                 />
             </div>
-            <div className={styles.teamImageContainer}>
+            <div className={styles.teamImageContainer} ref={teamImageRef}>
                 {hoveredMember && (
                     <div 
                         className={styles.personFunFact}
@@ -178,7 +198,7 @@ export default function Team() {
                     ))}
                 </div>
                 
-                <img src="images/team.png" alt="teamPicture" className={styles.teamPicture} />
+                <img src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="teamPicture" className={styles.teamPicture}/>
             </div>
         </div>
     );
