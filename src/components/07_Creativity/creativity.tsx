@@ -5,6 +5,8 @@ import SVG from 'react-inlinesvg';
 import { ReactSketchCanvas, type ReactSketchCanvasRef,} from "react-sketch-canvas";
 import Lottie from 'lottie-react'; 
 import drawingAnimation from '../../../public/animations/drawingAnimation.json';
+import { motion, useTransform, useScroll } from 'framer-motion';
+
 
 
 
@@ -46,6 +48,15 @@ export default function Creativity() {
     console.log("hasDrawn:", hasDrawn);
   }, [hasDrawn]); // Runs whenever hasDrawn changes
 
+
+  // Scroll-controlled animation for the headline
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: headlineRef,
+    offset: ["start end", "end center"] // Adjusted offset
+  });
+
+  const initialRotations = "KREATIVITÄT".split('').map(() => Math.random() * 360 - 180);
 
 
   return (
@@ -93,14 +104,38 @@ export default function Creativity() {
         )}
       </div>
       <div className={styles.textContainer}>
-        <h1 className={`h1 ${styles.h1}`}>
-          KREAT
-          <br />
-          <span className={styles.underline}> 
-            IVITÄT
-            <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG}/>
-          </span>
-        </h1>
+        <div ref={headlineRef} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+          <h1 className={`h1 ${styles.h1}`}>
+            {"KREAT".split('').map((letter, index) => (
+              <motion.span
+                key={index}
+                style={{
+                  display: 'inline-block',
+                  margin: '0 2px',
+                  rotate: useTransform(scrollYProgress, [0, 0.75], [initialRotations[index], 0])
+                }}
+              >
+                {letter}
+              </motion.span>
+            ))}
+            <br />
+            <span className={styles.underline}>
+              {"IVITÄT".split('').map((letter, index) => (
+                <motion.span
+                  key={index}
+                  style={{
+                    display: 'inline-block',
+                    margin: '0 2px',
+                    rotate: useTransform(scrollYProgress, [0, 1], [initialRotations[index + 5], 0]) // Adjusted range
+                  }}
+                >
+                  {letter}
+                </motion.span>
+              ))}
+              <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG} />
+            </span>
+          </h1>
+        </div>
         <p className={`handschrift ${styles.handschrift}`}>
           Leben<span className={styles.smallSpace}> </span>wir.
           <span className={styles.smallSpace}> </span>Lieben

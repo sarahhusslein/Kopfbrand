@@ -28,8 +28,8 @@ export default function Home() {
         <Testimonials />
         <section id="cases">
           <CasesHeadline />
-          {/* <Cases /> */}
           <CasesOverview />
+          <CasesNew />
         </section>
         <section id="team">
           <Team />
