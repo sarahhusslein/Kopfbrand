@@ -22,7 +22,7 @@ export default function NavigationBar() {
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollPos = window.scrollY;
-            const isVisible = prevScrollPos > currentScrollPos;
+            const scrollThreshold = 20;
             
             // Only start hiding/showing after scrolling past the first viewport
             if (currentScrollPos > window.innerHeight) {
@@ -33,10 +33,17 @@ export default function NavigationBar() {
                 setIsFixed(false);
             }
             
-            setPrevScrollPos(currentScrollPos);
             if (shouldHide) {
-                setVisible(isVisible);
+                // Only show navbar if scrolled up more than threshold
+                if (prevScrollPos - currentScrollPos > scrollThreshold) {
+                    setVisible(true);
+                } else if (currentScrollPos > prevScrollPos) {
+                    // Hide immediately when scrolling down
+                    setVisible(false);
+                }
             }
+            
+            setPrevScrollPos(currentScrollPos);
 
             // Your existing section detection code
             const sections = navItems.map(item => ({
