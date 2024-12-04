@@ -1,5 +1,21 @@
-.page {
-  min-height: 100svh;
+.box {
+  height: 100px;
+}
+
+.parallaxContainer {
+  height: 400vh;
+  position: relative;
+}
+
+.headerWrapper {
+  position: sticky;
+  width: 100%;
+  z-index: 1;
+}
+
+.servicesContainer {
+  position: relative;
+  z-index: 2;  /* Higher z-index */
 }
 
 

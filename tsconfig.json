@@ -28,6 +28,6 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/components/11_Examples/stickyContainer.js"  ],
   "exclude": ["node_modules"]
 }
