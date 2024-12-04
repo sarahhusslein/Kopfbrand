@@ -53,7 +53,7 @@ export default function Creativity() {
   const headlineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: headlineRef,
-    offset: ["start end", "end center"] // Adjusted offset
+    offset: ["start 95%", "end 30%"] //Animation will start when the element's start is 95% down the viewport and end when the element's end is 30% down the viewport.
   });
 
   const initialRotations = "KREATIVITÄT".split('').map(() => Math.random() * 360 - 180);
@@ -112,7 +112,7 @@ export default function Creativity() {
                 style={{
                   display: 'inline-block',
                   margin: '0 2px',
-                  rotate: useTransform(scrollYProgress, [0, 0.75], [initialRotations[index], 0])
+                  rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index], 0])
                 }}
               >
                 {letter}
@@ -126,7 +126,7 @@ export default function Creativity() {
                   style={{
                     display: 'inline-block',
                     margin: '0 2px',
-                    rotate: useTransform(scrollYProgress, [0, 1], [initialRotations[index + 5], 0]) // Adjusted range
+                    rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index + 5], 0])
                   }}
                 >
                   {letter}

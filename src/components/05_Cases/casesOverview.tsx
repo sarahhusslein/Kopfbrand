@@ -21,10 +21,10 @@ export default function CasesOverview() {
     const ref = useRef(null);
     const [dynamicScale, setDynamicScale] = useState(1);
 
-    // Dynamische Berechnung des Scale-Werts basierend auf Viewport-Größe
+   // Dynamically calculate scale based on viewport size
     useEffect(() => {
-    const gridWidth = window.innerWidth * 1.0; // Grid ist 110vw breit
-    const gridHeight = window.innerHeight * 1.0; // Grid ist 110vh hoch
+    const gridWidth = window.innerWidth * 1.0; // Grid is 110vw wide
+    const gridHeight = window.innerHeight * 1.0; // Grid is 110vh high
 
     const middleImageWidth = gridWidth / 3 * 1.5; 
     const middleImageHeight = gridHeight / 3 * 1.5;
@@ -41,6 +41,8 @@ export default function CasesOverview() {
         offset: ["start start", "end start"]
     });
     const scale = useTransform(scrollYProgress, [0, 1], [1, dynamicScale]);
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
 
 
 

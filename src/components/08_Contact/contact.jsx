@@ -3,13 +3,18 @@ import React, { useEffect, useRef } from 'react';
 import styles from './contact.module.css';
 import SVG from 'react-inlinesvg';
 import Lottie from 'lottie-react'; 
-import arrowAnimation from '/public/animations/arrowRightAnimation.json';  
+import arrowAnimation from '/public/animations/arrowRightAnimation.json';
+import { useInView } from 'react-intersection-observer';
+import { Typewriter } from 'react-simple-typewriter';  
 
 
 
 export default function Contact() {
 
     const rightContainerRef = useRef(null);
+    const { ref: textRef, inView } = useInView({
+        threshold: 0.5, 
+    });
 
     useEffect(() => {
         const container = rightContainerRef.current;
@@ -32,7 +37,17 @@ export default function Contact() {
     return (
         <div className={styles.container}>
             <div className={styles.leftContainer}>
-                <h2 className={`h2 ${styles.h2}`}> NEUGIERIG <br /> GEWORDEN?</h2>
+            <h2 className={`h2 ${styles.h2}`} ref={textRef}>
+                    {inView && (
+                        <Typewriter
+                            words={['NEUGIERIG\nGEWORDEN?']}
+                            loop={1}
+                            cursor={false}
+                            typeSpeed={70}
+                            delaySpeed={1000}
+                        />
+                    )}
+                </h2>
                 <Lottie 
                     animationData={arrowAnimation}
                     className={styles.arrowAnimation}
