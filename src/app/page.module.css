@@ -3,19 +3,26 @@
 }
 
 .parallaxContainer {
-  height: 400vh;
+  height: 900vh;
   position: relative;
+  background-color: var(--darkest-grey);
 }
 
-.headerWrapper {
+.headerContainer {
   position: sticky;
   width: 100%;
   z-index: 1;
 }
 
 .servicesContainer {
+  position: sticky;
+  z-index: 2; 
+  width: 100%;
+}
+
+.numbersContainer {
   position: relative;
-  z-index: 2;  /* Higher z-index */
+  z-index: 3;  
 }
 
 

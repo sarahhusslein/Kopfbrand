@@ -1,10 +1,13 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import styles from './services.module.css';
-import serviceAnimation from '/public/animations/placeholderServiceAnimation.json';  
+import placeholderServiceAnimation from '/public/animations/placeholderServiceAnimation.json';  
+import serviceAnimation from '/public/animations/service.json';  
 import konzeptionAnimaton from '/public/animations/konzeption.json';
+import contentcreationAnimation from '/public/animations/contentcreation.json';
+import prototypingAnimation from '/public/animations/prototyping.json';
+import versandAnimation from '/public/animations/versand.json';
 import testAnimation from '/public/animations/test.json';
-import test2Animation from '/public/animations/test_2.json';
 import SVG from 'react-inlinesvg';
 import Lottie from 'lottie-react'; 
 
@@ -20,7 +23,7 @@ const services = [
   },
   {
       id: 2,
-      animation: test2Animation,
+      animation: konzeptionAnimaton,
       number: "02",
       title: "Konzeption & Kreation",
       description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
@@ -28,7 +31,7 @@ const services = [
   },
   {
       id: 3,
-      animation: konzeptionAnimaton,
+      animation: contentcreationAnimation,
       number: "03",
       title: "Digital Content Design",
       description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
@@ -36,7 +39,7 @@ const services = [
   },
   {
       id: 4,
-      animation: testAnimation,
+      animation: prototypingAnimation,
       number: "04",
       title: "Prototyping & Produktion",
       description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
@@ -44,7 +47,7 @@ const services = [
   },
   {
       id: 5,
-      animation: serviceAnimation,
+      animation: versandAnimation,
       number: "05",
       title: "Versand & Lagerung",
       description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",

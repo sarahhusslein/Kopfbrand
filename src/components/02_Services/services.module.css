@@ -30,7 +30,7 @@
     flex-direction: row;
     align-items: stretch;
     gap: 20px;
-    padding-bottom: 150px;
+    padding-bottom: 250px;
 }
 
 .serviceSection {
@@ -46,7 +46,7 @@
 }
 
 .animationContainer {
-    width: 150px;
+    width: 200px;
     margin: 0 auto;
     opacity: 0; /* Hide by default */
     transition: opacity 1s ease;
