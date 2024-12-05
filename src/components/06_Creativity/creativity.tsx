@@ -53,7 +53,7 @@ export default function Creativity() {
   const headlineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: headlineRef,
-    offset: ["start 95%", "end 30%"] //Animation will start when the element's start is 95% down the viewport and end when the element's end is 30% down the viewport.
+    offset: ["start 95%", "end 40%"] //Animation will start when the element's start is 95% down the viewport and end when the element's end is 30% down the viewport.
   });
 
   const initialRotations = "KREATIVITÄT".split('').map(() => Math.random() * 360 - 180);

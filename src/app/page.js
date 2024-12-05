@@ -25,9 +25,21 @@ export default function Home() {
   const headerRef = useRef(null);
   const servicesRef = useRef(null);
   const numbersRef = useRef(null);
+  const casesHeadlineRef = useRef(null);
+  const casesOverviewRef = useRef(null);
+  const teamRef = useRef(null);
+  const creativityRef = useRef(null);
+  const contactRef = useRef(null);
+  const footerRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [servicesHeight, setServicesHeight] = useState(0);
   const [numbersHeight, setNumbersHeight] = useState(0);
+  const [casesHeadlineHeight, setCasesHeadlineHeight] = useState(0);
+  const [casesOverviewHeight, setCasesOverviewHeight] = useState(0);
+  const [teamHeight, setTeamHeight] = useState(0);
+  const [creativityHeight, setCreativityHeight] = useState(0);
+  const [contactHeight, setContactHeight] = useState(0);
+  const [footerHeight, setFooterHeight] = useState(0);
   const [totalHeight, setTotalHeight] = useState(0);
 
   useEffect(() => {
@@ -35,11 +47,22 @@ export default function Home() {
       const headerHeight = headerRef.current.offsetHeight;
       const servicesHeight = servicesRef.current.offsetHeight;
       const numbersHeight = numbersRef.current.offsetHeight;
-      
+      const casesHeadlineHeight = casesHeadlineRef.current.offsetHeight;
+      const casesOverviewHeight = casesOverviewRef.current.offsetHeight;
+      const teamHeight = teamRef.current.offsetHeight;
+      const creativityHeight = creativityRef.current.offsetHeight;
+      const contactHeight = contactRef.current.offsetHeight;
+      const footerHeight = footerRef.current.offsetHeight;
       setHeaderHeight(headerHeight);
       setServicesHeight(servicesHeight);
       setNumbersHeight(numbersHeight);
-      setTotalHeight(headerHeight + servicesHeight + numbersHeight);
+      setCasesHeadlineHeight(casesHeadlineHeight);
+      setCasesOverviewHeight(casesOverviewHeight);
+      setTeamHeight(teamHeight);
+      setCreativityHeight(creativityHeight);
+      setContactHeight(contactHeight);
+      setFooterHeight(footerHeight);
+      setTotalHeight(headerHeight + servicesHeight + numbersHeight + casesHeadlineHeight + casesOverviewHeight + teamHeight + creativityHeight + contactHeight + footerHeight);
     }
   }, []);
 
@@ -63,52 +86,78 @@ export default function Home() {
   return (
     <div>
       <NavigationBar />
-      <div 
-        ref={containerRef}
-        className={styles.parallaxContainer}
-        style={{ height: `${totalHeight}px` }}
-      >
-        <motion.div
-          ref={headerRef}
-          className={styles.headerContainer}
-          style={{ top: `calc(100vh - ${headerHeight}px)`, scale: scaleHeader, rotate: rotateHeader }}
+        <div 
+          ref={containerRef}
+          className={styles.parallaxContainer}
+          style={{ height: `${totalHeight}px` }}
         >
-          <Header />
-        </motion.div>
-        <motion.div 
-          ref={servicesRef}
-          className={styles.servicesContainer}
-          style={{ top: `calc(100vh - ${servicesHeight}px)`, scale: scaleServices, rotate: rotateServices }}
-        >
-          <Services />
-        </motion.div>
-        <div ref={numbersRef} className={styles.numbersContainer}>
-          <NumbersAndTestimonials />
+          <motion.div
+            ref={headerRef}
+            className={styles.headerContainer}
+            style={{ top: `calc(100vh - ${headerHeight}px)`, scale: scaleHeader, rotate: rotateHeader }}
+          >
+            <Header />
+          </motion.div>
+        
+          <motion.div 
+            id="services"
+            ref={servicesRef}
+            className={styles.servicesContainer}
+            style={{ top: `calc(100vh - ${servicesHeight}px)`, scale: scaleServices, rotate: rotateServices }}
+          >
+            <Services />
+          </motion.div>
+          <div 
+            ref={numbersRef} 
+            className={styles.numbersContainer}
+            style={{ top: `calc(100vh - ${numbersHeight}px)` }}
+          >
+            <NumbersAndTestimonials />
+          </div>
+          <div 
+            id="cases"
+            ref={casesHeadlineRef}
+            className={styles.casesHeadlineContainer}
+            // style={{ top: `calc(100vh - ${casesHeadlineHeight}px)` }}
+          >
+            <CasesHeadline />
+          </div>
+          <div 
+            ref={casesOverviewRef}
+            className={styles.casesOverviewContainer}
+            style={{ top: `calc(100vh - ${casesOverviewHeight}px)` }}
+          >
+            <CasesOverview />
+          </div>
+          <div 
+            id="team"
+            ref={teamRef}
+            className={styles.teamContainer}
+            style={{ top: `calc(100vh - ${teamHeight}px)` }}
+          >
+            <Team />
+          </div>
+          <div 
+            ref={creativityRef}
+            className={styles.creativityContainer}
+          >
+            <Creativity />
+          </div>
+          <div 
+            id="contact"
+            ref={contactRef}
+            className={styles.contactContainer}
+          >
+            <Contact />
+          </div>
+          <div id="footer" 
+            ref={footerRef}
+            className={styles.footerContainer}
+          >
+            <Footer />
+          </div>
+          <FinalBar />
         </div>
-      </div>
-      {/* <main className={styles.main}>
-        <section id="services">
-          <Services />
-        </section>
-        <Numbers />
-        <Testimonials />
-        <section id="cases">
-          <CasesHeadline />
-          <CasesOverview />
-          <CasesNew />
-        </section>
-        <section id="team">
-          <Team />
-        </section>
-        <Creativity />
-        <section id="contact">
-          <Contact />
-        </section>
-        <section id="footer">
-          <Footer />
-        </section>
-        <FinalBar />
-      </main> */}
     </div>
   );
 }

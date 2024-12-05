@@ -1,11 +1,11 @@
 .container {
     background-color: var(--grey);
     width: 100vw;
-    height: 100vh;
+    height: 120vh;
     border-radius: 20px 20px 0 0;
     display: flex;
     flex-direction: row;
-    padding-top: 20vh;
+    padding-top: 35vh;
 }
 
 .canvasContainer {

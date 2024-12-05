@@ -5,6 +5,8 @@
     align-items: center;            
     width: 100vw;
     padding: 10px 0;
+    z-index: 12;
+    position: relative;
   }
   
   .text {

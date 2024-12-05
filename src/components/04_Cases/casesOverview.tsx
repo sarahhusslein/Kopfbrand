@@ -21,18 +21,39 @@ export default function CasesOverview() {
     const ref = useRef(null);
     const [dynamicScale, setDynamicScale] = useState(1);
 
-   // Dynamically calculate scale based on viewport size
+
     useEffect(() => {
-    const gridWidth = window.innerWidth * 1.0; // Grid is 110vw wide
-    const gridHeight = window.innerHeight * 1.0; // Grid is 110vh high
-
-    const middleImageWidth = gridWidth / 3 * 1.5; 
-    const middleImageHeight = gridHeight / 3 * 1.5;
-
-    const scaleWidth = window.innerWidth / middleImageWidth;
-    const scaleHeight = window.innerHeight / middleImageHeight;
-
-    setDynamicScale(Math.max(scaleWidth, scaleHeight)); 
+        const calculateScale = () => {
+            // Get viewport dimensions
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+    
+            // Define grid gap
+            const gridGap = 5; // matches your CSS gap value
+    
+            // Calculate total gap space
+            const horizontalGaps = 2 * gridGap; // 2 gaps horizontally
+            const verticalGaps = 2 * gridGap; // 2 gaps vertically
+    
+            // Calculate the available space for the grid
+            const availableGridWidth = viewportWidth - horizontalGaps -110;
+            const availableGridHeight = viewportHeight - verticalGaps -110;
+    
+            // Calculate the middle image dimensions
+            const middleImageWidth = availableGridWidth * (1.5 / 3.5);  // 1.5fr of total 3.5fr
+            const middleImageHeight = availableGridHeight * (1.5 / 3.5); // 1.5fr of total 3.5fr
+    
+            // Calculate scale needed to fill viewport
+            const scaleX = viewportWidth / middleImageWidth;
+            const scaleY = viewportHeight / middleImageHeight;
+    
+            // Use the smaller scale to ensure it fits within the viewport
+            setDynamicScale(Math.max(scaleX, scaleY));
+        };
+    
+        calculateScale();
+        window.addEventListener('resize', calculateScale);
+        return () => window.removeEventListener('resize', calculateScale);
     }, []);
 
 
@@ -48,8 +69,8 @@ export default function CasesOverview() {
 
 
     return (
-        <div className={styles.casesOverview}>
-            <div className={styles.overviewContainer} ref={ref}>
+        <div className={styles.outerContainer} ref={ref}>
+            <div className={styles.overviewContainer}>
                 <motion.div
                     className={styles.gridContainer}
                     style={{
