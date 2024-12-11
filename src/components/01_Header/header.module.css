@@ -76,6 +76,23 @@
     padding: 12px 25px;
     color: white;
     cursor: pointer !important;
+    transition: transform 0.3s ease;
 }
 
+.button:hover {
+    transform: scale(1.1);
+}
+
+.button:hover .arrowIcon {
+    animation: bounce 0.8s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
 

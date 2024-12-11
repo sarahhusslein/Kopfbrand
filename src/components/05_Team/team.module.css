@@ -45,6 +45,11 @@
 
 .switch {
     margin-left: 25px;
+    transition: all 0.3s ease;
+}
+
+.switch:hover {
+    transform: scale(1.05);
 }
 
 
