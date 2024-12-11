@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import styles from './casesNew.module.css';
 
 
-const services = [
+const cases = [
     {
         id: 1,
         image: "/images/caseStudyHotelGrey.jpg",
@@ -47,36 +47,83 @@ const services = [
   export default function Cases() {
     const [activeIndex, setActiveIndex] = useState(0);
     const ref = React.useRef<HTMLDivElement>(null);
+
+    // Scroll progress tracking for pagination
+    const { scrollYProgress } = useScroll({
+      target: ref,
+      offset: ["start start", "end start"]
+  });
+
+  // Motion value for the active dot
+  const activeDot = useTransform(
+      scrollYProgress,
+      // Breakpoints for each case study (adjust based on number of cases)
+      [0, 0.2, 0.4, 0.6, 0.8],
+      [0, 1, 2, 3, 4]
+  );
     
+  
 
 
     return (
-      <div className={styles.moduleContainer}>
+      <div className={styles.outerContainer} ref={ref}>
           {/* Pagination */}
           <div className={styles.paginationWrapper}>
-              <div className={styles.pagination}>
-                  {services.map((_, index) => (
-                      <div
-                          key={index}
-                          className={`${styles.dot} ${activeIndex === index ? styles.activeDot : ''}`}
-                      />
-                  ))}
-              </div>
+          <div className={styles.pagination}>
+                    {cases.map((_, index) => (
+                        <div key={index} className={styles.dotContainer}>
+                            <div className={styles.dot} />
+                            <motion.div 
+                                className={styles.activeDot}
+                                style={{
+                                  opacity: useTransform(
+                                    activeDot,
+                                        (value) => {
+                                            // Calculate the distance from this index
+                                            const distance = value - index;
+                                            
+                                            // For the current dot fading out
+                                            if (Math.floor(value) === index && distance > 0) {
+                                              // Only start fading when next case is 50% expanded
+                                              return distance <= 0.5 ? 1 : 1 - ((distance - 0.5) * 2);
+                                            }
+                                            // For the next dot fading in
+                                            else if (Math.ceil(value) === index && distance < 0) {
+                                                // Start fading in when current case is 50% expanded
+                                                const nextDistance = 1 + distance;
+                                                return nextDistance >= 0.5 ? (nextDistance - 0.5) * 2 : 0;
+                                            }
+                                            // Fully active dot (when at this index or when next case hasn't reached 50%)
+                                            else if (Math.floor(value) === index && distance < 0.5) {
+                                                return 1;
+                                            }
+                                            // Inactive dot
+                                            return 0;
+                                        }
+                                    )
+                                }}
+                            />
+                        </div>
+                    ))}
+                </div>
           </div>
 
           {/* Cases Image Scrolling */}
           <div className={styles.casesContainer}>
-              {services.map((service, index) => (
-                  <CaseStudyImage key={service.id} service={service} />
+              {cases.map((cases, index) => (
+                  <CaseStudyImage key={cases.id} cases={cases} />
               ))}
           </div>
+
+          {/* Cases Text */}
+          
       </div>
   );
 }
 
 
 
-  const CaseStudyImage = ({ service }) => {
+  const CaseStudyImage = ({ cases }) => {
     const ref = useRef<HTMLDivElement>(null);
     
     const { scrollYProgress } = useScroll({
@@ -92,12 +139,15 @@ const services = [
         style={{
           scaleY,
           transformOrigin: 'top',
+          lineHeight: 0,
+          fontSize: 0,
         }}
+        
       >
         <img 
           className={styles.image}
-          src={service.image} 
-          alt={service.company} 
+          src={cases.image} 
+          alt={cases.company} 
         />
       </motion.div>
     );

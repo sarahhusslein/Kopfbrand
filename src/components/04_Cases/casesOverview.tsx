@@ -36,8 +36,8 @@ export default function CasesOverview() {
             const verticalGaps = 2 * gridGap; // 2 gaps vertically
     
             // Calculate the available space for the grid
-            const availableGridWidth = viewportWidth - horizontalGaps -110;
-            const availableGridHeight = viewportHeight - verticalGaps -110;
+            const availableGridWidth = viewportWidth - horizontalGaps -125;
+            const availableGridHeight = viewportHeight - verticalGaps -125;
     
             // Calculate the middle image dimensions
             const middleImageWidth = availableGridWidth * (1.5 / 3.5);  // 1.5fr of total 3.5fr

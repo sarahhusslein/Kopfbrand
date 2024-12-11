@@ -38,6 +38,11 @@
   z-index: 5;  
 }
 
+.casesContainer {
+  position: relative;
+  z-index: 6;  
+}
+
 .teamContainer {
   position: sticky;
   z-index: 8;  

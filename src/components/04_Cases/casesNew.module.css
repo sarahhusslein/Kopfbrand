@@ -1,47 +1,55 @@
-.moduleContainer {
+.outerContainer {
     position: relative;
-    overflow: hidden; 
-    width: 100%; 
-    height: 500vh; 
-}
-
-.paginationWrapper {
-    position: absolute; 
-    top: 0px;
-    right: 0px; 
-    width: 100%; /* Falls nötig, beschränkt sich auf den Container */
-    z-index: 10; 
-    pointer-events: none; 
-    outline: 2px solid red;
     height: 500vh;
 }
 
+
+.paginationWrapper {
+    position: sticky; 
+    top: 0px;
+    z-index: 10; 
+    /* outline: 2px solid red; */
+    pointer-events: none;
+}
+
 .pagination {
-    position: sticky; /* Bleibt innerhalb des Containers sichtbar */
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 2px;
+    padding-top: 30px;
+    padding-right: 30px;
+    gap: 4px;
     pointer-events: auto; /* Erlaubt Interaktionen */
 }
 
+.dotContainer {
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
 .dot {
-    width: 12px;
-    height: 12px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.3);
-    transition: background-color 0.3s ease;
 }
 
 .activeDot {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     background-color: var(--red-ribbon);
 }
 
 .casesContainer {
-    position: relative; /* Standard, für normale Scroll-Animation */
-    z-index: 1; /* Liegt unter der Pagination */
+    z-index: 1; 
     width: 100%; 
-    height: calc(100vh * 5); /* Platz für alle Cases */
+    height: 500vh;
+    position: absolute;
+    top: 0;
 }
 
 .image {

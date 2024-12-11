@@ -27,6 +27,7 @@ export default function Home() {
   const numbersRef = useRef(null);
   const casesHeadlineRef = useRef(null);
   const casesOverviewRef = useRef(null);
+  const casesRef = useRef(null);
   const teamRef = useRef(null);
   const creativityRef = useRef(null);
   const contactRef = useRef(null);
@@ -36,6 +37,7 @@ export default function Home() {
   const [numbersHeight, setNumbersHeight] = useState(0);
   const [casesHeadlineHeight, setCasesHeadlineHeight] = useState(0);
   const [casesOverviewHeight, setCasesOverviewHeight] = useState(0);
+  const [casesHeight, setCasesHeight] = useState(0);
   const [teamHeight, setTeamHeight] = useState(0);
   const [creativityHeight, setCreativityHeight] = useState(0);
   const [contactHeight, setContactHeight] = useState(0);
@@ -49,6 +51,7 @@ export default function Home() {
       const numbersHeight = numbersRef.current.offsetHeight;
       const casesHeadlineHeight = casesHeadlineRef.current.offsetHeight;
       const casesOverviewHeight = casesOverviewRef.current.offsetHeight;
+      const casesHeight = casesRef.current.offsetHeight;
       const teamHeight = teamRef.current.offsetHeight;
       const creativityHeight = creativityRef.current.offsetHeight;
       const contactHeight = contactRef.current.offsetHeight;
@@ -58,11 +61,12 @@ export default function Home() {
       setNumbersHeight(numbersHeight);
       setCasesHeadlineHeight(casesHeadlineHeight);
       setCasesOverviewHeight(casesOverviewHeight);
+      setCasesHeight(casesHeight);
       setTeamHeight(teamHeight);
       setCreativityHeight(creativityHeight);
       setContactHeight(contactHeight);
       setFooterHeight(footerHeight);
-      setTotalHeight(headerHeight + servicesHeight + numbersHeight + casesHeadlineHeight + casesOverviewHeight + teamHeight + creativityHeight + contactHeight + footerHeight);
+      setTotalHeight(headerHeight + servicesHeight + numbersHeight + casesHeadlineHeight + casesOverviewHeight + casesHeight + teamHeight + creativityHeight + contactHeight + footerHeight);
     }
   }, []);
 
@@ -128,6 +132,12 @@ export default function Home() {
             style={{ top: `calc(100vh - ${casesOverviewHeight}px)` }}
           >
             <CasesOverview />
+          </div>
+          <div 
+            ref={casesRef}
+            className={styles.casesContainer}
+          >
+            <CasesNew />
           </div>
           <div 
             id="team"
