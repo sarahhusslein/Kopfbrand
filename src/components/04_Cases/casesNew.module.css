@@ -119,7 +119,7 @@
 
 .tag {
     color: var(--red-ribbon);
-    background-color:rgba(228, 0, 62, 0.3);
+    background-color:rgba(228, 0, 62, 0.2);
     padding: 6px 16px;
     border-radius: 100px;
 }

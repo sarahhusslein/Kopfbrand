@@ -117,6 +117,13 @@ export default function Team() {
         const containerRect = e.currentTarget.closest(`.${styles.teamImageContainer}`).getBoundingClientRect();
         const x = e.clientX - containerRect.left;
         const y = e.clientY - containerRect.top;
+
+        // Calculate relative position (0 to 1) across the width
+        const relativeX = x / containerRect.width;
+        
+        // Calculate tilt angle (-15 to 15 degrees)
+        // Center (0.5) = 0 degrees, Left edge = -15 degrees, Right edge = 15 degrees
+        const tiltAngle = (relativeX - 0.5) * 30;
         
         // Calculate if the bubble would go off-screen
         const bubbleWidth = 290; // width from CSS
@@ -135,7 +142,8 @@ export default function Team() {
         setMousePosition({
             x: x,
             y: y,
-            shouldOffsetLeft: shouldOffsetLeft // Add this to the state
+            shouldOffsetLeft: shouldOffsetLeft,
+            tiltAngle: tiltAngle
         });
          // Only update hoveredMember if it's different
         if (memberId !== hoveredMember) {
@@ -170,9 +178,9 @@ export default function Team() {
                         style={{
                             left: `${mousePosition.x}px`,
                             top: `${mousePosition.y}px`,
-                            transform: mousePosition.shouldOffsetLeft ? 
+                            transform: `${mousePosition.shouldOffsetLeft ? 
                                 'translate(-100%, -100%)' : 
-                                'translate(-0%, -100%)',
+                                'translate(-0%, -100%)'} rotate(${mousePosition.tiltAngle}deg)`,
                             borderRadius: mousePosition.shouldOffsetLeft ?
                                 '30px 30px 0px 30px' :
                                 '30px 30px 30px 0px'
