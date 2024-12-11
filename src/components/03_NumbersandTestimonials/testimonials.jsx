@@ -135,56 +135,74 @@ export default function Testimonials() {
                 autoplay={true}
             />
         </div > */}
-        <div className={styles.animation}>
-                <SVG src="/illustrations/arrowBottomRight.svg"/>
-            </div>
-            <div className={styles.testimonialSection}>
-                <div className={styles.carousel}>
-                    <AnimatePresence initial={false} mode="popLayout">
-                        {testimonials.map((testimonial, index) => (
-                           <motion.div
-                           key={testimonial.id}
-                            className={`${styles.testimonialCard} ${
-                                index === activeIndex 
-                                    ? styles.activeCard 
-                                    : Math.abs(index - activeIndex) === 1 
-                                        ? styles.neighborCard 
-                                        : ''
-                            }`}
-                           style={{ position: 'absolute' }}
-                           animate={calculateCardStyle(index)}
-                           drag="x"
-                           dragConstraints={{ left: -60, right: 60 }}
-                           dragElastic={0.2}
-                           dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-                           onDragEnd={dragEndHandler}
-                           onClick={() => handleCardClick(index)}
-                           whileHover={(custom) => ({ 
-                               scale: custom.hover,
-                               transition: { duration: 0.2 }
-                           })}
-                           custom={calculateCardStyle(index)}
-                       >
-                                <div className={styles.quoteContainer}>
-                                    <SVG src="/illustrations/quote.svg" className={styles.quoteSVG}/>
-                                    <div className={styles.textContent}>
-                                        <h3 className={`h3 ${styles.name}`}>
-                                            {testimonial.name}
-                                        </h3>
-                                        <p className={`body-light ${styles.position}`}>
-                                            {testimonial.position}
-                                        </p>
-                                        <p className={`body ${styles.description}`}>
-                                            {renderDescription(testimonial.description)}
-                                        </p>
-                                    </div>
+        <motion.div 
+        className={styles.animation}
+        initial={{ y: 30, opacity: 0.2 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: false, amount: 0.6 }}
+        transition={{ duration: 0.7, ease: "easeInOut"}}
+        >
+            <SVG src="/illustrations/arrowBottomRight.svg"/>
+        </motion.div>
+        <motion.div 
+        className={styles.testimonialSection}
+        initial={{ y: 50, opacity: 0, scale: 0.8 }}
+        whileInView={{ y: 0, opacity: 1, scale: 1 }}
+        viewport={{ once: false, amount: 0.6 }}
+        transition={{ duration: 0.7, ease: "easeInOut"}}
+        >
+            <div className={styles.carousel}>
+                <AnimatePresence initial={false} mode="popLayout">
+                    {testimonials.map((testimonial, index) => (
+                        <motion.div
+                        key={testimonial.id}
+                        className={`${styles.testimonialCard} ${
+                            index === activeIndex 
+                                ? styles.activeCard 
+                                : Math.abs(index - activeIndex) === 1 
+                                    ? styles.neighborCard 
+                                    : ''
+                        }`}
+                        style={{ position: 'absolute' }}
+                        animate={calculateCardStyle(index)}
+                        drag="x"
+                        dragConstraints={{ left: -60, right: 60 }}
+                        dragElastic={0.2}
+                        dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+                        onDragEnd={dragEndHandler}
+                        onClick={() => handleCardClick(index)}
+                        whileHover={(custom) => ({ 
+                            scale: custom.hover,
+                            transition: { duration: 0.2 }
+                        })}
+                        custom={calculateCardStyle(index)}
+                    >
+                            <div className={styles.quoteContainer}>
+                                <SVG src="/illustrations/quote.svg" className={styles.quoteSVG}/>
+                                <div className={styles.textContent}>
+                                    <h3 className={`h3 ${styles.name}`}>
+                                        {testimonial.name}
+                                    </h3>
+                                    <p className={`body-light ${styles.position}`}>
+                                        {testimonial.position}
+                                    </p>
+                                    <p className={`body ${styles.description}`}>
+                                        {renderDescription(testimonial.description)}
+                                    </p>
                                 </div>
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
-                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
             </div>
-        <div className={styles.headlineSection}>
+        </motion.div>
+        <motion.div 
+        className={styles.headlineSection}
+        initial={{ y: 40, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: false, amount: 0.5 }}
+        transition={{ duration: 0.7, ease: "easeInOut"}}
+        >
             <h1 className={`h1 ${styles.h1}`}>
             FLUR
             <br />
@@ -193,7 +211,7 @@ export default function Testimonials() {
                 <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
             </span>
             </h1>
-        </div>
+        </motion.div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import styles from './numbers.module.css';
 import SVG from 'react-inlinesvg';
 import CountUp from 'react-countup';
@@ -54,7 +55,13 @@ export default function Numbers() {
   return (
     <div className={styles.container}>
         <div className={styles.content}>
-            <div className={styles.headline}>
+            <motion.div 
+            className={styles.headline}
+            initial={{ y: 40, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 0.5, ease: "easeInOut"}}
+            >
                 <h2 className={`h2 ${styles.h2}`}>
                 UNSERE
                 <br />
@@ -63,25 +70,32 @@ export default function Numbers() {
                     <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
                 </span>
                 </h2>
-            </div>
-            <div className={styles.numbersRow} ref={ref}>
-                    {numbers.map((number) => (
-                        <div className={styles.numbersColumn} key={number.id}>
-                            <p className={`numbers-small ${styles.number}`}>
-                                {inView ? (
-                                    <CountUp
-                                        start={number.start}
-                                        end={0}
-                                        duration={3}
-                                        separator=" "
-                                        useEasing
-                                    />
-                                ) : number.start}
-                            </p>
-                            <p className={`body ${styles.keyword}`}>{number.keyword}</p>
-                        </div>
-                    ))}
-                </div>
+            </motion.div>
+            <motion.div 
+            className={styles.numbersRow} 
+            ref={ref}
+            initial={{ y: 40, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: false, amount: 0.5 }}
+            transition={{ duration: 0.6, ease: "easeInOut"}}
+            >
+                {numbers.map((number) => (
+                    <div className={styles.numbersColumn} key={number.id}>
+                        <p className={`numbers-small ${styles.number}`}>
+                            {inView ? (
+                                <CountUp
+                                    start={number.start}
+                                    end={0}
+                                    duration={3}
+                                    separator=" "
+                                    useEasing
+                                />
+                            ) : number.start}
+                        </p>
+                        <p className={`body ${styles.keyword}`}>{number.keyword}</p>
+                    </div>
+                ))}
+            </motion.div>
         </div>
     </div>
   );

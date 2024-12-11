@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer'; 
 import styles from './team.module.css';
 import SVG from 'react-inlinesvg';
@@ -151,63 +152,83 @@ export default function Team() {
         }
     };
 
+    const itemAnimation = {
+        initial: { y: 40, opacity: 0 },
+        inView: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.5,
+                ease: "easeInOut",
+                duration: 0.7
+            }
+        }
+    }; 
+
 
     return (
         <div className={styles.container}>
-            <h1 className={`h1 ${styles.h1}`}>
-                WIR STELLEN UNS VOR
-            </h1>
-            <h4 className={`subtitle ${styles.h4}`}>
-                Jetzt mal ehrlich, hast du dich uns so vorgestellt? 
-                <br />
-                85 Jahre Berufserfahrung, 7000 Stunden Calls und ein Lächeln auf Knopfdruck - das ist unser Team.
-            </h4>
-            <div className={styles.switchContainer}>
-                <p className={`handschrift-small ${styles.handschrift}`}>Nicht drücken!</p>
-                <SVG src={'illustrations/arrowStraightRight.svg'} className={styles.arrow}/>
-                <SVG 
-                    src={SwitchOn ? 'illustrations/switchOn.svg' : 'illustrations/switchOff.svg'} 
-                    className={styles.switch} 
-                    onClick={handleSwitchToggle}
-                />
-            </div>
-            <div className={styles.teamImageContainer} ref={teamImageRef}>
-                {hoveredMember && (
-                    <div 
-                        className={styles.personFunFact}
-                        style={{
-                            left: `${mousePosition.x}px`,
-                            top: `${mousePosition.y}px`,
-                            transform: `${mousePosition.shouldOffsetLeft ? 
-                                'translate(-100%, -100%)' : 
-                                'translate(-0%, -100%)'} rotate(${mousePosition.tiltAngle}deg)`,
-                            borderRadius: mousePosition.shouldOffsetLeft ?
-                                '30px 30px 0px 30px' :
-                                '30px 30px 30px 0px'
-                        }}
-                    >
-                        <h3 className={`h3 ${styles.name}`}>{displayName}</h3>
-                        <p className={`body-light ${styles.position}`}>{displayPosition}</p>
-                        <p className={`body ${styles.keywords}`}>
-                            {displayKeywords}
-                        </p>
+            <motion.div 
+            variants={itemAnimation}
+            initial="initial"
+            whileInView="inView"
+            viewport={{ once: false, amount: 0.3 }}
+            >
+                <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimation}>
+                    WIR STELLEN UNS VOR
+                </motion.h1>
+                <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>
+                    Jetzt mal ehrlich, hast du dich uns so vorgestellt? 
+                    <br />
+                    85 Jahre Berufserfahrung, 7000 Stunden Calls und ein Lächeln auf Knopfdruck - das ist unser Team.
+                </motion.h4>
+                <motion.div className={styles.switchContainer} variants={itemAnimation}>
+                    <p className={`handschrift-small ${styles.handschrift}`}>Nicht drücken!</p>
+                    <SVG src={'illustrations/arrowStraightRight.svg'} className={styles.arrow}/>
+                    <SVG 
+                        src={SwitchOn ? 'illustrations/switchOn.svg' : 'illustrations/switchOff.svg'} 
+                        className={styles.switch} 
+                        onClick={handleSwitchToggle}
+                    />
+                </motion.div>
+                <div className={styles.teamImageContainer} ref={teamImageRef}>
+                    {hoveredMember && (
+                        <div 
+                            className={styles.personFunFact}
+                            style={{
+                                left: `${mousePosition.x}px`,
+                                top: `${mousePosition.y}px`,
+                                transform: `${mousePosition.shouldOffsetLeft ? 
+                                    'translate(-100%, -100%)' : 
+                                    'translate(-0%, -100%)'} rotate(${mousePosition.tiltAngle}deg)`,
+                                borderRadius: mousePosition.shouldOffsetLeft ?
+                                    '30px 30px 0px 30px' :
+                                    '30px 30px 30px 0px'
+                            }}
+                        >
+                            <h3 className={`h3 ${styles.name}`}>{displayName}</h3>
+                            <p className={`body-light ${styles.position}`}>{displayPosition}</p>
+                            <p className={`body ${styles.keywords}`}>
+                                {displayKeywords}
+                            </p>
+                        </div>
+                    )}
+                    
+                    <div className={styles.hoverAreas}>
+                        {teamMembers.map((member) => (
+                            <div
+                                key={member.id}
+                                className={styles.hoverArea}
+                                data-member-id={member.id}
+                                onMouseMove={(e) => handleMouseMove(e, member.id)}
+                                onMouseLeave={() => setHoveredMember(null)}
+                            />
+                        ))}
                     </div>
-                )}
-                
-                <div className={styles.hoverAreas}>
-                    {teamMembers.map((member) => (
-                        <div
-                            key={member.id}
-                            className={styles.hoverArea}
-                            data-member-id={member.id}
-                            onMouseMove={(e) => handleMouseMove(e, member.id)}
-                            onMouseLeave={() => setHoveredMember(null)}
-                        />
-                    ))}
+                    
+                    <img src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="teamPicture" className={styles.teamPicture}/>
                 </div>
-                
-                <img src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="teamPicture" className={styles.teamPicture}/>
-            </div>
+            </motion.div>
         </div>
     );
 }

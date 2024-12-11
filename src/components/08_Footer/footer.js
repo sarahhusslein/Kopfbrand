@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import styles from './footer.module.css';
 import SVG from 'react-inlinesvg';
 
@@ -19,7 +20,13 @@ const footerContactItems = [
   export default function Footer() {
     return (
       <div className={styles.bar}>
-        <div className={styles.container}>
+        <motion.div 
+        className={styles.container}
+        initial={{ y: 40, opacity: 0, }}
+        whileInView={{ y: 0, opacity: 1,}}
+        viewport={{ once: false, amount: 0.05}}
+        transition={{ duration: 0.5, ease: "easeInOut"}}
+        >
             <div className={styles.column}>
                 <div className={styles.logoContainer}>
                 <SVG src="/logos/kopfbrand.svg" className={styles.logo}/>
@@ -58,7 +65,7 @@ const footerContactItems = [
                 <p className={styles.highlightedText}>Datenschutzbedingungen</p>
                 </div>
             </div>
-        </div>
+        </motion.div>
       </div>
     );
   }

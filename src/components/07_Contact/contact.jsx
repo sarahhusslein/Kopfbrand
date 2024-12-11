@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import styles from './contact.module.css';
 import SVG from 'react-inlinesvg';
 import Lottie from 'lottie-react'; 
@@ -36,7 +37,13 @@ export default function Contact() {
 
     return (
         <div className={styles.outerContainer}>
-            <div className={styles.container}>
+            <motion.div 
+            className={styles.container}
+            initial={{ y: 40, opacity: 0, scale: 0.8 }}
+            whileInView={{ y: 0, opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.05}}
+            transition={{ duration: 0.7, ease: "easeInOut"}}
+            >
                 <div className={styles.leftContainer}>
                 <h2 className={`h2 ${styles.h2}`} ref={textRef}>
                         {inView && (
@@ -82,7 +89,7 @@ export default function Contact() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 }

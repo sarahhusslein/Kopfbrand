@@ -13,7 +13,14 @@
 .h1 {
     color: var(--darkest-grey);
     text-align: center;
-    padding-top: 30vh;
+    margin-top: 30vh;
+    /* background-color: red; */
+    line-height: 0.75;
+
+    position: relative;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .h4 {

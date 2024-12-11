@@ -10,6 +10,7 @@ import versandAnimation from '/public/animations/versand.json';
 import testAnimation from '/public/animations/test.json';
 import SVG from 'react-inlinesvg';
 import Lottie from 'lottie-react'; 
+import { motion } from 'framer-motion';
 
 
 const services = [
@@ -61,44 +62,125 @@ export default function Services() {
 
   const [activeIndex, setActiveIndex] = useState(2); // Start with third service active
 
+  const DURATION = 0.2;
+  const STAGGER = 0.025;
+  const itemAnimation = {
+    initial: { y: 40, opacity: 0 },
+    inView: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.5,
+            ease: "easeInOut",
+            duration: 0.7
+        }
+    }
+    };  
+
 
   return (
     <div className={styles.container}>
-        <h1 className={`h1 ${styles.h1}`}>KREATIVAGENTUR</h1>
-        <h4 className={`subtitle ${styles.h4}`}>
-            Wir konzipieren, gestalten, und kreieren. Von der Idee bis zum Prototyping. 
-            <br />
-            Lorem ipsum text.
-        </h4>
+        <motion.div
+        variants={itemAnimation}
+        initial="initial"
+        whileInView="inView"
+        viewport={{ once: false, amount: 0.3 }}
+        >
+            <motion.h1 
+            className={`h1 ${styles.h1}`}
+            initial="initial"
+            whileHover="hovered"
+        >
+            <div
+                variants={{
+                    initial: { y: 0 },
+                    hovered: { y: "-100%" },
+                }}>
+                    {Array.from("KREATIVAGENTUR").map((letter, i) => (
+                        <motion.span 
+                            key={i}
+                            variants={{
+                                initial: { y: 0 },
+                                hovered: { y: "-100%" },
+                            }}
+                            transition={{
+                                duration: DURATION,
+                                ease: "easeInOut",
+                                delay: STAGGER * i,
+                            }}
+                            style={{
+                                display: "inline-block",
+                            }}
+                        >
+                            {letter}
+                        </motion.span>
+                    ))}
+            </div>
+            <div
+                style={{
+                    position: "absolute",
+                    inset: 0,
+                }}
+                variants={{
+                    initial: { y: "100%" },
+                    hovered: { y: 0 },
+                }}>
+                    {Array.from("KREATIVAGENTUR").map((letter, i) => (
+                        <motion.span 
+                            key={i}
+                            variants={{
+                                initial: { y: "100%" },
+                                hovered: { y: 0 },
+                            }}
+                            transition={{
+                                duration: DURATION,
+                                ease: "easeInOut",
+                                delay: STAGGER * i,
+                            }}
+                            style={{
+                                display: "inline-block",
+                            }}
+                        >
+                            {letter}
+                        </motion.span>
+                    ))}
+            </div>
+            </motion.h1>
 
-        <div className={styles.servicesWrapper}>
-            {services.map((service, index) => (
-                <React.Fragment key={service.id}>
-                    <SVG src="/illustrations/divider.svg" className={styles.divider} />
-                    <div 
-                        className={`${styles.serviceSection} ${index === activeIndex ? styles.hover : ''}`}
-                        style={{ paddingTop: `${service.paddingTop}px` }}
-                        onMouseEnter={() => setActiveIndex(index)}
-                        onMouseLeave={() => setActiveIndex(2)} // Return to default state (third service)
-                    >
-                        <div className={styles.animationContainer}>
-                            <Lottie 
-                                animationData={service.animation}
-                                className={styles.drawingAnimation}
-                                loop={true}
-                                autoplay={true}
-                            />
-                        </div>
-                        <div className={styles.textContent}>
-                            <span className={`numbers ${styles.number}`}>{service.number}</span>
-                            <h3 className={`subtitle-highlighted ${styles.serviceTitle}`}>{service.title}</h3>
-                            <p className={`body ${styles.description}`}>{service.description}</p>
-                        </div>
-                    </div>
-                </React.Fragment>
-            ))}
-        </div>
+            <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>
+                Wir konzipieren, gestalten, und kreieren. Von der Idee bis zum Prototyping. 
+                <br />
+                Lorem ipsum text.
+            </motion.h4>
 
+            <motion.div className={styles.servicesWrapper} variants={itemAnimation}>
+                {services.map((service, index) => (
+                    <React.Fragment key={service.id}>
+                        <SVG src="/illustrations/divider.svg" className={styles.divider} />
+                        <div 
+                            className={`${styles.serviceSection} ${index === activeIndex ? styles.hover : ''}`}
+                            style={{ paddingTop: `${service.paddingTop}px` }}
+                            onMouseEnter={() => setActiveIndex(index)}
+                            onMouseLeave={() => setActiveIndex(2)} // Return to default state (third service)
+                        >
+                            <div className={styles.animationContainer}>
+                                <Lottie 
+                                    animationData={service.animation}
+                                    className={styles.drawingAnimation}
+                                    loop={true}
+                                    autoplay={true}
+                                />
+                            </div>
+                            <div className={styles.textContent}>
+                                <span className={`numbers ${styles.number}`}>{service.number}</span>
+                                <h3 className={`subtitle-highlighted ${styles.serviceTitle}`}>{service.title}</h3>
+                                <p className={`body ${styles.description}`}>{service.description}</p>
+                            </div>
+                        </div>
+                    </React.Fragment>
+                ))}
+            </motion.div>
+        </motion.div>
     </div>
   );
 }
