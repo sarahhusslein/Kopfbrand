@@ -44,6 +44,7 @@ export default function Contact() {
             viewport={{ once: false, amount: 0.05}}
             transition={{ duration: 0.7, ease: "easeInOut"}}
             >
+                {/* Left Container */}
                 <div className={styles.leftContainer}>
                 <h2 className={`h2 ${styles.h2}`} ref={textRef}>
                         {inView && (
@@ -64,6 +65,8 @@ export default function Contact() {
                         speed={1}
                     />
                 </div>
+
+                {/* Right Container */}
                 <div className={styles.rightContainer} ref={rightContainerRef}>
                     <h2 className={`h2`}>LETS&nbsp;
                         <span className={styles.underline}> 

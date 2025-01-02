@@ -30,7 +30,16 @@ export default function Header() {
         <div className={styles.container}>
             <div className={styles.heroSection}>
                 <div className={styles.imageWrapper}>
-                    <img src="/images/heroImage.png" alt="header" className={styles.heroImage} />
+                    <video 
+                        className={styles.heroVideo}  
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                    >
+                        <source src="/videos/exampleVideo1.mov" />
+                    </video>
+                    {/* <img src="/images/heroImage.png" alt="header" className={styles.heroImage} /> */}
                     <div className={styles.overlay} />
                 </div>
                 <motion.div 

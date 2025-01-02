@@ -10,22 +10,22 @@ import CountUp from 'react-countup';
 const numbers = [
     {
         id: 1,
-        start: 6,
+        start: 16,
         keyword: "Internationale Awards",
     },
     {
         id: 2,
-        start: 12,
+        start: 22,
         keyword: "Agentur-Flamingos",
     },
     {
         id: 3,
-        start: 40,
+        start: 50,
         keyword: "EUR versteckte Kosten",
     },
     {
         id: 4,
-        start: 18,
+        start: 28,
         keyword: "Unzufriedene Kunden",
     },
 ];

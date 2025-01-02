@@ -3,8 +3,13 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(7, 7, 7);
-    backdrop-filter: blur(10px);
+    /* background: rgba(7, 7, 7, 0.5); */
+    /* background: linear-gradient(
+        to top,
+        rgba(7, 7, 7, 0.8) 0%,
+        rgba(7, 7, 7, 1) 100%
+    ); */
+    /* backdrop-filter: blur(10px); */
     display: flex;
     justify-content: space-between;
     align-items: center;

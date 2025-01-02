@@ -11,12 +11,16 @@
   position: sticky;
   width: 100%;
   z-index: 1;
+  transform-style: preserve-3d; 
+  will-change: transform;
 }
 
 .servicesContainer {
   position: sticky;
   z-index: 2; 
   width: 100%;
+  transform-style: preserve-3d; 
+  will-change: transform;
 }
 
 .numbersContainer {

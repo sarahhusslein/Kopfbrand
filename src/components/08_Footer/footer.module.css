@@ -65,11 +65,39 @@
     gap: 6px;
   }
 
+  .animatedText {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.textWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.textWrapper span {
+    display: inline-block;
+}
+
+.hoverText {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hoverText span {
+    display: inline-block;
+    color: var(--broom);
+}
+
 .item {
     display: flex;
     flex-direction: row;
     align-items: center;
-  }
+    overflow: hidden;
+}
 
 
 .icon {
@@ -79,7 +107,17 @@
     margin-right: 8px;
   }
 
+  .item:hover .icon {
+    animation: rockIcon 1.5s ease-in-out;
+}
 
+@keyframes rockIcon {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
 
 /***************************** 
 Adjustments for larger screens

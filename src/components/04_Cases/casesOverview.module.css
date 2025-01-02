@@ -11,7 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* overflow: hidden; */
+    overflow: hidden;
   }
   
   .gridContainer {
@@ -23,6 +23,7 @@
     height: 100vh;
     background-color: var(--darkest-grey);
     transform-origin: center center;
+    overflow: hidden;
   }
   
   .imageContainer {

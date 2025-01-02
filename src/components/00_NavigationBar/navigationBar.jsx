@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import styles from './navigationBar.module.css';
 import SVG from 'react-inlinesvg';
 
+// Add this sections array at the top, outside the component
+
+
 const navItems = [
     { id: 1, title: 'WAS', section: 'services' },
     { id: 2, title: 'WIE', section: 'cases' },
@@ -12,6 +15,7 @@ const navItems = [
 ];
 
 export default function NavigationBar() {
+    const [navbarBackground, setNavbarBackground] = useState('transparent');
     const [activeSection, setActiveSection] = useState('header');
     const [visible, setVisible] = useState(true);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -45,7 +49,6 @@ export default function NavigationBar() {
             
             setPrevScrollPos(currentScrollPos);
 
-            // Your existing section detection code
             const sections = navItems.map(item => ({
                 id: item.section,
                 element: document.getElementById(item.section)
@@ -60,7 +63,11 @@ export default function NavigationBar() {
             if (currentSection) {
                 setActiveSection(currentSection.id);
             }
+            
+            
         };
+
+
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);

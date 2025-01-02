@@ -59,6 +59,7 @@
     height: 500vh;
     position: absolute;
     top: 0;
+    overflow: hidden;
 }
 
 .image {
@@ -122,4 +123,10 @@
     background-color:rgba(228, 0, 62, 0.2);
     padding: 6px 16px;
     border-radius: 100px;
+}
+
+.emptyContainer {
+    height: 50px;
+    width: 100%;
+    background-color: var(--darkest-grey);
 }

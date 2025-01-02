@@ -23,6 +23,11 @@
     display: block;
 }
 
+.heroVideo {
+    width: 100vw;
+    height: auto;
+}
+
 .overlay {
     position: absolute;
     bottom: 0;

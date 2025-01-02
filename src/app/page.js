@@ -73,7 +73,7 @@ export default function Home() {
   // For Header: Start animation when it becomes sticky
   const { scrollYProgress: headerScrollYProgress } = useScroll({
     target: containerRef,
-    offset: [`${headerHeight}px end`, `${headerHeight}px start`]
+    offset: [`${headerHeight}px end`, `${headerHeight * 1.5}px start`]
   });
 
   const { scrollYProgress: servicesScrollYProgress } = useScroll({
@@ -81,8 +81,13 @@ export default function Home() {
     offset: [`${headerHeight + servicesHeight}px end`, `${headerHeight + servicesHeight}px start`]
   });
 
-  const scaleHeader = useTransform(headerScrollYProgress, [0, 1], [1, 0.8]);
-  const rotateHeader = useTransform(headerScrollYProgress, [0, 1], [0, -3]);
+  // Add a transform for Y position
+  const headerY = useTransform(headerScrollYProgress, [0, 1], [0, 100]); // Header moves down slower
+  const servicesY = useTransform(servicesScrollYProgress, [0, 1], [0, -200]); // Services move up faster
+
+  const scaleHeader = useTransform(headerScrollYProgress, [0, 1], [1, 0.6]);
+  const rotateHeader = useTransform(headerScrollYProgress, [0, 1], [0, -6]);
+  const opacityHeader = useTransform(headerScrollYProgress, [0, 1], [1, 0]);
   const scaleServices = useTransform(servicesScrollYProgress, [0, 1], [1, 1]);
   const rotateServices = useTransform(servicesScrollYProgress, [0, 1], [0, 0]);
 
@@ -98,7 +103,13 @@ export default function Home() {
           <motion.div
             ref={headerRef}
             className={styles.headerContainer}
-            style={{ top: `calc(100vh - ${headerHeight}px)`, scale: scaleHeader, rotate: rotateHeader }}
+            style={{ 
+              top: `calc(100vh - ${headerHeight}px)`, 
+              scale: scaleHeader, 
+              rotate: rotateHeader, 
+              opacity: opacityHeader,
+              y: headerY
+             }}
           >
             <Header />
           </motion.div>
@@ -107,7 +118,12 @@ export default function Home() {
             id="services"
             ref={servicesRef}
             className={styles.servicesContainer}
-            style={{ top: `calc(100vh - ${servicesHeight}px)`, scale: scaleServices, rotate: rotateServices }}
+            style={{ 
+              top: `calc(100vh - ${servicesHeight}px)`, 
+              scale: scaleServices, 
+              rotate: rotateServices,
+              y: servicesY
+            }}
           >
             <Services />
           </motion.div>

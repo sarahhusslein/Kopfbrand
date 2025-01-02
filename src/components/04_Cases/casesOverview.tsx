@@ -61,7 +61,15 @@ export default function CasesOverview() {
         target: ref,
         offset: ["start start", "end start"]
     });
+
+    const { scrollYProgress: opacityProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "start center"]
+    });
+
+    const containerOpacity = useTransform(opacityProgress, [0, 1], [0.1, 1]);
     const scale = useTransform(scrollYProgress, [0, 1], [1, dynamicScale]);
+    const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
     const y = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
 
@@ -69,7 +77,13 @@ export default function CasesOverview() {
 
 
     return (
-        <div className={styles.outerContainer} ref={ref}>
+        <motion.div 
+        className={styles.outerContainer} 
+        ref={ref}
+        style={{
+            opacity: containerOpacity,
+        }}
+        >
             <div className={styles.overviewContainer}>
                 <motion.div
                     className={styles.gridContainer}
@@ -80,11 +94,18 @@ export default function CasesOverview() {
                 >
                     {images.map((src, index) => (
                         <div key={index} className={styles.imageContainer}>
-                            <img src={src} alt={`case ${index}`} className={styles.image} />
+                            <motion.img 
+                            src={src} 
+                            alt={`case ${index}`} 
+                            className={styles.image} 
+                            style={{
+                                scale: imageScale,
+                            }}
+                            />
                         </div>
                     ))}
                 </motion.div>
             </div>
-        </div>
+        </motion.div>
     );
 }

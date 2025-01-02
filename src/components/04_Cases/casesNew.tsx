@@ -84,89 +84,92 @@ const cases = [
     
 
     return (
-      <div className={styles.outerContainer} ref={ref}>
+      <div>
+        <div className={styles.outerContainer} ref={ref}>
 
-        <div className={styles.stickyWrapper}>
-          {/* Pagination */}
-          <div className={styles.paginationWrapper}>
-            <div className={styles.pagination}>
-                    {cases.map((_, index) => (
-                        <div key={index} className={styles.dotContainer}>
-                            <div className={styles.dot} />
-                            <motion.div 
-                                className={styles.activeDot}
-                                style={{
-                                  opacity: useTransform(
-                                    activeDot,
-                                        (value) => {
-                                            // Calculate the distance from this index
-                                            const distance = value - index;
-                                            
-                                            // For the current dot fading out
-                                            if (Math.floor(value) === index && distance > 0) {
-                                              // Only start fading when next case is 50% expanded
-                                              return distance <= 0.5 ? 1 : 1 - ((distance - 0.5) * 2);
-                                            }
-                                            // For the next dot fading in
-                                            else if (Math.ceil(value) === index && distance < 0) {
-                                                // Start fading in when current case is 50% expanded
-                                                const nextDistance = 1 + distance;
-                                                return nextDistance >= 0.5 ? (nextDistance - 0.5) * 2 : 0;
-                                            }
-                                            // Fully active dot (when at this index or when next case hasn't reached 50%)
-                                            else if (Math.floor(value) === index && distance < 0.5) {
-                                                return 1;
-                                            }
-                                            // Inactive dot
-                                            return 0;
-                                        }
-                                    )
-                                }}
-                            />
-                        </div>
-                    ))}
-                </div>
+          <div className={styles.stickyWrapper}>
+            {/* Pagination */}
+            <div className={styles.paginationWrapper}>
+              <div className={styles.pagination}>
+                      {cases.map((_, index) => (
+                          <div key={index} className={styles.dotContainer}>
+                              <div className={styles.dot} />
+                              <motion.div 
+                                  className={styles.activeDot}
+                                  style={{
+                                    opacity: useTransform(
+                                      activeDot,
+                                          (value) => {
+                                              // Calculate the distance from this index
+                                              const distance = value - index;
+                                              
+                                              // For the current dot fading out
+                                              if (Math.floor(value) === index && distance > 0) {
+                                                // Only start fading when next case is 50% expanded
+                                                return distance <= 0.5 ? 1 : 1 - ((distance - 0.5) * 2);
+                                              }
+                                              // For the next dot fading in
+                                              else if (Math.ceil(value) === index && distance < 0) {
+                                                  // Start fading in when current case is 50% expanded
+                                                  const nextDistance = 1 + distance;
+                                                  return nextDistance >= 0.5 ? (nextDistance - 0.5) * 2 : 0;
+                                              }
+                                              // Fully active dot (when at this index or when next case hasn't reached 50%)
+                                              else if (Math.floor(value) === index && distance < 0.5) {
+                                                  return 1;
+                                              }
+                                              // Inactive dot
+                                              return 0;
+                                          }
+                                      )
+                                  }}
+                              />
+                          </div>
+                      ))}
+                  </div>
+            </div>
+
+            {/* Cases Text */}
+            <div className={styles.textWrapper}>
+                  <div className={styles.overlay} />
+                  <AnimatePresence initial={false}>
+                      <motion.div 
+                          className={styles.textContainer}
+                          key={activeCase.id}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ 
+                              duration: 0.1,
+                              ease: "linear"
+                          }}
+                          style={{
+                              position: 'absolute',
+                              left: 70,
+                              bottom: 70
+                          }}
+                      >
+                          <h2 className={`h2 ${styles.h2}`}>{activeCase.company}</h2>
+                          <h4 className={`subtitle ${styles.subtitle}`}>{activeCase.description}</h4>
+                          <div className={styles.tagRow}>
+                              {activeCase.tags.map((tag, index) => (
+                                  <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
+                              ))}
+                          </div>
+                      </motion.div>
+                  </AnimatePresence>
+            </div>
           </div>
 
-          {/* Cases Text */}
-          <div className={styles.textWrapper}>
-                <div className={styles.overlay} />
-                <AnimatePresence initial={false}>
-                    <motion.div 
-                        className={styles.textContainer}
-                        key={activeCase.id}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ 
-                            duration: 0.1,
-                            ease: "linear"
-                        }}
-                        style={{
-                            position: 'absolute',
-                            left: 70,
-                            bottom: 70
-                        }}
-                    >
-                        <h2 className={`h2 ${styles.h2}`}>{activeCase.company}</h2>
-                        <h4 className={`subtitle ${styles.subtitle}`}>{activeCase.description}</h4>
-                        <div className={styles.tagRow}>
-                            {activeCase.tags.map((tag, index) => (
-                                <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
-                            ))}
-                        </div>
-                    </motion.div>
-                </AnimatePresence>
-          </div>
+            {/* Cases Image Scrolling */}
+            <div className={styles.casesContainer}>
+                {cases.map((cases, index) => (
+                    <CaseStudyImage key={cases.id} cases={cases} />
+                ))}
+            </div>
+            
         </div>
-
-        {/* Cases Image Scrolling */}
-        <div className={styles.casesContainer}>
-            {cases.map((cases, index) => (
-                <CaseStudyImage key={cases.id} cases={cases} />
-            ))}
-        </div>
-          
+        <div className={styles.emptyContainer}></div>
       </div>
   );
 }
