@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer'; 
 import styles from './team.module.css';
 import SVG from 'react-inlinesvg';
@@ -51,9 +51,18 @@ export default function Team() {
         y: 0, 
     });
 
+    const controls = useAnimation();
+    const svgControls = useAnimation();
+
+    const warningText = [
+        { text: "Nicht", isSpace: false },
+        { text: " ", isSpace: true },
+        { text: "drücken!", isSpace: false },
+    ];
+
     // Add useInView hook
     const { ref: teamImageRef, inView } = useInView({
-        threshold: 0.8, // Trigger when 50% of the component is visible
+        threshold: 0.8, // Trigger when 80% of the component is visible
     });
 
     // Trigger default member display when component comes into view
@@ -165,6 +174,23 @@ export default function Team() {
         }
     }; 
 
+    // Add useEffect to start the handwriting animation after parent animations
+    useEffect(() => {
+        // Delay matches or is slightly longer than your itemAnimation duration
+        const timer = setTimeout(() => {
+            controls.start("visible");
+        }, 800); // 800ms = 0.8s delay after parent animations
+
+        return () => clearTimeout(timer);
+    }, [controls]);
+
+    // Calculate total duration of text animation
+    const totalTextDuration = warningText.reduce((total, segment) => {
+        if (!segment.isSpace) {
+            return total + (segment.text.length * 0.02) + 0.1; // char delay + word delay
+        }
+        return total;
+    }, 0);
 
     return (
         <div className={styles.container}>
@@ -182,15 +208,101 @@ export default function Team() {
                     <br />
                     85 Jahre Berufserfahrung, 7000 Stunden Calls und ein Lächeln auf Knopfdruck - das ist unser Team.
                 </motion.h4>
-                <motion.div className={styles.switchContainer} variants={itemAnimation}>
-                    <p className={`handschrift-small ${styles.handschrift}`}>Nicht drücken!</p>
-                    <SVG src={'illustrations/arrowStraightRight.svg'} className={styles.arrow}/>
-                    <SVG 
-                        src={SwitchOn ? 'illustrations/switchOn.svg' : 'illustrations/switchOff.svg'} 
-                        className={styles.switch} 
-                        onClick={handleSwitchToggle}
-                    />
-                </motion.div>
+                <div className={styles.switchContainer}>
+                    <motion.p 
+                        className={`handschrift-small ${styles.handschrift}`}
+                        initial="hidden"
+                        viewport={{ once: false }}
+                        onViewportLeave={() => {
+                            controls.start("hidden");
+                            svgControls.start("hidden");
+                        }}
+                        onViewportEnter={() => {
+                            setTimeout(() => {
+                                controls.start("visible");
+                                setTimeout(() => {
+                                    svgControls.start("visible");
+                                }, totalTextDuration * 1000);
+                            }, 800);
+                        }}
+                    >
+                        {warningText.map((segment, segmentIndex) => (
+                            <span key={segmentIndex}>
+                                {segment.isSpace ? (
+                                    <span> </span>
+                                ) : (
+                                    segment.text.split('').map((char, charIndex) => (
+                                        <motion.span
+                                            key={`warning-${segmentIndex}-${charIndex}`}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={controls}
+                                            variants={{
+                                                hidden: { opacity: 0, y: 20 },
+                                                visible: { opacity: 1, y: 0 }
+                                            }}
+                                            transition={{
+                                                duration: 0.15,
+                                                delay: (segmentIndex * 0.08) + (charIndex * 0.04) + (Math.random() * 0.02),
+                                                ease: "easeOut"
+                                            }}
+                                        >
+                                            {char}
+                                        </motion.span>
+                                    ))
+                                )}
+                            </span>
+                        ))}
+                    </motion.p>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={svgControls}
+                        variants={{
+                            hidden: { opacity: 0, x: -10 },
+                            visible: { opacity: 1, x: 0 }
+                        }}
+                        transition={{ 
+                            duration: 0.5,
+                            ease: "easeOut"
+                        }}
+                    >
+                        <SVG src={'illustrations/arrowStraightRight.svg'} className={styles.arrow}/>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={svgControls}
+                        variants={{
+                            hidden: { opacity: 0, scale: 0.8 },
+                            visible: { opacity: 1, scale: 1 }
+                        }}
+                        transition={{ 
+                            duration: 0.4,
+                            delay: 0.2,
+                            ease: "easeOut"
+                        }}
+                    >
+                        <motion.div
+                            animate={{
+                                scale: [1, 1.05, 1],
+                                transition: {
+                                    delay: 0.5,
+                                    duration: 1.5,
+                                    repeat: Infinity,
+                                    repeatType: "reverse",
+                                    ease: "easeInOut",
+                                    repeatDelay: 0.5  // Added delay between pulses
+                                }
+                            }}
+                        >
+                            <SVG 
+                                src={SwitchOn ? 'illustrations/switchOn.svg' : 'illustrations/switchOff.svg'} 
+                                className={styles.switch} 
+                                onClick={handleSwitchToggle}
+                            />
+                        </motion.div>
+                    </motion.div>
+                </div>
                 <div className={styles.teamImageContainer} ref={teamImageRef}>
                     {hoveredMember && (
                         <div 
