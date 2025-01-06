@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState,useRef, useEffect } from 'react';
 import styles from './services.module.css';
 import placeholderServiceAnimation from '/public/animations/placeholderServiceAnimation.json';  
 import serviceAnimation from '/public/animations/service.json';  
@@ -10,7 +10,7 @@ import versandAnimation from '/public/animations/versand.json';
 import testAnimation from '/public/animations/test.json';
 import SVG from 'react-inlinesvg';
 import Lottie from 'lottie-react'; 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 
 const services = [
@@ -76,7 +76,22 @@ export default function Services() {
         }
     }
     };  
- 
+
+    const servicesRef = useRef(null);
+
+    const { scrollYProgress: parallaxScrollYProgress } = useScroll({
+        target: servicesRef,
+        offset: ["start end", "start 30vh"]
+      });
+
+    const serviceY = [
+        useTransform(parallaxScrollYProgress, [0, 1], [200, 20]),  
+        useTransform(parallaxScrollYProgress, [0, 1], [200, 80]),  
+        useTransform(parallaxScrollYProgress, [0, 1], [200, 25]),  
+        useTransform(parallaxScrollYProgress, [0, 1], [200, 40]),  
+        useTransform(parallaxScrollYProgress, [0, 1], [200, 45]),   
+    ];
+
 
   return (
     <div className={styles.container}>
@@ -154,15 +169,20 @@ export default function Services() {
                 Lorem ipsum text.
             </motion.h4>
 
-            <motion.div className={styles.servicesWrapper} variants={itemAnimation}>
+            <motion.div 
+                ref={servicesRef}
+                className={styles.servicesWrapper}
+            >
                 {services.map((service, index) => (
                     <React.Fragment key={service.id}>
                         <SVG src="/illustrations/divider.svg" className={styles.divider} />
-                        <div 
+                        <motion.div 
                             className={`${styles.serviceSection} ${index === activeIndex ? styles.hover : ''}`}
-                            style={{ paddingTop: `${service.paddingTop}px` }}
+                            style={{ 
+                                y: serviceY[index],  
+                            }}
                             onMouseEnter={() => setActiveIndex(index)}
-                            onMouseLeave={() => setActiveIndex(2)} // Return to default state (third service)
+                            onMouseLeave={() => setActiveIndex(2)}
                         >
                             <div className={styles.animationContainer}>
                                 <Lottie 
@@ -177,7 +197,7 @@ export default function Services() {
                                 <h3 className={`subtitle-highlighted ${styles.serviceTitle}`}>{service.title}</h3>
                                 <p className={`body ${styles.description}`}>{service.description}</p>
                             </div>
-                        </div>
+                        </motion.div>
                     </React.Fragment>
                 ))}
             </motion.div>

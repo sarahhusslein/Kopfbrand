@@ -33,7 +33,7 @@
   position: sticky;
   top: -40vh;
   z-index: 4;  
-  width: 100%;
+  cursor: none;
 }
 
 .casesOverviewContainer {

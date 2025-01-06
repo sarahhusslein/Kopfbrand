@@ -7,6 +7,7 @@ import Header from "@/components/01_Header/header";
 import Services from "@/components/02_Services/services";
 import Numbers from "@/components/03_NumbersandTestimonials/numbers";
 import CasesHeadline from "@/components/04_Cases/casesHeadline";
+import CasesHeadlineNew from "@/components/04_Cases/casesHeadlineNew";
 import Cases from "@/components/04_Cases/cases";
 import CasesNew from "@/components/04_Cases/casesNew";
 import Team from "@/components/05_Team/team";
@@ -140,7 +141,7 @@ export default function Home() {
             className={styles.casesHeadlineContainer}
             // style={{ top: `calc(100vh - ${casesHeadlineHeight}px)` }}
           >
-            <CasesHeadline />
+            <CasesHeadlineNew />
           </div>
           <div 
             ref={casesOverviewRef}
