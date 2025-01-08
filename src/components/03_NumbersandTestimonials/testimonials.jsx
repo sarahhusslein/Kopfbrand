@@ -178,7 +178,19 @@ export default function Testimonials() {
                         custom={calculateCardStyle(index)}
                     >
                             <div className={styles.quoteContainer}>
-                                <SVG src="/illustrations/quote.svg" className={styles.quoteSVG}/>
+                                <motion.div 
+                                    className={styles.quoteSVG}
+                                    initial={{ scale: 0.5}}
+                                    animate={{ 
+                                        scale: index === activeIndex ? 1 : 0.5, 
+                                    }}
+                                    transition={{
+                                        duration: 0.5,
+                                        ease: "easeOut"
+                                    }}
+                                >
+                                    <SVG src="/illustrations/quote.svg"/>
+                                </motion.div>
                                 <div className={styles.textContent}>
                                     <h3 className={`h3 ${styles.name}`}>
                                         {testimonial.name}

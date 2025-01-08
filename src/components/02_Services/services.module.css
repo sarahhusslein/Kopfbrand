@@ -55,14 +55,16 @@
 .animationContainer {
     width: 200px;
     margin: 0 auto;
-    opacity: 0; /* Hide by default */
-    transition: opacity 1s ease;
+    opacity: 0;
     visibility: hidden;
+    transform: scale(0.8);
+    transition: opacity 1s ease, visibility 1s ease, transform 0.5s ease;
 }
 
 .serviceSection:hover .animationContainer {
     opacity: 1;
     visibility: visible;
+    transform: scale(1);
 }
 
 .drawingAnimation {

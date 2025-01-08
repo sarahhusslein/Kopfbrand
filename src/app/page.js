@@ -9,13 +9,13 @@ import Services from "@/components/02_Services/services";
 import Numbers from "@/components/03_NumbersandTestimonials/numbers";
 import CasesHeadline from "@/components/04_Cases/casesHeadline";
 import Cases from "@/components/04_Cases/cases";
-import CasesNew from "@/components/04_Cases/casesNew";
 import Team from "@/components/05_Team/team";
 import Creativity from "@/components/06_Creativity/creativity";
 import Contact from "@/components/07_Contact/contact";
 import Footer from "@/components/08_Footer/footer";
 import FinalBar from "@/components/09_FinalBar/finalBar";
 import CasesOverview from "@/components/04_Cases/casesOverview";
+import CasesOverviewNew from "@/components/04_Cases/casesOverviewNew";
 import NumbersAndTestimonials from "@/components/03_NumbersandTestimonials/numbersAndTestimonials";
 
 
@@ -167,13 +167,14 @@ export default function Home() {
           className={styles.casesOverviewContainer}
           style={{ top: `calc(100vh - ${casesOverviewHeight}px)` }}
         >
-          <CasesOverview />
+          <CasesOverviewNew />
+          {/* <CasesOverview /> */}
         </div>
         <div 
           ref={casesRef}
           className={styles.casesContainer}
         >
-          <CasesNew />
+          <Cases />
         </div>
         <div 
           id="team"
