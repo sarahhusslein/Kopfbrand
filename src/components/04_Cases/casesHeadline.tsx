@@ -1,14 +1,14 @@
 'use client'
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import styles from './casesHeadlineNew.module.css';
+import styles from './casesHeadline.module.css';
 import SVG from 'react-inlinesvg';
 import useMousePosition from '@/utils/useMousePosition';
 
 export default function CasesHeadlineNew() {
     const [isHovered, setIsHovered] = useState(false);
     const { mousePosition, updateMousePosition } = useMousePosition();   
-    const size = isHovered ? 350 : 40;
+    const size = isHovered ? 300 : 40;
 
     return (
         <div 

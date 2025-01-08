@@ -2,12 +2,12 @@
 import styles from "./page.module.css";
 import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Lenis from 'lenis';
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
 import Header from "@/components/01_Header/header";
 import Services from "@/components/02_Services/services";
 import Numbers from "@/components/03_NumbersandTestimonials/numbers";
 import CasesHeadline from "@/components/04_Cases/casesHeadline";
-import CasesHeadlineNew from "@/components/04_Cases/casesHeadlineNew";
 import Cases from "@/components/04_Cases/cases";
 import CasesNew from "@/components/04_Cases/casesNew";
 import Team from "@/components/05_Team/team";
@@ -44,6 +44,22 @@ export default function Home() {
   const [contactHeight, setContactHeight] = useState(0);
   const [footerHeight, setFooterHeight] = useState(0);
   const [totalHeight, setTotalHeight] = useState(0);
+
+  //Smooth scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      autoRaf: true,
+    });
+    
+    window.lenis = lenis; // Make it globally available
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  }, []);
 
   useEffect(() => {
     if (headerRef.current && servicesRef.current) {
@@ -96,95 +112,98 @@ export default function Home() {
   return (
     <div>
       <NavigationBar />
-        <div 
-          ref={containerRef}
-          className={styles.parallaxContainer}
-          style={{ height: `${totalHeight}px` }}
-        >
-          <motion.div
-            ref={headerRef}
-            className={styles.headerContainer}
-            style={{ 
-              top: `calc(100vh - ${headerHeight}px)`, 
-              scale: scaleHeader, 
-              rotate: rotateHeader, 
-              opacity: opacityHeader,
-              y: headerY
-             }}
-          >
-            <Header />
-          </motion.div>
-        
-          <motion.div 
-            id="services"
-            ref={servicesRef}
-            className={styles.servicesContainer}
-            style={{ 
-              top: `calc(100vh - ${servicesHeight}px)`, 
-              scale: scaleServices, 
-              rotate: rotateServices,
-              y: servicesY
+      <div 
+        ref={containerRef}
+        className={styles.parallaxContainer}
+        style={{ height: `${totalHeight}px` }}
+      >
+        <motion.div
+          ref={headerRef}
+          className={styles.headerContainer}
+          id="header"
+          style={{ 
+            top: `calc(100vh - ${headerHeight}px)`, 
+            scale: scaleHeader, 
+            rotate: rotateHeader, 
+            opacity: opacityHeader,
+            y: headerY
             }}
-          >
-            <Services />
-          </motion.div>
-          <div 
-            ref={numbersRef} 
-            className={styles.numbersContainer}
-            style={{ top: `calc(100vh - ${numbersHeight}px)` }}
-          >
-            <NumbersAndTestimonials />
-          </div>
-          <div 
-            id="cases"
-            ref={casesHeadlineRef}
-            className={styles.casesHeadlineContainer}
-            // style={{ top: `calc(100vh - ${casesHeadlineHeight}px)` }}
-          >
-            <CasesHeadlineNew />
-          </div>
-          <div 
-            ref={casesOverviewRef}
-            className={styles.casesOverviewContainer}
-            style={{ top: `calc(100vh - ${casesOverviewHeight}px)` }}
-          >
-            <CasesOverview />
-          </div>
-          <div 
-            ref={casesRef}
-            className={styles.casesContainer}
-          >
-            <CasesNew />
-          </div>
-          <div 
-            id="team"
-            ref={teamRef}
-            className={styles.teamContainer}
-            style={{ top: `calc(100vh - ${teamHeight}px)` }}
-          >
-            <Team />
-          </div>
-          <div 
-            ref={creativityRef}
-            className={styles.creativityContainer}
-          >
-            <Creativity />
-          </div>
-          <div 
-            id="contact"
-            ref={contactRef}
-            className={styles.contactContainer}
-          >
-            <Contact />
-          </div>
-          <div id="footer" 
-            ref={footerRef}
-            className={styles.footerContainer}
-          >
-            <Footer />
-          </div>
-          <FinalBar />
+        >
+          <Header />
+        </motion.div>
+      
+      
+        <motion.div 
+          id="services"
+          ref={servicesRef}
+          className={styles.servicesContainer}
+          style={{ 
+            top: `calc(100vh - ${servicesHeight}px)`, 
+            scale: scaleServices, 
+            rotate: rotateServices,
+            y: servicesY
+          }}
+        >
+          <Services />
+        </motion.div>
+        
+        <div 
+          ref={numbersRef} 
+          className={styles.numbersContainer}
+          style={{ top: `calc(100vh - ${numbersHeight}px)` }}
+        >
+          <NumbersAndTestimonials />
         </div>
+        <div 
+          id="cases"
+          ref={casesHeadlineRef}
+          className={styles.casesHeadlineContainer}
+          // style={{ top: `calc(100vh - ${casesHeadlineHeight}px)` }}
+        >
+          <CasesHeadline />
+        </div>
+        <div 
+          ref={casesOverviewRef}
+          className={styles.casesOverviewContainer}
+          style={{ top: `calc(100vh - ${casesOverviewHeight}px)` }}
+        >
+          <CasesOverview />
+        </div>
+        <div 
+          ref={casesRef}
+          className={styles.casesContainer}
+        >
+          <CasesNew />
+        </div>
+        <div 
+          id="team"
+          ref={teamRef}
+          className={styles.teamContainer}
+          style={{ top: `calc(100vh - ${teamHeight}px)` }}
+        >
+          <Team />
+        </div>
+        <div 
+          ref={creativityRef}
+          className={styles.creativityContainer}
+        >
+          <Creativity />
+        </div>
+        <div 
+          id="contact"
+          ref={contactRef}
+          className={styles.contactContainer}
+        >
+          <Contact />
+        </div>
+        <div id="footer" 
+          ref={footerRef}
+          className={styles.footerContainer}
+        >
+          <Footer />
+        </div>
+        <FinalBar />
+      </div>
     </div>
   );
 }

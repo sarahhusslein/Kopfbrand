@@ -63,7 +63,7 @@ export default function Services() {
   const [activeIndex, setActiveIndex] = useState(2); // Start with third service active
 
   const DURATION = 0.3;
-  const STAGGER = 0.035;
+  const STAGGER = 0.02;
   const itemAnimation = {
     initial: { y: 40, opacity: 0 },
     inView: {
@@ -154,7 +154,7 @@ export default function Services() {
                             }}
                             style={{
                                 display: "inline-block",
-                                color: "#666666", 
+                                color: "#E4003E", 
                             }}
                         >
                             {letter}
