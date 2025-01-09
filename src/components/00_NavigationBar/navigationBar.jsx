@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import styles from './navigationBar.module.css';
 import SVG from 'react-inlinesvg';
 
@@ -13,6 +14,18 @@ const navItems = [
     { id: 4, title: 'WO', section: 'contact' },
     { id: 5, title: 'LETS TALK', section: 'footer' },
 ];
+
+
+// <button
+//      key={item.id}
+//      className={`button ${styles.button} ${activeSection === item.section ? styles.active : ''}`}
+//      onClick={() => scrollToSection(item.section)}
+// >
+//      {item.title}
+// </button>
+
+
+
 
 export default function NavigationBar({ parallaxContainerClass }) {
     const [activeSection, setActiveSection] = useState('header');
@@ -160,6 +173,10 @@ export default function NavigationBar({ parallaxContainerClass }) {
   }, []);
 
 
+    const DURATION = 0.3;
+    const STAGGER = 0;
+
+
  
     return (
         <nav className={`
@@ -176,13 +193,52 @@ export default function NavigationBar({ parallaxContainerClass }) {
             </div>
             <div className={styles.navItems}>
                 {navItems.map((item) => (
-                    <button
+                    <motion.button 
                         key={item.id}
                         className={`button ${styles.button} ${activeSection === item.section ? styles.active : ''}`}
                         onClick={() => scrollToSection(item.section)}
+                        whileHover="hovered"
+                        initial="initial"
                     >
-                        {item.title}
-                    </button>
+                        <motion.div className={styles.animatedText}>
+                            <div className={styles.textWrapper}>
+                                {item.title.split('').map((letter, index) => (
+                                    <motion.span 
+                                        key={index} 
+                                        variants={{
+                                            initial: { y: 0 },
+                                            hovered: { y: "-100%" },
+                                        }}
+                                        transition={{
+                                            duration: DURATION,
+                                            ease: "easeInOut",
+                                            delay: STAGGER * index,
+                                        }}
+                                        >
+                                        {letter === ' ' ? '\u00A0' : letter}
+                                    </motion.span>
+                                ))}
+                            </div>
+                            <div className={styles.hoverText}>
+                                {item.title.split('').map((letter, index) => (
+                                    <motion.span 
+                                        key={index} 
+                                        variants={{
+                                            initial: { y: "100%" },
+                                            hovered: { y: 0 },
+                                        }}
+                                        transition={{
+                                            duration: DURATION,
+                                            ease: "easeInOut",
+                                            delay: STAGGER * index,
+                                        }}
+                                        >
+                                        {letter === ' ' ? '\u00A0' : letter}
+                                    </motion.span>
+                                ))}
+                            </div>
+                        </motion.div>
+                    </motion.button>
                 ))}
             </div>
         </nav>
