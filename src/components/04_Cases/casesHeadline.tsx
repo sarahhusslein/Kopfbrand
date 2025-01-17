@@ -1,14 +1,34 @@
 'use client'
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import styles from './casesHeadline.module.css';
+import React, { useState, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
+import styles from './casesHeadline.module.scss';
 import SVG from 'react-inlinesvg';
 import useMousePosition from '@/utils/useMousePosition';
 
 export default function CasesHeadlineNew() {
     const [isHovered, setIsHovered] = useState(false);
+    const [hasEnteredFromTop, setHasEnteredFromTop] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
+    const ref = React.useRef(null);
+    const isInView = useInView(ref, { amount: 0.6 });
     const { mousePosition, updateMousePosition } = useMousePosition();   
     const size = isHovered ? 300 : 40;
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (isInView) {
+                setHasEnteredFromTop(true);
+            } else if (currentScrollY < lastScrollY) {
+                // Reset when scrolling up and out of view
+                setHasEnteredFromTop(false);
+            }
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isInView, lastScrollY]);
 
     return (
         <div 
@@ -27,12 +47,12 @@ export default function CasesHeadlineNew() {
                 }}
             >
                 <motion.h1 
+                    ref={ref}
                     className={`h1 ${styles.h1Mask}`}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                     initial={{ y: 100, opacity: 0, scale: 0.8 }}
-                    whileInView={{ y: 0, opacity: 1, scale: 1 }}
-                    viewport={{ once: false, amount: 0.6}}
+                    animate={hasEnteredFromTop ? { y: 0, opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.7, ease: "easeInOut" }}
                 >
                     KREATIV FÜR <br />KLASSE&nbsp;
@@ -47,7 +67,7 @@ export default function CasesHeadlineNew() {
                     className={`h1 ${styles.h1}`}
                     initial={{ y: 100, opacity: 0,scale: 0.8 }}
                     whileInView={{ y: 0, opacity: 1, scale: 1 }}
-                    viewport={{ once: false, amount: 0.6 }}
+                    animate={hasEnteredFromTop ? { y: 0, opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.7, ease: "easeInOut" }}
                 >
                     KREATIV FÜR <br />KLASSE&nbsp;

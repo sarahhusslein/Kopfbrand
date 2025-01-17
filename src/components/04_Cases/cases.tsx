@@ -27,7 +27,7 @@ const cases = [
     },
     {
         id: 4,
-        image: "/images/caseStudyMagazineOpen.jpg",
+        image: "/images/caseStudyWall.jpg",
         company: "Case Study Vier",
         description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
         tags: ["UX Design", "Webdesign", "Development"],

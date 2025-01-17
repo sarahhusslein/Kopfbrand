@@ -141,7 +141,7 @@ h4 {
 .tag {
   font-family: 'Open Sans';
   font-weight: 600;
-  font-size: 1rem; /* 16px */
+  font-size: 0.875rem; /* 14px */
   line-height: 1.125; /* 18px */
 }
 
@@ -214,6 +214,12 @@ Typography Mobile
 
   .handschrift-small {
     font-family: 'Roel', regular;
+    font-size: 1.125rem; /* 18px */
+  }
+
+  .button {
+    font-family: 'Inter';
+    font-weight: 600;
     font-size: 1.125rem; /* 18px */
   }
 

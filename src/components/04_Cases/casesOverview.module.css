@@ -1,6 +1,9 @@
   .outerContainer {
     position: relative;
     height: 500vh;
+    border-color: red;
+    border-width: 1px;
+    border-style: solid;
   }
   
   .overviewContainer {

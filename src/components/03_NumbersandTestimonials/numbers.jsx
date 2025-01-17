@@ -59,7 +59,7 @@ export default function Numbers() {
             className={styles.headline}
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: false, amount: 1 }}
             transition={{ duration: 0.5, ease: "easeInOut"}}
             >
                 <h2 className={`h2 ${styles.h2}`}>

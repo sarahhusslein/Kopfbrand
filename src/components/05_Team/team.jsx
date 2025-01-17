@@ -60,6 +60,8 @@ export default function Team() {
         { text: "drücken!", isSpace: false },
     ];
 
+    
+
     // Add useInView hook
     const { ref: teamImageRef, inView } = useInView({
         threshold: 0.8, // Trigger when 80% of the component is visible
@@ -194,6 +196,7 @@ export default function Team() {
 
     return (
         <div className={styles.container}>
+
             <motion.div 
             variants={itemAnimation}
             initial="initial"
@@ -283,26 +286,46 @@ export default function Team() {
                         }}
                     >
                         <motion.div
+                            className={styles.switchPulse}
+                            whileHover={{
+                                scale: 1.05,
+                                transition: { 
+                                    duration: 0.1, 
+                                    ease: "easeInOut"
+                                } 
+                            }}
                             animate={{
                                 scale: [1, 1.05, 1],
                                 transition: {
                                     delay: 0.5,
-                                    duration: 1.5,
+                                    duration: 1.2,
                                     repeat: Infinity,
                                     repeatType: "reverse",
                                     ease: "easeInOut",
-                                    repeatDelay: 0.5  // Added delay between pulses
+                                    repeatDelay: 0.5
                                 }
                             }}
                         >
-                            <SVG 
-                                src={SwitchOn ? 'illustrations/switchOn.svg' : 'illustrations/switchOff.svg'} 
-                                className={styles.switch} 
-                                onClick={handleSwitchToggle}
-                            />
+                            <div className={styles.switchWrapper}>
+                                <motion.div 
+                                    className={styles.switchLayer}
+                                    animate={{ opacity: SwitchOn ? 0 : 1 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <SVG src='illustrations/switchOff.svg' onClick={handleSwitchToggle} />
+                                </motion.div>
+                                <motion.div 
+                                    className={styles.switchLayer}
+                                    animate={{ opacity: SwitchOn ? 1 : 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <SVG src='illustrations/switchOn.svg' onClick={handleSwitchToggle} />
+                                </motion.div>
+                            </div>
                         </motion.div>
                     </motion.div>
                 </div>
+
                 <div className={styles.teamImageContainer} ref={teamImageRef}>
                     {hoveredMember && (
                         <div 

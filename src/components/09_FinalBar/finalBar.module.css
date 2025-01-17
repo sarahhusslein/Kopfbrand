@@ -12,8 +12,8 @@
   .text {
     font-family: var(--font-inter);
     font-weight: 600;
-    font-size: 1.125rem;            /* 18px for desktop */
-    letter-spacing: 0.05em;         /* 5% letter spacing */
+    font-size: 1.125rem;            
+    letter-spacing: 0.05em;         
   }
   
 
@@ -51,7 +51,7 @@ Adjustments for Mobile
     }
 
     .text {
-        font-size: 1rem; /* 16px for mobile */
+        font-size: 1rem; 
         text-align: center;
     }
   }

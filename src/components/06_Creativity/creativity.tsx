@@ -23,14 +23,18 @@ export default function Creativity() {
 
   // Middle layer (medium speed)
   const paletteY = useTransform(parallaxScrollYProgress, [0, 1], [150, 100]);
-  const toolsY = useTransform(parallaxScrollYProgress, [0, 1], [150, 0]);
+  const toolsY = useTransform(parallaxScrollYProgress, [0, 1], [170, 0]);
 
   // Foreground (fastest)
-  const canvasY = useTransform(parallaxScrollYProgress, [0, 1], [250, 0]);  
+  const canvasY = useTransform(parallaxScrollYProgress, [0, 1], [300, 0]);  
 
   // Ref for the canvas
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
-  const [strokeColor, setStrokeColor] = useState ("#EEFF04");
+  const [isYellowActive, setIsYellowActive] = useState(true);
+  const cursorUrl = isYellowActive ? '/icons/cursorDrawingYellow.svg' : '/icons/cursorDrawingRed.svg';
+  const strokeColor = isYellowActive ? '#EEFF04' : '#E4003E';
+  const iconSrc = isYellowActive ? 'icons/colorChangeRed.svg' : 'icons/colorChangeYellow.svg';
+  const toggleBackground = isYellowActive ? styles.toggleRed : styles.toggleYellow;
   const [hasDrawn, setHasDrawn] = useState (false); 
 
   const handleReset = () => {
@@ -39,7 +43,18 @@ export default function Creativity() {
     console.log(hasDrawn);
   };
 
-  const handleDrawing = (drawingData: any) => { // Specify the correct type for drawingData if known
+  const handleColorChange = () => {
+    setIsYellowActive(!isYellowActive);
+  };
+
+
+  const cursorStyle = {
+    '--cursor-url': `url(${cursorUrl})`
+  } as React.CSSProperties;
+
+
+
+  const handleDrawing = (drawingData: any) => { 
     console.log("Drawing detected."); 
     if (drawingData.length > 0) { // Ensure drawing data is not empty
       setHasDrawn(true);
@@ -110,14 +125,17 @@ export default function Creativity() {
             <motion.div style={{ y: paletteY }}>
               <SVG src={'illustrations/palette.svg'} className={styles.palette}/>
             </motion.div>
-            <motion.div style={{ y: toolsY, zIndex: 2 }}>
+            <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative' }}>
               <SVG src={'illustrations/tools.svg'} className={styles.tools}/>
             </motion.div>
             
             {/* Foreground layer */}
-            <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 3 }}>
+            <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4 }}>
               <SVG src={'illustrations/iPadMockup.svg'} className={styles.mockup}/>
-              <div className={styles.drawingContainer}>
+              <div 
+                className={`${styles.drawingContainer}`}
+                style={cursorStyle}
+              >
                 <ReactSketchCanvas 
                   className={styles.reactSketchCanvas}
                   ref={canvasRef} 
@@ -141,6 +159,7 @@ export default function Creativity() {
                 )}
                 {hasDrawn && ( 
                   <div className={styles.iconContainer}>
+                    <SVG src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
                     <SVG src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
                     <SVG src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
                   </div>

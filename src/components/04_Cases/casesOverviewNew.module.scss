@@ -1,12 +1,13 @@
 .container {
     position: relative;
     height: 500vh;
+    
 
     .sticky {
         position: sticky;
         top: 0;
         height: 100vh;
-        background-color: var(--darkest-grey);
+        background-color: rgb(19, 19, 19);
         overflow: hidden;
     }
 
@@ -26,14 +27,15 @@
 
             img {
                 object-fit: cover;
+                border-radius: 0px;
             }
         }
         &:nth-of-type(2) {
             .imageContainer {
-                top: -35vh;
+                top: -34vh;
                 left: 5vw;
                 width: 40vw;
-                height: 35vh;
+                height: 33vh;
 
             }
         }
@@ -62,10 +64,10 @@
         }
         &:nth-of-type(6) {
             .imageContainer {
-                top: 32.5vh;
+                top: 35vh;
                 left: -20vw;
                 width: 27.5vw;
-                height: 30vh;
+                height: 35vh;
             }
         }
         &:nth-of-type(7) {

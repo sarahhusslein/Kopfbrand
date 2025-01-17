@@ -8,21 +8,29 @@ import styles from './casesOverviewNew.module.scss';
 export default function CasesOverview() {
 
     const container = useRef(null);
-    const { scrollYProgress } = useScroll({
+    const { scrollYProgress: scaleProgress } = useScroll({
         target: container,
         offset: ["start start", "end end"]
     });
 
+    const { scrollYProgress: overviewProgress} = useScroll({
+        target: container,
+        offset: ["50vh end", "start start"]
+    });
+
     const baseMaxScale = 100/30;  // This will scale from 35vw to 100vw
 
-    const scale1 = useTransform(scrollYProgress, [0, 1], [1, baseMaxScale]);
-    const scale2 = useTransform(scrollYProgress, [0, 1], [1, baseMaxScale * 1.25]);
-    const scale3 = useTransform(scrollYProgress, [0, 1], [1, baseMaxScale * 1.5]);
-    const scale4 = useTransform(scrollYProgress, [0, 1], [1, baseMaxScale * 1.75]);
-    const scale5 = useTransform(scrollYProgress, [0, 1], [1, baseMaxScale * 2]);
-    const scale6 = useTransform(scrollYProgress, [0, 1], [1, baseMaxScale * 2.25]);
-    const scale7 = useTransform(scrollYProgress, [0, 1], [1, baseMaxScale * 2.5]);
-    const scale8 = useTransform(scrollYProgress, [0, 1], [1, baseMaxScale * 2.75]);
+    const scale1 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale]);
+    const scale2 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 1.5]);
+    const scale3 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2.25]);
+    const scale4 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 1.75]);
+    const scale5 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2]);
+    const scale6 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2.25]);
+    const scale7 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2.5]);
+    const scale8 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2.75]);
+
+    const overviewOpacity = useTransform(overviewProgress, [0, 1], [0.1, 1]);
+
 
     const images = [
         {src: "/images/caseStudyHotelGrey.jpg", scale: scale1},
@@ -38,7 +46,7 @@ export default function CasesOverview() {
 
     // Share scroll progress with Cases component
     useEffect(() => {
-        const unsubscribe = scrollYProgress.on('change', (latest) => {
+        const unsubscribe = scaleProgress.on('change', (latest) => {
             // When image is fully scaled (around 0.8-1.0 of scroll progress)
             if (latest > 0.8) {
                 // Dispatch custom event
@@ -49,12 +57,15 @@ export default function CasesOverview() {
         });
 
         return () => unsubscribe();
-    }, [scrollYProgress]);
+    }, [scaleProgress]);
+
+    
+    
 
 
     return (
-        <div className={styles.container} ref={container}>
-            <div className={styles.sticky}>
+        <div className={styles.container} ref={container} >
+            <motion.div className={styles.sticky} style={{opacity: overviewOpacity}}>
                 {images.map(({src, scale}, index) => (
                     <motion.div key={index} className={styles.element} style={{scale}}>
                         <div className={styles.imageContainer}>
@@ -66,7 +77,7 @@ export default function CasesOverview() {
                         </div>
                     </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </div>
     );
 }

@@ -14,9 +14,9 @@ import Creativity from "@/components/06_Creativity/creativity";
 import Contact from "@/components/07_Contact/contact";
 import Footer from "@/components/08_Footer/footer";
 import FinalBar from "@/components/09_FinalBar/finalBar";
+import NumbersAndTestimonials from "@/components/03_NumbersandTestimonials/numbersAndTestimonials";
 import CasesOverview from "@/components/04_Cases/casesOverview";
 import CasesOverviewNew from "@/components/04_Cases/casesOverviewNew";
-import NumbersAndTestimonials from "@/components/03_NumbersandTestimonials/numbersAndTestimonials";
 
 
 
@@ -73,6 +73,20 @@ export default function Home() {
       const creativityHeight = creativityRef.current.offsetHeight;
       const contactHeight = contactRef.current.offsetHeight;
       const footerHeight = footerRef.current.offsetHeight;
+
+      // Debugging: Log each height
+      console.log('Header Height:', headerHeight);
+      console.log('Services Height:', servicesHeight);
+      console.log('Numbers Height:', numbersHeight);
+      console.log('Cases Headline Height:', casesHeadlineHeight);
+      console.log('Cases Overview Height:', casesOverviewHeight);
+      console.log('Cases Height:', casesHeight);
+      console.log('Team Height:', teamHeight);
+      console.log('Creativity Height:', creativityHeight);
+      console.log('Contact Height:', contactHeight);
+      console.log('Footer Height:', footerHeight);
+
+
       setHeaderHeight(headerHeight);
       setServicesHeight(servicesHeight);
       setNumbersHeight(numbersHeight);
@@ -83,7 +97,21 @@ export default function Home() {
       setCreativityHeight(creativityHeight);
       setContactHeight(contactHeight);
       setFooterHeight(footerHeight);
-      setTotalHeight(headerHeight + servicesHeight + numbersHeight + casesHeadlineHeight + casesOverviewHeight + casesHeight + teamHeight + creativityHeight + contactHeight + footerHeight);
+
+      // Adjust calculation if necessary
+
+      setTotalHeight(
+        headerHeight + 
+        servicesHeight + 
+        (numbersHeight - (40 * window.innerHeight / 100)) + 
+        casesHeadlineHeight + 
+        (casesOverviewHeight - (40 * window.innerHeight / 100)) + 
+        casesHeight + 
+        teamHeight + 
+        creativityHeight + 
+        contactHeight + 
+        footerHeight
+      );
     }
   }, []);
 
@@ -98,25 +126,83 @@ export default function Home() {
     offset: [`${headerHeight + servicesHeight}px end`, `${headerHeight + servicesHeight}px start`]
   });
 
-  // Add a transform for Y position
-  const headerY = useTransform(headerScrollYProgress, [0, 1], [0, 100]); // Header moves down slower
-  const servicesY = useTransform(servicesScrollYProgress, [0, 1], [0, -200]); // Services move up faster
+  const { scrollYProgress: servicesOpacityScrollProgress } = useScroll({
+    target: numbersRef,
+    offset: ["end 95vh", "end 90vh"]
+  });
+
+  const { scrollYProgress: numbersScrollYProgress } = useScroll({
+    target: numbersRef,
+    offset: ["end end", "end start"]
+  });
+
+  const { scrollYProgress: casesHeadlineScrollYProgress } = useScroll({
+    target: casesHeadlineRef,
+    offset: ["end end", "end start"]
+  });
+
+  const { scrollYProgress: casesOverviewOpacityScrollProgress } = useScroll({
+    target: casesRef,
+    offset: ["end end", "end 99vh"]
+  });
+
+  const { scrollYProgress: casesScrollProgress } = useScroll({
+    target: casesRef,
+    offset: ["end end", "end start"]
+  });
+
+  const { scrollYProgress: teamScrollYProgress } = useScroll({
+    target: teamRef,
+    offset: ["end end", "end start"]
+  });
+
+  // Transformations
+  const headerY = useTransform(headerScrollYProgress, [0, 1], [0, 100]); 
+  const servicesY = useTransform(servicesScrollYProgress, [0, 1], [0, 400]); 
+  const numbersY = useTransform(numbersScrollYProgress, [0, 1], [0, 400]); 
+  const casesHeadlineY = useTransform(casesHeadlineScrollYProgress, [0, 1], [0, -900]); 
+  const casesY = useTransform(casesScrollProgress, [0, 1], [0, 400]); 
+  const teamY = useTransform(teamScrollYProgress, [0, 1], [0, 400]); 
 
   const scaleHeader = useTransform(headerScrollYProgress, [0, 1], [1, 0.6]);
   const rotateHeader = useTransform(headerScrollYProgress, [0, 1], [0, -6]);
   const opacityHeader = useTransform(headerScrollYProgress, [0, 1], [1, 0]);
-  const scaleServices = useTransform(servicesScrollYProgress, [0, 1], [1, 1]);
-  const rotateServices = useTransform(servicesScrollYProgress, [0, 1], [0, 0]);
+  const opacityServices = useTransform(servicesOpacityScrollProgress, [0, 1], [1, 0]);
+  const opacityNumbers = useTransform(numbersScrollYProgress, [0, 1], [1, 0.7]);
+  const opacityCasesOverview = useTransform(casesOverviewOpacityScrollProgress, [0, 1], [1, 0]);
+  const opacityCases = useTransform(casesScrollProgress, [0, 1], [1, 0.7]);
+
+
+  useEffect(() => {
+    const unsubscribe = casesScrollProgress.onChange((value) => {
+      console.log('casesScrollProgress:', value);
+    });
+  
+    return () => unsubscribe();
+  }, [casesScrollProgress]);
+  
+  useEffect(() => {
+    const unsubscribe = casesY.onChange((value) => {
+      console.log('casesY:', value);
+    });
+  
+    return () => unsubscribe();
+  }, [casesY]);
+
+
 
 
   return (
     <div>
       <NavigationBar />
+
       <div 
         ref={containerRef}
         className={styles.parallaxContainer}
         style={{ height: `${totalHeight}px` }}
       >
+
+        {/****** Header ******/}
         <motion.div
           ref={headerRef}
           className={styles.headerContainer}
@@ -132,64 +218,86 @@ export default function Home() {
           <Header />
         </motion.div>
       
-      
+        {/****** Services ******/}
         <motion.div 
           id="services"
           ref={servicesRef}
           className={styles.servicesContainer}
           style={{ 
-            top: `calc(100vh - ${servicesHeight}px)`, 
-            scale: scaleServices, 
-            rotate: rotateServices,
-            y: servicesY
+            // top: `calc(100vh - ${servicesHeight}px)`, 
+            y: servicesY,
+            opacity: opacityServices
           }}
         >
           <Services />
         </motion.div>
         
-        <div 
+        {/****** Numbers and Testimonials ******/}
+        <motion.div 
           ref={numbersRef} 
           className={styles.numbersContainer}
-          style={{ top: `calc(100vh - ${numbersHeight}px)` }}
+          style={{ 
+            y: numbersY,
+            opacity: opacityNumbers
+          }}
         >
           <NumbersAndTestimonials />
-        </div>
-        <div 
+        </motion.div>
+
+        {/****** Case Studies ******/}
+        <motion.div 
           id="cases"
           ref={casesHeadlineRef}
           className={styles.casesHeadlineContainer}
-          // style={{ top: `calc(100vh - ${casesHeadlineHeight}px)` }}
+          style={{ 
+            y: casesHeadlineY
+          }}
         >
           <CasesHeadline />
-        </div>
-        <div 
+        </motion.div>
+
+        <motion.div 
           ref={casesOverviewRef}
           className={styles.casesOverviewContainer}
-          style={{ top: `calc(100vh - ${casesOverviewHeight}px)` }}
+          style={{ 
+            top: `calc(100vh - ${casesOverviewHeight}px)`,
+            opacity: opacityCasesOverview
+          }}
         >
           <CasesOverviewNew />
-          {/* <CasesOverview /> */}
-        </div>
-        <div 
+        </motion.div>
+
+        <motion.div 
           ref={casesRef}
           className={styles.casesContainer}
+          style={{ 
+            y: casesY,
+            opacity: opacityCases
+          }}
         >
           <Cases />
-        </div>
-        <div 
+        </motion.div>
+
+
+        {/****** Team ******/}
+        <motion.div 
           id="team"
           ref={teamRef}
           className={styles.teamContainer}
-          style={{ top: `calc(100vh - ${teamHeight}px)` }}
+          style={{ 
+            y: teamY
+           }}
         >
           <Team />
-        </div>
+        </motion.div>
+
         <div 
           ref={creativityRef}
           className={styles.creativityContainer}
         >
           <Creativity />
         </div>
+
         <div 
           id="contact"
           ref={contactRef}
@@ -197,6 +305,7 @@ export default function Home() {
         >
           <Contact />
         </div>
+        
         <div id="footer" 
           ref={footerRef}
           className={styles.footerContainer}

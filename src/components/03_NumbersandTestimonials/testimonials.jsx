@@ -4,6 +4,7 @@ import styles from './testimonials.module.css';
 import SVG from 'react-inlinesvg';
 import Lottie from 'lottie-react'; 
 import satelliteAnimation from '../../../public/animations/satelliteAnimation.json';
+import satelliteAnimationRed from '../../../public/animations/satelliteAnimationRed.json';
 import { motion, AnimatePresence } from 'framer-motion';
 
 
@@ -127,14 +128,6 @@ export default function Testimonials() {
 
   return (
     <div className={styles.container}>
-        {/* <div className={styles.animation}>
-            <Lottie 
-                animationData={satelliteAnimation}
-                className={styles.satelliteAnimation}
-                loop={true}
-                autoplay={true}
-            />
-        </div > */}
         <motion.div 
         className={styles.animation}
         initial={{ y: 30, opacity: 0.2 }}
@@ -142,7 +135,15 @@ export default function Testimonials() {
         viewport={{ once: false, amount: 0.6 }}
         transition={{ duration: 0.7, ease: "easeInOut"}}
         >
-            <SVG src="/illustrations/arrowBottomRight.svg"/>
+            {/* <SVG src="/illustrations/arrowBottomRight.svg"/> */}
+            <div className={styles.animation}>
+                <Lottie 
+                    animationData={satelliteAnimation}
+                    className={styles.satelliteAnimation}
+                    loop={true}
+                    autoplay={true}
+                />
+            </div >
         </motion.div>
         <motion.div 
         className={styles.testimonialSection}
@@ -180,9 +181,9 @@ export default function Testimonials() {
                             <div className={styles.quoteContainer}>
                                 <motion.div 
                                     className={styles.quoteSVG}
-                                    initial={{ scale: 0.5}}
+                                    initial={{ scale: 0.3}}
                                     animate={{ 
-                                        scale: index === activeIndex ? 1 : 0.5, 
+                                        scale: index === activeIndex ? 1 : 0.3, 
                                     }}
                                     transition={{
                                         duration: 0.5,

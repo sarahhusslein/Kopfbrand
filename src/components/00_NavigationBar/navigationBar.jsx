@@ -16,24 +16,14 @@ const navItems = [
 ];
 
 
-// <button
-//      key={item.id}
-//      className={`button ${styles.button} ${activeSection === item.section ? styles.active : ''}`}
-//      onClick={() => scrollToSection(item.section)}
-// >
-//      {item.title}
-// </button>
 
 
-
-
-export default function NavigationBar({ parallaxContainerClass }) {
+export default function NavigationBar() {
     const [activeSection, setActiveSection] = useState('header');
     const [visible, setVisible] = useState(true);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [isFixed, setIsFixed] = useState(false);
     const [shouldHide, setShouldHide] = useState(false);
-    // Store initial positions
     const [initialPositions, setInitialPositions] = useState({});
 
 

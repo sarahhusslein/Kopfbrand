@@ -28,19 +28,21 @@
   position: sticky;
   z-index: 3;  
   width: 100%;
+  margin-top: -40vh;
 }
 
 .casesHeadlineContainer {
-  position: sticky;
-  top: -40vh;
-  z-index: 4;  
+  position: relative;
+  z-index: 5;  
   cursor: none;
 }
 
 .casesOverviewContainer {
   position: sticky;
-  top: -600vh;
-  z-index: 5;  
+  z-index: 4;  
+  transform-style: preserve-3d; 
+  will-change: transform;
+  margin-top: -50vh;
 }
 
 .casesContainer {
@@ -49,7 +51,7 @@
 }
 
 .teamContainer {
-  position: sticky;
+  position: relative;
   z-index: 8;  
 }
 

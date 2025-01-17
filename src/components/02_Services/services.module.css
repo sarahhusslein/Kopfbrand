@@ -21,6 +21,8 @@
     display: block;
     overflow: hidden;
     white-space: nowrap;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .h4 {
@@ -37,7 +39,7 @@
     flex-direction: row;
     align-items: stretch;
     gap: 20px;
-    padding-bottom: 250px;
+    padding-bottom: 55vh;
 }
 
 .serviceSection {

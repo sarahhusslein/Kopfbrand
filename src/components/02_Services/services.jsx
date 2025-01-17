@@ -79,17 +79,60 @@ export default function Services() {
 
     const servicesRef = useRef(null);
 
-    const { scrollYProgress: parallaxScrollYProgress } = useScroll({
+    // First phase: Initial movement to staggered positions
+    const { scrollYProgress: initialProgress } = useScroll({
         target: servicesRef,
-        offset: ["start end", "start 30vh"]
-      });
+        offset: ["start end", "start 10vh"]
+    });
+
+    // Second phase: Final alignment
+    const { scrollYProgress: finalProgress } = useScroll({
+        target: servicesRef,
+        offset: ["start 10vh", "end 70vh"]
+    });
+
+    // For debugging
+    useEffect(() => {
+        initialProgress.onChange(v => console.log('Initial Progress:', v));
+        finalProgress.onChange(v => console.log('Final Progress:', v));
+    }, [initialProgress, finalProgress]);
 
     const serviceY = [
-        useTransform(parallaxScrollYProgress, [0, 1], [200, 20]),  
-        useTransform(parallaxScrollYProgress, [0, 1], [200, 80]),  
-        useTransform(parallaxScrollYProgress, [0, 1], [200, 25]),  
-        useTransform(parallaxScrollYProgress, [0, 1], [200, 40]),  
-        useTransform(parallaxScrollYProgress, [0, 1], [200, 45]),   
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]) => {
+                if (i < 1) return 200 + (20 - 200) * i;  // First phase: 200 -> 20
+                return 20 + (10 - 20) * f;  // Second phase: 20 -> 10
+            }
+        ),
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]) => {
+                if (i < 1) return 200 + (80 - 200) * i;  // First phase: 200 -> 80
+                return 80 + (10 - 80) * f;  // Second phase: 80 -> 10
+            }
+        ),
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]) => {
+                if (i < 1) return 200 + (25 - 200) * i;  // First phase: 200 -> 25
+                return 25 + (10 - 25) * f;  // Second phase: 25 -> 10
+            }
+        ),
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]) => {
+                if (i < 1) return 200 + (40 - 200) * i;  // First phase: 200 -> 40
+                return 40 + (10 - 40) * f;  // Second phase: 40 -> 10
+            }
+        ),
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]) => {
+                if (i < 1) return 300 + (45 - 300) * i;  // First phase: 300 -> 45
+                return 45 + (10 - 45) * f;  // Second phase: 45 -> 10
+            }
+        ),
     ];
 
 

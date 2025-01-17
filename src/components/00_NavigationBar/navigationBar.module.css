@@ -1,15 +1,16 @@
 .navbar {
     position: absolute;
     top: 20px;
-    margin: 0 20px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     width: calc(100% - 40px);
     max-width: 1400px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 50px;
-    z-index: 1000;
-    transform: translateY(0);
+    z-index: 100;
     transition: all 0.3s ease;
     border-radius: 15px;
 }
@@ -20,10 +21,8 @@
 
 .solid {
     background: rgba(7, 7, 7, 0.9);
-    /* background: rgba(29, 30, 34, 1); */
     backdrop-filter: blur(10px);
     padding: 20px 50px;
-    /* box-shadow: 0 4px 30px rgba(255, 255, 255, 0.05); */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -109,7 +108,7 @@
     display: block;
     overflow: hidden;
     white-space: nowrap;
-    line-height: 1.2em; 
+    line-height: 1.1em; 
 }
 
 .textWrapper {
@@ -119,7 +118,7 @@
 
 .textWrapper span {
     display: inline-block;
-    line-height: 1.2em;
+    line-height: 1.1em;
 }
 
 .hoverText {
@@ -131,5 +130,42 @@
 .hoverText span {
     display: inline-block;
     color: var(--broom);
-    line-height: 1.2em;
+    line-height: 1.1em;
+}
+
+
+/***************************** 
+Adjustments for Mobile
+*****************************/
+@media (max-width: 768px) {
+    .navbar {
+        top: 0;
+        width: 100vw;
+        flex-direction: column;
+        justify-content: center;
+        padding: 30px 16px 20px 16px;
+        margin: 0;
+        /* background: rgba(35, 35, 35, 0.5); */
+        background: red;
+        border-radius: 0px;
+    }
+
+    .logo {
+        width: 53vw;
+        height: auto;
+        cursor: pointer;
+        padding-bottom: 16px;
+    }
+
+    .navItems {
+        background: none;
+        padding: 0px;
+        justify-content: space-between;
+    }
+
+    .button {
+        padding: 6px 6px;
+        border-radius: 10px;
+    }
+
 }

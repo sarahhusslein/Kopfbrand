@@ -79,7 +79,21 @@
     /* outline: 2px solid green; */
 }
 
+
 .overlay {
+    z-index: 3;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 52vw;
+    height: 40vh;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)), rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 0 20px 0 0;
+}
+
+/* .overlay {
     z-index: 3;
     position: absolute;
     bottom: 0;
@@ -92,7 +106,7 @@
         rgba(29, 30, 34, 0.7) 45%,
         rgba(29, 30, 34, 0) 100%
     );
-}
+} */
 
 .textContainer {
     position: absolute;
@@ -103,12 +117,14 @@
 }
 
 .h2 {
-    color: white;
-    padding-bottom: 25px;
+    color: var(--darkest-grey);
+    /* color: white; */
+    padding-bottom: 20px;
 }
 
 .subtitle {
-    color: white;
+    color: var(--darkest-grey);
+    /* color: white; */
     padding-bottom: 25px;
 }
 
@@ -119,8 +135,10 @@
 }
 
 .tag {
-    color: var(--red-ribbon);
-    background-color:rgba(228, 0, 62, 0.2);
+    color: white;
+    background-color: var(--red-ribbon);
+    /* color: var(--red-ribbon); */
+    /* background-color:rgba(228, 0, 62, 0.2); */
     padding: 6px 16px;
     border-radius: 100px;
 }
