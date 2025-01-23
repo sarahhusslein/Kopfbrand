@@ -215,3 +215,159 @@
 .arrow {
     margin-top: 20px;
 }
+
+
+/***************************** 
+Adjustments for Mobile
+*****************************/
+@media (max-width: 768px) {
+
+    .container {
+        min-height: 150vh;
+        border-radius: 20px 20px 0 0;
+        flex-direction: column;
+        padding-top: 30vh;
+    }
+
+    .textContainer {
+        padding-top: 0;
+    }
+
+    .underline {
+        position: relative;
+        margin-bottom: 32px;
+    }
+
+    .SVG {
+        position: absolute; 
+        bottom: -8px;
+        left: 0;
+        width: 105%;
+    }
+
+    .textAndArrowContainer {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .arrow {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        margin-top: 16px;
+        width: 30px;
+        height: auto;
+        rotate: -30deg;
+    }
+
+    .canvas {
+        position: relative;
+        z-index: 5;
+    }
+
+    .canvasContainer {
+        margin-top: 10px;
+        padding: 0 16px;
+    }
+
+
+    .mockupWrapper {
+        width: 100%;
+    }
+
+    .mockup {
+        width: 100%;
+        height: auto;
+    }
+
+    .paper {
+        width: 35vw;
+        height: auto;
+        margin-top: 1vw;
+        margin-left: -7vw;
+    }
+    
+    .tools {
+        width: 8vw;
+        height: auto;
+        margin-top: 16vw;
+        margin-left: 1vw;
+        z-index: 3;
+    }
+    
+    .palette {
+        width: 15vw;
+        height: auto;
+        z-index: 2;
+        bottom: 0;
+        right: 0;
+        margin-bottom: -500px;
+        margin-right: 2vw;
+    }
+
+
+    .drawingContainer {
+        position: absolute;
+        width: 270px;
+        height: 525px;
+        top: 56%; 
+        left: 50%; 
+        transform: translate(-50%, -56%); 
+        border-radius: 25px;
+        overflow: hidden;
+    }
+
+    .drawingAnimation {
+        width: auto;
+        height: 30vw;
+    }
+
+    
+    .iconReset {
+        width: 35px; 
+        height: 35px; 
+        padding: 4px;
+        margin-bottom: 6px;
+        border-radius: 8px;
+    }
+
+    .iconScreenshot {
+        width: 35px; 
+        height: 35px; 
+        padding: 4px;
+        margin-bottom: 6px;
+        border-radius: 8px;
+    }
+
+    .iconColorToggle {
+        width: 35px; 
+        height: 35px; 
+        padding: 4px;
+        margin-bottom: 6px;
+        border-radius: 8px;
+        background-color: rgba(228, 0, 62, 0.3);
+    }
+
+    .toggleRed {
+        background-color: rgba(228, 0, 62, 0.3);
+    }
+
+    .toggleYellow {
+        background-color: rgba(245, 255, 0, 0.3);
+    }
+    
+    .bodyHighlighted {
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        font-weight: 600;
+        max-width: none;
+        padding: 0 16px;
+        font-weight: 500;
+    }
+
+
+  }

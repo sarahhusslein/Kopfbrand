@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
+import { useMediaQuery } from 'react-responsive';
 import { useInView } from 'react-intersection-observer'; 
 import styles from './team.module.css';
 import SVG from 'react-inlinesvg';
@@ -41,6 +42,7 @@ const teamMembers = [
 
 export default function Team() {
 
+    const isMobile = useMediaQuery({ maxWidth: 768 });
     const [SwitchOn, setSwitchOn] = useState(false);
     const [hoveredMember, setHoveredMember] = useState(null);
     const [displayName, setDisplayName] = useState('');
@@ -208,7 +210,7 @@ export default function Team() {
                 </motion.h1>
                 <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>
                     Jetzt mal ehrlich, hast du dich uns so vorgestellt? 
-                    <br />
+                    {isMobile ? ' ' : <br />}
                     85 Jahre Berufserfahrung, 7000 Stunden Calls und ein Lächeln auf Knopfdruck - das ist unser Team.
                 </motion.h4>
                 <div className={styles.switchContainer}>
@@ -326,6 +328,28 @@ export default function Team() {
                     </motion.div>
                 </div>
 
+                {isMobile ? ( 
+                    <div className={styles.teamImageContainerMobile}>
+                        <img src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="teamPicture" className={styles.teamPictureMobile}/>
+                        <div className={styles.funFactRow}>
+                            {teamMembers.map((member) => (
+                                <div className={styles.funFact} key={member.id}>
+                                    <h3 className={`h3 ${styles.name}`}>{member.name}</h3>
+                                    <p className={`body-light ${styles.position}`}>{member.position}</p>
+                                    <p className={`body ${styles.keywordsMobile}`}>
+                                        {member.keywords.map((keyword, index) => (
+                                            <React.Fragment key={index}>
+                                                {keyword}
+                                                <br />
+                                            </React.Fragment>
+                                        ))}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+
                 <div className={styles.teamImageContainer} ref={teamImageRef}>
                     {hoveredMember && (
                         <div 
@@ -360,9 +384,9 @@ export default function Team() {
                             />
                         ))}
                     </div>
-                    
                     <img src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="teamPicture" className={styles.teamPicture}/>
                 </div>
+                )}
             </motion.div>
         </div>
     );

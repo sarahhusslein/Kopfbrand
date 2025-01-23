@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { motion } from 'framer-motion';
 import styles from './numbers.module.css';
 import SVG from 'react-inlinesvg';
@@ -32,6 +33,8 @@ const numbers = [
 
 
 export default function Numbers() {
+
+    const isMobile = useMediaQuery({ maxWidth: 768 });
 
     const ref = useRef();
     const [inView, setInView] = useState(false);
@@ -92,7 +95,7 @@ export default function Numbers() {
                                 />
                             ) : number.start}
                         </p>
-                        <p className={`body ${styles.keyword}`}>{number.keyword}</p>
+                        <p className={`${isMobile ? 'body-small' : 'body'} ${styles.keyword}`}>{number.keyword}</p>
                     </div>
                 ))}
             </motion.div>

@@ -163,7 +163,8 @@ Typography Mobile
   }
 
   .h3 {
-    font-family: 'Inter', semi-bold;
+    font-family: 'Inter';
+    font-weight: 600;
     font-size: 1.125rem; /* 18px */
   }
 
@@ -178,32 +179,38 @@ Typography Mobile
   }
 
   .subtitle-highlighted {
-    font-family: 'Open Sans', semi-bold;
+    font-family: 'Open Sans';
+    font-weight: 600;
     font-size: 1.25rem; /* 20px */
   }
 
   .body {
-    font-family: 'Open Sans', regular;
-    font-size: 0.875rem; /* 14px */
+    font-family: 'Open Sans';
+    font-weight: 400;
+    font-size: 1rem; /* 16px */
   }
 
   .body-light {
-    font-family: 'Open Sans', light;
-    font-size: 0.875rem; /* 14px */
+    font-family: 'Open Sans';
+    font-weight: 300;
+    font-size: 1rem; /* 16px */
   }
 
   .body-highlighted {
-    font-family: 'Open Sans', semi-bold;
-    font-size: 0.875rem; /* 14px */
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 1rem; /* 16px */
   }
 
   .body-small {
-    font-family: 'Open Sans', regular;
+    font-family: 'Open Sans';
+    font-weight: 400;
     font-size: 0.8125rem; /* 13px */
   }
 
   .body-super-small {
-    font-family: 'Open Sans', regular;
+    font-family: 'Open Sans';
+    font-weight: 400;
     font-size: 0.75rem; /* 12px */
   }
 

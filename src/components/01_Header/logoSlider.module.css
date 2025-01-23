@@ -21,3 +21,22 @@
     padding: 0 40px;
     width: auto;
 }
+
+
+/***************************** 
+Adjustments for Mobile
+*****************************/
+@media (max-width: 768px) {
+    .marqueeWrapper {
+        padding: 8vh 0 15vh 0;
+    }
+
+    .iconContainer {
+        height: 50px;
+    }
+
+    .icon {
+        padding: 0 20px;
+    }
+
+}

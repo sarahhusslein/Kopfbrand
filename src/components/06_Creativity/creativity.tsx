@@ -1,15 +1,18 @@
 "use client";
-import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { motion, useTransform, useScroll, useAnimation } from 'framer-motion';
 import styles from './creativity.module.css';
 import SVG from 'react-inlinesvg';
 import { ReactSketchCanvas, type ReactSketchCanvasRef,} from "react-sketch-canvas";
 import Lottie from 'lottie-react'; 
 import drawingAnimation from '../../../public/animations/drawingAnimation.json';
-import { motion, useTransform, useScroll, useAnimation } from 'framer-motion';
 
 
 
 export default function Creativity() {
+
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   const container = useRef(null);
 
@@ -86,7 +89,30 @@ export default function Creativity() {
     offset: ["start 95%", "end 50%"] //Animation will start when the element's start is 95% down the viewport and end when the element's end is 40% down the viewport.
   });
 
-  const initialRotations = "KREATIVITÄT".split('').map(() => Math.random() * 360 - 180);
+  const [initialRotations, setInitialRotations] = useState<number[]>([]);
+
+  useEffect(() => {
+    const rotations = "KREATIVITÄT".split('').map(() => Math.random() * 360 - 180);
+    setInitialRotations(rotations);
+  }, []); // Nur beim ersten Client-Renden
+  
+
+  // const [randomDelays, setRandomDelays] = useState<number[]>([]);
+  // const [randomDelays2, setRandomDelays2] = useState<number[]>([]);
+
+
+  // // Führe dies im useEffect aus, um den Zufallswert nur auf dem Client zu generieren.
+  // useEffect(() => {
+  //   const delays = Array.from({ length: line1.length }).map(() => Math.random() * 0.03);
+  //   setRandomDelays(delays);
+  // }, []);
+
+  // useEffect(() => {
+  //   const delays = Array.from({ length: line2.length }).map(() => Math.random() * 0.03);
+  //   setRandomDelays2(delays);
+  // }, [line2.length]); // Setzt die Zufallswerte jedes Mal neu, wenn sich line2 ändert
+  
+
 
   const controls = useAnimation();
   const [isInView, setIsInView] = useState(false);
@@ -112,69 +138,259 @@ export default function Creativity() {
   return (
     <div className={styles.container}>
 
-        {/* Canvas */}
+      {isMobile ? ( 
+        <div>
+          {/* Text Container */}
+          <motion.div 
+          className={styles.textContainer} 
+          initial={{ y: 30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: false, amount: 0.05 }}
+          transition={{ duration: 0.7, ease: "easeInOut"}}
+          >
+              {/* Headline */}
+              <div ref={headlineRef} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+                <motion.h1 
+                  className={`h1 ${styles.h1}`}
+                >
+                  {"KREAT".split('').map((letter, index) => (
+                    <motion.span
+                      key={index}
+                      style={{
+                        display: 'inline-block',
+                        margin: '0 2px',
+                        rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index], 0])
+                      }}
+                    >
+                      {letter}
+                    </motion.span>
+                  ))}
+                  <br />
+                  <span className={styles.underline}>
+                    {"IVITÄT".split('').map((letter, index) => (
+                      <motion.span
+                        key={index}
+                        style={{
+                          display: 'inline-block',
+                          margin: '0 2px',
+                          rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index + 5], 0])
+                        }}
+                      >
+                        {letter}
+                      </motion.span>
+                    ))}
+                    <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG} />
+                  </span>
+                </motion.h1>
+              </div>
+
+              {/* Handschrift and Arrow */}
+              <div className={styles.textAndArrowContainer}>
+                <motion.p 
+                  className={`handschrift ${styles.handschrift}`}
+                  viewport={{ 
+                    once: false,  
+                    amount: 0.9   
+                  }}
+                  onViewportEnter={() => {
+                    controls.start("visible");
+                  }}
+                  onViewportLeave={() => {
+                    controls.start("hidden");
+                  }}
+                >
+                  <span>
+                    {line1.map((segment, segmentIndex) => (
+                      <span key={segmentIndex}>
+                        {segment.isSpace ? (
+                          <span className={styles.smallSpace}>{segment.text}</span>
+                        ) : (
+                          segment.text.split('').map((char, charIndex) => (
+                            <motion.span
+                              key={`line1-${segmentIndex}-${charIndex}`}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={controls}
+                              variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                visible: { opacity: 1, y: 0 }
+                              }}
+                              transition={{
+                                duration: 0.05,
+                                delay: (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
+                                ease: "easeOut"
+                              }}
+                            >
+                              {char}
+                            </motion.span>
+                          ))
+                        )}
+                      </span>
+                    ))}
+                  </span>
+                  <br />
+                  <span>
+                    {line2.map((segment, segmentIndex) => (
+                      <span key={segmentIndex}>
+                        {segment.isSpace ? (
+                          <span className={styles.smallSpace}>{segment.text}</span>
+                        ) : (
+                          segment.text.split('').map((char, charIndex) => (
+                            <motion.span
+                              key={`line2-${segmentIndex}-${charIndex}`}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={controls}
+                              variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                visible: { opacity: 1, y: 0 }
+                              }}
+                              transition={{
+                                duration: 0.05,
+                                delay: (line1.length * 0.1) + (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
+                                ease: "easeOut"
+                              }}
+                            >
+                              {char}
+                            </motion.span>
+                          ))
+                        )}
+                      </span>
+                    ))}
+                  </span>
+                </motion.p>
+
+                {/* Arrow */}
+                <SVG src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/>
+              </div>
+          </motion.div>
+
+          {/* Canvas Container */}
+          <div className={styles.canvasContainer}> 
+            <div className={styles.mockupWrapper}> 
+              {/* Background layer */}
+              <motion.img src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1}}/>
+              
+              
+              {/* Middle layer */}
+              <motion.div style={{ y: paletteY }}>
+                <SVG src={'illustrations/palette.svg'} className={styles.palette}/>
+              </motion.div>
+              <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative' }}>
+                <SVG src={'illustrations/tools.svg'} className={styles.tools}/>
+              </motion.div>
+
+              {/* Foreground layer */}
+              <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4 }}>
+                <SVG src={'illustrations/iPhoneMockup.svg'} className={styles.mockup}/>
+                <div 
+                  className={`${styles.drawingContainer}`}
+                  style={cursorStyle}
+                >
+                  <ReactSketchCanvas 
+                    className={styles.reactSketchCanvas}
+                    ref={canvasRef} 
+                    width="100%"
+                    height="100%"
+                    canvasColor="#000000"
+                    strokeWidth={2}
+                    strokeColor={strokeColor}
+                    allowOnlyPointerType="all" 
+                    onChange={handleDrawing} 
+                  />
+                  {!hasDrawn && (
+                    <div className={styles.drawingPrompt}>
+                      <Lottie 
+                          animationData={drawingAnimation}
+                          className={styles.drawingAnimation}
+                          loop={true}
+                          autoplay={true}
+                      />
+                    </div>
+                  )}
+                  {hasDrawn && ( 
+                    <div className={styles.iconContainer}>
+                      <SVG src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
+                      <SVG src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
+                      <SVG src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
+                    </div>
+                  )}
+                </div>
+                {hasDrawn && (
+                  <p className={`body-highlighted ${styles.bodyHighlighted}`}>
+                    Fertig gezaubert? Klick auf die Kamera und schick uns dein Meisterwerk.
+                  </p>
+                )}
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      ) : (
+
+        <div>
+        
+        {/* Canvas Container */}
         <div 
         ref={container}
         className={styles.canvasContainer} 
         >
-          <div className={styles.mockupWrapper}>
-            {/* Background layer */}
-            <motion.img src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1}}/>
-            
-            {/* Middle layer */}
-            <motion.div style={{ y: paletteY }}>
-              <SVG src={'illustrations/palette.svg'} className={styles.palette}/>
-            </motion.div>
-            <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative' }}>
-              <SVG src={'illustrations/tools.svg'} className={styles.tools}/>
-            </motion.div>
-            
-            {/* Foreground layer */}
-            <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4 }}>
-              <SVG src={'illustrations/iPadMockup.svg'} className={styles.mockup}/>
-              <div 
-                className={`${styles.drawingContainer}`}
-                style={cursorStyle}
-              >
-                <ReactSketchCanvas 
-                  className={styles.reactSketchCanvas}
-                  ref={canvasRef} 
-                  width="100%"
-                  height="100%"
-                  canvasColor="#262626"
-                  strokeWidth={3}
-                  strokeColor={strokeColor}
-                  allowOnlyPointerType="all" 
-                  onChange={handleDrawing} 
-                />
-                {!hasDrawn && (
-                  <div className={styles.drawingPrompt}>
-                    <Lottie 
-                        animationData={drawingAnimation}
-                        className={styles.drawingAnimation}
-                        loop={true}
-                        autoplay={true}
-                    />
-                  </div>
+            <div className={styles.mockupWrapper}>
+              {/* Background layer */}
+              <motion.img src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1}}/>
+              
+              {/* Middle layer */}
+              <motion.div style={{ y: paletteY }}>
+                <SVG src={'illustrations/palette.svg'} className={styles.palette}/>
+              </motion.div>
+              <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative' }}>
+                <SVG src={'illustrations/tools.svg'} className={styles.tools}/>
+              </motion.div>
+              
+              {/* Foreground layer */}
+              <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4 }}>
+                <SVG src={'illustrations/iPadMockup.svg'} className={styles.mockup}/>
+                <div 
+                  className={`${styles.drawingContainer}`}
+                  style={cursorStyle}
+                >
+                  <ReactSketchCanvas 
+                    className={styles.reactSketchCanvas}
+                    ref={canvasRef} 
+                    width="100%"
+                    height="100%"
+                    canvasColor="#262626"
+                    strokeWidth={3}
+                    strokeColor={strokeColor}
+                    allowOnlyPointerType="all" 
+                    onChange={handleDrawing} 
+                  />
+                  {!hasDrawn && (
+                    <div className={styles.drawingPrompt}>
+                      <Lottie 
+                          animationData={drawingAnimation}
+                          className={styles.drawingAnimation}
+                          loop={true}
+                          autoplay={true}
+                      />
+                    </div>
+                  )}
+                  {hasDrawn && ( 
+                    <div className={styles.iconContainer}>
+                      <SVG src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
+                      <SVG src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
+                      <SVG src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
+                    </div>
+                  )}
+                </div>
+                {hasDrawn && (
+                  <p className={`body-highlighted ${styles.bodyHighlighted}`}>
+                    Fertig gezaubert? Klick auf die Kamera und schick uns dein Meisterwerk.
+                  </p>
                 )}
-                {hasDrawn && ( 
-                  <div className={styles.iconContainer}>
-                    <SVG src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
-                    <SVG src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
-                    <SVG src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
-                  </div>
-                )}
-              </div>
-              {hasDrawn && (
-                <p className={`body-highlighted ${styles.bodyHighlighted}`}>
-                  Fertig gezaubert? Klick auf die Kamera und schick uns dein Meisterwerk.
-                </p>
-              )}
-            </motion.div>
-          </div>
-          </div>
+              </motion.div>
+            </div>
+        </div>
 
-        {/* Text */}
+        
+        {/* Text Container */}
         <motion.div 
         className={styles.textContainer} 
         initial={{ y: 30, opacity: 0 }}
@@ -291,6 +507,11 @@ export default function Creativity() {
           </motion.p>
           {/* <SVG src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/> */}
         </motion.div>
+
+        </div>
+
+      )
+      }
 
     </div>
   );

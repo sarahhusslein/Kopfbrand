@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { motion } from 'framer-motion';
 import styles from './contact.module.css';
 import SVG from 'react-inlinesvg';
@@ -12,6 +13,8 @@ import { Typewriter } from 'react-simple-typewriter';
 
 export default function Contact() {
 
+
+    const isMobile = useMediaQuery({ maxWidth: 768 });
     const rightContainerRef = useRef(null);
     const { ref: textRef, inView } = useInView({
         threshold: 0.5, 
@@ -35,10 +38,22 @@ export default function Contact() {
         return () => container.removeEventListener('mousemove', handleMouseMove);
     }, []);
 
+    const handleTouchStart = () => {
+        if (isMobile && rightContainerRef.current) {
+          rightContainerRef.current.classList.add(styles.flashlightActive);
+        }
+      };
+    
+      const handleTouchEnd = () => {
+        if (isMobile && rightContainerRef.current) {
+          rightContainerRef.current.classList.remove(styles.flashlightActive);
+        }
+      };
+
     return (
         <div className={styles.outerContainer}>
             <motion.div 
-            className={styles.container}
+            className={ styles.container}
             initial={{ y: 40, opacity: 0, scale: 0.8 }}
             whileInView={{ y: 0, opacity: 1, scale: 1 }}
             viewport={{ once: false, amount: 0.05}}
@@ -67,7 +82,7 @@ export default function Contact() {
                 </div>
 
                 {/* Right Container */}
-                <div className={styles.rightContainer} ref={rightContainerRef}>
+                <div className={ styles.rightContainer} ref={rightContainerRef} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
                     <h2 className={`h2`}>LETS&nbsp;
                         <span className={styles.underline}> 
                         TALK!

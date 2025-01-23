@@ -17,5 +17,19 @@
     z-index: 1;
     margin-top: -13vh; 
     position: relative;
-    
   }
+
+
+/***************************** 
+Adjustments for Mobile
+*****************************/
+@media (max-width: 768px) {
+  .wrapper {
+    padding-top: 15vh;
+  }
+
+  .testimonialsContainer {
+    margin-top: -24vh;  
+  }
+
+}

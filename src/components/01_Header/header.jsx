@@ -1,5 +1,6 @@
 "use client";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { motion } from 'framer-motion';
 import styles from './header.module.css';
 import SVG from 'react-inlinesvg';
@@ -8,6 +9,12 @@ import LogoSlider from './logoSlider';
 
 
 export default function Header() {
+
+    const isMobile = useMediaQuery({ maxWidth: 768 });
+    const videoSrc = isMobile ? '/videos/exampleVideoMobile.mov' : '/videos/exampleVideo1.mov';
+
+
+    
     const handleClick = () => {
         document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
     };
@@ -37,7 +44,7 @@ export default function Header() {
                         loop
                         playsInline
                     >
-                        <source src="/videos/exampleVideo1.mov" />
+                        <source src={videoSrc} />
                     </video>
                     {/* <img src="/images/heroImage.png" alt="header" className={styles.heroImage} /> */}
                     <div className={styles.overlay} />

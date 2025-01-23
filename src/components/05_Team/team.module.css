@@ -20,7 +20,7 @@
 .h4 {
     color: white;
     text-align: center;
-    padding: 40px 0px;
+    padding: 40px 16px;
 }
 
 .switchContainer {
@@ -55,6 +55,30 @@
 
 .switchPulse svg * {
     cursor: pointer;
+}
+
+.switchWrapper {
+    position: relative;
+    cursor: pointer;
+    width: fit-content; /* Contains to SVG size */
+    height: fit-content;
+    display: block; /* Ensures consistent layout */
+}
+
+.switchLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.switchLayer:last-child {
+    position: relative; /* Makes the wrapper take up space */
+}
+
+.switchLayer svg {
+    width: 100%;
+    height: 100%;
+    display: block; /* Removes any unwanted space */
 }
 
 
@@ -102,7 +126,6 @@
 .position {
     padding-bottom: 16px;
     min-height: 1.2em;
-
 }
 
 .keywords {
@@ -122,27 +145,85 @@
     transition: opacity 3s ease-in-out;
 }
 
-.switchWrapper {
-    position: relative;
-    cursor: pointer;
-    width: fit-content; /* Contains to SVG size */
-    height: fit-content;
-    display: block; /* Ensures consistent layout */
-}
 
-.switchLayer {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
 
-.switchLayer:last-child {
-    position: relative; /* Makes the wrapper take up space */
-}
 
-.switchLayer svg {
-    width: 100%;
-    height: 100%;
-    display: block; /* Removes any unwanted space */
-}
+  /*****************************   
+  Adjustments for Mobile
+  *****************************/
+  @media (max-width: 768px) {
 
+    .container {
+        margin-top: -50px;
+    }
+
+    .h1 {
+        padding-top: 30vh;
+    }
+
+    .h4 {
+        padding: 32px 16px;
+    }
+
+    .switchContainer {
+        padding-left: 16px;
+        padding-right: 16px; 
+        padding-bottom: 50px;
+    }
+
+    .arrow {
+        margin-left: 16px;
+    }
+
+    .switchPulse {
+        margin-left: 16px;
+        max-width: 25vw;
+    }
+
+    .teamImageContainerMobile {
+        width: 100vw;
+        overflow-x: auto; 
+        overflow-y: hidden;
+        padding: 0;
+        box-sizing: border-box;
+        padding-bottom: 20vh;
+    }
+
+    .teamPictureMobile {
+        /* width: auto; */
+        /* height: 57vh; */
+        width: calc((232px * 5) + (16px * 6));
+        height: auto;
+
+    }
+
+    .funFactRow {
+        display: flex;
+        flex-direction: row;
+        padding: 0 16px;
+        gap: 16px;
+        margin-top: -10vh;
+    }
+
+    .funFact {
+        background-color: white;
+        border-radius: 20px;
+        padding: 25px 16px;
+    }
+
+    .name {
+        padding-bottom: 4px;
+    }
+
+    .position {
+        padding-bottom: 12px;
+    }
+    
+    .keywordsMobile {
+        display: inline-block;
+        white-space: nowrap;
+        width: 200px;
+    }
+
+
+  }

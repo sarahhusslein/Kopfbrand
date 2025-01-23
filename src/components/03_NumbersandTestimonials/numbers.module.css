@@ -18,7 +18,6 @@
     height: 100%;
 }
 
-
 .h2 {
     text-align: left;
     color: white;
@@ -41,7 +40,6 @@
     gap: 30px;
 }
 
-
 .numbersColumn {
     display: flex;
     flex-direction: column;
@@ -58,3 +56,35 @@
     color: white;
     max-width: 116px;
 }
+
+
+/***************************** 
+Adjustments for Mobile
+*****************************/
+@media (max-width: 768px) {
+    .container {
+        margin: 0 12px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column; 
+        gap: 32px;
+    }
+
+    .numbersRow {
+        gap: 0px;
+        padding: 0 4px;
+    }
+
+    .numbersColumn {
+        gap: 4px;
+    }
+
+    .number {
+        font-size: 2.75rem;
+    }
+  
+  }

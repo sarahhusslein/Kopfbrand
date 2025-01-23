@@ -58,16 +58,44 @@
 
 .SVG {
     display: block; 
-    width: 100%; /* Ensures the SVG scales to fit the width of the parent */
+    width: 100%;
     height: auto;
     fill: var(--broom);
     cursor: none;
 }
 
 .SVGMask {
-    display: block; 
+    display: block;
     width: 100%; 
     height: auto;
     fill: white;
     cursor: none;
 }
+
+
+/***************************** 
+Adjustments for Mobile
+*****************************/
+@media (max-width: 768px) {
+    .container {
+        height: 110vh;
+        padding: 0 4px;
+        overflow: hidden;
+    }
+
+    .h1, .h1Mask {
+        margin: 0; 
+        max-width: calc(100% - 8px);
+    }
+
+    .underline {
+        position: relative;
+    }
+    
+    .SVG {
+        position: absolute; 
+        bottom: -8px;
+        left: 0;
+    }
+  
+  }

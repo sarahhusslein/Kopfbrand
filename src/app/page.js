@@ -1,6 +1,7 @@
 "use client"
 import styles from "./page.module.css";
 import { useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Lenis from 'lenis';
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
@@ -22,6 +23,13 @@ import CasesOverviewNew from "@/components/04_Cases/casesOverviewNew";
 
 
 export default function Home() {
+
+  // Device Types
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+
+  
+  /****** States ******/
+  // Ref States
   const containerRef = useRef(null);
   const headerRef = useRef(null);
   const servicesRef = useRef(null);
@@ -33,25 +41,19 @@ export default function Home() {
   const creativityRef = useRef(null);
   const contactRef = useRef(null);
   const footerRef = useRef(null);
-  const [headerHeight, setHeaderHeight] = useState(0);
-  const [servicesHeight, setServicesHeight] = useState(0);
-  const [numbersHeight, setNumbersHeight] = useState(0);
-  const [casesHeadlineHeight, setCasesHeadlineHeight] = useState(0);
-  const [casesOverviewHeight, setCasesOverviewHeight] = useState(0);
-  const [casesHeight, setCasesHeight] = useState(0);
-  const [teamHeight, setTeamHeight] = useState(0);
-  const [creativityHeight, setCreativityHeight] = useState(0);
-  const [contactHeight, setContactHeight] = useState(0);
-  const [footerHeight, setFooterHeight] = useState(0);
+
+  // Height States
+  const [heights, setHeights] = useState([]);
   const [totalHeight, setTotalHeight] = useState(0);
 
-  //Smooth scrolling
+
+  /****** Smooth Scrolling ******/
   useEffect(() => {
     const lenis = new Lenis({
       autoRaf: true,
     });
     
-    window.lenis = lenis; // Make it globally available
+    window.lenis = lenis; 
 
     function raf(time) {
       lenis.raf(time);
@@ -61,69 +63,58 @@ export default function Home() {
     requestAnimationFrame(raf);
   }, []);
 
+
+
+  /****** Heights ******/
   useEffect(() => {
-    if (headerRef.current && servicesRef.current) {
-      const headerHeight = headerRef.current.offsetHeight;
-      const servicesHeight = servicesRef.current.offsetHeight;
-      const numbersHeight = numbersRef.current.offsetHeight;
-      const casesHeadlineHeight = casesHeadlineRef.current.offsetHeight;
-      const casesOverviewHeight = casesOverviewRef.current.offsetHeight;
-      const casesHeight = casesRef.current.offsetHeight;
-      const teamHeight = teamRef.current.offsetHeight;
-      const creativityHeight = creativityRef.current.offsetHeight;
-      const contactHeight = contactRef.current.offsetHeight;
-      const footerHeight = footerRef.current.offsetHeight;
+    const calculateHeights = () => {
+      const newHeights = [
+        headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
+        casesRef, teamRef, creativityRef, contactRef, footerRef
+      ].map((ref) => ref.current?.offsetHeight || 0);
 
-      // Debugging: Log each height
-      console.log('Header Height:', headerHeight);
-      console.log('Services Height:', servicesHeight);
-      console.log('Numbers Height:', numbersHeight);
-      console.log('Cases Headline Height:', casesHeadlineHeight);
-      console.log('Cases Overview Height:', casesOverviewHeight);
-      console.log('Cases Height:', casesHeight);
-      console.log('Team Height:', teamHeight);
-      console.log('Creativity Height:', creativityHeight);
-      console.log('Contact Height:', contactHeight);
-      console.log('Footer Height:', footerHeight);
+      // Apply adjustments for numbersHeight and casesOverviewHeight
+      const adjustedHeights = [
+        newHeights[0], // headerHeight
+        newHeights[1], // servicesHeight
+        isMobile ? newHeights[2] : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight adjustment
+        newHeights[3], // casesHeadlineHeight
+        isMobile ? newHeights[4] : newHeights[4] - (40 * window.innerHeight / 100), // casesOverviewHeight adjustment
+        newHeights[5], // casesHeight
+        newHeights[6], // teamHeight
+        newHeights[7], // creativityHeight
+        newHeights[8], // contactHeight
+        newHeights[9]  // footerHeight
+      ];
+
+      console.log('Header height:', adjustedHeights[0]);
+
+      const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
+      setHeights(adjustedHeights);
+      setTotalHeight(total);
+    };
 
 
-      setHeaderHeight(headerHeight);
-      setServicesHeight(servicesHeight);
-      setNumbersHeight(numbersHeight);
-      setCasesHeadlineHeight(casesHeadlineHeight);
-      setCasesOverviewHeight(casesOverviewHeight);
-      setCasesHeight(casesHeight);
-      setTeamHeight(teamHeight);
-      setCreativityHeight(creativityHeight);
-      setContactHeight(contactHeight);
-      setFooterHeight(footerHeight);
+    calculateHeights();
+    window.addEventListener('resize', calculateHeights);
 
-      // Adjust calculation if necessary
+    return () => window.removeEventListener('resize', calculateHeights);
+  }, [isMobile]);
 
-      setTotalHeight(
-        headerHeight + 
-        servicesHeight + 
-        (numbersHeight - (40 * window.innerHeight / 100)) + 
-        casesHeadlineHeight + 
-        (casesOverviewHeight - (40 * window.innerHeight / 100)) + 
-        casesHeight + 
-        teamHeight + 
-        creativityHeight + 
-        contactHeight + 
-        footerHeight
-      );
-    }
-  }, []);
 
-  // For Header: Start animation when it becomes sticky
+  /****** Scroll Progress ******/
+
+  // Calculate offsets based on device type
+  const headerOffset = isMobile ? [`${heights[0]}px end`, `${heights[0]}px start`] : [`${heights[0]}px end`, `${heights[0] * 1.5}px start`];
+
   const { scrollYProgress: headerScrollYProgress } = useScroll({
     target: containerRef,
-    offset: [`${headerHeight}px end`, `${headerHeight * 1.5}px start`]
+    offset: headerOffset
   });
 
   const { scrollYProgress: servicesScrollYProgress } = useScroll({
     target: containerRef,
-    offset: [`${headerHeight + servicesHeight}px end`, `${headerHeight + servicesHeight}px start`]
+    offset: [`${heights[0] + heights[1]}px end`, `${heights[0] + heights[1]}px start`]
   });
 
   const { scrollYProgress: servicesOpacityScrollProgress } = useScroll({
@@ -156,7 +147,9 @@ export default function Home() {
     offset: ["end end", "end start"]
   });
 
-  // Transformations
+
+  /****** Transformations ******/
+  // Y positions
   const headerY = useTransform(headerScrollYProgress, [0, 1], [0, 100]); 
   const servicesY = useTransform(servicesScrollYProgress, [0, 1], [0, 400]); 
   const numbersY = useTransform(numbersScrollYProgress, [0, 1], [0, 400]); 
@@ -164,30 +157,17 @@ export default function Home() {
   const casesY = useTransform(casesScrollProgress, [0, 1], [0, 400]); 
   const teamY = useTransform(teamScrollYProgress, [0, 1], [0, 400]); 
 
-  const scaleHeader = useTransform(headerScrollYProgress, [0, 1], [1, 0.6]);
+  // Scale and rotate
+  const scaleHeader = useTransform(headerScrollYProgress, [0, 1], isMobile ? [1, 0.1] : [1, 0.6]);
   const rotateHeader = useTransform(headerScrollYProgress, [0, 1], [0, -6]);
+
+  // Opacities
   const opacityHeader = useTransform(headerScrollYProgress, [0, 1], [1, 0]);
   const opacityServices = useTransform(servicesOpacityScrollProgress, [0, 1], [1, 0]);
   const opacityNumbers = useTransform(numbersScrollYProgress, [0, 1], [1, 0.7]);
   const opacityCasesOverview = useTransform(casesOverviewOpacityScrollProgress, [0, 1], [1, 0]);
   const opacityCases = useTransform(casesScrollProgress, [0, 1], [1, 0.7]);
 
-
-  useEffect(() => {
-    const unsubscribe = casesScrollProgress.onChange((value) => {
-      console.log('casesScrollProgress:', value);
-    });
-  
-    return () => unsubscribe();
-  }, [casesScrollProgress]);
-  
-  useEffect(() => {
-    const unsubscribe = casesY.onChange((value) => {
-      console.log('casesY:', value);
-    });
-  
-    return () => unsubscribe();
-  }, [casesY]);
 
 
 
@@ -208,7 +188,7 @@ export default function Home() {
           className={styles.headerContainer}
           id="header"
           style={{ 
-            top: `calc(100vh - ${headerHeight}px)`, 
+            top: `calc(100vh - ${heights[0] || 0}px)`, 
             scale: scaleHeader, 
             rotate: rotateHeader, 
             opacity: opacityHeader,
@@ -224,7 +204,6 @@ export default function Home() {
           ref={servicesRef}
           className={styles.servicesContainer}
           style={{ 
-            // top: `calc(100vh - ${servicesHeight}px)`, 
             y: servicesY,
             opacity: opacityServices
           }}
@@ -260,7 +239,7 @@ export default function Home() {
           ref={casesOverviewRef}
           className={styles.casesOverviewContainer}
           style={{ 
-            top: `calc(100vh - ${casesOverviewHeight}px)`,
+            top: `calc(100vh - ${heights[4] || 0}px)`,
             opacity: opacityCasesOverview
           }}
         >
