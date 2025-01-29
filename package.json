@@ -19,10 +19,12 @@
     "react-fast-marquee": "^1.6.5",
     "react-inlinesvg": "^4.1.4",
     "react-intersection-observer": "^9.13.1",
+    "react-parallax-tilt": "^1.7.275",
     "react-responsive": "^10.0.0",
     "react-simple-typewriter": "^5.0.1",
     "react-sketch-canvas": "^6.2.0",
-    "sass": "^1.83.1"
+    "sass": "^1.83.1",
+    "vanilla-tilt": "^1.8.1"
   },
   "devDependencies": {
     "@types/node": "^22.8.5",

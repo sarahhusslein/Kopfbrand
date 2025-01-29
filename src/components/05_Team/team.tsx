@@ -7,7 +7,15 @@ import styles from './team.module.css';
 import SVG from 'react-inlinesvg';
 
 
-const teamMembers = [
+interface TeamMember {
+    id: number;
+    name: string;
+    position: string;
+    keywords: string[];
+}
+
+
+const teamMembers: TeamMember[] = [
     {
         id: 1,
         name: "Christoph Bäumler",
@@ -40,17 +48,25 @@ const teamMembers = [
     }
 ];
 
+interface MousePosition {
+    x: number;
+    y: number;
+    shouldOffsetLeft: boolean;
+    tiltAngle?: number;
+}
+
 export default function Team() {
 
     const isMobile = useMediaQuery({ maxWidth: 768 });
-    const [SwitchOn, setSwitchOn] = useState(false);
-    const [hoveredMember, setHoveredMember] = useState(null);
-    const [displayName, setDisplayName] = useState('');
-    const [displayPosition, setDisplayPosition] = useState('');
-    const [displayKeywords, setDisplayKeywords] = useState('');
-    const [mousePosition, setMousePosition] = useState({ 
+    const [SwitchOn, setSwitchOn] = useState<boolean>(false);
+    const [hoveredMember, setHoveredMember] = useState<number | null>(null);
+    const [displayName, setDisplayName] = useState<string>('');
+    const [displayPosition, setDisplayPosition] = useState<string>('');
+    const [displayKeywords, setDisplayKeywords] = useState<string>('');
+    const [mousePosition, setMousePosition] = useState<MousePosition>({ 
         x: 0, 
         y: 0, 
+        shouldOffsetLeft: false,
     });
 
     const controls = useAnimation();
@@ -64,7 +80,6 @@ export default function Team() {
 
     
 
-    // Add useInView hook
     const { ref: teamImageRef, inView } = useInView({
         threshold: 0.8, // Trigger when 80% of the component is visible
     });
@@ -88,7 +103,7 @@ export default function Team() {
         setSwitchOn(prevState => !prevState); 
     };
 
-    const animateText = (member) => {
+    const animateText = (member: TeamMember) => {
         // Reset all text when starting new animation
         setDisplayName('');
         setDisplayPosition('');
@@ -127,7 +142,7 @@ export default function Team() {
         }, 10);
     };
 
-    const handleMouseMove = (e, memberId) => {
+    const handleMouseMove = (e: React.MouseEvent, memberId: number) => {
         const containerRect = e.currentTarget.closest(`.${styles.teamImageContainer}`).getBoundingClientRect();
         const x = e.clientX - containerRect.left;
         const y = e.clientY - containerRect.top;
@@ -178,15 +193,12 @@ export default function Team() {
         }
     }; 
 
-    // Add useEffect to start the handwriting animation after parent animations
-    useEffect(() => {
-        // Delay matches or is slightly longer than your itemAnimation duration
-        const timer = setTimeout(() => {
-            controls.start("visible");
-        }, 800); // 800ms = 0.8s delay after parent animations
+    const handwritingAnimation = {
+        initial: { opacity: 0 },
+        inView: { opacity: 1, transition: { duration: 0.5, ease: "easeInOut" } }
+    };
 
-        return () => clearTimeout(timer);
-    }, [controls]);
+    
 
     // Calculate total duration of text animation
     const totalTextDuration = warningText.reduce((total, segment) => {
@@ -195,6 +207,25 @@ export default function Team() {
         }
         return total;
     }, 0);
+
+    // Add useEffect to start the handwriting animation after parent animations
+    useEffect(() => {
+        if (inView) {
+            const enterTimeout = setTimeout(() => {
+                controls.start("visible");
+                const svgTimeout = setTimeout(() => {
+                    svgControls.start("visible");
+                }, totalTextDuration * 1000);
+    
+                return () => clearTimeout(svgTimeout);
+            }, 800);
+    
+            return () => clearTimeout(enterTimeout);
+        } else {
+            controls.start("hidden");
+            svgControls.start("hidden");
+        }
+    }, [inView]); 
 
     return (
         <div className={styles.container}>

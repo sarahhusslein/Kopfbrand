@@ -2,13 +2,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
 import styles from './numbers.module.css';
 import SVG from 'react-inlinesvg';
 import CountUp from 'react-countup';
 
 
+interface Number {
+    id: number;
+    start: number;
+    keyword: string;
+  }
 
-const numbers = [
+const numbers: Number[] = [
     {
         id: 1,
         start: 16,
@@ -36,8 +42,8 @@ export default function Numbers() {
 
     const isMobile = useMediaQuery({ maxWidth: 768 });
 
-    const ref = useRef();
-    const [inView, setInView] = useState(false);
+    const ref = useRef<HTMLDivElement | null>(null);
+    const [inView, setInView] = useState<boolean>(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -55,14 +61,23 @@ export default function Numbers() {
       }, []);
 
 
+
   return (
-    <div className={styles.container}>
+    <div>
+      <Tilt 
+        className={styles.container}
+        tiltMaxAngleX={7} 
+        tiltMaxAngleY={3} 
+        transitionSpeed={3000}
+        transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
+        glareEnable={false} 
+      >
         <div className={styles.content}>
             <motion.div 
             className={styles.headline}
             initial={{ y: 40, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 1 }}
+            viewport={{ once: false, amount: 0.5 }}
             transition={{ duration: 0.5, ease: "easeInOut"}}
             >
                 <h2 className={`h2 ${styles.h2}`}>
@@ -99,7 +114,8 @@ export default function Numbers() {
                     </div>
                 ))}
             </motion.div>
-        </div>
+          </div>
+        </Tilt>
     </div>
   );
 }

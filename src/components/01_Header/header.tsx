@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
 import styles from './header.module.css';
 import SVG from 'react-inlinesvg';
 import LogoSlider from './logoSlider';
@@ -16,7 +17,10 @@ export default function Header() {
 
     
     const handleClick = () => {
-        document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+        const element = document.getElementById('services');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
     const itemAnimation = {
@@ -31,7 +35,6 @@ export default function Header() {
             }
         }
     };
-
 
     return (
         <div className={styles.container}>
@@ -58,9 +61,23 @@ export default function Header() {
                 >
                     <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimation}>UNSERE KÖPFE</motion.h1>
                     <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus ut similique ipsum aut neque dolorem in quia doloremque aut officia quae.</motion.h4>
-                    <motion.button className={styles.button} variants={itemAnimation} onClick={handleClick}>
-                        <SVG src="/icons/arrowDown.svg" className={styles.arrowIcon} />
-                    </motion.button>
+                    <Tilt
+                        tiltMaxAngleX={15} 
+                        tiltMaxAngleY={15} 
+                        glareEnable={true}
+                        glareBorderRadius='15px'
+                        transitionSpeed={1000}
+                        transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
+                        scale={1.1}
+                    >
+                        <motion.button 
+                            className={styles.button} 
+                            variants={itemAnimation} 
+                            onClick={handleClick}
+                        >
+                            <SVG src="/icons/arrowDown.svg" className={styles.arrowIcon} />
+                        </motion.button>
+                    </Tilt>
                 </motion.div>
             </div>
             <LogoSlider />

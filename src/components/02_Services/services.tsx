@@ -1,20 +1,28 @@
 "use client";
 import React, { useState,useRef, useEffect } from 'react';
-import styles from './services.module.css';
 import { useMediaQuery } from 'react-responsive';
-import placeholderServiceAnimation from '/public/animations/placeholderServiceAnimation.json';  
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
+import Lottie from 'lottie-react'; 
+import SVG from 'react-inlinesvg';
+import styles from './services.module.css';
 import serviceAnimation from '/public/animations/service.json';  
 import konzeptionAnimaton from '/public/animations/konzeption.json';
 import contentcreationAnimation from '/public/animations/contentcreation.json';
 import prototypingAnimation from '/public/animations/prototyping.json';
 import versandAnimation from '/public/animations/versand.json';
-import testAnimation from '/public/animations/test.json';
-import SVG from 'react-inlinesvg';
-import Lottie from 'lottie-react'; 
-import { motion, useScroll, useTransform } from 'framer-motion';
 
 
-const services = [
+interface Service {
+    id: number;
+    animation: any; 
+    number: string;
+    title: string;
+    description: string;
+    paddingTop: number;
+}
+
+const services: Service[] = [
   {
       id: 1,
       animation: serviceAnimation,
@@ -62,7 +70,9 @@ const services = [
 export default function Services() {
     
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  const [activeIndex, setActiveIndex] = useState(isMobile ? 0 : 2); // Start with first or third service active  
+  const [activeIndex, setActiveIndex] = useState<number>(isMobile ? 0 : 2); // Start with first or third service active  
+  const servicesRef = useRef<HTMLDivElement | null>(null);
+  const tiltRef = React.useRef(null);
 
   const DURATION = 0.3;
   const STAGGER = 0.02;
@@ -79,7 +89,6 @@ export default function Services() {
     }
     };  
 
-    const servicesRef = useRef(null);
 
     // First phase: Initial movement to staggered positions
     const { scrollYProgress: initialProgress } = useScroll({
@@ -93,49 +102,45 @@ export default function Services() {
         offset: ["start 10vh", "end 70vh"]
     });
 
-    // For debugging
-    useEffect(() => {
-        initialProgress.onChange(v => console.log('Initial Progress:', v));
-        finalProgress.onChange(v => console.log('Final Progress:', v));
-    }, [initialProgress, finalProgress]);
 
     const serviceY = [
         useTransform(
             [initialProgress, finalProgress], 
-            ([i, f]) => {
+            ([i, f]: [number, number]) => {
                 if (i < 1) return 200 + (20 - 200) * i;  // First phase: 200 -> 20
                 return 20 + (10 - 20) * f;  // Second phase: 20 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
-            ([i, f]) => {
+            ([i, f]: [number, number]) => {
                 if (i < 1) return 200 + (80 - 200) * i;  // First phase: 200 -> 80
                 return 80 + (10 - 80) * f;  // Second phase: 80 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
-            ([i, f]) => {
+            ([i, f]: [number, number]) => {
                 if (i < 1) return 200 + (25 - 200) * i;  // First phase: 200 -> 25
                 return 25 + (10 - 25) * f;  // Second phase: 25 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
-            ([i, f]) => {
+            ([i, f]: [number, number]) => {
                 if (i < 1) return 200 + (40 - 200) * i;  // First phase: 200 -> 40
                 return 40 + (10 - 40) * f;  // Second phase: 40 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
-            ([i, f]) => {
+            ([i, f]: [number, number]) => {
                 if (i < 1) return 300 + (45 - 300) * i;  // First phase: 300 -> 45
                 return 45 + (10 - 45) * f;  // Second phase: 45 -> 10
             }
         ),
     ];
+
 
 
   return (
@@ -158,12 +163,7 @@ export default function Services() {
                         initial="initial"
                         whileHover="hovered"
                     >
-                        <div
-                            className={`h1 ${styles.h1}`}
-                            variants={{
-                                initial: { y: 0 },
-                                hovered: { y: "-100%" },
-                            }}>
+                        <div className={`h1 ${styles.h1}`}>
                             {Array.from("KREATIVAGENTUR").map((letter, i) => (
                                 <motion.span 
                                     key={i}
@@ -189,10 +189,6 @@ export default function Services() {
                             style={{
                                 position: "absolute",
                                 inset: 0,
-                            }}
-                            variants={{
-                                initial: { y: "100%" },
-                                hovered: { y: 0 },
                             }}>
                             {Array.from("KREATIVAGENTUR").map((letter, i) => (
                                 <motion.span 
@@ -268,14 +264,22 @@ export default function Services() {
                                 onMouseEnter={() => setActiveIndex(index)}
                                 onMouseLeave={() => setActiveIndex(2)}
                             >
-                                <div className={styles.animationContainer}>
-                                    <Lottie 
-                                        animationData={service.animation}
-                                        className={styles.drawingAnimation}
-                                        loop={true}
-                                        autoplay={true}
-                                    />
-                                </div>
+                                <Tilt 
+                                    tiltMaxAngleX={15} 
+                                    tiltMaxAngleY={15} 
+                                    glareEnable={true} 
+                                    transitionSpeed={1000}
+                                    transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
+                                >
+                                    <div className={styles.animationContainer} ref={tiltRef}>
+                                        <Lottie 
+                                            animationData={service.animation}
+                                            className={styles.drawingAnimation}
+                                            loop={true}
+                                            autoplay={true}
+                                        />
+                                    </div>
+                                </Tilt>
                                 <div className={styles.textContent}>
                                     <span className={`numbers ${styles.number}`}>{service.number}</span>
                                     <h3 className={`subtitle-highlighted ${styles.serviceTitle}`}>{service.title}</h3>
@@ -290,5 +294,6 @@ export default function Services() {
     </div>
   );
 }
+
 
 

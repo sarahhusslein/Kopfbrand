@@ -9,6 +9,10 @@
     z-index: 1;
 }
 
+.container, .container * {
+    cursor: url('/icons/cursorFlameRed.svg'), auto;
+}
+
 .animation {
     flex: 1;
     display: flex;
@@ -38,7 +42,6 @@
 }
 
 .testimonialCard {
-    /* Remove left/right/margin properties to allow natural sizing */
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -55,6 +58,7 @@
     will-change: transform;
     width: fit-content;
 }
+
 
 /* Active card styles */
 .activeCard,

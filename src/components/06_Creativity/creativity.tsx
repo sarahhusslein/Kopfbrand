@@ -13,7 +13,6 @@ import drawingAnimation from '../../../public/animations/drawingAnimation.json';
 export default function Creativity() {
 
   const isMobile = useMediaQuery({ maxWidth: 768 });
-
   const container = useRef(null);
 
   const { scrollYProgress: parallaxScrollYProgress } = useScroll({
@@ -95,6 +94,8 @@ export default function Creativity() {
     const rotations = "KREATIVITÄT".split('').map(() => Math.random() * 360 - 180);
     setInitialRotations(rotations);
   }, []); // Nur beim ersten Client-Renden
+
+
   
 
   // const [randomDelays, setRandomDelays] = useState<number[]>([]);
@@ -134,6 +135,8 @@ export default function Creativity() {
     { text: " ", isSpace: true },
     { text: "aus.", isSpace: false },
   ];
+
+  
 
   return (
     <div className={styles.container}>
@@ -324,9 +327,7 @@ export default function Creativity() {
           </div>
         </div>
       ) : (
-
-        <div>
-        
+        <>
         {/* Canvas Container */}
         <div 
         ref={container}
@@ -334,19 +335,19 @@ export default function Creativity() {
         >
             <div className={styles.mockupWrapper}>
               {/* Background layer */}
-              <motion.img src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1}}/>
+              <motion.img src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1,}}/>
               
               {/* Middle layer */}
               <motion.div style={{ y: paletteY }}>
                 <SVG src={'illustrations/palette.svg'} className={styles.palette}/>
               </motion.div>
-              <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative' }}>
+              <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative',  }}>
                 <SVG src={'illustrations/tools.svg'} className={styles.tools}/>
               </motion.div>
               
               {/* Foreground layer */}
-              <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4 }}>
-                <SVG src={'illustrations/iPadMockup.svg'} className={styles.mockup}/>
+              <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4}}>
+                <SVG src={'illustrations/iPadMockup.svg'} className={styles.mockup} />
                 <div 
                   className={`${styles.drawingContainer}`}
                   style={cursorStyle}
@@ -507,9 +508,7 @@ export default function Creativity() {
           </motion.p>
           {/* <SVG src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/> */}
         </motion.div>
-
-        </div>
-
+        </>
       )
       }
 

@@ -1,6 +1,7 @@
 "use client"
 import React, { useRef, useState, useEffect } from 'react'; 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
 import styles from './cases.module.css';
 
 const cases = [
@@ -98,6 +99,8 @@ const cases = [
         };
     }, []);
 
+
+
     return (
         <div>
             <div className={styles.outerContainer} ref={ref}>
@@ -141,40 +144,47 @@ const cases = [
 
                     {/* Cases Text */}
                     <div className={styles.textWrapper}>
-                        <div className={styles.overlay} />
-                        <AnimatePresence initial={false}>
-                            <motion.div 
-                                className={styles.textContainer}
-                                key={activeCase.id}
-                                initial={{ opacity: 0 }}
-                                animate={{ 
-                                    opacity: activeCase.id === 1 && !showFirstContent ? 0 : 1 
-                                }}
-                                exit={{ opacity: 0 }}
-                                transition={{ 
-                                    duration: 0.5,
-                                    ease: "easeOut"
-                                }}
-                                style={{
-                                    position: 'absolute',
-                                    left: 70,
-                                    bottom: 70
-                                }}
-                            >
-                                <h2 className={`h2 ${styles.h2}`}>{activeCase.company}</h2>
-                                <h4 className={`subtitle ${styles.subtitle}`}>{activeCase.description}</h4>
-                                <div className={styles.tagRow}>
-                                    {activeCase.tags.map((tag, index) => (
-                                        <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
-                                    ))}
-                                </div>
-                            </motion.div>
-                        </AnimatePresence>
+                        <Tilt 
+                            tiltMaxAngleX={5} 
+                            tiltMaxAngleY={5} 
+                            glareEnable={true} 
+                            glareBorderRadius='30px' 
+                            className={styles.overlay}
+                        >
+                            <AnimatePresence initial={false}>
+                                <motion.div 
+                                    className={styles.textContainer}
+                                    key={activeCase.id}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ 
+                                        opacity: activeCase.id === 1 && !showFirstContent ? 0 : 1 
+                                    }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ 
+                                        duration: 0.5,
+                                        ease: "easeOut"
+                                    }}
+                                    style={{
+                                        position: 'absolute',
+                                        left: 70,
+                                        bottom: 70
+                                    }}
+                                >
+                                    <h2 className={`h2 ${styles.h2}`}>{activeCase.company}</h2>
+                                    <h4 className={`subtitle ${styles.subtitle}`}>{activeCase.description}</h4>
+                                    <div className={styles.tagRow}>
+                                        {activeCase.tags.map((tag, index) => (
+                                            <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </Tilt>
                     </div>
                 </div>
 
                 {/* Cases Image Scrolling */}
-                <div className={styles.casesContainer}>
+                <div className={styles.casesContainer} >
                     {cases.map((caseItem, index) => (
                         <CaseStudyImage 
                             key={caseItem.id} 

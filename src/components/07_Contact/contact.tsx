@@ -1,13 +1,15 @@
-'use client';
+'use client'
 import React, { useEffect, useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { Typewriter } from 'react-simple-typewriter';  
+import Tilt from 'react-parallax-tilt';
 import styles from './contact.module.css';
 import SVG from 'react-inlinesvg';
 import Lottie from 'lottie-react'; 
 import arrowAnimation from '/public/animations/arrowRightAnimation.json';
-import { useInView } from 'react-intersection-observer';
-import { Typewriter } from 'react-simple-typewriter';  
+
 
 
 
@@ -15,7 +17,7 @@ export default function Contact() {
 
 
     const isMobile = useMediaQuery({ maxWidth: 768 });
-    const rightContainerRef = useRef(null);
+    const rightContainerRef = useRef<HTMLDivElement | null>(null);
     const { ref: textRef, inView } = useInView({
         threshold: 0.5, 
     });
@@ -24,7 +26,7 @@ export default function Contact() {
         const container = rightContainerRef.current;
         if (!container) return;
 
-        const handleMouseMove = (e) => {
+        const handleMouseMove = (e: MouseEvent) => {
             const rect = container.getBoundingClientRect();
             const x = e.clientX - rect.left; // mouse position relative to container
             const y = e.clientY - rect.top;
@@ -50,14 +52,23 @@ export default function Contact() {
         }
       };
 
+
+
     return (
         <div className={styles.outerContainer}>
+            <Tilt 
+                tiltMaxAngleX={5} 
+                tiltMaxAngleY={5} 
+                glareEnable={false} 
+                transitionSpeed={3000}
+                transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
+            >
             <motion.div 
-            className={ styles.container}
-            initial={{ y: 40, opacity: 0, scale: 0.8 }}
-            whileInView={{ y: 0, opacity: 1, scale: 1 }}
-            viewport={{ once: false, amount: 0.05}}
-            transition={{ duration: 0.7, ease: "easeInOut"}}
+                className={ styles.container}
+                initial={{ y: 40, opacity: 0, scale: 0.8 }}
+                whileInView={{ y: 0, opacity: 1, scale: 1 }}
+                viewport={{ once: false, amount: 0.05}}
+                transition={{ duration: 0.7, ease: "easeInOut"}}
             >
                 {/* Left Container */}
                 <div className={styles.leftContainer}>
@@ -77,7 +88,6 @@ export default function Contact() {
                         className={styles.arrowAnimation}
                         loop={true}
                         autoplay={true}
-                        speed={1}
                     />
                 </div>
 
@@ -108,6 +118,7 @@ export default function Contact() {
                     </div>
                 </div>
             </motion.div>
+            </Tilt>
         </div>
     );
 }

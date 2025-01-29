@@ -4,7 +4,12 @@ import styles from './footer.module.css';
 import SVG from 'react-inlinesvg';
 
 
-const footerServiceItems = [
+interface FooterItem {
+    icon: string;
+    text: string;
+  }
+
+const footerServiceItems: FooterItem[] = [
     { icon: '/icons/strategie.svg', text: 'Strategie & Beratung' },
     { icon: '/icons/konzeption.svg', text: 'Konzeption & Kreation' },
     { icon: '/icons/contentDesign.svg', text: 'Digital Content Design' },
@@ -12,7 +17,7 @@ const footerServiceItems = [
     { icon: '/icons/versand_new.svg', text: 'Versand & Lagerung' },
 ];
 
-const footerContactItems = [
+const footerContactItems: FooterItem[] = [
     { icon: '/icons/linkedIn.svg', text: 'LinkedIn' },
     { icon: '/icons/phone.svg', text: '089 24224281' },
     { icon: '/icons/mail.svg', text: 'info@kopfbrand.com' },
@@ -21,7 +26,7 @@ const footerContactItems = [
 const DURATION = 0.3;
 const STAGGER = 0;
 
-const AnimatedFooterItem = ({ icon, text }) => (
+const AnimatedFooterItem = ({ icon, text }: FooterItem) => (
     <motion.div 
         className={styles.item}
         whileHover="hovered"

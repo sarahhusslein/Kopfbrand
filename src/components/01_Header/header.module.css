@@ -74,8 +74,11 @@
     border: none;
     padding: 12px 25px;
     color: white;
-    cursor: pointer !important;
     transition: transform 0.3s ease;
+}
+
+.button, .button * {
+    cursor: var(--cursor-pointer-yellow), pointer;
 }
 
 .button:hover {

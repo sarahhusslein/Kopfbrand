@@ -40,14 +40,21 @@ Cursor
 *****************************/
 
 
+/* Define cursor URLs */
+:root {
+  --cursor-default: url('/icons/cursorFlame.svg');
+  --cursor-pointer-yellow: url('/icons/cursorPointerYellow.svg');
+  --cursor-pointer-red: url('/icons/cursorPointerRed.svg');
+}
+
 /* Apply default cursor to all elements */
 * {
-  cursor: url('/icons/cursorFlame.svg'), auto;
+  cursor: var(--cursor-default), auto;
 }
 
 /* Apply pointer cursor to clickable elements */
 a, button, [role="button"], input[type="submit"], input[type="button"] {
-  cursor: url('/icons/cursorFlame.svg'), pointer;
+  cursor: var(--cursor-pointer), pointer;
 }
 
 

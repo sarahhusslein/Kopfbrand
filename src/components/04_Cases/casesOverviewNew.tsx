@@ -18,7 +18,7 @@ export default function CasesOverview() {
         offset: ["50vh end", "start start"]
     });
 
-    const baseMaxScale = 100/30;  // This will scale from 35vw to 100vw
+    const baseMaxScale : number = 100/27.5;  // This will scale from 30vw to 100vw
 
     const scale1 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale]);
     const scale2 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 1.5]);

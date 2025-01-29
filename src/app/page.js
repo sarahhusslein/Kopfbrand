@@ -1,23 +1,21 @@
 "use client"
-import styles from "./page.module.css";
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import styles from "./page.module.css";
 import Lenis from 'lenis';
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
 import Header from "@/components/01_Header/header";
 import Services from "@/components/02_Services/services";
-import Numbers from "@/components/03_NumbersandTestimonials/numbers";
+import NumbersAndTestimonials from "@/components/03_NumbersandTestimonials/numbersAndTestimonials";
 import CasesHeadline from "@/components/04_Cases/casesHeadline";
+import CasesOverviewNew from "@/components/04_Cases/casesOverviewNew";
 import Cases from "@/components/04_Cases/cases";
 import Team from "@/components/05_Team/team";
 import Creativity from "@/components/06_Creativity/creativity";
 import Contact from "@/components/07_Contact/contact";
 import Footer from "@/components/08_Footer/footer";
 import FinalBar from "@/components/09_FinalBar/finalBar";
-import NumbersAndTestimonials from "@/components/03_NumbersandTestimonials/numbersAndTestimonials";
-import CasesOverview from "@/components/04_Cases/casesOverview";
-import CasesOverviewNew from "@/components/04_Cases/casesOverviewNew";
 
 
 

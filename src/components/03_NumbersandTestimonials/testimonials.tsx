@@ -1,16 +1,22 @@
 "use client";
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { motion, AnimatePresence } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
+import Lottie from 'lottie-react'; 
 import styles from './testimonials.module.css';
 import SVG from 'react-inlinesvg';
-import Lottie from 'lottie-react'; 
 import satelliteAnimation from '../../../public/animations/satelliteAnimation.json';
 import satelliteAnimationRed from '../../../public/animations/satelliteAnimationRed.json';
-import { motion, AnimatePresence } from 'framer-motion';
 
+interface Testimonial {
+    id: number;
+    name: string;
+    position: string;
+    description: Array<string | { text: string, highlight: boolean }>;
+}
 
-
-const testimonials = [
+const testimonials: Testimonial[] = [
     {
         id: 1,
         name: "Michael Patrick Struck",
@@ -44,7 +50,7 @@ const testimonials = [
 ];
 
 
-const renderDescription = (description) => {
+const renderDescription = (description: Array<string | { text: string, highlight: boolean }>) => {
     return description.map((part, index) => {
         if (typeof part === 'string') {
             return <span key={index}>{part}</span>;
@@ -57,22 +63,22 @@ const renderDescription = (description) => {
     });
 };
 
+type PageState = [number, number];
 
 export default function Testimonials() {
 
     const isMobile = useMediaQuery({ maxWidth: 768 });
-
-    const [[page, direction], setPage] = useState([0, 0]);
+    const [[page, direction], setPage] = useState<PageState>([0, 0]);
 
     // Normalize the page number to handle infinite loop
     const activeIndex = ((page % testimonials.length) + testimonials.length) % testimonials.length;
 
 
-    const paginate = (newDirection) => {
+    const paginate = (newDirection: number) => {
         setPage([page + newDirection, newDirection]);
     };
 
-    const dragEndHandler = (event, info) => {
+    const dragEndHandler = (event: any, info: any) => {
         const swipeThreshold = 20; // Match this with dragConstraints
         const velocityThreshold = 20; // Lower this to make it less sensitive
         
@@ -86,7 +92,7 @@ export default function Testimonials() {
         }
     };
 
-    const calculateCardStyle = (index) => {
+    const calculateCardStyle = (index: number) => {
         let diff = index - activeIndex;
         const totalItems = testimonials.length;
         
@@ -111,7 +117,7 @@ export default function Testimonials() {
         };
     };
 
-    const handleCardClick = (clickedIndex) => {
+    const handleCardClick = (clickedIndex: number) => {
         // Skip if clicking the active card
         if (clickedIndex === activeIndex) return;
         
@@ -173,11 +179,11 @@ export default function Testimonials() {
             ) : (
                 <div className={styles.container}>
                     <motion.div 
-                    className={styles.animation}
-                    initial={{ y: 30, opacity: 0.2 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    viewport={{ once: false, amount: 0.6 }}
-                    transition={{ duration: 0.7, ease: "easeInOut"}}
+                        className={styles.animation}
+                        initial={{ y: 30, opacity: 0.2 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: false, amount: 0.6 }}
+                        transition={{ duration: 0.7, ease: "easeInOut"}}
                     >
                         {/* <SVG src="/illustrations/arrowBottomRight.svg"/> */}
                         <div className={styles.animation}>
@@ -190,40 +196,40 @@ export default function Testimonials() {
                         </div >
                     </motion.div>
                     <motion.div 
-                    className={styles.testimonialSection}
-                    initial={{ y: 50, opacity: 0, scale: 0.8 }}
-                    whileInView={{ y: 0, opacity: 1, scale: 1 }}
-                    viewport={{ once: false, amount: 0.6 }}
-                    transition={{ duration: 0.7, ease: "easeInOut"}}
+                        className={styles.testimonialSection}
+                        initial={{ y: 50, opacity: 0, scale: 0.8 }}
+                        whileInView={{ y: 0, opacity: 1, scale: 1 }}
+                        viewport={{ once: false, amount: 0.6 }}
+                        transition={{ duration: 0.7, ease: "easeInOut"}}
                     >
                         <div className={styles.carousel}>
                             <AnimatePresence initial={false} mode="popLayout">
                                 {testimonials.map((testimonial, index) => (
                                     <motion.div
-                                    key={testimonial.id}
-                                    className={`${styles.testimonialCard} ${
-                                        index === activeIndex 
-                                            ? styles.activeCard 
-                                            : Math.abs(index - activeIndex) === 1 
-                                                ? styles.neighborCard 
-                                                : ''
-                                    }`}
-                                    style={{ position: 'absolute' }}
-                                    animate={calculateCardStyle(index)}
-                                    drag="x"
-                                    dragConstraints={{ left: -60, right: 60 }}
-                                    dragElastic={0.2}
-                                    dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-                                    onDragEnd={dragEndHandler}
-                                    onClick={() => handleCardClick(index)}
-                                    whileHover={(custom) => ({ 
-                                        scale: custom.hover,
-                                        transition: { duration: 0.2 }
-                                    })}
-                                    custom={calculateCardStyle(index)}
+                                        key={testimonial.id}
+                                        className={`${styles.testimonialCard} ${
+                                            index === activeIndex 
+                                                ? styles.activeCard 
+                                                : Math.abs(index - activeIndex) === 1 
+                                                    ? styles.neighborCard 
+                                                    : ''
+                                        }`}
+                                        style={{ position: 'absolute' }}
+                                        animate={calculateCardStyle(index)}
+                                        drag="x"
+                                        dragConstraints={{ left: -60, right: 60 }}
+                                        dragElastic={0.2}
+                                        dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+                                        onDragEnd={dragEndHandler}
+                                        onClick={() => handleCardClick(index)}
+                                        whileHover={{
+                                            scale: calculateCardStyle(index).hover,
+                                            transition: { duration: 0.2 }
+                                        }}
+                                        custom={calculateCardStyle(index)}
                                 >
                                         <div className={styles.quoteContainer}>
-                                            <motion.div 
+                                            <motion.div
                                                 className={styles.quoteSVG}
                                                 initial={{ scale: 0.3}}
                                                 animate={{ 
