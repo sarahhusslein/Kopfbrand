@@ -1,5 +1,8 @@
+"use client"
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation'; 
+import Link from "next/link";
 import styles from './footer.module.css';
 import SVG from 'react-inlinesvg';
 
@@ -7,7 +10,14 @@ import SVG from 'react-inlinesvg';
 interface FooterItem {
     icon: string;
     text: string;
+    url?: string;
   }
+
+interface AnimatedFooterItemProps {
+    icon: string;
+    text: string;
+    url?: string;
+}
 
 const footerServiceItems: FooterItem[] = [
     { icon: '/icons/strategie.svg', text: 'Strategie & Beratung' },
@@ -18,15 +28,87 @@ const footerServiceItems: FooterItem[] = [
 ];
 
 const footerContactItems: FooterItem[] = [
-    { icon: '/icons/linkedIn.svg', text: 'LinkedIn' },
-    { icon: '/icons/phone.svg', text: '089 24224281' },
-    { icon: '/icons/mail.svg', text: 'info@kopfbrand.com' },
+    { icon: '/icons/linkedIn.svg', text: 'LinkedIn', url: 'https://www.linkedin.com' },
+    { icon: '/icons/phone.svg', text: '089 24224281', url: 'tel:08924224281' },
+    { icon: '/icons/mail.svg', text: 'info@kopfbrand.com', url: 'mailto:info@kopfbrand.com' },
 ];
 
 const DURATION = 0.3;
 const STAGGER = 0;
 
-const AnimatedFooterItem = ({ icon, text }: FooterItem) => (
+// const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url }) => (
+//     <motion.div 
+//         className={styles.item}
+//         whileHover="hovered"
+//         initial="initial"
+//         animate="initial"
+//     >
+//         <SVG src={icon} className={styles.icon} />
+//         <motion.div 
+//             className={styles.animatedText}
+//         >
+//             <div className={styles.textWrapper}>
+//             {url ? (
+//                     <a href={url} className={styles.contactLink}>
+//                         {text.split('').map((letter, i) => (
+//                             <motion.span 
+//                                 key={i}
+//                                 variants={{
+//                                     initial: { y: 0 },
+//                                     hovered: { y: "-100%" },
+//                                 }}
+//                                 transition={{
+//                                     duration: DURATION,
+//                                     ease: "easeInOut",
+//                                     delay: STAGGER * i,
+//                                 }}
+//                             >
+//                                 {letter === ' ' ? '\u00A0' : letter}
+//                             </motion.span>
+//                         ))}
+//                     </a>
+//                 ) : (
+//                     text.split('').map((letter, i) => (
+//                         <motion.span 
+//                             key={i}
+//                             variants={{
+//                                 initial: { y: 0 },
+//                                 hovered: { y: "-100%" },
+//                             }}
+//                             transition={{
+//                                 duration: DURATION,
+//                                 ease: "easeInOut",
+//                                 delay: STAGGER * i,
+//                             }}
+//                         >
+//                             {letter === ' ' ? '\u00A0' : letter}
+//                         </motion.span>
+//                     ))
+//                 )}
+//             </div>
+//             <div className={styles.hoverText}>
+//                 {text.split('').map((letter, i) => (
+//                     <motion.span 
+//                         key={i}
+//                         variants={{
+//                             initial: { y: "100%" },
+//                             hovered: { y: 0 },
+//                         }}
+//                         transition={{
+//                             duration: DURATION,
+//                             ease: "easeInOut",
+//                             delay: STAGGER * i,
+//                         }}
+//                     >
+//                         {letter === ' ' ? '\u00A0' : letter}
+//                     </motion.span>
+//                 ))}
+//             </div>
+//         </motion.div>
+//     </motion.div>
+// );
+
+const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url }) => (
     <motion.div 
         className={styles.item}
         whileHover="hovered"
@@ -34,51 +116,95 @@ const AnimatedFooterItem = ({ icon, text }: FooterItem) => (
         animate="initial"
     >
         <SVG src={icon} className={styles.icon} />
-        <motion.div 
-            className={styles.animatedText}
-        >
-            <div className={styles.textWrapper}>
-                {text.split('').map((letter, i) => (
-                    <motion.span 
-                        key={i}
-                        variants={{
-                            initial: { y: 0 },
-                            hovered: { y: "-100%" },
-                        }}
-                        transition={{
-                            duration: DURATION,
-                            ease: "easeInOut",
-                            delay: STAGGER * i,
-                        }}
-                    >
-                        {letter === ' ' ? '\u00A0' : letter}
-                    </motion.span>
-                ))}
-            </div>
-            <div className={styles.hoverText}>
-                {text.split('').map((letter, i) => (
-                    <motion.span 
-                        key={i}
-                        variants={{
-                            initial: { y: "100%" },
-                            hovered: { y: 0 },
-                        }}
-                        transition={{
-                            duration: DURATION,
-                            ease: "easeInOut",
-                            delay: STAGGER * i,
-                        }}
-                    >
-                        {letter === ' ' ? '\u00A0' : letter}
-                    </motion.span>
-                ))}
-            </div>
-        </motion.div>
+        {url ? (
+            <a href={url} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+                <motion.div 
+                    className={styles.animatedText}
+                >
+                    <div className={styles.textWrapper}>
+                        {text.split('').map((letter, i) => (
+                            <motion.span 
+                                key={i}
+                                variants={{
+                                    initial: { y: 0 },
+                                    hovered: { y: "-100%" },
+                                }}
+                                transition={{
+                                    duration: DURATION,
+                                    ease: "easeInOut",
+                                    delay: STAGGER * i,
+                                }}
+                            >
+                                {letter === ' ' ? '\u00A0' : letter}
+                            </motion.span>
+                        ))}
+                    </div>
+                    <div className={styles.hoverText}>
+                        {text.split('').map((letter, i) => (
+                            <motion.span 
+                                key={i}
+                                variants={{
+                                    initial: { y: "100%" },
+                                    hovered: { y: 0 },
+                                }}
+                                transition={{
+                                    duration: DURATION,
+                                    ease: "easeInOut",
+                                    delay: STAGGER * i,
+                                }}
+                            >
+                                {letter === ' ' ? '\u00A0' : letter}
+                            </motion.span>
+                        ))}
+                    </div>
+                </motion.div>
+            </a>
+        ) : (
+            <motion.div className={styles.animatedText}>
+                <div className={styles.textWrapper}>
+                    {text.split('').map((letter, i) => (
+                        <motion.span 
+                            key={i}
+                            variants={{
+                                initial: { y: 0 },
+                                hovered: { y: "-100%" },
+                            }}
+                            transition={{
+                                duration: DURATION,
+                                ease: "easeInOut",
+                                delay: STAGGER * i,
+                            }}
+                        >
+                            {letter === ' ' ? '\u00A0' : letter}
+                        </motion.span>
+                    ))}
+                </div>
+                <div className={styles.hoverText}>
+                    {text.split('').map((letter, i) => (
+                        <motion.span 
+                            key={i}
+                            variants={{
+                                initial: { y: "100%" },
+                                hovered: { y: 0 },
+                            }}
+                            transition={{
+                                duration: DURATION,
+                                ease: "easeInOut",
+                                delay: STAGGER * i,
+                            }}
+                        >
+                            {letter === ' ' ? '\u00A0' : letter}
+                        </motion.span>
+                    ))}
+                </div>
+            </motion.div>
+        )}
     </motion.div>
 );
-
  
-  export default function Footer() {
+  export default function Footer(): JSX.Element {
+
+    const router = useRouter();
 
     return (
       <div className={styles.bar}>
@@ -91,8 +217,8 @@ const AnimatedFooterItem = ({ icon, text }: FooterItem) => (
         >
             {/* Column 1 */}
             <div className={styles.column}>
-                <div className={styles.logoContainer}>
-                <SVG src="/logos/kopfbrand.svg" className={styles.logo}/>
+                <div className={styles.logoContainer} onClick={() => router.push('/')}>
+                    <SVG src="/logos/kopfbrand.svg" className={styles.logo}/>
                 </div>
                 <div className={styles.content}>
                     <p className={styles.highlightedText}>Agentur Kopfbrand</p>
@@ -127,11 +253,12 @@ const AnimatedFooterItem = ({ icon, text }: FooterItem) => (
                             key={index}
                             icon={item.icon}
                             text={item.text}
+                            url={item.url}
                             />
                         ))}
                     </div>
-                <p className={styles.highlightedText}>Impressum</p>
-                <p className={styles.highlightedText}>Datenschutzbedingungen</p>
+                <Link href="/impressum" className={styles.link}>Impressum</Link>
+                <Link href="/datenschutz" className={styles.link}>Datenschutzbedingungen</Link>
                 </div>
             </div>
         </motion.div>

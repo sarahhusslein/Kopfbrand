@@ -44,6 +44,7 @@ Cursor
 :root {
   --cursor-default: url('/icons/cursorFlame.svg');
   --cursor-pointer-yellow: url('/icons/cursorPointerYellow.svg');
+  --cursor-pointer-yellow-filled: url('/icons/cursorPointerYellowFilled.svg');
   --cursor-pointer-red: url('/icons/cursorPointerRed.svg');
 }
 

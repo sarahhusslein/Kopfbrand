@@ -28,6 +28,6 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/components/11_Examples/stickyContainer.js", "src/components/04_Cases/casesOverviewNew.jsx", "src/components/04_Cases/casesOverviewNew.jsx", "src/components/04_Cases/cases.jsx"  ],
+, "src/components/11_Examples/stickyContainer.js", "src/components/04_Cases/casesOverviewNew.jsx", "src/components/04_Cases/cases.jsx"  ],
   "exclude": ["node_modules"]
 }

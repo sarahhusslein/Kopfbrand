@@ -1,6 +1,9 @@
 import localFont from "next/font/local";
 import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/08_Footer/footer";
+import NavigationBar from "@/components/00_NavigationBar/navigationBar";
+import FinalBar from "@/components/09_FinalBar/finalBar";
 
 
 // Lokale Fonts (Roel)

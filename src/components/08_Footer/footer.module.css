@@ -25,6 +25,10 @@
   align-items: flex-start;
 }
 
+.logoContainer * {
+  cursor: var(--cursor-pointer-yellow), pointer !important;
+}
+
 .logo {
     height: 20px;
     width: auto;
@@ -54,6 +58,19 @@
     color: white;
 }
 
+.link {
+  margin: 0; 
+  font-family: var(--font-open-sans);
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  cursor: var(--cursor-pointer-yellow), pointer;
+}
+
+.contactLink * {
+  cursor: var(--cursor-pointer-yellow), pointer !important;
+}
+
 .text {
     margin: 0; 
     font-family: var(--font-open-sans);
@@ -80,6 +97,7 @@
 .textWrapper span {
     display: inline-block;
 }
+
 
 .hoverText {
     position: absolute;
