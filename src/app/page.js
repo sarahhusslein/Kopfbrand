@@ -145,6 +145,11 @@ export default function Home() {
     offset: ["end end", "end start"]
   });
 
+  const { scrollYProgress: footerScrollYProgress } = useScroll({
+    target: contactRef,
+    offset: ["end end", "end 50vh"]
+  });
+
 
   /****** Transformations ******/
   // Y positions
@@ -165,6 +170,7 @@ export default function Home() {
   const opacityNumbers = useTransform(numbersScrollYProgress, [0, 1], [1, 0.7]);
   const opacityCasesOverview = useTransform(casesOverviewOpacityScrollProgress, [0, 1], [1, 0]);
   const opacityCases = useTransform(casesScrollProgress, [0, 1], [1, 0.7]);
+  const opacityFooter = useTransform(footerScrollYProgress, [0, 1], [0.2, 1]);
 
 
 
@@ -283,13 +289,19 @@ export default function Home() {
           <Contact />
         </div>
         
-        <div id="footer" 
+        <motion.div id="footer" 
           ref={footerRef}
           className={styles.footerContainer}
+          style={{ 
+            top: `calc(100vh - ${heights[9] || 0}px)`,
+            marginTop: `-${heights[9] || 0}px`,
+            opacity: opacityFooter
+          }}
         >
           <Footer />
-        </div>
-        <FinalBar />
+          <FinalBar />
+        </motion.div>
+        
       </div>
     </div>
   );

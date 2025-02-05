@@ -6,6 +6,7 @@ import Tilt from 'react-parallax-tilt';
 import styles from './header.module.css';
 import SVG from 'react-inlinesvg';
 import LogoSlider from './logoSlider';
+import useMousePosition from '@/utils/useMousePosition';
 
 
 
@@ -13,6 +14,63 @@ export default function Header() {
 
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const videoSrc = isMobile ? '/videos/exampleVideoMobile.mov' : '/videos/exampleVideo1.mov';
+    const { mousePosition, updateMousePosition } = useMousePosition();
+
+    interface Spark {
+        id: number;
+        x: number;
+        y: number;
+        size: number;
+        color: string;
+        lifespan: number;
+        velocityX: number;
+        velocityY: number;
+        curveFactor: number;
+        acceleration: number;
+    }
+    
+    const [sparks, setSparks] = useState<Spark[]>([]);
+
+    const getRandomFlameColor = () => {
+        const r = Math.floor(228 + Math.random() * (230 - 228)); 
+        const g = Math.floor(Math.random() * 256); 
+        const b = Math.floor(Math.random() * 63); 
+        return `rgb(${r}, ${g}, ${b})`;
+    };
+
+    useEffect(() => {
+        const addSpark = (x: number, y: number) => {
+            const id = Date.now(); 
+
+            const angle = Math.random() * Math.PI * 2; 
+            const speed = Math.random() * 20 + 8;
+
+
+            
+            const newSpark: Spark = {
+                id,
+                x,
+                y,
+                size: Math.random() * 16 + 4,
+                color: getRandomFlameColor(),
+                velocityX: Math.cos(angle) * speed,
+                velocityY: Math.sin(angle) * speed,
+                curveFactor: (Math.random() - 0.5) * 30, // Für kurvige Bewegung
+                acceleration: Math.random() * 0.8 + 0.05,
+                lifespan: Math.random() * 3000 + 500, // Zufällige Lebensdauer
+            };
+
+            setSparks(prev => [...prev, newSpark]);
+            
+            setTimeout(() => {
+                setSparks((prev) => prev.filter((spark) => spark.id !== id));
+            }, newSpark.lifespan);
+        };
+
+        if (mousePosition.x !== 0 && mousePosition.y !== 0) {
+            addSpark(mousePosition.x, mousePosition.y);
+        }
+    }, [mousePosition]);
 
 
     
@@ -38,7 +96,34 @@ export default function Header() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.heroSection}>
+            <div className={styles.heroSection} onMouseMove={updateMousePosition}>
+            {sparks.map((spark) => (
+                    <motion.div
+                        key={spark.id}
+                        initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                    animate={{
+                        x: [0, spark.velocityX * 2, spark.velocityX * 3 + spark.curveFactor],
+                        y: [0, spark.velocityY * 2, spark.velocityY * 3 + spark.curveFactor],
+                        opacity: [1, 0.8, 0.2, 0],
+                        scale: [1, 0.9, 0.6]
+                    }}
+                    transition={{ duration: spark.lifespan / 1000, type: "tween", ease: "backOut" }}
+                    style={{
+                        position: "absolute",
+                        left: spark.x,
+                        top: spark.y,
+                        width: spark.size,
+                        height: spark.size,
+                        backgroundColor: spark.color,
+                        borderRadius: "50%",
+                        pointerEvents: "none",
+                        filter: "blur(1px)",
+                        mixBlendMode: "screen",
+                        zIndex: 1000,
+                        boxShadow: `0 0 ${spark.size / 3}px 3px ${spark.color}`
+                    }}
+                    />
+                ))}
                 <div className={styles.imageWrapper}>
                     <video 
                         className={styles.heroVideo}  

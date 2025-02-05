@@ -80,7 +80,7 @@ const router = useRouter();
                 <h3 className={`h3 ${styles.h3}`}> Hinweis zur Streitbeilegung: </h3>
                 <p className={`body ${styles.body}`}>
                     Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <br />
-                    <a target="_blank" rel="noopener noreferrer" className={styles.link} href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">
+                    <a target="_blank" rel="noopener noreferrer" className={styles.link} href="https://ec.europa.eu/consumers/odr">
                     https://ec.europa.eu/consumers/odr
                     </a>
                     . Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.

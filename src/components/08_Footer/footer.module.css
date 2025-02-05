@@ -67,6 +67,10 @@
   cursor: var(--cursor-pointer-yellow), pointer;
 }
 
+.link:hover {
+  color: var(--broom);
+}
+
 .contactLink * {
   cursor: var(--cursor-pointer-yellow), pointer !important;
 }

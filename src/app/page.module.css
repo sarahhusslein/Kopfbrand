@@ -66,9 +66,10 @@
 }
 
 .footerContainer {
-  position: relative;
-  z-index: 11;  
+  position: sticky;
+  z-index: 9;  
 }
+
 
 .main {
   display: flex;
