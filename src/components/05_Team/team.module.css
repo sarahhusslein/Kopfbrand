@@ -54,7 +54,7 @@
 }
 
 .switchPulse svg * {
-    cursor: pointer;
+    cursor: var(--cursor-pointer-yellow), pointer !important;
 }
 
 .switchWrapper {
@@ -64,6 +64,20 @@
     height: fit-content;
     display: block; /* Ensures consistent layout */
 }
+
+.sparkContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 1px;
+    z-index: 1000;
+    pointer-events: none;
+    overflow: visible;
+}
+
+
 
 .switchLayer {
     position: absolute;

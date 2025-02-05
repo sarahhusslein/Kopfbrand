@@ -10,6 +10,10 @@
     z-index: 2;
 }
 
+.container * {
+    cursor: url('/icons/cursorFlameRed.svg'), auto !important;
+}
+
 .h1Wrapper {
     color: var(--darkest-grey);
     text-align: center;

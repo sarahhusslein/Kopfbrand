@@ -43,6 +43,8 @@ Cursor
 /* Define cursor URLs */
 :root {
   --cursor-default: url('/icons/cursorFlame.svg');
+  --cursor-flame-yellow: url('/icons/cursorFlameYellow.svg');
+  --cursor-flame-red: url('/icons/cursorFlameRed.svg');
   --cursor-pointer-yellow: url('/icons/cursorPointerYellow.svg');
   --cursor-pointer-yellow-filled: url('/icons/cursorPointerYellowFilled.svg');
   --cursor-pointer-red: url('/icons/cursorPointerRed.svg');

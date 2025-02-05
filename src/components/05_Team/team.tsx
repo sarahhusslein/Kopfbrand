@@ -55,10 +55,23 @@ interface MousePosition {
     tiltAngle?: number;
 }
 
+interface Spark {
+    id: number;
+    x: number;
+    y: number;
+    size: number;
+    color: string;
+    velocityX: number;
+    velocityY: number;
+    lifespan: number;
+}
+
+
 export default function Team() {
 
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const [SwitchOn, setSwitchOn] = useState<boolean>(false);
+    const [sparks, setSparks] = useState<Spark[]>([]);
     const [hoveredMember, setHoveredMember] = useState<number | null>(null);
     const [displayName, setDisplayName] = useState<string>('');
     const [displayPosition, setDisplayPosition] = useState<string>('');
@@ -227,6 +240,53 @@ export default function Team() {
         }
     }, [inView]); 
 
+
+    const getRandomFlameColor = () => {
+        const r = Math.floor(228 + Math.random() * (230 - 228)); 
+        const g = Math.floor(Math.random() * 256); 
+        const b = Math.floor(Math.random() * 63); 
+        return `rgb(${r}, ${g}, ${b})`;
+    };
+
+    useEffect(() => {
+        if (!SwitchOn) return; // Nur ausführen, wenn SwitchOn true wird
+    
+        const button = document.querySelector(`.${styles.switchWrapper}`);
+        if (!button) return;
+    
+    
+        // Erstelle 100 Sparks in einem Kreis, die sich explosionsartig bewegen
+        const newSparks = Array.from({ length: 100 }, () => {
+            const id = Date.now() + Math.random();
+            const angle = Math.random() * Math.PI * 2; // Zufälliger Winkel (0 - 2π)
+            const speed = Math.random() * 150 + 150; // Viel höherer Speed für "Schuss"
+    
+            return {
+                id,
+                x: 0,
+                y: 0,
+                size: Math.random() * 8 + 4,
+                color: getRandomFlameColor(),
+                velocityX: Math.cos(angle) * speed,
+                velocityY: Math.sin(angle) * speed,
+                lifespan: Math.random() * 3000 + 2000,
+            };
+        });
+    
+        setSparks(newSparks); // Direkt 100 Sparks setzen
+    
+        // Entferne sie nach der maximalen Lebensdauer
+        setTimeout(() => {
+            setSparks([]);
+        }, Math.max(...newSparks.map(s => s.lifespan)));
+    
+    }, [SwitchOn]); // Nur triggern, wenn sich `SwitchOn` von false → true ändert
+    
+    
+    
+
+
+
     return (
         <div className={styles.container}>
 
@@ -340,6 +400,31 @@ export default function Team() {
                             }}
                         >
                             <div className={styles.switchWrapper}>
+                                <div className={styles.sparkContainer}>
+                                {sparks.map((spark) => (
+                                    <motion.div
+                                        key={spark.id}
+                                        className={styles.spark}
+                                        initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                                        animate={{ 
+                                            x: spark.velocityX, 
+                                            y: spark.velocityY, 
+                                            opacity: 0, // Smooth ausfaden
+                                            scale: [1, 0.8, 0.6] // Leicht kleiner werden
+                                        }}
+                                        transition={{ duration: spark.lifespan / 1000, type: "tween", ease: "backOut" }}
+                                        style={{
+                                            backgroundColor: spark.color,
+                                            width: spark.size,
+                                            height: spark.size,
+                                            borderRadius: '50%',
+                                            position: 'absolute',
+                                        }}
+                                    />
+                                ))}
+                            </div>
+
+
                                 <motion.div 
                                     className={styles.switchLayer}
                                     animate={{ opacity: SwitchOn ? 0 : 1 }}
