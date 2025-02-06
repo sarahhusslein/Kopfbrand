@@ -1,4 +1,5 @@
 'use client'
+import dynamic from 'next/dynamic';
 import React, { useEffect, useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion } from 'framer-motion';
@@ -7,11 +8,10 @@ import { Typewriter } from 'react-simple-typewriter';
 import Tilt from 'react-parallax-tilt';
 import styles from './contact.module.css';
 import SVG from 'react-inlinesvg';
-import Lottie from 'lottie-react'; 
 import arrowAnimation from '/public/animations/arrowRightAnimation.json';
 
 
-
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function Contact() {
 

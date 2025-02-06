@@ -13,6 +13,7 @@ import CasesOverviewNew from "@/components/04_Cases/casesOverviewNew";
 import Cases from "@/components/04_Cases/cases";
 import Team from "@/components/05_Team/team";
 import Creativity from "@/components/06_Creativity/creativity";
+import Contact from "@/components/07_Contact/contact";
 
 
 
@@ -275,15 +276,14 @@ export default function Home() {
           <Creativity />
         </div>
 
+
+        {/****** Contact ******/}
         <div 
-            id="contact"
-            ref={contactRef}
-            className={styles.contactContainer}
-          >
-            <div>
-              hallo
-              Halloho
-            </div>
+          id="contact"
+          ref={contactRef}
+          className={styles.contactContainer}
+        >
+          <Contact />
         </div>
 
 
