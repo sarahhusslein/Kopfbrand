@@ -91,7 +91,7 @@ export default function Home() {
       console.log('Header height:', adjustedHeights[0]);
       console.log('Footer height:', adjustedHeights[9]);
 
-      const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
+      const total = adjustedHeights.reduce((sum, height) => sum + height, 0) - 500;
       setHeights(adjustedHeights);
       setTotalHeight(total);
     };
