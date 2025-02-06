@@ -12,6 +12,7 @@ import CasesHeadline from "@/components/04_Cases/casesHeadline";
 import CasesOverviewNew from "@/components/04_Cases/casesOverviewNew";
 import Cases from "@/components/04_Cases/cases";
 import Team from "@/components/05_Team/team";
+import Creativity from "@/components/06_Creativity/creativity";
 
 
 
@@ -265,6 +266,14 @@ export default function Home() {
         >
           <Team />
         </motion.div>
+
+        {/****** Creativity ******/}
+        <div 
+          ref={creativityRef}
+          className={styles.creativityContainer}
+        >
+          <Creativity />
+        </div>
 
         <div 
             id="contact"
