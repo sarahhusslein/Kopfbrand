@@ -47,6 +47,9 @@ export default function Home() {
 
   /****** Smooth Scrolling ******/
   useEffect(() => {
+
+    if (typeof window === "undefined") return;
+    
     const lenis = new Lenis({
       autoRaf: true,
     });
