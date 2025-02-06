@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
-import Lottie from 'lottie-react'; 
 import SVG from 'react-inlinesvg';
 import styles from './services.module.css';
 import serviceAnimation from '/public/animations/service.json';  
@@ -250,12 +249,7 @@ export default function Services() {
                         </div>
                         <div className={styles.serviceSection}>
                             <div className={styles.animationContainer}>
-                                <Lottie 
-                                    animationData={services[activeIndex].animation}
-                                    className={styles.drawingAnimation}
-                                    loop={true}
-                                    autoplay={true}
-                                />
+                                
                             </div>
                             <div className={styles.textContent}>
                                 <h3 className={`subtitle-highlighted ${styles.serviceTitle}`}>{services[activeIndex].title}</h3>
@@ -283,12 +277,7 @@ export default function Services() {
                                     transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
                                 >
                                     <div className={styles.animationContainer} ref={tiltRef}>
-                                        <Lottie 
-                                            animationData={service.animation}
-                                            className={styles.drawingAnimation}
-                                            loop={true}
-                                            autoplay={true}
-                                        />
+                                        
                                     </div>
                                 </Tilt>
                                 <div className={styles.textContent}>
