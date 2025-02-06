@@ -1,4 +1,5 @@
 "use client";
+import dynamic from 'next/dynamic';
 import React, { useState, useRef, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -65,6 +66,9 @@ const services: Service[] = [
 
 ];
 
+const Lottie = dynamic(() => import('lottie-react'), {
+    ssr: false,  // This ensures it is only rendered on the client
+  });
 
 export default function Services() {
 
@@ -249,7 +253,12 @@ export default function Services() {
                         </div>
                         <div className={styles.serviceSection}>
                             <div className={styles.animationContainer}>
-                                
+                            <Lottie 
+                                    animationData={services[activeIndex].animation}
+                                    className={styles.drawingAnimation}
+                                    loop={true}
+                                    autoplay={true}
+                                />
                             </div>
                             <div className={styles.textContent}>
                                 <h3 className={`subtitle-highlighted ${styles.serviceTitle}`}>{services[activeIndex].title}</h3>
@@ -277,7 +286,12 @@ export default function Services() {
                                     transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
                                 >
                                     <div className={styles.animationContainer} ref={tiltRef}>
-                                        
+                                    <Lottie 
+                                            animationData={service.animation}
+                                            className={styles.drawingAnimation}
+                                            loop={true}
+                                            autoplay={true}
+                                        />
                                     </div>
                                 </Tilt>
                                 <div className={styles.textContent}>
