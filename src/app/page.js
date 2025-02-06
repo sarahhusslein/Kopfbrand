@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
 
@@ -9,6 +10,9 @@ import styles from "./page.module.css";
 
 
 export default function Home() {
+
+  // Device Types
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   /****** States ******/
   // Ref States
