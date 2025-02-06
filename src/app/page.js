@@ -85,12 +85,13 @@ export default function Home() {
         newHeights[6], // teamHeight
         newHeights[7], // creativityHeight
         newHeights[8], // contactHeight
-        newHeights[9]  // footerHeight
+        newHeights[9], // footerHeight
       ];
 
       console.log('Header height:', adjustedHeights[0]);
+      console.log('Footer height:', adjustedHeights[9]);
 
-      const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
+      const total = adjustedHeights.reduce((sum, height) => sum + height, 0) - adjustedHeights[9];
       setHeights(adjustedHeights);
       setTotalHeight(total);
     };
@@ -151,7 +152,7 @@ export default function Home() {
 
   const { scrollYProgress: footerScrollYProgress } = useScroll({
     target: contactRef,
-    offset: ["end end", "end 50vh"]
+    offset: ["end end", "end 62vh"]
   });
 
 
@@ -174,9 +175,28 @@ export default function Home() {
   const opacityNumbers = useTransform(numbersScrollYProgress, [0, 1], [1, 0.7]);
   const opacityCasesOverview = useTransform(casesOverviewOpacityScrollProgress, [0, 1], [1, 0]);
   const opacityCases = useTransform(casesScrollProgress, [0, 1], [1, 0.7]);
-  const opacityFooter = useTransform(footerScrollYProgress, [0, 1], [0.2, 1]);
+  const opacityFooter = useTransform(footerScrollYProgress, [0, 1], [0.4, 1]);
 
-
+  const [footerSticky, setFooterSticky] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!contactRef.current || !footerRef.current) return;
+  
+      const contactRect = contactRef.current.getBoundingClientRect();
+      const footerRect = footerRef.current.getBoundingClientRect();
+  
+      // Prüfen, ob der Kontaktbereich sein unteres Ende erreicht hat
+      if (contactRect.bottom <= window.innerHeight) {
+        setFooterSticky(true);
+      } else {
+        setFooterSticky(false);
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
 
 
   return (
@@ -290,6 +310,7 @@ export default function Home() {
           id="contact"
           ref={contactRef}
           className={styles.contactContainer}
+
         >
           <Contact />
         </div>
@@ -299,10 +320,13 @@ export default function Home() {
         <motion.div id="footer" 
           ref={footerRef}
           className={styles.footerContainer}
-          style={{ 
-            top: `calc(100vh - ${heights[9] || 0}px)`,
-            marginTop: `-${heights[9] || 0}px`,
-            opacity: opacityFooter
+          style={{
+            position: 'relative', // Standard: Footer bewegt sich normal mit
+            ...(footerSticky && {
+              position: 'sticky',
+              bottom: 0,
+            }),
+            opacity: opacityFooter,
           }}
         >
           <Footer />
