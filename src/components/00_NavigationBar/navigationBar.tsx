@@ -48,6 +48,7 @@ export default function NavigationBar() {
         setInitialPositions(positions);
     }, []); 
 
+
     // Handle scroll behavior for showing/hiding navbar
     useEffect(() => {
         const handleScroll = () => {
@@ -190,12 +191,12 @@ export default function NavigationBar() {
                 <SVG src="/logos/kopfbrand.svg" />
             </div>
             <Tilt
-            tiltMaxAngleX={7} 
-            tiltMaxAngleY={5} 
-            glareEnable={false}
-            transitionSpeed={1000} 
-            transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
-            perspective={1000} 
+                tiltMaxAngleX={7} 
+                tiltMaxAngleY={5} 
+                glareEnable={false}
+                transitionSpeed={1000} 
+                transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
+                perspective={1000} 
             >
                 <div className={styles.navItems}>
                     {navItems.map((item) => (

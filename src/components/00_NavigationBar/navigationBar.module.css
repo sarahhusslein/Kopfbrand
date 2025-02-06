@@ -58,6 +58,8 @@
     pointer-events: all;
 }
 
+
+
 .navItems {
     display: flex;
     gap: 8px;

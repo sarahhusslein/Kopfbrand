@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import Lottie from 'lottie-react'; 
 import styles from './testimonials.module.css';
@@ -117,6 +117,8 @@ export default function Testimonials() {
         };
     };
 
+    const controls = useAnimation();
+
     const handleCardClick = (clickedIndex: number) => {
         // Skip if clicking the active card
         if (clickedIndex === activeIndex) return;
@@ -128,6 +130,14 @@ export default function Testimonials() {
         // Adjust for wrapping (e.g., going from last to first card)
         if (diff > totalItems / 2) diff -= totalItems;
         if (diff < -totalItems / 2) diff += totalItems;
+        
+        // Trigger the animation: first set opacity to 0
+        controls.start({ opacity: 0 }).then(() => {
+            // After a short delay, set opacity to 1
+            setTimeout(() => {
+                controls.start({ opacity: 1 });
+            }, 50);
+        });
         
         // Paginate in the appropriate direction
         paginate(diff > 0 ? 1 : -1);
@@ -214,7 +224,7 @@ export default function Testimonials() {
                                                     ? styles.neighborCard 
                                                     : ''
                                         }`}
-                                        style={{ position: 'absolute' }}
+                                        style={{ position: 'absolute', zIndex: index === activeIndex ? 10 : 1 }}
                                         animate={calculateCardStyle(index)}
                                         drag="x"
                                         dragConstraints={{ left: -60, right: 60 }}
@@ -242,7 +252,12 @@ export default function Testimonials() {
                                             >
                                                 <SVG src="/illustrations/quote.svg"/>
                                             </motion.div>
-                                            <div className={styles.textContent}>
+                                            <motion.div 
+                                                className={styles.textContent}
+                                                initial={{ opacity: 1, y: 10 }}
+                                                animate={index === activeIndex ? controls : { opacity: 0.9, y: 0 }}
+                                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                            >
                                                 <h3 className={`h3 ${styles.name}`}>
                                                     {testimonial.name}
                                                 </h3>
@@ -252,7 +267,7 @@ export default function Testimonials() {
                                                 <p className={`body ${styles.description}`}>
                                                     {renderDescription(testimonial.description)}
                                                 </p>
-                                            </div>
+                                            </motion.div>
                                         </div>
                                     </motion.div>
                                 ))}

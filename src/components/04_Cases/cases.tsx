@@ -1,6 +1,7 @@
 "use client"
 import React, { useRef, useState, useEffect } from 'react'; 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import SVG from 'react-inlinesvg';
 import Tilt from 'react-parallax-tilt';
 import styles from './cases.module.css';
 
@@ -99,7 +100,22 @@ const cases = [
         };
     }, []);
 
+  
+    const handleDotClick = (index: number) => {
+        
+        const containerHeight = ref.current?.offsetHeight || 0;
+        const scrollPosition = (containerHeight * index * 0.2);
+        const containerTop = ref.current?.getBoundingClientRect().top || 0;
+        const currentScroll = window.scrollY;
+        
+        const targetScroll = currentScroll + containerTop + scrollPosition;
+        
+        window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+        });
 
+    };
 
     return (
         <div>
@@ -130,7 +146,12 @@ const cases = [
                                 );
 
                                 return (
-                                    <div key={index} className={styles.dotContainer}>
+                                    <div 
+                                        key={index} 
+                                        className={styles.dotContainer}
+                                        onClick={() => handleDotClick(index)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
                                         <div className={styles.dot} />
                                         <motion.div 
                                             className={styles.activeDot}
@@ -148,7 +169,7 @@ const cases = [
                             tiltMaxAngleX={5} 
                             tiltMaxAngleY={5} 
                             glareEnable={true} 
-                            glareBorderRadius='30px' 
+                            glareBorderRadius='25px' 
                             className={styles.overlay}
                         >
                             <AnimatePresence initial={false}>

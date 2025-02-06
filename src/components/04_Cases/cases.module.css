@@ -3,6 +3,10 @@
     height: 500vh;
 }
 
+.outerContainer * {
+    cursor: var(--cursor-flame-red), auto !important;
+}
+
 .stickyWrapper {
     position: sticky;
     top: 0;
@@ -28,13 +32,22 @@
     padding-right: 30px;
     gap: 4px;
     pointer-events: auto; /* Erlaubt Interaktionen */
+    cursor: var(--cursor-pointer-redw), pointer !important;
 }
+
 
 .dotContainer {
     position: relative;
     width: 20px;
     height: 20px;
+    transition: transform 0.2s ease;
+    cursor: var(--cursor-pointer-redw), pointer !important;
 }
+
+.dotContainer * {
+    cursor: var(--cursor-pointer-red), pointer !important;
+}
+
 
 .dot {
     position: absolute;
@@ -93,22 +106,6 @@
     pointer-events: auto;
 }
 
-/* Old version
-.overlay {
-    z-index: 3;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 45vh;
-    background: linear-gradient(
-        to top,
-        var(--darkest-grey) 0%,
-        rgba(29, 30, 34, 0.7) 45%,
-        rgba(29, 30, 34, 0) 100%
-    );
-} */
-
 .textContainer {
     position: absolute;
     bottom: 70px;
@@ -149,6 +146,7 @@
     width: 100%;
     background-color: var(--darkest-grey);
 }
+
 
 
   /*****************************   
