@@ -49,6 +49,43 @@ export default function Home() {
   }, []);
 
 
+  /****** Heights ******/
+  useEffect(() => {
+    const calculateHeights = () => {
+      const newHeights = [
+        headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
+        casesRef, teamRef, creativityRef, contactRef, footerRef
+      ].map((ref) => ref.current?.offsetHeight || 0);
+
+      // Apply adjustments for numbersHeight and casesOverviewHeight
+      const adjustedHeights = [
+        newHeights[0], // headerHeight
+        newHeights[1], // servicesHeight
+        isMobile ? newHeights[2] : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight adjustment
+        newHeights[3], // casesHeadlineHeight
+        isMobile ? newHeights[4] : newHeights[4] - (40 * window.innerHeight / 100), // casesOverviewHeight adjustment
+        newHeights[5], // casesHeight
+        newHeights[6], // teamHeight
+        newHeights[7], // creativityHeight
+        newHeights[8], // contactHeight
+        newHeights[9]  // footerHeight
+      ];
+
+      console.log('Header height:', adjustedHeights[0]);
+
+      const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
+      setHeights(adjustedHeights);
+      setTotalHeight(total);
+    };
+
+
+    calculateHeights();
+    window.addEventListener('resize', calculateHeights);
+
+    return () => window.removeEventListener('resize', calculateHeights);
+  }, [isMobile]);
+
+
   return (
     <div>
       <div> Hallo </div>
