@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
@@ -68,6 +68,17 @@ const services: Service[] = [
 
 
 export default function Services() {
+
+    const [isClient, setIsClient] = useState(false);
+
+  // Setze isClient auf true, nachdem das Komponent im Client gerendert wurde
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null; // Rendern nur nach Client-Initialisierung
+  }
     
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const [activeIndex, setActiveIndex] = useState<number>(isMobile ? 0 : 2); // Start with first or third service active  
