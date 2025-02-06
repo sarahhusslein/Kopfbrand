@@ -187,7 +187,7 @@ export default function Home() {
       >
 
         {/****** Header ******/}
-        <motion.div
+        {/* <motion.div
           ref={headerRef}
           className={styles.headerContainer}
           id="header"
@@ -200,10 +200,10 @@ export default function Home() {
             }}
         >
           <Header />
-        </motion.div>
+        </motion.div> */}
       
         {/****** Services ******/}
-        <motion.div 
+        {/* <motion.div 
           id="services"
           ref={servicesRef}
           className={styles.servicesContainer}
@@ -213,10 +213,10 @@ export default function Home() {
           }}
         >
           <Services />
-        </motion.div>
+        </motion.div> */}
         
         {/****** Numbers and Testimonials ******/}
-        <motion.div 
+        {/* <motion.div 
           ref={numbersRef} 
           className={styles.numbersContainer}
           style={{ 
@@ -225,10 +225,10 @@ export default function Home() {
           }}
         >
           <NumbersAndTestimonials />
-        </motion.div>
+        </motion.div> */}
 
         {/****** Case Studies ******/}
-        <motion.div 
+        {/* <motion.div 
           id="cases"
           ref={casesHeadlineRef}
           className={styles.casesHeadlineContainer}
@@ -237,9 +237,9 @@ export default function Home() {
           }}
         >
           <CasesHeadline />
-        </motion.div>
+        </motion.div> */}
 
-        <motion.div 
+        {/* <motion.div 
           ref={casesOverviewRef}
           className={styles.casesOverviewContainer}
           style={{ 
@@ -248,9 +248,9 @@ export default function Home() {
           }}
         >
           <CasesOverviewNew />
-        </motion.div>
+        </motion.div> */}
 
-        <motion.div 
+        {/* <motion.div 
           ref={casesRef}
           className={styles.casesContainer}
           style={{ 
@@ -259,11 +259,11 @@ export default function Home() {
           }}
         >
           <Cases />
-        </motion.div>
+        </motion.div> */}
 
 
         {/****** Team ******/}
-        <motion.div 
+        {/* <motion.div 
           id="team"
           ref={teamRef}
           className={styles.teamContainer}
@@ -272,9 +272,9 @@ export default function Home() {
            }}
         >
           <Team />
-        </motion.div>
+        </motion.div> */}
 
-        <div 
+        {/* <div 
           ref={creativityRef}
           className={styles.creativityContainer}
         >
@@ -287,9 +287,9 @@ export default function Home() {
           className={styles.contactContainer}
         >
           <Contact />
-        </div>
+        </div> */}
         
-        <motion.div id="footer" 
+        {/* <motion.div id="footer" 
           ref={footerRef}
           className={styles.footerContainer}
           style={{ 
@@ -300,7 +300,7 @@ export default function Home() {
         >
           <Footer />
           <FinalBar />
-        </motion.div>
+        </motion.div> */}
         
       </div>
     </div>
