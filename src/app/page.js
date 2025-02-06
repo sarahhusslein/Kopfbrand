@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import Lenis from 'lenis';
 
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
 
@@ -31,6 +32,21 @@ export default function Home() {
   // Height States
   const [heights, setHeights] = useState([]);
   const [totalHeight, setTotalHeight] = useState(0);
+
+
+  /****** Smooth Scrolling ******/
+  useEffect(() => {
+    const lenis = new Lenis({
+      autoRaf: true,
+    });
+    
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  }, []);
 
 
   return (
