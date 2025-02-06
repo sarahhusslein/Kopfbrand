@@ -65,63 +65,65 @@ export default function Creativity() {
   };
 
   async function handleScreenshot() {
-    // Blitz-Effekt anzeigen
-    const flashEffect = document.createElement('div');
-    flashEffect.id = 'flashEffect';
+    if (typeof window !== 'undefined') { // Check if running in the browser
+        // Blitz-Effekt anzeigen
+        const flashEffect = document.createElement('div');
+        flashEffect.id = 'flashEffect';
 
-    console.log(drawingContainerRef.current)
-    console.log(flashEffect)
+        console.log(drawingContainerRef.current);
+        console.log(flashEffect);
 
-    if (drawingContainerRef.current) {
-      const drawingContainer = drawingContainerRef.current;
-      drawingContainer.appendChild(flashEffect);  // Blitz-Effekt wird dem drawingContainer hinzugefügt
-      flashEffect.classList.add('flash');
-      flashEffect.style.position = 'absolute';
-      flashEffect.style.top = '0';
-      flashEffect.style.left = '0';
-      flashEffect.style.width = '100%';
-      flashEffect.style.height = '100%';
-      flashEffect.style.backgroundColor = 'rgba(255, 255, 255, 1)';
-      flashEffect.style.zIndex = '9999';
-      flashEffect.style.opacity = '0'; // Anfangs unsichtbar
-      flashEffect.style.pointerEvents = 'none';
-      flashEffect.style.transition = 'opacity 0.3s ease-in-out'; // Schneller Übergang
+        if (drawingContainerRef.current) {
+            const drawingContainer = drawingContainerRef.current;
+            drawingContainer.appendChild(flashEffect);  // Blitz-Effekt wird dem drawingContainer hinzugefügt
+            flashEffect.classList.add('flash');
+            flashEffect.style.position = 'absolute';
+            flashEffect.style.top = '0';
+            flashEffect.style.left = '0';
+            flashEffect.style.width = '100%';
+            flashEffect.style.height = '100%';
+            flashEffect.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+            flashEffect.style.zIndex = '9999';
+            flashEffect.style.opacity = '0'; // Anfangs unsichtbar
+            flashEffect.style.pointerEvents = 'none';
+            flashEffect.style.transition = 'opacity 0.3s ease-in-out'; // Schneller Übergang
 
-      // Blitz-Effekt anzeigen (mit einer kleinen Verzögerung)
-      setTimeout(() => {
-        flashEffect.style.opacity = '1'; // Blitz wird sichtbar
-      }, 50); // Sehr kurze Verzögerung für ein schnelles Aufblitzen
-  
-      // Blitz-Effekt nach einer kurzen Dauer langsam wieder verschwinden lassen
-      setTimeout(() => {
-        flashEffect.style.opacity = '1'; // Sanftes, langsames Ausblenden
-      }, 100); // 0.2 Sekunden nach dem Aufblitzen
-  
-      // Blitz-Effekt nach einer weiteren kurzen Zeit vollständig entfernen
-      setTimeout(() => {
-        flashEffect.style.opacity = '0'; // Letztes Ausblenden
-      }, 400); // Nach der Dauer der sanften Fade-Animation
-  
-      // Blitz-Effekt nach dem Ausblenden aus dem DOM entfernen
-      setTimeout(() => {
-        flashEffect.remove(); // Blitz-Effekt aus dem DOM entfernen
-      }, 700); // Entfernen nach der vollständigen Animation
-    } else {
-      console.log('drawingContainerRef ist nicht gesetzt!');
+            // Blitz-Effekt anzeigen (mit einer kleinen Verzögerung)
+            setTimeout(() => {
+                flashEffect.style.opacity = '1'; // Blitz wird sichtbar
+            }, 50); // Sehr kurze Verzögerung für ein schnelles Aufblitzen
+
+            // Blitz-Effekt nach einer kurzen Dauer langsam wieder verschwinden lassen
+            setTimeout(() => {
+                flashEffect.style.opacity = '1'; // Sanftes, langsames Ausblenden
+            }, 100); // 0.2 Sekunden nach dem Aufblitzen
+
+            // Blitz-Effekt nach einer weiteren kurzen Zeit vollständig entfernen
+            setTimeout(() => {
+                flashEffect.style.opacity = '0'; // Letztes Ausblenden
+            }, 400); // Nach der Dauer der sanften Fade-Animation
+
+            // Blitz-Effekt nach dem Ausblenden aus dem DOM entfernen
+            setTimeout(() => {
+                flashEffect.remove(); // Blitz-Effekt aus dem DOM entfernen
+            }, 700); // Entfernen nach der vollständigen Animation
+        } else {
+            console.log('drawingContainerRef ist nicht gesetzt!');
+        }
+
+        setTimeout(async () => {
+            const dataURL = await canvasRef.current?.exportImage('png');
+            if (dataURL) {
+                const link = document.createElement('a');
+                link.href = dataURL;
+                link.download = 'meisterwerk.png';
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+            }
+        }, 700);
     }
-    
-    setTimeout(async () => {
-      const dataURL = await canvasRef.current?.exportImage('png');
-      if (dataURL) {
-        const link = document.createElement('a');
-        link.href = dataURL;
-        link.download = 'meisterwerk.png';
-        link.style.display = 'none';
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-      }
-    }, 700);
   }
 
   useEffect(() => {

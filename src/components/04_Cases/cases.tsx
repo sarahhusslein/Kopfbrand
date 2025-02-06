@@ -102,19 +102,19 @@ const cases = [
 
   
     const handleDotClick = (index: number) => {
-        
-        const containerHeight = ref.current?.offsetHeight || 0;
-        const scrollPosition = (containerHeight * index * 0.2);
-        const containerTop = ref.current?.getBoundingClientRect().top || 0;
-        const currentScroll = window.scrollY;
-        
-        const targetScroll = currentScroll + containerTop + scrollPosition;
-        
-        window.scrollTo({
-            top: targetScroll,
-            behavior: 'smooth'
-        });
-
+        if (typeof window !== 'undefined') { // Check if running in the browser
+            const containerHeight = ref.current?.offsetHeight || 0;
+            const scrollPosition = (containerHeight * index * 0.2);
+            const containerTop = ref.current?.getBoundingClientRect().top || 0;
+            const currentScroll = window.scrollY;
+            
+            const targetScroll = currentScroll + containerTop + scrollPosition;
+            
+            window.scrollTo({
+                top: targetScroll,
+                behavior: 'smooth'
+            });
+        }
     };
 
     return (

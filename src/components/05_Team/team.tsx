@@ -156,40 +156,42 @@ export default function Team() {
     };
 
     const handleMouseMove = (e: React.MouseEvent, memberId: number) => {
-        const containerRect = e.currentTarget.closest(`.${styles.teamImageContainer}`).getBoundingClientRect();
-        const x = e.clientX - containerRect.left;
-        const y = e.clientY - containerRect.top;
+        if (typeof window !== 'undefined') { // Check if running in the browser
+            const containerRect = e.currentTarget.closest(`.${styles.teamImageContainer}`).getBoundingClientRect();
+            const x = e.clientX - containerRect.left;
+            const y = e.clientY - containerRect.top;
 
-        // Calculate relative position (0 to 1) across the width
-        const relativeX = x / containerRect.width;
-        
-        // Calculate tilt angle (-15 to 15 degrees)
-        // Center (0.5) = 0 degrees, Left edge = -15 degrees, Right edge = 15 degrees
-        const tiltAngle = (relativeX - 0.5) * 30;
-        
-        // Calculate if the bubble would go off-screen
-        const bubbleWidth = 290; // width from CSS
-        const screenWidth = window.innerWidth;
-        const bubbleRightEdge = e.clientX + bubbleWidth;
-        
-        // Determine which transform to use
-        const shouldOffsetLeft = bubbleRightEdge > screenWidth;
+            // Calculate relative position (0 to 1) across the width
+            const relativeX = x / containerRect.width;
+            
+            // Calculate tilt angle (-15 to 15 degrees)
+            // Center (0.5) = 0 degrees, Left edge = -15 degrees, Right edge = 15 degrees
+            const tiltAngle = (relativeX - 0.5) * 30;
+            
+            // Calculate if the bubble would go off-screen
+            const bubbleWidth = 290; // width from CSS
+            const screenWidth = window.innerWidth;
+            const bubbleRightEdge = e.clientX + bubbleWidth;
+            
+            // Determine which transform to use
+            const shouldOffsetLeft = bubbleRightEdge > screenWidth;
 
-        if (memberId !== hoveredMember) {
-            // Only trigger animation when hovering a new member
-            const member = teamMembers[memberId - 1];  // Get the correct team member data
-            animateText(member);  // Start animation with this member's data
-        }
-    
-        setMousePosition({
-            x: x,
-            y: y,
-            shouldOffsetLeft: shouldOffsetLeft,
-            tiltAngle: tiltAngle
-        });
-         // Only update hoveredMember if it's different
-        if (memberId !== hoveredMember) {
-            setHoveredMember(memberId);
+            if (memberId !== hoveredMember) {
+                // Only trigger animation when hovering a new member
+                const member = teamMembers[memberId - 1];  // Get the correct team member data
+                animateText(member);  // Start animation with this member's data
+            }
+        
+            setMousePosition({
+                x: x,
+                y: y,
+                shouldOffsetLeft: shouldOffsetLeft,
+                tiltAngle: tiltAngle
+            });
+             // Only update hoveredMember if it's different
+            if (memberId !== hoveredMember) {
+                setHoveredMember(memberId);
+            }
         }
     };
 
