@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import styles from "./page.module.css";
 import Lenis from 'lenis';
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
-
+import Header from "@/components/01_Header/header";
 
 
 
@@ -160,7 +160,7 @@ export default function Home() {
   const opacityCases = useTransform(casesScrollProgress, [0, 1], [1, 0.7]);
   const opacityFooter = useTransform(footerScrollYProgress, [0, 1], [0.2, 1]);
 
-  
+
 
 
   return (
@@ -172,7 +172,21 @@ export default function Home() {
         style={{ height: `${totalHeight}px` }}
       > 
 
-    {/****** Header ******/}
+        {/****** Header ******/}
+        <motion.div
+          ref={headerRef}
+          className={styles.headerContainer}
+          id="header"
+          style={{ 
+            top: `calc(100vh - ${heights[0] || 0}px)`, 
+            scale: scaleHeader, 
+            rotate: rotateHeader, 
+            opacity: opacityHeader,
+            y: headerY
+            }}
+        >
+          <Header />
+        </motion.div>
 
         <div 
             id="contact"
