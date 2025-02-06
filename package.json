@@ -11,7 +11,7 @@
   "dependencies": {
     "framer-motion": "^11.11.17",
     "lenis": "^1.1.18",
-    "lottie-react": "^2.4.0",
+    "lottie-react": "^2.4.1",
     "next": "^15.0.1",
     "react": "^18",
     "react-countup": "^6.5.3",
@@ -19,6 +19,7 @@
     "react-fast-marquee": "^1.6.5",
     "react-inlinesvg": "^4.1.4",
     "react-intersection-observer": "^9.13.1",
+    "react-lottie": "^1.2.10",
     "react-parallax-tilt": "^1.7.275",
     "react-responsive": "^10.0.0",
     "react-simple-typewriter": "^5.0.1",

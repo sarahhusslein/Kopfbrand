@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import React, { useState, useRef, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Lottie from "lottie-react";
 import Tilt from 'react-parallax-tilt';
 import SVG from 'react-inlinesvg';
 import styles from './services.module.css';
@@ -69,9 +70,7 @@ const services: Service[] = [
 
 export default function Services() {
 
-  const Lottie = dynamic(() => import('lottie-react'), {
-    ssr: false,  
-    });  
+ 
     
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const [activeIndex, setActiveIndex] = useState<number>(isMobile ? 0 : 2); // Start with first or third service active  
