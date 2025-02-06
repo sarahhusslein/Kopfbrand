@@ -46,23 +46,23 @@ export default function Home() {
 
 
   /****** Smooth Scrolling ******/
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (typeof window === "undefined") return;
+  //   if (typeof window === "undefined") return;
+
+  //   const lenis = new Lenis({
+  //     autoRaf: true,
+  //   });
     
-    const lenis = new Lenis({
-      autoRaf: true,
-    });
-    
-    window.lenis = lenis; 
+  //   window.lenis = lenis; 
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
 
-    requestAnimationFrame(raf);
-  }, []);
+  //   requestAnimationFrame(raf);
+  // }, []);
 
 
 
