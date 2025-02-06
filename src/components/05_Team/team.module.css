@@ -1,8 +1,10 @@
 .container {
     /* background-color: var(--darkest-grey); */
     background-image: url('/illustrations/gradient-dark.svg');
-    background-size: cover;
+    background-size: 100vw 100vh;
     background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
     width: 100vw;
     min-height: 100vh;
     border-radius: 20px 20px 0 0;
