@@ -14,6 +14,9 @@ import Cases from "@/components/04_Cases/cases";
 import Team from "@/components/05_Team/team";
 import Creativity from "@/components/06_Creativity/creativity";
 import Contact from "@/components/07_Contact/contact";
+import Footer from "@/components/08_Footer/footer";
+import FinalBar from "@/components/09_FinalBar/finalBar";
+
 
 
 
@@ -285,6 +288,21 @@ export default function Home() {
         >
           <Contact />
         </div>
+
+
+        {/****** Footer ******/}
+        <motion.div id="footer" 
+          ref={footerRef}
+          className={styles.footerContainer}
+          style={{ 
+            top: `calc(100vh - ${heights[9] || 0}px)`,
+            marginTop: `-${heights[9] || 0}px`,
+            opacity: opacityFooter
+          }}
+        >
+          <Footer />
+          <FinalBar />
+        </motion.div>
 
 
       </div>
