@@ -1,14 +1,15 @@
 "use client";
+import dynamic from 'next/dynamic';
 import React, { useRef, useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, useTransform, useScroll, useAnimation } from 'framer-motion';
 import styles from './creativity.module.css';
 import SVG from 'react-inlinesvg';
 import { ReactSketchCanvas, type ReactSketchCanvasRef,} from "react-sketch-canvas";
-import Lottie from 'lottie-react'; 
 import drawingAnimation from '../../../public/animations/drawingAnimation.json';
 
 
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function Creativity() {
 
