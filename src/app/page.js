@@ -7,6 +7,7 @@ import Lenis from 'lenis';
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
 import Header from "@/components/01_Header/header";
 import Services from "@/components/02_Services/services";
+import NumbersAndTestimonials from "@/components/03_NumbersandTestimonials/numbersAndTestimonials";
 
 
 
@@ -199,6 +200,18 @@ export default function Home() {
           }}
         >
           <Services />
+        </motion.div>
+
+        {/****** Numbers and Testimonials ******/}
+        <motion.div 
+          ref={numbersRef} 
+          className={styles.numbersContainer}
+          style={{ 
+            y: numbersY,
+            opacity: opacityNumbers
+          }}
+        >
+          <NumbersAndTestimonials />
         </motion.div>
 
         <div 

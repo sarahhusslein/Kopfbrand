@@ -66,22 +66,12 @@ const services: Service[] = [
 
 ];
 
-const Lottie = dynamic(() => import('lottie-react'), {
-    ssr: false,  // This ensures it is only rendered on the client
-  });
 
 export default function Services() {
 
-    const [isClient, setIsClient] = useState(false);
-
-  // Setze isClient auf true, nachdem das Komponent im Client gerendert wurde
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null; // Rendern nur nach Client-Initialisierung
-  }
+  const Lottie = dynamic(() => import('lottie-react'), {
+    ssr: false,  
+    });  
     
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const [activeIndex, setActiveIndex] = useState<number>(isMobile ? 0 : 2); // Start with first or third service active  
