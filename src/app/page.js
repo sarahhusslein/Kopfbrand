@@ -11,6 +11,7 @@ import NumbersAndTestimonials from "@/components/03_NumbersandTestimonials/numbe
 import CasesHeadline from "@/components/04_Cases/casesHeadline";
 import CasesOverviewNew from "@/components/04_Cases/casesOverviewNew";
 import Cases from "@/components/04_Cases/cases";
+import Team from "@/components/05_Team/team";
 
 
 
@@ -251,6 +252,18 @@ export default function Home() {
           }}
         >
           <Cases />
+        </motion.div>
+
+        {/****** Team ******/}
+        <motion.div 
+          id="team"
+          ref={teamRef}
+          className={styles.teamContainer}
+          style={{ 
+            y: teamY
+           }}
+        >
+          <Team />
         </motion.div>
 
         <div 
