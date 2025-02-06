@@ -1,12 +1,13 @@
 "use client"
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import styles from "./page.module.css";
 import Lenis from 'lenis';
-
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
 
 
-import styles from "./page.module.css";
+
 
 
 
@@ -84,6 +85,82 @@ export default function Home() {
 
     return () => window.removeEventListener('resize', calculateHeights);
   }, [isMobile]);
+
+
+
+  /****** Scroll Progress ******/
+
+  // Calculate offsets based on device type
+  const headerOffset = isMobile ? [`${heights[0]}px end`, `${heights[0]}px start`] : [`${heights[0]}px end`, `${heights[0] * 1.5}px start`];
+
+  const { scrollYProgress: headerScrollYProgress } = useScroll({
+    target: containerRef,
+    offset: headerOffset
+  });
+
+  const { scrollYProgress: servicesScrollYProgress } = useScroll({
+    target: containerRef,
+    offset: [`${heights[0] + heights[1]}px end`, `${heights[0] + heights[1]}px start`]
+  });
+
+  const { scrollYProgress: servicesOpacityScrollProgress } = useScroll({
+    target: numbersRef,
+    offset: ["end 95vh", "end 90vh"]
+  });
+
+  const { scrollYProgress: numbersScrollYProgress } = useScroll({
+    target: numbersRef,
+    offset: ["end end", "end start"]
+  });
+
+  const { scrollYProgress: casesHeadlineScrollYProgress } = useScroll({
+    target: casesHeadlineRef,
+    offset: ["end end", "end start"]
+  });
+
+  const { scrollYProgress: casesOverviewOpacityScrollProgress } = useScroll({
+    target: casesRef,
+    offset: ["end end", "end 99vh"]
+  });
+
+  const { scrollYProgress: casesScrollProgress } = useScroll({
+    target: casesRef,
+    offset: ["end end", "end start"]
+  });
+
+  const { scrollYProgress: teamScrollYProgress } = useScroll({
+    target: teamRef,
+    offset: ["end end", "end start"]
+  });
+
+  const { scrollYProgress: footerScrollYProgress } = useScroll({
+    target: contactRef,
+    offset: ["end end", "end 50vh"]
+  });
+
+
+  /****** Transformations ******/
+  // Y positions
+  const headerY = useTransform(headerScrollYProgress, [0, 1], [0, 100]); 
+  const servicesY = useTransform(servicesScrollYProgress, [0, 1], [0, 400]); 
+  const numbersY = useTransform(numbersScrollYProgress, [0, 1], [0, 400]); 
+  const casesHeadlineY = useTransform(casesHeadlineScrollYProgress, [0, 1], [0, -900]); 
+  const casesY = useTransform(casesScrollProgress, [0, 1], [0, 400]); 
+  const teamY = useTransform(teamScrollYProgress, [0, 1], [0, 400]); 
+
+  // Scale and rotate
+  const scaleHeader = useTransform(headerScrollYProgress, [0, 1], isMobile ? [1, 0.1] : [1, 0.6]);
+  const rotateHeader = useTransform(headerScrollYProgress, [0, 1], [0, -6]);
+
+  // Opacities
+  const opacityHeader = useTransform(headerScrollYProgress, [0, 1], [1, 0]);
+  const opacityServices = useTransform(servicesOpacityScrollProgress, [0, 1], [1, 0]);
+  const opacityNumbers = useTransform(numbersScrollYProgress, [0, 1], [1, 0.7]);
+  const opacityCasesOverview = useTransform(casesOverviewOpacityScrollProgress, [0, 1], [1, 0]);
+  const opacityCases = useTransform(casesScrollProgress, [0, 1], [1, 0.7]);
+  const opacityFooter = useTransform(footerScrollYProgress, [0, 1], [0.2, 1]);
+
+  
 
 
   return (
