@@ -8,6 +8,10 @@ import NavigationBar from "@/components/00_NavigationBar/navigationBar";
 import Header from "@/components/01_Header/header";
 import Services from "@/components/02_Services/services";
 import NumbersAndTestimonials from "@/components/03_NumbersandTestimonials/numbersAndTestimonials";
+import CasesHeadline from "@/components/04_Cases/casesHeadline";
+import CasesOverviewNew from "@/components/04_Cases/casesOverviewNew";
+import Cases from "@/components/04_Cases/cases";
+
 
 
 
@@ -212,6 +216,41 @@ export default function Home() {
           }}
         >
           <NumbersAndTestimonials />
+        </motion.div>
+
+
+        {/****** Case Studies ******/}
+        <motion.div 
+          id="cases"
+          ref={casesHeadlineRef}
+          className={styles.casesHeadlineContainer}
+          style={{ 
+            y: casesHeadlineY
+          }}
+        >
+          <CasesHeadline />
+        </motion.div>
+
+        <motion.div 
+          ref={casesOverviewRef}
+          className={styles.casesOverviewContainer}
+          style={{ 
+            top: `calc(100vh - ${heights[4] || 0}px)`,
+            opacity: opacityCasesOverview
+          }}
+        >
+          <CasesOverviewNew />
+        </motion.div>
+
+        <motion.div 
+          ref={casesRef}
+          className={styles.casesContainer}
+          style={{ 
+            y: casesY,
+            opacity: opacityCases
+          }}
+        >
+          <Cases />
         </motion.div>
 
         <div 
