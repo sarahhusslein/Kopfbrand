@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import React, { useState, useRef, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Lottie from "lottie-react";
 import Tilt from 'react-parallax-tilt';
 import SVG from 'react-inlinesvg';
 import styles from './services.module.css';
@@ -12,6 +11,7 @@ import konzeptionAnimaton from '/public/animations/konzeption.json';
 import contentcreationAnimation from '/public/animations/contentcreation.json';
 import prototypingAnimation from '/public/animations/prototyping.json';
 import versandAnimation from '/public/animations/versand.json';
+
 
 
 interface Service {
@@ -67,6 +67,7 @@ const services: Service[] = [
 
 ];
 
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 export default function Services() {
 
