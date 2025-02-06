@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
-import Contact from "@/components/07_Contact/contact";
 
 
 import styles from "./page.module.css";
@@ -41,7 +40,10 @@ export default function Home() {
           ref={contactRef}
           className={styles.contactContainer}
         >
-          <Contact />
+          <div>
+            hallo
+            Halloho
+          </div>
       </div>
       
     </div>
