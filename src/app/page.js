@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 import Lenis from 'lenis';
 import NavigationBar from "@/components/00_NavigationBar/navigationBar";
 import Header from "@/components/01_Header/header";
-
+import Services from "@/components/02_Services/services";
 
 
 
@@ -186,6 +186,19 @@ export default function Home() {
             }}
         >
           <Header />
+        </motion.div>
+
+        {/****** Services ******/}
+        <motion.div 
+          id="services"
+          ref={servicesRef}
+          className={styles.servicesContainer}
+          style={{ 
+            y: servicesY,
+            opacity: opacityServices
+          }}
+        >
+          <Services />
         </motion.div>
 
         <div 
