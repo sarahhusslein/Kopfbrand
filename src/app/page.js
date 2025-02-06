@@ -88,21 +88,28 @@ export default function Home() {
 
   return (
     <div>
-      <div> Hallo </div>
       <NavigationBar />
+      <div
+        ref={containerRef}
+        className={styles.parallaxContainer}
+        style={{ height: `${totalHeight}px` }}
+      > 
+
+    {/****** Header ******/}
+
+        <div 
+            id="contact"
+            ref={contactRef}
+            className={styles.contactContainer}
+          >
+            <div>
+              hallo
+              Halloho
+            </div>
+        </div>
 
 
-      <div 
-          id="contact"
-          ref={contactRef}
-          className={styles.contactContainer}
-        >
-          <div>
-            hallo
-            Halloho
-          </div>
       </div>
-      
     </div>
   );
 }
