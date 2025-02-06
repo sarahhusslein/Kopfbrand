@@ -74,10 +74,17 @@ export default function Header() {
 
 
     
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+
     const handleClick = () => {
-        const element = document.getElementById('services');
+        if (!isClient) return; // Sicherstellen, dass `document` existiert
+        const element = document.getElementById("services");
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            element.scrollIntoView({ behavior: "smooth" });
         }
     };
 

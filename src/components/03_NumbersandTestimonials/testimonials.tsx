@@ -195,15 +195,15 @@ export default function Testimonials() {
                         viewport={{ once: false, amount: 0.6 }}
                         transition={{ duration: 0.7, ease: "easeInOut"}}
                     >
-                        {/* <SVG src="/illustrations/arrowBottomRight.svg"/> */}
-                        <div className={styles.animation}>
+                        <SVG src="/illustrations/arrowBottomRight.svg"/>
+                        {/* <div className={styles.animation}>
                             <Lottie 
                                 animationData={satelliteAnimation}
                                 className={styles.satelliteAnimation}
                                 loop={true}
                                 autoplay={true}
                             />
-                        </div >
+                        </div > */}
                     </motion.div>
                     <motion.div 
                         className={styles.testimonialSection}
