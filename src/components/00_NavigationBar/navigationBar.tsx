@@ -86,7 +86,7 @@ export default function NavigationBar() {
 
     // Scroll to section smoothly and set the active section
     const scrollToSection = (section: string) => {
-        if (typeof window !== 'undefined' && (window as any).lenis && initialPositions[section] !== undefined) {
+        if ((window as any).lenis && initialPositions[section] !== undefined) {
             const targetY = initialPositions[section];
             const currentScroll = window.scrollY;
             const isScrollingUp = targetY < currentScroll;

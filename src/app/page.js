@@ -48,16 +48,21 @@ export default function Home() {
 
   /****** Smooth Scrolling ******/
   useEffect(() => {
-    const lenis = new Lenis({
-      autoRaf: true,
-    });
-    
-    function raf(time) {
-      lenis.raf(time);
+    if (typeof window !== 'undefined') {
+      const lenis = new Lenis({
+        autoRaf: true,
+      });
+  
+      // Attach lenis to the window object
+      window.lenis = lenis;
+  
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+  
       requestAnimationFrame(raf);
     }
-
-    requestAnimationFrame(raf);
   }, []);
 
 
