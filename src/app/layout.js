@@ -37,6 +37,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+
   return (
     <html lang="de">
       <body className={`${inter.variable} ${openSans.variable} ${roel.variable}`}>

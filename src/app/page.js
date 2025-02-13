@@ -27,6 +27,7 @@ export default function Home() {
   // Device Types
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
+
   /****** States ******/
   // Ref States
   const containerRef = useRef(null);
