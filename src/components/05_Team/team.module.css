@@ -187,6 +187,7 @@ Adjustments for Larger Screens
     .container {
         margin-top: -50px;
         overflow-x: hidden;
+        box-shadow: none;
     }
 
     .h1 {
