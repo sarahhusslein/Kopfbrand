@@ -186,6 +186,7 @@ Adjustments for Larger Screens
 
     .container {
         margin-top: -50px;
+        overflow-x: hidden;
     }
 
     .h1 {
@@ -213,7 +214,7 @@ Adjustments for Larger Screens
 
     .teamImageContainerMobile {
         width: 100vw;
-        overflow-x: auto; 
+        overflow-x: scroll; 
         overflow-y: hidden;
         padding: 0;
         box-sizing: border-box;

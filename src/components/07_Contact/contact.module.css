@@ -359,7 +359,7 @@ Adjustments for Mobile
           rgba(255, 255, 255, 0.8) 0%,
           transparent 100%
         );
-        opacity: 0;
+        opacity: 1;
         transition: opacity 0.3s;
         pointer-events: none;
       }
