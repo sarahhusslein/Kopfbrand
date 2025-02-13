@@ -211,14 +211,16 @@ Adjustments for Larger Screens
 
     .overlay {
         width: 100vw;
-        height: 35vh;
+        height: 40vh;
+        bottom: -20px;
+        left: 0;
     }
 
     .textContainer {
         position: absolute;
         bottom: 0 !important;
         left: 0 !important;
-        padding: 0 16px 32px 16px;
+        padding: 0 20px 40px 20px;
         max-width: 100%;
         z-index: 4;
     }

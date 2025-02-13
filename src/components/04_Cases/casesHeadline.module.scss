@@ -73,6 +73,8 @@
 }
 
 
+
+
 /***************************** 
 Adjustments for Mobile
 *****************************/
@@ -81,6 +83,11 @@ Adjustments for Mobile
         height: 110vh;
         padding: 0 4px;
         overflow: hidden;
+    }
+
+    .mask {
+        mask-image: none;
+        background: none;
     }
 
     .h1, .h1Mask {

@@ -226,6 +226,10 @@ Adjustments for Mobile
         margin: 30px 0;
     }
 
+    .testmonialCardMobile :last-child {
+        padding-right: 30px;
+    }
+
     .textContent {
         position: relative;
         z-index: 3;

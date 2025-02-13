@@ -4,6 +4,8 @@ import { motion, useInView } from 'framer-motion';
 import styles from './casesHeadline.module.scss';
 import SVG from 'react-inlinesvg';
 import useMousePosition from '@/utils/useMousePosition';
+import { useMediaQuery } from 'react-responsive';
+
 
 export default function CasesHeadlineNew() {
     const [isHovered, setIsHovered] = useState(false);
@@ -13,6 +15,7 @@ export default function CasesHeadlineNew() {
     const isInView = useInView(ref, { amount: 0.6 });
     const { mousePosition, updateMousePosition } = useMousePosition();   
     const size = isHovered ? 300 : 40;
+    const isMobile = useMediaQuery({ maxWidth: 768 });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -46,21 +49,23 @@ export default function CasesHeadlineNew() {
                     WebkitMaskSize: { type: "tween", ease: "backOut" }
                 }}
             >
-                <motion.h1 
-                    ref={ref}
-                    className={`h1 ${styles.h1Mask}`}
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                    initial={{ y: 100, opacity: 0, scale: 0.8 }}
-                    animate={hasEnteredFromTop ? { y: 0, opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 0.7, ease: "easeInOut" }}
-                >
-                    KREATIV FÜR <br />KLASSE&nbsp;
-                    <span className={styles.underline}> 
-                        KUNDEN
-                        <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVGMask}></SVG>
-                    </span>
-                </motion.h1>
+                {!isMobile && (
+                    <motion.h1 
+                        ref={ref}
+                        className={`h1 ${styles.h1Mask}`}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        initial={{ y: 100, opacity: 0, scale: 0.8 }}
+                        animate={hasEnteredFromTop ? { y: 0, opacity: 1, scale: 1 } : {}}
+                        transition={{ duration: 0.7, ease: "easeInOut" }}
+                    >
+                        KREATIV FÜR <br />KLASSE&nbsp;
+                        <span className={styles.underline}> 
+                            KUNDEN
+                            <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVGMask}></SVG>
+                        </span>
+                    </motion.h1>
+                )}
             </motion.div>
             <div className={styles.body}>
                 <motion.h1 

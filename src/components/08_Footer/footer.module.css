@@ -166,7 +166,7 @@ Adjustments for larger screens
 
 @media (min-width: 1920px) {
   .container {
-    padding: 80px 200px;
+    padding: 80px 150px;
   }
 }
 
