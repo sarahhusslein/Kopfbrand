@@ -17,7 +17,6 @@
     overflow: hidden;
 }
 
-
 .heroVideo {
     width: 100vw;
     height: auto;
@@ -36,7 +35,6 @@
     );
 }
 
-
 .content {
     position: absolute;
     bottom: 2%;
@@ -51,13 +49,13 @@
 .h1 {
     color: white;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .h4 {
     color: white;
     text-align: center;
-    padding: 0 200px;
+    max-width: 70vw;
     margin-bottom: 30px;
 }
 
@@ -96,6 +94,28 @@
     }
     50% {
         transform: translateY(-5px);
+    }
+}
+
+
+/***************************** 
+Adjustments for Larger Screens
+*****************************/
+@media (min-width: 1920px) {
+
+    .content {
+        bottom: 15%;
+    }
+
+    .h4 {
+        padding: 0;
+        max-width: 60vw;
+        margin-bottom: 40px;
+    }
+
+    .arrowIcon {
+        height: 25px;
+        width: auto;
     }
 }
 

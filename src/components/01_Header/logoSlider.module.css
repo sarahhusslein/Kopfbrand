@@ -24,6 +24,16 @@
 
 
 /***************************** 
+Adjustments for Larger Screens
+*****************************/
+@media (min-width: 1920px) {
+    .marqueeWrapper {
+        padding: 50px 0 300px 0;
+    }
+}
+
+
+/***************************** 
 Adjustments for Mobile
 *****************************/
 @media (max-width: 768px) {

@@ -39,6 +39,8 @@
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
 }
 
 .testimonialCard {
@@ -126,6 +128,48 @@
     fill: white;
     width: 100%;
 }
+
+
+
+/***************************** 
+Adjustments for Larger Screens
+*****************************/
+@media (min-width: 1920px) {
+
+    .satelliteAnimation {
+        width: 350px;
+        height: auto;
+    }
+
+    .testimonialSection {
+        height: 590px;
+        perspective: 4000px;
+    }
+
+    .testimonialCard {
+        height: 590px;
+        padding: 0px 50px 0px 80px;
+        transform-origin: center center -350px;
+    }
+
+    .textContent {
+        width: 435px;
+    }
+
+    .name {
+        padding-bottom: 8px;
+    }
+
+    .position {
+        padding-bottom: 20px;
+    }
+
+    .description {
+        font-weight: 400 !important;
+    }
+
+}
+
 
 
 /***************************** 

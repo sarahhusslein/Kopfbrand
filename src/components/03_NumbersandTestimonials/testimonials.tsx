@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import Tilt from 'react-parallax-tilt';
-import Lottie from 'lottie-react'; 
 import styles from './testimonials.module.css';
 import SVG from 'react-inlinesvg';
 import satelliteAnimation from '../../../public/animations/satelliteAnimation.json';
@@ -29,7 +27,7 @@ const testimonials: Testimonial[] = [
     },
     {
         id: 2,
-        name: "Victoria Reuter",
+        name: "Claus Obermeier",
         position: "Vorstand UMWELTSTIFTUNG",
         description: [
             "Wir wollen nichts verkaufen, sondern die Köpfe und Herzen der Menschen erreichen. Gerade deshalb brauchen wir in den Bereichen Grafik und Design keine Standardlösungen, sondern ",

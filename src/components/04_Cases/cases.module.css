@@ -28,8 +28,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    padding-top: 30px;
-    padding-right: 30px;
+    padding-top: 70px;
+    padding-right: 70px;
     gap: 4px;
     pointer-events: auto; /* Erlaubt Interaktionen */
     cursor: var(--cursor-pointer-redw), pointer !important;
@@ -116,13 +116,11 @@
 
 .h2 {
     color: var(--darkest-grey);
-    /* color: white; */
     padding-bottom: 20px;
 }
 
 .subtitle {
     color: var(--darkest-grey);
-    /* color: white; */
     padding-bottom: 25px;
 }
 
@@ -135,8 +133,6 @@
 .tag {
     color: white;
     background-color: var(--red-ribbon);
-    /* color: var(--red-ribbon); */
-    /* background-color:rgba(228, 0, 62, 0.2); */
     padding: 6px 16px;
     border-radius: 100px;
 }
@@ -145,6 +141,60 @@
     height: 50px;
     width: 100%;
     background-color: var(--darkest-grey);
+}
+
+
+/***************************** 
+Adjustments for Larger Screens
+*****************************/
+@media (min-width: 1920px) {
+    .pagination {
+        padding-top: 150px;
+        padding-right: 150px;
+    }
+
+    .dotContainer {
+        width: 30px;
+        height: 30px;
+    }
+
+    .dot {
+        width: 30px;
+        height: 30px;
+    }
+
+    .activeDot {
+        width: 30px;
+        height: 30px;
+    }
+
+    .overlay {
+        width: 50vw;
+        height: 42vh;
+    }
+
+    .textContainer {
+        position: absolute;
+        bottom: 150px !important;
+        left: 150px !important;
+        max-width: 35vw;
+    }
+
+    .tagRow {
+        gap: 10px;
+    }
+
+    .tag {
+        padding: 10px 24px;
+    }
+
+    .h2 {
+        padding-bottom: 15px;
+    }
+    
+    .subtitle {
+        padding-bottom: 30px;
+    }
 }
 
 

@@ -35,6 +35,7 @@ a {
 }
 
 
+
 /*****************************
 Cursor
 *****************************/
@@ -69,7 +70,6 @@ Typography Desktop
 .h1 {
   font-family: 'Inter', bold;
   font-size: 6.25rem; /* 100px */
-  /* font-size: clamp(2rem, 5vw + 2rem, 6.25rem); */
 }
 
 .h2 {
@@ -115,7 +115,7 @@ h4 {
 .body-highlighted {
   font-family: 'Open Sans';
   font-weight: 600;
-  font-size: 1rem; /* 18px */
+  font-size: 1rem; /* 16px */
 }
 
 .handschrift {
@@ -153,6 +153,73 @@ h4 {
   font-weight: 600;
   font-size: 0.875rem; /* 14px */
   line-height: 1.125; /* 18px */
+}
+
+
+/***************************** 
+Typography Larger Screens 
+*****************************/
+
+@media (min-width: 1920px) {
+  .h1 {
+    font-size: 8rem; /* 128px */
+  }
+
+  .h2 {
+    font-size: 4rem; /* 64px */
+  }
+
+  .h3 {
+    font-size: 2rem; /* 32px */
+  }
+
+  .h4 {
+    font-size: 1.75rem; /* 28px */
+  }
+
+  .subtitle {
+    font-size: 2rem; /* 32px */
+  } 
+
+  .subtitle-highlighted {
+    font-size: 2rem; /* 32px */
+  }
+
+  .body {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  .body-light {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  .body-highlighted {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  .handschrift {
+    font-size: 3rem; /* 48px */
+  }
+
+  .handschrift-small {
+    font-size: 2rem; /* 32px */
+  }
+
+  .numbers {
+    font-size: 7.5rem; /* 120px */
+  }
+
+  .numbers-small {
+    font-size: 4.5rem; /* 72px */
+  }
+
+  .button {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  .tag {
+    font-size: 1rem; /* 16px */
+  }
 }
 
 

@@ -74,6 +74,7 @@ export default function Services() {
  
     
   const isMobile = useMediaQuery({ maxWidth: 768 });
+  const isLargeDesktop = useMediaQuery({ minWidth: 1920 });
   const [activeIndex, setActiveIndex] = useState<number>(isMobile ? 0 : 2); // Start with first or third service active  
   const servicesRef = useRef<HTMLDivElement | null>(null);
   const tiltRef = React.useRef(null);
@@ -111,36 +112,74 @@ export default function Services() {
         useTransform(
             [initialProgress, finalProgress], 
             ([i, f]: [number, number]) => {
-                if (i < 1) return 200 + (20 - 200) * i;  // First phase: 200 -> 20
+                if (i < 1) return 230 + (20 - 230) * i;  // First phase: 230 -> 20
                 return 20 + (10 - 20) * f;  // Second phase: 20 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
             ([i, f]: [number, number]) => {
-                if (i < 1) return 200 + (80 - 200) * i;  // First phase: 200 -> 80
+                if (i < 1) return 230 + (80 - 230) * i;  // First phase: 200 -> 80
                 return 80 + (10 - 80) * f;  // Second phase: 80 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
             ([i, f]: [number, number]) => {
-                if (i < 1) return 200 + (25 - 200) * i;  // First phase: 200 -> 25
+                if (i < 1) return 230 + (25 - 230) * i;  // First phase: 200 -> 25
                 return 25 + (10 - 25) * f;  // Second phase: 25 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
             ([i, f]: [number, number]) => {
-                if (i < 1) return 200 + (40 - 200) * i;  // First phase: 200 -> 40
+                if (i < 1) return 230 + (40 - 230) * i;  // First phase: 200 -> 40
                 return 40 + (10 - 40) * f;  // Second phase: 40 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
             ([i, f]: [number, number]) => {
-                if (i < 1) return 300 + (45 - 300) * i;  // First phase: 300 -> 45
+                if (i < 1) return 230 + (45 - 230) * i;  // First phase: 300 -> 45
                 return 45 + (10 - 45) * f;  // Second phase: 45 -> 10
+            }
+        ),
+    ];
+
+    const serviceYLargeDesktop = [
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]: [number, number]) => {
+                if (i < 1) return 300 + (20 - 300) * i;  
+                return 20 + (10 - 20) * f;  
+            }
+        ),
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]: [number, number]) => {
+                if (i < 1) return 300 + (100 - 300) * i;  
+                return 100 + (10 - 100) * f;  
+            }
+        ),
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]: [number, number]) => {
+                if (i < 1) return 300 + (25 - 300) * i;  
+                return 25 + (10 - 25) * f;  
+            }
+        ),
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]: [number, number]) => {
+                if (i < 1) return 300 + (50 - 300) * i; 
+                return 50 + (10 - 50) * f;  
+            }
+        ),
+        useTransform(
+            [initialProgress, finalProgress], 
+            ([i, f]: [number, number]) => {
+                if (i < 1) return 300 + (70 - 300) * i; 
+                return 70 + (10 - 70) * f;  
             }
         ),
     ];
@@ -263,7 +302,7 @@ export default function Services() {
                             <motion.div 
                                 className={`${styles.serviceSection} ${index === activeIndex ? styles.hover : ''}`}
                                 style={{ 
-                                    y: serviceY[index],  
+                                    y: isLargeDesktop ? serviceYLargeDesktop[index] : serviceY[index],  
                                 }}
                                 onMouseEnter={() => setActiveIndex(index)}
                                 onMouseLeave={() => setActiveIndex(2)}

@@ -215,8 +215,6 @@
     transform: scale(1.1);
 }
 
-
-
 .bodyHighlighted {
     position: absolute;
     bottom: -40px;
@@ -257,6 +255,34 @@
 .arrow {
     margin-top: 20px;
 }
+
+
+/***************************** 
+Adjustments for Larger Screens
+*****************************/
+@media (min-width: 1920px) {
+    .textContainer {
+        padding-top: 12vh;
+    }
+
+    .iconContainer {
+        top: 25px; 
+        right: 25px;
+    }
+
+    .iconReset {
+        margin-bottom: 12px;
+    }
+    
+    .iconColorToggle {
+        margin-bottom: 12px;
+    }
+
+    .bodyHighlighted {
+        bottom: -60px;
+    }
+}
+
 
 
 /***************************** 

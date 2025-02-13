@@ -1,7 +1,6 @@
 .bar {
     background-color: var(--darkest-grey);
     width: 100%;
-
 }
 
 .container {
@@ -13,7 +12,7 @@
 .column {
     display: flex;
     flex-direction: column;
-    align-items: left;
+    align-items: flex-start;
   }
 
 .logoContainer {
@@ -49,7 +48,6 @@
   visibility: hidden;
 }
 
-
 .highlightedText {
     margin: 0; 
     font-family: var(--font-open-sans);
@@ -82,7 +80,7 @@
     font-size: 1rem;
     color: white;
     display: flex;
-    flex-direction: column; /* Macht .item-Elemente zu vertikal angeordneten Kindern */
+    flex-direction: column; 
     gap: 6px;
   }
 
@@ -102,7 +100,6 @@
     display: inline-block;
 }
 
-
 .hoverText {
     position: absolute;
     top: 0;
@@ -121,7 +118,6 @@
     overflow: hidden;
 }
 
-
 .icon {
     height: 19px;
     width: 19px;
@@ -129,7 +125,7 @@
     margin-right: 8px;
   }
 
-  .item:hover .icon {
+.item:hover .icon {
     animation: rockIcon 1.5s ease-in-out;
 }
 
@@ -141,18 +137,17 @@
   100% { transform: rotate(0deg); }
 }
 
+
+
 /***************************** 
 Adjustments for larger screens
 *****************************/
 
-@media (min-width: 1520px) {
+@media (min-width: 1440px) {
   .container {
     padding: 70px 120px;
   }
 
-  .logoContainer {
-    height: 30px;
-  }
 
   .highlightedText {
     font-size: 1.15rem;
@@ -185,9 +180,9 @@ Adjustments for Mobile
 @media (max-width: 767px) {
   .container {
     display: grid;  
-    grid-template-columns: 1fr; /* Display a single column on smaller screens */
+    grid-template-columns: 1fr; 
     padding: 50px 50px;
-    row-gap: 40px;
+    gap: 40px;
   }
 
   .logoContainer {

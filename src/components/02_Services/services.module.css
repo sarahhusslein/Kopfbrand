@@ -131,6 +131,24 @@
 }
 
 
+
+/***************************** 
+Adjustments for Larger Screens
+*****************************/
+@media (min-width: 1920px) {
+    .servicesWrapper {
+        width: calc(100vw - 300px);
+        margin: 0;
+        gap: 50px;
+    }
+
+
+    .animationContainer {
+        width: 250px;
+    }
+}
+
+
 /***************************** 
 Adjustments for Mobile
 *****************************/

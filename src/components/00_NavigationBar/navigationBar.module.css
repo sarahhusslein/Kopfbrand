@@ -1,4 +1,3 @@
-
 .navbar {
     position: absolute;
     top: 20px;
@@ -58,8 +57,6 @@
     pointer-events: all;
 }
 
-
-
 .navItems {
     display: flex;
     gap: 8px;
@@ -88,7 +85,6 @@
 .button, .button * {
     cursor: var(--cursor-pointer-yellow), pointer;
 }
-
 
 .button:not(:last-child):hover {
     background: rgba(245, 255, 0, 0.2);
@@ -139,6 +135,41 @@
     color: var(--broom);
     line-height: 1.1em;
 }
+
+
+
+/***************************** 
+Adjustments for Larger Screens
+*****************************/
+@media (min-width: 1920px) {
+    .navbar {
+        max-width: 100vw;
+        width: calc(100% - 300px);
+        margin: 0 auto;
+    }
+
+    .logo {
+        height: 50px;
+    }
+    
+    .logo svg {
+        height: 25px;
+    }
+
+    .navItems {
+        gap: 12px;
+        padding: 8px 8px;
+    }
+
+    .button {
+        padding: 14px 16px;
+    }
+
+    .button:last-child {
+        border: 1.5px solid var(--broom);
+    }
+}
+
 
 
 /***************************** 

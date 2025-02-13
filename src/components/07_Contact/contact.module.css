@@ -242,6 +242,63 @@
     50% { transform: translateY(-3px); }
 }
 
+
+/***************************** 
+Adjustments for Larger Screens
+*****************************/
+@media (min-width: 1920px) {
+    .container {
+        margin: 0px 150px;
+    }
+
+    .leftContainer {
+        height: 450px;
+        padding-left: 120px;
+    }
+
+    .rightContainer {
+        height: 450px;
+    }
+
+    .arrowAnimation {
+        height: 150px;
+        margin-top: -20px;
+    }
+
+    .bodyLight {
+        max-width: 600px;
+        padding-top: 12px;
+        padding-bottom: 25px;
+    }
+
+    .buttonRow {
+        gap: 25px;
+    }
+    
+    .buttonContainer {
+        gap: 12px;
+    }
+    
+    .phoneButton {
+        font-size: 1.5rem; /* 24px */
+    }
+    
+    .mailButton {
+        font-size: 1.5rem; /* 24px */
+    }
+
+    .phoneIcon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .mailIcon {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+
 /***************************** 
 Adjustments for Mobile
 *****************************/

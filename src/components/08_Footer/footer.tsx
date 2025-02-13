@@ -36,7 +36,6 @@ const footerContactItems: FooterItem[] = [
 const DURATION = 0.3;
 const STAGGER = 0;
 
-// const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url }) => (
 //     <motion.div 
 //         className={styles.item}
 //         whileHover="hovered"
@@ -201,6 +200,7 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
         )}
     </motion.div>
 );
+
  
   export default function Footer(): JSX.Element {
 
