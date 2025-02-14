@@ -77,6 +77,7 @@ export default function Header() {
     
         // 📱 Mobile Touch Handling
         const handleTouchStart = (e: React.TouchEvent) => {
+            e.preventDefault();
             isTouchingRef.current = true;
             const touch = e.touches[0];
             
@@ -89,11 +90,12 @@ export default function Header() {
                     if (isTouchingRef.current) {
                         addSpark(touchPosRef.current.x, touchPosRef.current.y);
                     }
-                }, 100);
+                }, 50);
             }
         };
     
         const handleTouchMove = (e: React.TouchEvent) => {
+            e.preventDefault(); 
             const touch = e.touches[0];
         
             // 🔄 Update der aktuellen Touch-Position in der Ref
