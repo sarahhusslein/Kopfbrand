@@ -198,11 +198,11 @@ Adjustments for Mobile
     }
 
     .testimonialRowContainer {
-        width: 100vw; 
+        width: 100%; 
         overflow-x: auto; 
         overflow-y: hidden;
         box-sizing: border-box;
-        padding: 0 16px;
+        padding: 0 20px;
         margin-bottom: 20vh;
         scrollbar-width: none;
     }
@@ -215,7 +215,7 @@ Adjustments for Mobile
         display: flex;
         flex-direction: row;
         gap: 16px;
-        width: max-content;
+        width: min-content;
     }
 
     .testimonialCardMobile {
@@ -226,9 +226,10 @@ Adjustments for Mobile
         margin: 30px 0;
     }
 
-    .testmonialCardMobile :last-child {
-        padding-right: 30px;
+    .testimonialCardMobile:last-child {
+        margin-right: 20px;
     }
+
 
     .textContent {
         position: relative;
