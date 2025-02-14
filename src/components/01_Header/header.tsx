@@ -16,6 +16,7 @@ export default function Header() {
     const videoSrc = isMobile ? '/videos/exampleVideoMobile.mov' : '/videos/exampleVideo1.mov';
     const { mousePosition, updateMousePosition } = useMousePosition();
 
+
     interface Spark {
         id: number;
         x: number;
@@ -30,6 +31,13 @@ export default function Header() {
     }
     
     const [sparks, setSparks] = useState<Spark[]>([]);
+    const isTouchingRef = useRef(false);
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const mousePositionRef = useRef(mousePosition);
+
+    useEffect(() => {
+        mousePositionRef.current = mousePosition;
+    }, [mousePosition]);
 
     const getRandomFlameColor = () => {
         const r = Math.floor(228 + Math.random() * (230 - 228)); 
@@ -38,40 +46,57 @@ export default function Header() {
         return `rgb(${r}, ${g}, ${b})`;
     };
 
-    useEffect(() => {
-        const addSpark = (x: number, y: number) => {
-            const id = Date.now(); 
+    const addSpark = (x: number, y: number) => {
+        const id = Date.now();
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 20 + 8;
 
-            const angle = Math.random() * Math.PI * 2; 
-            const speed = Math.random() * 20 + 8;
-
-
-            
-            const newSpark: Spark = {
-                id,
-                x,
-                y,
-                size: Math.random() * 16 + 4,
-                color: getRandomFlameColor(),
-                velocityX: Math.cos(angle) * speed,
-                velocityY: Math.sin(angle) * speed,
-                curveFactor: (Math.random() - 0.5) * 30, // Für kurvige Bewegung
-                acceleration: Math.random() * 0.8 + 0.05,
-                lifespan: Math.random() * 3000 + 500, // Zufällige Lebensdauer
-            };
-
-            setSparks(prev => [...prev, newSpark]);
-            
-            setTimeout(() => {
-                setSparks((prev) => prev.filter((spark) => spark.id !== id));
-            }, newSpark.lifespan);
+        const newSpark: Spark = {
+            id,
+            x,
+            y,
+            size: Math.random() * 16 + 4,
+            color: getRandomFlameColor(),
+            velocityX: Math.cos(angle) * speed,
+            velocityY: Math.sin(angle) * speed,
+            curveFactor: (Math.random() - 0.5) * 30,
+            acceleration: Math.random() * 0.8 + 0.05,
+            lifespan: Math.random() * 3000 + 500,
         };
 
-        if (mousePosition.x !== 0 && mousePosition.y !== 0) {
-            addSpark(mousePosition.x, mousePosition.y);
-        }
-    }, [mousePosition]);
+        setSparks((prev) => [...prev, newSpark]);
 
+        setTimeout(() => {
+            setSparks((prev) => prev.filter((spark) => spark.id !== id));
+        }, newSpark.lifespan);
+    };
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        isTouchingRef.current = true;
+        const touch = e.touches[0];
+        updateMousePosition({ x: touch.clientX, y: touch.clientY });
+
+        if (!intervalRef.current) {
+            intervalRef.current = setInterval(() => {
+                if (mousePositionRef.current.x !== 0 && mousePositionRef.current.y !== 0) {
+                    addSpark(mousePositionRef.current.x, mousePositionRef.current.y);
+                }
+            }, 100);
+        }
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        const touch = e.touches[0];
+        updateMousePosition({ x: touch.clientX, y: touch.clientY });
+    };
+
+    const handleTouchEnd = () => {
+        isTouchingRef.current = false;
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+    };
 
     
     const handleClick = () => {
@@ -82,6 +107,8 @@ export default function Header() {
             }
         }
     };
+
+    
 
     const itemAnimation = {
         initial: { y: 20, opacity: 0 },
@@ -100,11 +127,9 @@ export default function Header() {
         <div className={styles.container}>
             <div 
                 className={styles.heroSection} 
-                onMouseMove={updateMousePosition}
-                onTouchMove={(e) => {
-                    const touch = e.touches[0];
-                    updateMousePosition({ x: touch.clientX, y: touch.clientY });
-                }}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
             >
             {sparks.map((spark) => (
                     <motion.div
