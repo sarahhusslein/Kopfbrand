@@ -49,7 +49,7 @@ export default function Home() {
 
   /****** Smooth Scrolling ******/
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && !isMobile) {
       const lenis = new Lenis({
         autoRaf: true,
         normalizeWheel: true,
@@ -65,7 +65,7 @@ export default function Home() {
   
       requestAnimationFrame(raf);
     }
-  }, []);
+  }, [isMobile]);
 
 
   /****** Heights ******/
