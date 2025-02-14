@@ -163,7 +163,7 @@ Adjustments for Larger Screens
 
     .button {
         padding: 14px 16px;
-        pointer-events: all;
+        pointer-events: all !important;
     }
 
     .button:last-child {
@@ -182,7 +182,7 @@ Adjustments for Mobile
         width: 100vw;
         flex-direction: column;
         justify-content: center;
-        padding: 30px 16px 20px 16px;
+        padding: 30px 20px 20px 20px;
         margin: 0;
         background: rgba(35, 35, 35, 1);
         border-radius: 0px;
@@ -198,6 +198,7 @@ Adjustments for Mobile
     .navItems {
         background: none;
         padding: 0px;
+        margin: 0;
         justify-content: space-between;
     }
 
