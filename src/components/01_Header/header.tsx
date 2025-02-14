@@ -13,7 +13,7 @@ import useMousePosition from '@/utils/useMousePosition';
 export default function Header() {
 
     const isMobile = useMediaQuery({ maxWidth: 768 });
-    const videoSrc = isMobile ? '/videos/exampleVideoMobile.mov' : '/videos/exampleVideo1.mov';
+    const videoSrc = isMobile ? '/videos/konfettiVideoMobile.mp4' : '/videos/konfettiVideoDesktop.mp4';
     const { mousePosition, updateMousePosition } = useMousePosition();
     const [sparks, setSparks] = useState<Spark[]>([]);
     const isTouchingRef = useRef(false);
@@ -90,7 +90,7 @@ export default function Header() {
                     if (isTouchingRef.current) {
                         addSpark(touchPosRef.current.x, touchPosRef.current.y);
                     }
-                }, 50);
+                }, 50); // Adjust the interval time as needed
             }
         };
     
