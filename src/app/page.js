@@ -232,7 +232,7 @@ export default function Home() {
           ref={servicesRef}
           className={styles.servicesContainer}
           style={{ 
-            y: servicesY,
+            y: isMobile ? servicesY : 0,
             opacity: opacityServices
           }}
         >
