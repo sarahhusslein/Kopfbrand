@@ -244,7 +244,7 @@ export default function Home() {
           ref={numbersRef} 
           className={styles.numbersContainer}
           style={{ 
-            y: numbersY,
+            ...(isMobile ? {} : { y: numbersY }),
             opacity: opacityNumbers
           }}
         >
@@ -292,7 +292,7 @@ export default function Home() {
           ref={teamRef}
           className={styles.teamContainer}
           style={{ 
-            y: teamY
+            ...(isMobile ? {} : { y: teamY })
            }}
         >
           <Team />
