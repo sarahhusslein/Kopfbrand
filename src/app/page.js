@@ -220,7 +220,7 @@ export default function Home() {
             scale: scaleHeader, 
             rotate: rotateHeader, 
             opacity: opacityHeader,
-            y: headerY
+            ...(isMobile ? {} : { y: headerY })
             }}
         >
           <Header />
@@ -279,7 +279,7 @@ export default function Home() {
           ref={casesRef}
           className={styles.casesContainer}
           style={{ 
-            y: casesY,
+            ...(isMobile ? {} : { y: casesY }),
             opacity: opacityCases
           }}
         >
