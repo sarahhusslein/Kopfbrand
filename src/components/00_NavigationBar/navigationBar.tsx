@@ -176,6 +176,61 @@ export default function NavigationBar() {
     const STAGGER = 0;
 
 
+    // Function to render nav items
+    const renderNavItems = () => (
+        <div className={styles.navItems}>
+            {navItems.map((item) => (
+                <motion.button 
+                    key={item.id}
+                    className={`button ${styles.button} ${activeSection === item.section ? styles.active : ''}`}
+                    onClick={() => scrollToSection(item.section)}
+                    whileHover="hovered"
+                    initial="initial"
+                >
+                    <motion.div className={styles.animatedText}>
+                        <div className={styles.textWrapper}>
+                            {item.title.split('').map((letter, index) => (
+                                <motion.span 
+                                    key={index} 
+                                    variants={{
+                                        initial: { y: 0 },
+                                        hovered: { y: "-100%" },
+                                    }}
+                                    transition={{
+                                        duration: DURATION,
+                                        ease: "easeInOut",
+                                        delay: STAGGER * index,
+                                    }}
+                                >
+                                    {letter === ' ' ? '\u00A0' : letter}
+                                </motion.span>
+                            ))}
+                        </div>
+                        <div className={styles.hoverText}>
+                            {item.title.split('').map((letter, index) => (
+                                <motion.span 
+                                    key={index} 
+                                    variants={{
+                                        initial: { y: "100%" },
+                                        hovered: { y: 0 },
+                                    }}
+                                    transition={{
+                                        duration: DURATION,
+                                        ease: "easeInOut",
+                                        delay: STAGGER * index,
+                                    }}
+                                >
+                                    {letter === ' ' ? '\u00A0' : letter}
+                                </motion.span>
+                            ))}
+                        </div>
+                    </motion.div>
+                </motion.button>
+            ))}
+        </div>
+    );
+
+
  
     return (
 
@@ -192,7 +247,8 @@ export default function NavigationBar() {
             >
                 <SVG src="/logos/kopfbrand.svg" />
             </div>
-            {!isMobile && (
+
+            {!isMobile ? (
                 <Tilt
                     tiltMaxAngleX={7} 
                     tiltMaxAngleY={5} 
@@ -201,58 +257,12 @@ export default function NavigationBar() {
                     transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
                     perspective={1000} 
                 >
-                <div className={styles.navItems}>
-                    {navItems.map((item) => (
-                        <motion.button 
-                            key={item.id}
-                            className={`button ${styles.button} ${activeSection === item.section ? styles.active : ''}`}
-                            onClick={() => scrollToSection(item.section)}
-                            whileHover="hovered"
-                            initial="initial"
-                        >
-                            <motion.div className={styles.animatedText}>
-                                <div className={styles.textWrapper}>
-                                    {item.title.split('').map((letter, index) => (
-                                        <motion.span 
-                                            key={index} 
-                                            variants={{
-                                                initial: { y: 0 },
-                                                hovered: { y: "-100%" },
-                                            }}
-                                            transition={{
-                                                duration: DURATION,
-                                                ease: "easeInOut",
-                                                delay: STAGGER * index,
-                                            }}
-                                            >
-                                            {letter === ' ' ? '\u00A0' : letter}
-                                        </motion.span>
-                                    ))}
-                                </div>
-                                <div className={styles.hoverText}>
-                                    {item.title.split('').map((letter, index) => (
-                                        <motion.span 
-                                            key={index} 
-                                            variants={{
-                                                initial: { y: "100%" },
-                                                hovered: { y: 0 },
-                                            }}
-                                            transition={{
-                                                duration: DURATION,
-                                                ease: "easeInOut",
-                                                delay: STAGGER * index,
-                                            }}
-                                            >
-                                            {letter === ' ' ? '\u00A0' : letter}
-                                        </motion.span>
-                                    ))}
-                                </div>
-                            </motion.div>
-                        </motion.button>
-                    ))}
-                </div>
-            </Tilt>
+                    {renderNavItems()}
+                </Tilt>
+            ) : (
+                renderNavItems()
             )}
+
         </nav>
     );
 
