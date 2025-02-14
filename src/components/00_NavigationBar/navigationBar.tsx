@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from 'react-responsive';
 import Tilt from 'react-parallax-tilt';
 import styles from './navigationBar.module.css';
 import SVG from 'react-inlinesvg';
@@ -31,6 +32,7 @@ export default function NavigationBar() {
     const [isFixed, setIsFixed] = useState<boolean>(false);
     const [shouldHide, setShouldHide] = useState<boolean>(false);
     const [initialPositions, setInitialPositions] = useState<Record<string, number>>({});
+    const isMobile = useMediaQuery({ maxWidth: 768 });
 
 
 
@@ -190,14 +192,15 @@ export default function NavigationBar() {
             >
                 <SVG src="/logos/kopfbrand.svg" />
             </div>
-            <Tilt
-                tiltMaxAngleX={7} 
-                tiltMaxAngleY={5} 
-                glareEnable={false}
-                transitionSpeed={1000} 
-                transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
-                perspective={1000} 
-            >
+            {!isMobile && (
+                <Tilt
+                    tiltMaxAngleX={7} 
+                    tiltMaxAngleY={5} 
+                    glareEnable={false}
+                    transitionSpeed={1000} 
+                    transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
+                    perspective={1000} 
+                >
                 <div className={styles.navItems}>
                     {navItems.map((item) => (
                         <motion.button 
@@ -249,6 +252,7 @@ export default function NavigationBar() {
                     ))}
                 </div>
             </Tilt>
+            )}
         </nav>
     );
 
