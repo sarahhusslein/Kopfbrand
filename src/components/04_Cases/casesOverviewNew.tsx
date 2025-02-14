@@ -21,16 +21,16 @@ export default function CasesOverview() {
         offset: ["50vh end", "start start"]
     });
 
-    const baseMaxScale : number = 100/27.5;  // This will scale from 30vw to 100vw
+    const baseMaxScale : number = 100/27.5;  // This will scale from 27.5vw to 100vw
 
-    const scale1 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale]);
-    const scale2 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 1.5]);
-    const scale3 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.25]);
-    const scale4 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 1.75]);
-    const scale5 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2]);
-    const scale6 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.25]);
-    const scale7 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.5]);
-    const scale8 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.75]);
+    const scale1 = useTransform(scaleProgress, [0, isMobile ? 0.3 : 1], [1, baseMaxScale]);
+    const scale2 = useTransform(scaleProgress, [0, isMobile ? 0.3 : 1], [1, baseMaxScale * 1.5]);
+    const scale3 = useTransform(scaleProgress, [0, isMobile ? 0.3 : 1], [1, baseMaxScale * 2.25]);
+    const scale4 = useTransform(scaleProgress, [0, isMobile ? 0.3 : 1], [1, baseMaxScale * 1.75]);
+    const scale5 = useTransform(scaleProgress, [0, isMobile ? 0.3 : 1], [1, baseMaxScale * 2]);
+    const scale6 = useTransform(scaleProgress, [0, isMobile ? 0.3 : 1], [1, baseMaxScale * 2.25]);
+    const scale7 = useTransform(scaleProgress, [0, isMobile ? 0.3 : 1], [1, baseMaxScale * 2.5]);
+    const scale8 = useTransform(scaleProgress, [0, isMobile ? 0.3 : 1], [1, baseMaxScale * 2.75]);
 
     const overviewOpacity = useTransform(overviewProgress, [0, 1], [0.1, 1]);
 
