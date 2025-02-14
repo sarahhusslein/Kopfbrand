@@ -104,7 +104,7 @@ Adjustments for Larger Screens
 @media (min-width: 1920px) {
 
     .content {
-        bottom: 25%;
+        bottom: 15%;
     }
 
     .h4 {
@@ -127,6 +127,10 @@ Adjustments for Mobile
     .heroVideo {
         height: 95vh;
         width: auto;    
+    }
+
+    .content {
+        bottom: 8%;
     }
 
     .h1 {

@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react'; 
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import styles from './casesOverview.module.css';
+import { useMediaQuery } from 'react-responsive';
 
 
 const images = [
@@ -20,6 +21,7 @@ export default function CasesOverview() {
 
     const ref = useRef(null);
     const [dynamicScale, setDynamicScale] = useState(1);
+    const isMobile = useMediaQuery({ maxWidth: 768 });
 
 
     useEffect(() => {
@@ -68,8 +70,16 @@ export default function CasesOverview() {
     });
 
     const containerOpacity = useTransform(opacityProgress, [0, 1], [0.1, 1]);
-    const scale = useTransform(scrollYProgress, [0, 1], [1, dynamicScale]);
-    const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+    const scale = useTransform(
+        scrollYProgress,
+        [0, isMobile ? 0.3 : 1], // Use a faster zoom for mobile
+        [1, dynamicScale]
+    );
+    const imageScale = useTransform(
+        scrollYProgress,
+        [0, isMobile ? 0.3 : 1], // Adjust similarly for image scale
+        [1, 1.2]
+    );
     const y = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
 
