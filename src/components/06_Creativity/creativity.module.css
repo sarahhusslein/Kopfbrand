@@ -291,10 +291,11 @@ Adjustments for Mobile
 @media (max-width: 768px) {
 
     .container {
-        min-height: 150vh;
+        height: 100%;
         border-radius: 20px 20px 0 0;
         flex-direction: column;
-        padding-top: 30vh;
+        padding-top: 12vh;
+        padding-bottom: 12vh;
     }
 
     .textContainer {

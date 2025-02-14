@@ -246,8 +246,8 @@ Adjustments for Larger Screens
     }
 
     .emptyContainer {
-        height: 0;
-        background-color: red;
+        height: 30px;
+        background-color: black;
     }
 
     .subtitle {
