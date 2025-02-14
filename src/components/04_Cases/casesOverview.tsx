@@ -22,9 +22,12 @@ export default function CasesOverview() {
     const ref = useRef(null);
     const [dynamicScale, setDynamicScale] = useState(1);
     const isMobile = useMediaQuery({ maxWidth: 768 });
+    console.log("CasesOverview component rendered");
 
 
     useEffect(() => {
+        console.log("Is mobile:", isMobile);
+        console.log("Scroll range:", isMobile ? 0.3 : 1);
         const calculateScale = () => {
             // Get viewport dimensions
             const viewportWidth = window.innerWidth;

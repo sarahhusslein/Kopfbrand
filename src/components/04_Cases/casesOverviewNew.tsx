@@ -2,12 +2,15 @@
 import React, { useRef, useState, useEffect } from 'react'; 
 import Image from 'next/image';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { useMediaQuery } from 'react-responsive'; 
 import styles from './casesOverviewNew.module.scss';
 
 
 export default function CasesOverview() {
 
     const container = useRef(null);
+    const isMobile = useMediaQuery({ maxWidth: 768 }); 
+
     const { scrollYProgress: scaleProgress } = useScroll({
         target: container,
         offset: ["start start", "end end"]
@@ -20,14 +23,14 @@ export default function CasesOverview() {
 
     const baseMaxScale : number = 100/27.5;  // This will scale from 30vw to 100vw
 
-    const scale1 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale]);
-    const scale2 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 1.5]);
-    const scale3 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2.25]);
-    const scale4 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 1.75]);
-    const scale5 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2]);
-    const scale6 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2.25]);
-    const scale7 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2.5]);
-    const scale8 = useTransform(scaleProgress, [0, 1], [1, baseMaxScale * 2.75]);
+    const scale1 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale]);
+    const scale2 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 1.5]);
+    const scale3 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.25]);
+    const scale4 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 1.75]);
+    const scale5 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2]);
+    const scale6 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.25]);
+    const scale7 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.5]);
+    const scale8 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.75]);
 
     const overviewOpacity = useTransform(overviewProgress, [0, 1], [0.1, 1]);
 
