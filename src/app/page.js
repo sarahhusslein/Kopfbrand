@@ -51,8 +51,6 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const lenis = new Lenis({
-        lerp: 0.1,
-        wheelMultiplier: 1,
         autoRaf: true,
         touchMultiplier: 2, // Erhöht die Reaktionsfähigkeit auf Touch-Eingaben
         normalizeWheel: true,
