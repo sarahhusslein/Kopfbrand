@@ -98,7 +98,14 @@ export default function Header() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.heroSection} onMouseMove={updateMousePosition}>
+            <div 
+                className={styles.heroSection} 
+                onMouseMove={updateMousePosition}
+                onTouchMove={(e) => {
+                    const touch = e.touches[0];
+                    updateMousePosition({ x: touch.clientX, y: touch.clientY });
+                }}
+            >
             {sparks.map((spark) => (
                     <motion.div
                         key={spark.id}
