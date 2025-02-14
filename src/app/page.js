@@ -52,7 +52,7 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       const lenis = new Lenis({
         autoRaf: true,
-        touchMultiplier: 0.5, // Erhöht die Reaktionsfähigkeit auf Touch-Eingaben
+        touchMultiplier: 1,
         normalizeWheel: true,
         syncTouch: true,
       });
