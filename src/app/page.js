@@ -52,9 +52,9 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       const lenis = new Lenis({
         autoRaf: true,
-        smoothTouch: false,
         normalizeWheel: true,
         syncTouch: true,
+        syncTouchLerp: 0.3,
       });
   
       // Attach lenis to the window object
