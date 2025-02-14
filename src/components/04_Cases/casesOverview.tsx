@@ -78,7 +78,7 @@ export default function CasesOverview() {
     const imageScale = useTransform(
         scrollYProgress,
         [0, isMobile ? 0.3 : 1], // Adjust similarly for image scale
-        [1, 1.2]
+        [1, 1]
     );
     const y = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);

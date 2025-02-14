@@ -165,6 +165,7 @@ export default function Home() {
   const numbersY = useTransform(numbersScrollYProgress, [0, 1], [0, 400]); 
   const casesHeadlineY = useTransform(casesHeadlineScrollYProgress, [0, 1], [0, -900]); 
   const casesY = useTransform(casesScrollProgress, [0, 1], [0, 400]); 
+  const casesYMobile = useTransform(casesScrollProgress, [0, 1], [0, -200]); 
   const teamY = useTransform(teamScrollYProgress, [0, 1], [0, 400]); 
 
   // Scale and rotate
