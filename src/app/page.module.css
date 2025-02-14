@@ -22,7 +22,7 @@
   width: 100%;
   transform-style: preserve-3d; 
   will-change: transform;
-  touch-action: pan-y;
+  /* touch-action: pan-y; */
 }
 
 .numbersContainer {
