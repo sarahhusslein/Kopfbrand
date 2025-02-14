@@ -205,13 +205,28 @@ Adjustments for Larger Screens
   @media (max-width: 768px) {
 
     .pagination {
-        padding-top: 16px;
-        padding-right: 16px;
+        padding-top: 20px;
+        padding-right: 20px;
+    }
+
+    .dotContainer {
+        width: 25px;
+        height: 25px;
+    }
+
+    .dot {
+        width: 25px;
+        height: 25px;
+    }
+
+    .activeDot {
+        width: 25px;
+        height: 25px;
     }
 
     .overlay {
         width: 100vw;
-        height: 40vh;
+        height: 42vh;
         bottom: -20px;
         left: 0;
     }
@@ -220,7 +235,7 @@ Adjustments for Larger Screens
         position: absolute;
         bottom: 0 !important;
         left: 0 !important;
-        padding: 0 20px 40px 20px;
+        padding: 0 20px 80px 20px;
         max-width: 100%;
         overflow: hidden;
         z-index: 4;

@@ -18,6 +18,7 @@ export default function Header() {
     const [sparks, setSparks] = useState<Spark[]>([]);
     const isTouchingRef = useRef(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const touchPosRef = useRef({ x: 0, y: 0 });
 
 
     interface Spark {
@@ -78,12 +79,15 @@ export default function Header() {
         const handleTouchStart = (e: React.TouchEvent) => {
             isTouchingRef.current = true;
             const touch = e.touches[0];
+            
+            // 🔄 Speichere aktuelle Touch-Position in der Ref
+            touchPosRef.current = { x: touch.clientX, y: touch.clientY };
             updateMousePosition({ x: touch.clientX, y: touch.clientY });
-    
+        
             if (!intervalRef.current) {
                 intervalRef.current = setInterval(() => {
                     if (isTouchingRef.current) {
-                        addSpark(touch.clientX, touch.clientY);
+                        addSpark(touchPosRef.current.x, touchPosRef.current.y);
                     }
                 }, 100);
             }
@@ -91,6 +95,9 @@ export default function Header() {
     
         const handleTouchMove = (e: React.TouchEvent) => {
             const touch = e.touches[0];
+        
+            // 🔄 Update der aktuellen Touch-Position in der Ref
+            touchPosRef.current = { x: touch.clientX, y: touch.clientY };
             updateMousePosition({ x: touch.clientX, y: touch.clientY });
         };
     

@@ -181,7 +181,7 @@ Adjustments for Mobile
   .container {
     display: grid;  
     grid-template-columns: 1fr; 
-    padding: 50px 50px;
+    padding: 50px 40px;
     gap: 40px;
   }
 

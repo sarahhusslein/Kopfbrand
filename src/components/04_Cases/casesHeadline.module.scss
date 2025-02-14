@@ -81,19 +81,27 @@ Adjustments for Mobile
 @media (max-width: 768px) {
     .container {
         height: 110vh;
-        padding: 0 4px;
+        padding: 0 20px;
         overflow: hidden;
+
+        .mask {
+            height: 0;
+            width: 0;
+        }
+    }
+
+    .h1 {
+        width: 100%;
     }
 
     .mask {
         mask-image: none;
         background: none;
+        mask-size: 0;
+        width: 0;
+        height: 0;
     }
 
-    .h1, .h1Mask {
-        margin: 0; 
-        max-width: calc(100% - 8px);
-    }
 
     .underline {
         position: relative;
