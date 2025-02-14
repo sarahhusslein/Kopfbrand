@@ -184,6 +184,7 @@ export default function NavigationBar() {
                     key={item.id}
                     className={`button ${styles.button} ${activeSection === item.section ? styles.active : ''}`}
                     onClick={() => scrollToSection(item.section)}
+                    onTouchStart={() => scrollToSection(item.section)}
                     whileHover="hovered"
                     initial="initial"
                 >
