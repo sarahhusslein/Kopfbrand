@@ -205,4 +205,8 @@ Adjustments for Mobile
         border-radius: 10px;
     }
 
+    .button:last-child {
+        border: 2px solid var(--broom);
+    }
+
 }

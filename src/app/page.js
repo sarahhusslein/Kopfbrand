@@ -52,6 +52,8 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       const lenis = new Lenis({
         autoRaf: true,
+        touchMultiplier: 2, // Erhöht die Reaktionsfähigkeit auf Touch-Eingaben
+        normalizeWheel: true
       });
   
       // Attach lenis to the window object
