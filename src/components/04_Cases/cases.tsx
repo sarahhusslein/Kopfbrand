@@ -1,6 +1,7 @@
 "use client"
 import React, { useRef, useState, useEffect } from 'react'; 
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { useMediaQuery } from 'react-responsive'; 
 import SVG from 'react-inlinesvg';
 import Tilt from 'react-parallax-tilt';
 import styles from './cases.module.css';
@@ -51,6 +52,7 @@ const cases = [
     const [showFirstImage, setShowFirstImage] = useState(true);
     const [showFirstContent, setShowFirstContent] = useState(false);
     const ref = React.useRef<HTMLDivElement>(null);
+    const isMobile = useMediaQuery({ maxWidth: 768 }); 
 
     // Scroll progress tracking for pagination
     const { scrollYProgress } = useScroll({
@@ -165,42 +167,75 @@ const cases = [
 
                     {/* Cases Text */}
                     <div className={styles.textWrapper}>
-                        <Tilt 
-                            tiltMaxAngleX={5} 
-                            tiltMaxAngleY={5} 
-                            glareEnable={true} 
-                            glareBorderRadius='25px' 
-                            className={styles.overlay}
-                        >
-                            <AnimatePresence initial={false}>
-                                <motion.div 
-                                    className={styles.textContainer}
-                                    key={activeCase.id}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ 
-                                        opacity: activeCase.id === 1 && !showFirstContent ? 0 : 1 
-                                    }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ 
-                                        duration: 0.5,
-                                        ease: "easeOut"
-                                    }}
-                                    style={{
-                                        position: 'absolute',
-                                        left: 70,
-                                        bottom: 70
-                                    }}
-                                >
-                                    <h2 className={`h2 ${styles.h2}`}>{activeCase.company}</h2>
-                                    <h4 className={`subtitle ${styles.subtitle}`}>{activeCase.description}</h4>
-                                    <div className={styles.tagRow}>
-                                        {activeCase.tags.map((tag, index) => (
-                                            <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
-                                        ))}
-                                    </div>
-                                </motion.div>
-                            </AnimatePresence>
-                        </Tilt>
+                        {isMobile ? (
+                            <div className={styles.overlay}>
+                                <AnimatePresence initial={false}>
+                                    <motion.div 
+                                        className={styles.textContainer}
+                                        key={activeCase.id}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ 
+                                            opacity: activeCase.id === 1 && !showFirstContent ? 0 : 1 
+                                        }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ 
+                                            duration: 0.5,
+                                            ease: "easeOut"
+                                        }}
+                                        style={{
+                                            position: 'absolute',
+                                            left: 70,
+                                            bottom: 70
+                                        }}
+                                    >
+                                        <h2 className={`h2 ${styles.h2}`}>{activeCase.company}</h2>
+                                        <h4 className={`subtitle ${styles.subtitle}`}>{activeCase.description}</h4>
+                                        <div className={styles.tagRow}>
+                                            {activeCase.tags.map((tag, index) => (
+                                                <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+                        ) : (
+                            <Tilt 
+                                tiltMaxAngleX={5} 
+                                tiltMaxAngleY={5} 
+                                glareEnable={true} 
+                                glareBorderRadius='25px' 
+                                className={styles.overlay}
+                            >
+                                <AnimatePresence initial={false}>
+                                    <motion.div 
+                                        className={styles.textContainer}
+                                        key={activeCase.id}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ 
+                                            opacity: activeCase.id === 1 && !showFirstContent ? 0 : 1 
+                                        }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ 
+                                            duration: 0.5,
+                                            ease: "easeOut"
+                                        }}
+                                        style={{
+                                            position: 'absolute',
+                                            left: 70,
+                                            bottom: 70
+                                        }}
+                                    >
+                                        <h2 className={`h2 ${styles.h2}`}>{activeCase.company}</h2>
+                                        <h4 className={`subtitle ${styles.subtitle}`}>{activeCase.description}</h4>
+                                        <div className={styles.tagRow}>
+                                            {activeCase.tags.map((tag, index) => (
+                                                <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                </AnimatePresence>
+                            </Tilt>
+                        )}
                     </div>
                 </div>
 
@@ -240,6 +275,7 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
                 lineHeight: 0,
                 fontSize: 0,
                 opacity: isFirstCase && !showFirstImage ? 0 : 1,
+                willChange: 'transform'
             }}
         >
             <img 
