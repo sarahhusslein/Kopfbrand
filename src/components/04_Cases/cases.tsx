@@ -267,7 +267,7 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
   
     const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
     const smoothedScaleY = useTransform(scaleY, (value) => {
-        return value < 0.05 ? 0 : value; // Weniger aggressive Transformation bei kleinem Wert
+        return value < 0.5 ? 0 : value; // Weniger aggressive Transformation bei kleinem Wert
       });
   
     return (
