@@ -152,6 +152,13 @@ useEffect(() => {
 }, [totalHeight]);
 
 
+setTimeout(() => {
+  console.log("📏 casesOverviewContainer Höhe nach 3s:", casesOverviewRef.current?.offsetHeight);
+}, 3000);
+
+
+
+
 
 
 
