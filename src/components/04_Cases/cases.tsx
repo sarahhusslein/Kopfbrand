@@ -275,7 +275,6 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
                 lineHeight: 0,
                 fontSize: 0,
                 opacity: isFirstCase && !showFirstImage ? 0 : 1,
-                willChange: 'transform'
             }}
         >
             <img 
