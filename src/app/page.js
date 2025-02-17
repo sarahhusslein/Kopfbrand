@@ -106,31 +106,35 @@ export default function Home() {
         footerHeight: adjustedHeights[9],
     });
 
-    adjustedHeights[2] += isMobile ? 25 * window.innerHeight / 100 : 40 * window.innerHeight / 100; // adjust for translateY shift
-    adjustedHeights[4] += isMobile ? 50 * window.innerHeight / 100 : 50 * window.innerHeight / 100; // adjust for translateY shift
+    const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
+    console.log('Total calculated height:', total);
 
+    setHeights(adjustedHeights);
+    setTotalHeight(total);
+  };
 
-      const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
-      console.log('Total calculated height:', total);
-      setHeights(adjustedHeights);
-        setTotalHeight(total);
-    };
+  // Initial height calculation (only run this once)
+  calculateHeights();
 
-    calculateHeights();
+  // Event listener for scroll
+  const onScroll = () => {
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
 
-    window.addEventListener('resize', calculateHeights);
+    // Check if we are near the bottom of the page (stop recalculating if we are)
+    if (scrollPosition < documentHeight - 1) {
+      // Allow heights to adjust normally when we're not at the bottom
+      calculateHeights();
+    }
+  };
 
-    setInterval(() => {
-      console.log("Total Height:", document.querySelector('.' + styles.parallaxContainer)?.offsetHeight);
-    }, 5000);
+  // Add scroll event listener
+  window.addEventListener('scroll', onScroll);
 
-    console.log("Environment:", process.env.NODE_ENV);
-
-    return () => {
-        window.removeEventListener('resize', calculateHeights);
-    };
-
-    
+  // Cleanup scroll event listener on component unmount
+  return () => {
+    window.removeEventListener('scroll', onScroll);
+  };
 }, [isMobile]);
 
 useEffect(() => {
