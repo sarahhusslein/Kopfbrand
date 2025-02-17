@@ -282,6 +282,8 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
                 duration: 0.5,
                 ease: "easeInOut"
             }}
+            dragElastic={0.2}
+            dragConstraints={{ left: 0, right: 100, top: 0, bottom: 100 }}
         >
             <img 
                 className={styles.image}
