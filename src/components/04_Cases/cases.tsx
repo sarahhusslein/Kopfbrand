@@ -272,9 +272,8 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
             style={{
                 scaleY,
                 transformOrigin: 'top',
-                lineHeight: 0,
-                fontSize: 0,
                 opacity: isFirstCase && !showFirstImage ? 0 : 1,
+                transition: 'scaleY 0.5s ease',
             }}
         >
             <img 
