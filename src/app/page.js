@@ -269,7 +269,7 @@ export default function Home() {
           ref={casesOverviewRef}
           className={styles.casesOverviewContainer}
           style={{ 
-            top: `calc(100vh - ${heights[4] || 0}px)`,
+            top: `calc(100vh - ${heights[4]  || 0}px)`,
             opacity: opacityCasesOverview
           }}
         >

@@ -21,7 +21,7 @@ export default function CasesOverview() {
         offset: ["50vh end", "start start"]
     });
 
-    const baseMaxScale : number = 100/27.5;  // This will scale from 27.5vw to 100vw
+    const baseMaxScale : number = isMobile ? 100/30 : 100/27.5;
 
     const scale1 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale]);
     const scale2 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 1.5]);
@@ -51,9 +51,10 @@ export default function CasesOverview() {
     useEffect(() => {
         const unsubscribe = scaleProgress.on('change', (latest) => {
 
-            const threshold = isMobile ? 0.4 : 0.8;
-            // When image is fully scaled (around 0.8-1.0 of scroll progress)
+            const threshold = isMobile ? 1 : 0.8;
+            // When image is fully scaled 
             if (latest > threshold) {
+                console.log('Dispatching imageFullyScaled event for:', "/images/caseStudyHotelGrey.jpg");
                 // Dispatch custom event
                 window.dispatchEvent(new CustomEvent('imageFullyScaled', {
                     detail: { image: "/images/caseStudyHotelGrey.jpg" }

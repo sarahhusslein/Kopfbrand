@@ -102,7 +102,7 @@ const cases = [
 
   
     const handleDotClick = (index: number) => {
-        if (typeof window !== 'undefined') { // Check if running in the browser
+        if (typeof window !== 'undefined') { 
             const containerHeight = ref.current?.offsetHeight || 0;
             const scrollPosition = (containerHeight * index * 0.2);
             const containerTop = ref.current?.getBoundingClientRect().top || 0;
