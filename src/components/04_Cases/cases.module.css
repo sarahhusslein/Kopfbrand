@@ -204,6 +204,7 @@ Adjustments for Larger Screens
   *****************************/
   @media (max-width: 768px) {
 
+
     .pagination {
         padding-top: 20px;
         padding-right: 20px;

@@ -13,7 +13,7 @@ export default function CasesOverview() {
 
     const { scrollYProgress: scaleProgress } = useScroll({
         target: container,
-        offset: ["start start", "end end"]
+        offset: ["start start", isMobile ? "end -50%" : "end end"]
     });
 
     const { scrollYProgress: overviewProgress} = useScroll({
@@ -36,14 +36,14 @@ export default function CasesOverview() {
 
 
     const images = [
-        {src: "/images/caseStudyHotelGrey.jpg", scale: scale1},
-        {src: "/images/caseStudyMagazineKid.jpg", scale: scale2},
-        {src: "/images/caseStudyAbstractShape.jpg", scale: scale3},
-        {src: "/images/caseStudyCat.jpg", scale: scale4},
-        {src: "/images/caseStudyBanners.png", scale: scale5},
-        {src: "/images/caseStudyWall.jpg", scale: scale6},
-        {src: "/images/caseStudyDesignTable.jpg", scale: scale7},
-        {src: "/images/caseStudyHotelBrown.jpg", scale: scale8},
+        {src: "/images/caseStudyHotelGrey.jpg", alt: "image", scale: scale1},
+        {src: "/images/caseStudyMagazineKid.jpg", alt: "image", scale: scale2},
+        {src: "/images/caseStudyAbstractShape.jpg", alt: "image", scale: scale3},
+        {src: "/images/caseStudyCat.jpg", alt: "image", scale: scale4},
+        {src: "/images/caseStudyBanners.png", alt: "image", scale: scale5},
+        {src: "/images/caseStudyWall.jpg", alt: "image", scale: scale6},
+        {src: "/images/caseStudyDesignTable.jpg", alt: "image", scale: scale7},
+        {src: "/images/caseStudyHotelBrown.jpg", alt: "image", scale: scale8},
     ]
 
 
@@ -51,7 +51,7 @@ export default function CasesOverview() {
     useEffect(() => {
         const unsubscribe = scaleProgress.on('change', (latest) => {
 
-            const threshold = isMobile ? 1 : 0.8;
+            const threshold = isMobile ? 0.4 : 0.8;
             // When image is fully scaled 
             if (latest > threshold) {
                 console.log('Dispatching imageFullyScaled event for:', "/images/caseStudyHotelGrey.jpg");
@@ -64,6 +64,19 @@ export default function CasesOverview() {
 
         return () => unsubscribe();
     }, [scaleProgress, isMobile]);
+
+    useEffect(() => {
+        return scaleProgress.on("change", (latest) => {
+            console.log("ScrollYProgress:", latest);
+        });
+    }, [scaleProgress]);
+
+    useEffect(() => {
+        console.log("Viewport-Höhe:", window.innerHeight);
+        console.log("Container-Höhe:", container?.current?.offsetHeight);
+    });
+    
+
 
     
     
@@ -78,7 +91,7 @@ export default function CasesOverview() {
                             <Image 
                                 src={src}
                                 fill
-                                alt="image"
+                                alt={images[index].alt}
                             />
                         </div>
                     </motion.div>

@@ -273,6 +273,7 @@ export default function Home() {
             opacity: opacityCasesOverview
           }}
         >
+          
           <CasesOverviewNew />
         </motion.div>
 
