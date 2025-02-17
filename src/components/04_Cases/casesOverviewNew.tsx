@@ -21,7 +21,7 @@ export default function CasesOverview() {
         offset: ["50vh end", "start start"]
     });
 
-    const baseMaxScale : number = isMobile ? 100/30 : 100/27.5;
+    const baseMaxScale : number = isMobile ? 100/26.5 : 100/25;
 
     const scale1 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale]);
     const scale2 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 1.5]);
