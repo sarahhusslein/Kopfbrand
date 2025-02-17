@@ -258,6 +258,7 @@ const cases = [
 
 const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
     const ref = useRef<HTMLDivElement>(null);
+    const isMobile = useMediaQuery({ maxWidth: 768 }); 
     
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -265,12 +266,15 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
     });
   
     const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+    const smoothedScaleY = useTransform(scaleY, (value) => {
+        return value < 0.2 ? 0 : value; // Weniger aggressive Transformation bei kleinem Wert
+      });
   
     return (
         <motion.div 
             ref={ref}
             style={{
-                scaleY,
+                scaleY: isMobile ? smoothedScaleY : scaleY,
                 transformOrigin: 'top',
                 lineHeight: 0,
                 fontSize: 0,
@@ -282,8 +286,6 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
                 duration: 0.5,
                 ease: "easeInOut"
             }}
-            dragElastic={0.2}
-            dragConstraints={{ left: 0, right: 100, top: 0, bottom: 100 }}
         >
             <img 
                 className={styles.image}
