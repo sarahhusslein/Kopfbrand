@@ -185,7 +185,7 @@ Adjustments for Larger Screens
   @media (max-width: 768px) {
 
     .container {
-        margin-top: -50px;
+        margin-top: -30px;
         overflow-x: hidden;
         box-shadow: none;
     }

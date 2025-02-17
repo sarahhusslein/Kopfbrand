@@ -54,7 +54,6 @@ export default function CasesOverview() {
             const threshold = isMobile ? 0.4 : 0.8;
             // When image is fully scaled 
             if (latest > threshold) {
-                console.log('Dispatching imageFullyScaled event for:', "/images/caseStudyHotelGrey.jpg");
                 // Dispatch custom event
                 window.dispatchEvent(new CustomEvent('imageFullyScaled', {
                     detail: { image: "/images/caseStudyHotelGrey.jpg" }
@@ -65,16 +64,16 @@ export default function CasesOverview() {
         return () => unsubscribe();
     }, [scaleProgress, isMobile]);
 
-    useEffect(() => {
-        return scaleProgress.on("change", (latest) => {
-            console.log("ScrollYProgress:", latest);
-        });
-    }, [scaleProgress]);
+    // useEffect(() => {
+    //     return scaleProgress.on("change", (latest) => {
+    //         console.log("ScrollYProgress:", latest);
+    //     });
+    // }, [scaleProgress]);
 
-    useEffect(() => {
-        console.log("Viewport-Höhe:", window.innerHeight);
-        console.log("Container-Höhe:", container?.current?.offsetHeight);
-    });
+    // useEffect(() => {
+    //     console.log("Viewport-Höhe:", window.innerHeight);
+    //     console.log("Container-Höhe:", container?.current?.offsetHeight);
+    // });
     
 
 

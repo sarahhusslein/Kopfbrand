@@ -81,9 +81,9 @@ export default function Home() {
       const adjustedHeights = [
         newHeights[0], // headerHeight
         newHeights[1], // servicesHeight
-        isMobile ? newHeights[2] : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight adjustment
+        isMobile ? newHeights[2] - (25 * window.innerHeight / 100) : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight adjustment
         newHeights[3], // casesHeadlineHeight
-        isMobile ? newHeights[4] : newHeights[4] - (40 * window.innerHeight / 100), // casesOverviewHeight adjustment
+        newHeights[4] - (50 * window.innerHeight / 100), // casesOverviewHeight adjustment
         newHeights[5], // casesHeight
         newHeights[6], // teamHeight
         newHeights[7], // creativityHeight
@@ -91,10 +91,22 @@ export default function Home() {
         newHeights[9], // footerHeight
       ];
 
-      console.log('Header height:', adjustedHeights[0]);
-      console.log('Footer height:', adjustedHeights[9]);
+      // Log each section's height
+      console.log('Heights:', {
+        headerHeight: adjustedHeights[0],
+        servicesHeight: adjustedHeights[1],
+        numbersHeight: adjustedHeights[2],
+        casesHeadlineHeight: adjustedHeights[3],
+        casesOverviewHeight: adjustedHeights[4],
+        casesHeight: adjustedHeights[5],
+        teamHeight: adjustedHeights[6],
+        creativityHeight: adjustedHeights[7],
+        contactHeight: adjustedHeights[8],
+        footerHeight: adjustedHeights[9],
+    });
 
-      const total = adjustedHeights.reduce((sum, height) => sum + height, 0) - 500;
+      const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
+      console.log('Total calculated height:', total);
       setHeights(adjustedHeights);
       setTotalHeight(total);
     };
@@ -326,7 +338,7 @@ export default function Home() {
           ref={footerRef}
           className={styles.footerContainer}
           style={{
-            position: 'relative', // Standard: Footer bewegt sich normal mit
+            position: 'relative', 
             ...(footerSticky && {
               position: 'sticky',
               bottom: 0,
