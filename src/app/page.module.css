@@ -6,6 +6,7 @@
 .parallaxContainer {
   position: relative;
   background-color: var(--darkest-grey);
+  margin-bottom: 0;
 }
 
 .headerContainer {
@@ -63,6 +64,14 @@
 .contactContainer {
   position: relative;
   z-index: 10;  
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.footerWrapper {
+  background-color: var(--darkest-grey);
+  position: sticky;
+  bottom: 0;
 }
 
 .footerContainer {

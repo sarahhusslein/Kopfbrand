@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import styles from "./page.module.css";
@@ -70,7 +70,7 @@ export default function Home() {
 
 
   /****** Heights ******/
-  useEffect(() => {
+  useLayoutEffect(() => {
     const calculateHeights = () => {
       const newHeights = [
         headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
@@ -109,14 +109,32 @@ export default function Home() {
       console.log('Total calculated height:', total);
       setHeights(adjustedHeights);
       setTotalHeight(total);
-    };
+  };
 
+  calculateHeights();
 
-    calculateHeights();
-    window.addEventListener('resize', calculateHeights);
+  const handleResize = () => {
+      calculateHeights();
+  };
 
-    return () => window.removeEventListener('resize', calculateHeights);
-  }, [isMobile]);
+  // Calculate heights after images load
+  const images = document.querySelectorAll('img');
+  let imagesLoaded = 0;
+  images.forEach((img) => {
+      img.addEventListener('load', () => {
+          imagesLoaded += 1;
+          if (imagesLoaded === images.length) {
+              calculateHeights();
+          }
+      });
+  });
+
+  window.addEventListener('resize', handleResize);
+
+  return () => {
+      window.removeEventListener('resize', handleResize);
+  };
+}, [isMobile]);
 
 
 
@@ -167,7 +185,7 @@ export default function Home() {
 
   const { scrollYProgress: footerScrollYProgress } = useScroll({
     target: contactRef,
-    offset: ["end end", "end 62vh"]
+    offset: ["end end", "end 50vh"]
   });
 
 
@@ -178,7 +196,6 @@ export default function Home() {
   const numbersY = useTransform(numbersScrollYProgress, [0, 1], [0, 400]); 
   const casesHeadlineY = useTransform(casesHeadlineScrollYProgress, [0, 1], [0, -900]); 
   const casesY = useTransform(casesScrollProgress, [0, 1], [0, 400]); 
-  const casesYMobile = useTransform(casesScrollProgress, [0, 1], [0, -200]); 
   const teamY = useTransform(teamScrollYProgress, [0, 1], [0, 400]); 
 
   // Scale and rotate
@@ -334,21 +351,23 @@ export default function Home() {
 
 
         {/****** Footer ******/}
-        <motion.div id="footer" 
-          ref={footerRef}
-          className={styles.footerContainer}
-          style={{
-            position: 'relative', 
-            ...(footerSticky && {
-              position: 'sticky',
-              bottom: 0,
-            }),
-            opacity: opacityFooter,
-          }}
-        >
-          <Footer />
-          <FinalBar />
-        </motion.div>
+        <div className={styles.footerWrapper}>
+          <motion.div id="footer" 
+            ref={footerRef}
+            className={styles.footerContainer}
+            style={{
+              position: 'relative', 
+              ...(footerSticky && {
+                position: 'sticky',
+                bottom: 0,
+              }),
+              opacity: opacityFooter,
+            }}
+          >
+            <Footer />
+            <FinalBar />
+          </motion.div>
+        </div>
 
 
       </div>
