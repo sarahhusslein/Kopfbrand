@@ -173,14 +173,16 @@ const cases = [
                                     <motion.div 
                                         className={styles.textContainer}
                                         key={activeCase.id}
-                                        initial={{ opacity: 0 }}
+                                        initial={{ opacity: 0, }}
                                         animate={{ 
-                                            opacity: activeCase.id === 1 && !showFirstContent ? 0 : 1 
+                                            opacity: activeCase.id === 1 && !showFirstContent ? 0 : 1,
                                         }}
-                                        exit={{ opacity: 0 }}
+                                        exit={{ 
+                                            opacity: 0, 
+                                             }}
                                         transition={{ 
                                             duration: 0.5,
-                                            ease: "easeOut"
+                                            ease: "easeInOut"
                                         }}
                                         style={{
                                             position: 'absolute',
@@ -188,13 +190,32 @@ const cases = [
                                             bottom: 70
                                         }}
                                     >
-                                        <h2 className={`h2 ${styles.h2}`}>{activeCase.company}</h2>
-                                        <h4 className={`subtitle ${styles.subtitle}`}>{activeCase.description}</h4>
-                                        <div className={styles.tagRow}>
+                                        <motion.h2 
+                                            className={`h2 ${styles.h2}`}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeOut" }}
+                                        >
+                                                {activeCase.company}
+                                        </motion.h2>
+                                        <motion.h4 
+                                            className={`subtitle ${styles.subtitle}`}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeOut" }}
+                                        >
+                                            {activeCase.description}
+                                        </motion.h4>
+                                        <motion.div 
+                                            className={styles.tagRow}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeOut" }}
+                                        >
                                             {activeCase.tags.map((tag, index) => (
                                                 <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
                                             ))}
-                                        </div>
+                                        </motion.div>
                                     </motion.div>
                                 </AnimatePresence>
                             </div>
@@ -213,7 +234,6 @@ const cases = [
                                         initial={{ opacity: 0, }}
                                         animate={{ 
                                             opacity: activeCase.id === 1 && !showFirstContent ? 0 : 1,
-                                             
                                         }}
                                         exit={{ 
                                             opacity: 0, 

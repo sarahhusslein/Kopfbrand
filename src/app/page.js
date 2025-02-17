@@ -91,6 +91,7 @@ export default function Home() {
         newHeights[9], // footerHeight
       ];
 
+
       // Log each section's height
       console.log('Heights:', {
         headerHeight: adjustedHeights[0],
@@ -111,14 +112,12 @@ export default function Home() {
         setTotalHeight(total);
     };
 
-    const handleResize = () => {
-        calculateHeights();
-    };
+    calculateHeights();
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', calculateHeights);
 
     return () => {
-        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('resize', calculateHeights);
     };
 }, [isMobile]);
 
