@@ -115,18 +115,6 @@ export default function Home() {
         calculateHeights();
     };
 
-    // Calculate heights after images load
-    const images = document.querySelectorAll('img');
-    let imagesLoaded = 0;
-    images.forEach((img) => {
-        img.addEventListener('load', () => {
-            imagesLoaded += 1;
-            if (imagesLoaded === images.length) {
-                calculateHeights();
-            }
-        });
-    });
-
     window.addEventListener('resize', handleResize);
 
     return () => {
