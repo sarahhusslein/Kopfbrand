@@ -53,6 +53,20 @@ export default function Contact() {
       };
 
 
+    const itemAnimationMobile = {
+    initial: { y: 40, opacity: 0 },
+    inView: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2,
+            ease: "easeInOut",
+            duration: 0.5
+        }
+    }
+    };
+
+
 
     return (
         <div className={styles.outerContainer}>
@@ -92,15 +106,36 @@ export default function Contact() {
                 </div>
 
                 {/* Right Container */}
-                <div className={ styles.rightContainer} ref={rightContainerRef} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-                    <h2 className={`h2`}>LETS&nbsp;
+                <motion.div 
+                    className={ styles.rightContainer} 
+                    ref={rightContainerRef} 
+                    onTouchStart={handleTouchStart} 
+                    onTouchEnd={handleTouchEnd}
+                    variants={itemAnimationMobile}
+                    initial="initial"
+                    whileInView="inView"
+                    viewport={{ once: false, amount: 0.5 }}
+                >
+                    <motion.h2  
+                        className={`h2`} 
+                        variants={itemAnimationMobile}
+                    >
+                        LETS&nbsp;
                         <span className={styles.underline}> 
                         TALK!
                         <SVG src={'/illustrations/underlineHanddrawnShort.svg'} className={styles.SVG}></SVG>
                         </span>
-                    </h2>
-                    <p className={`body-light ${styles.bodyLight}`}>Große Pläne, kleiner Plausch oder einfach nur Lust auf Kaffee? Wir freuen uns, von dir zu hören.</p>
-                    <div className={styles.buttonRow}>
+                    </motion.h2>
+                    <motion.p 
+                        className={`body-light ${styles.bodyLight}`}
+                        variants={itemAnimationMobile}
+                    >
+                        Große Pläne, kleiner Plausch oder einfach nur Lust auf Kaffee? Wir freuen uns, von dir zu hören.
+                    </motion.p>
+                    <motion.div 
+                        className={styles.buttonRow}
+                        variants={itemAnimationMobile}
+                    >
                         <div className={styles.buttonContainer}>
                             <p className={`body ${styles.body}`}>Direkter Draht zu uns:</p>
                             <button className={styles.phoneButton} /* onClick={() => window.location.href = 'tel:+498924224281'} */> 
@@ -115,8 +150,8 @@ export default function Contact() {
                                 Jetzt mailen
                             </button>
                         </div>
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </motion.div>
             </Tilt>
         </div>

@@ -94,6 +94,19 @@ export default function Services() {
     }
     };  
 
+    const itemAnimationMobile = {
+        initial: { y: 40, opacity: 0 },
+        inView: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2,
+                ease: "easeInOut",
+                duration: 0.5
+            }
+        }
+    };
+
 
     // First phase: Initial movement to staggered positions
     const { scrollYProgress: initialProgress } = useScroll({
@@ -189,17 +202,17 @@ export default function Services() {
   return (
     <div className={styles.container}>
         <motion.div
-        variants={itemAnimation}
+        variants={isMobile ? itemAnimationMobile : itemAnimation}
         initial="initial"
         whileInView="inView"
         viewport={{ once: false, amount: 0.3 }}
         >
             {isMobile ? (
-                    <h1 className={`h1 ${styles.h1}`}>
+                    <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimationMobile}>
                         <span>KREATIV</span>
                         <br />
                         <span>AGENTUR</span>
-                    </h1>
+                    </motion.h1>
                 ) : (
                     <motion.h1 
                         className={`h1 ${styles.h1Wrapper}`}
@@ -257,7 +270,7 @@ export default function Services() {
                     </motion.h1>
                 )}
 
-            <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>
+            <motion.h4 className={`subtitle ${styles.h4}`} variants={isMobile ? itemAnimationMobile : itemAnimation}>
                 Wir konzipieren, gestalten, und kreieren. Von der Idee bis zum Prototyping. 
                 {isMobile ? ' ' : <br />}
                 Lorem ipsum text.
@@ -269,7 +282,7 @@ export default function Services() {
             >
                 {isMobile ? (
                     <>
-                        <div className={styles.buttonRow}>
+                        <motion.div className={styles.buttonRow} variants={itemAnimationMobile}>
                             {services.map((service, index) => (
                                 <button
                                     key={service.id}
@@ -279,21 +292,21 @@ export default function Services() {
                                     <span className={`subtitle-highlighted ${styles.numberMobile}`}>{service.number}</span>
                                 </button>
                             ))}
-                        </div>
-                        <div className={styles.serviceSection}>
-                            <div className={styles.animationContainer}>
+                        </motion.div>
+                        <motion.div className={styles.serviceSection} variants={itemAnimationMobile}>
+                            <motion.div className={styles.animationContainer} >
                             <Lottie 
                                     animationData={services[activeIndex].animation}
                                     className={styles.drawingAnimation}
                                     loop={true}
                                     autoplay={true}
                                 />
-                            </div>
-                            <div className={styles.textContent}>
+                            </motion.div>
+                            <motion.div className={styles.textContent} variants={itemAnimationMobile}>
                                 <h3 className={`subtitle-highlighted ${styles.serviceTitle}`}>{services[activeIndex].title}</h3>
                                 <p className={`body ${styles.description}`}>{services[activeIndex].description}</p>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     </>
                 ) : (
                     services.map((service, index) => (

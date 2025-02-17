@@ -147,7 +147,13 @@ export default function Testimonials() {
     <div>
         {isMobile ? (
                 <div className={styles.container}>
-                    <div className={styles.headlineSection}>
+                    <motion.div 
+                        className={styles.headlineSection}
+                        initial={{ y: 40, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: false, amount: 0.5 }}
+                        transition={{ duration: 0.5, ease: "easeInOut"}}
+                    >
                         <h1 className={`h1 ${styles.h1}`}>
                         FLUR
                         <span className={styles.underline}> 
@@ -155,8 +161,14 @@ export default function Testimonials() {
                             <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
                         </span>
                         </h1>
-                    </div>
-                    <div className={styles.testimonialRowContainer}>
+                    </motion.div>
+                    <motion.div 
+                        className={styles.testimonialRowContainer}
+                        initial={{ y: 40, opacity: 0 }}
+                        whileInView={{ y: 0, opacity: 1 }}
+                        viewport={{ once: false, amount: 0.5 }}
+                        transition={{ duration: 0.5, ease: "easeInOut"}}
+                    >
                         <div className={styles.testimonialRow}>
                             {testimonials.map((testimonial, index) => (
                                 <div
@@ -182,7 +194,7 @@ export default function Testimonials() {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             ) : (
                 <div className={styles.container}>
