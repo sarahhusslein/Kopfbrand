@@ -70,8 +70,6 @@
 
 .footerWrapper {
   background-color: var(--darkest-grey);
-  position: sticky;
-  bottom: 0;
 }
 
 .footerContainer {

@@ -108,13 +108,30 @@ export default function Home() {
       const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
       console.log('Total calculated height:', total);
       setHeights(adjustedHeights);
-      setTotalHeight(total);
-  };
+        setTotalHeight(total);
+    };
 
-  calculateHeights();
-  window.addEventListener('resize', calculateHeights);
+    const handleResize = () => {
+        calculateHeights();
+    };
 
-  return () => window.removeEventListener('resize', calculateHeights);
+    // Calculate heights after images load
+    const images = document.querySelectorAll('img');
+    let imagesLoaded = 0;
+    images.forEach((img) => {
+        img.addEventListener('load', () => {
+            imagesLoaded += 1;
+            if (imagesLoaded === images.length) {
+                calculateHeights();
+            }
+        });
+    });
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
 }, [isMobile]);
 
 
@@ -332,7 +349,17 @@ export default function Home() {
 
 
         {/****** Footer ******/}
-        <div className={styles.footerWrapper}>
+        <div 
+        className={styles.footerWrapper}
+        style={{
+          position: 'relative', 
+          ...(footerSticky && {
+            position: 'sticky',
+            backgroundColor: 'var(--darkest-grey)',
+            bottom: 0,
+          }),
+        }}
+        >
           <motion.div id="footer" 
             ref={footerRef}
             className={styles.footerContainer}
