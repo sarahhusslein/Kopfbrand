@@ -116,10 +116,45 @@ export default function Home() {
 
     window.addEventListener('resize', calculateHeights);
 
+    setInterval(() => {
+      console.log("Total Height:", document.querySelector('.' + styles.parallaxContainer)?.offsetHeight);
+    }, 5000);
+
+    console.log("Environment:", process.env.NODE_ENV);
+
     return () => {
         window.removeEventListener('resize', calculateHeights);
     };
+
+    
 }, [isMobile]);
+
+useEffect(() => {
+  const target = document.getElementById("main-container"); // Passe die ID an
+  if (!target) return;
+
+  const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+          if (mutation.type === "attributes" || mutation.type === "childList") {
+              console.log("Container height changed!", target.offsetHeight);
+          }
+      });
+  });
+
+  observer.observe(target, { attributes: true, childList: true, subtree: true });
+
+  return () => observer.disconnect();
+}, []);
+
+
+useEffect(() => {
+  console.log("Total Height changed:", totalHeight);
+}, [totalHeight]);
+
+
+
+
+
 
 
 
