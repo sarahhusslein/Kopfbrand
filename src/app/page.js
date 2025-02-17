@@ -208,6 +208,8 @@ export default function Home() {
   const opacityCases = useTransform(casesScrollProgress, [0, 1], [1, 0.7]);
   const opacityFooter = useTransform(footerScrollYProgress, [0, 1], [0.4, 1]);
 
+
+  // Footer Sticky
   const [footerSticky, setFooterSticky] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -236,7 +238,7 @@ export default function Home() {
       <div
         ref={containerRef}
         className={styles.parallaxContainer}
-        style={{ height: `${totalHeight}px` }}
+        style={{ height: `${totalHeight}px`, marginBottom: '0px' }}
       > 
 
         {/****** Header ******/}
