@@ -106,6 +106,10 @@ export default function Home() {
         footerHeight: adjustedHeights[9],
     });
 
+    adjustedHeights[2] += isMobile ? 25 * window.innerHeight / 100 : 40 * window.innerHeight / 100; // adjust for translateY shift
+    adjustedHeights[4] += isMobile ? 50 * window.innerHeight / 100 : 50 * window.innerHeight / 100; // adjust for translateY shift
+
+
       const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
       console.log('Total calculated height:', total);
       setHeights(adjustedHeights);
