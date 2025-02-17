@@ -118,7 +118,6 @@ export default function Contact() {
                 >
                     <motion.h2  
                         className={`h2`} 
-                        variants={itemAnimationMobile}
                     >
                         LETS&nbsp;
                         <span className={styles.underline}> 
@@ -128,13 +127,11 @@ export default function Contact() {
                     </motion.h2>
                     <motion.p 
                         className={`body-light ${styles.bodyLight}`}
-                        variants={itemAnimationMobile}
                     >
                         Große Pläne, kleiner Plausch oder einfach nur Lust auf Kaffee? Wir freuen uns, von dir zu hören.
                     </motion.p>
                     <motion.div 
                         className={styles.buttonRow}
-                        variants={itemAnimationMobile}
                     >
                         <div className={styles.buttonContainer}>
                             <p className={`body ${styles.body}`}>Direkter Draht zu uns:</p>

@@ -149,18 +149,20 @@ export default function Testimonials() {
                 <div className={styles.container}>
                     <motion.div 
                         className={styles.headlineSection}
-                        initial={{ y: 40, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: false, amount: 0.5 }}
-                        transition={{ duration: 0.5, ease: "easeInOut"}}
                     >
-                        <h1 className={`h1 ${styles.h1}`}>
+                        <motion.h1 
+                            className={`h1 ${styles.h1}`}
+                            initial={{ y: 40, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            viewport={{ once: false, amount: 0.5 }}
+                            transition={{ duration: 0.5, ease: "easeInOut"}}
+                        >
                         FLUR
                         <span className={styles.underline}> 
                             FUNK
                             <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
                         </span>
-                        </h1>
+                        </motion.h1>
                     </motion.div>
                     <motion.div 
                         className={styles.testimonialRowContainer}

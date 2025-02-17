@@ -45,6 +45,7 @@
   transform-style: preserve-3d; 
   will-change: transform;
   margin-top: -50vh;
+  margin-bottom: 0;
 }
 
 .casesContainer {
