@@ -112,28 +112,9 @@ export default function Home() {
   };
 
   calculateHeights();
+  window.addEventListener('resize', calculateHeights);
 
-  const handleResize = () => {
-      calculateHeights();
-  };
-
-  // Calculate heights after images load
-  const images = document.querySelectorAll('img');
-  let imagesLoaded = 0;
-  images.forEach((img) => {
-      img.addEventListener('load', () => {
-          imagesLoaded += 1;
-          if (imagesLoaded === images.length) {
-              calculateHeights();
-          }
-      });
-  });
-
-  window.addEventListener('resize', handleResize);
-
-  return () => {
-      window.removeEventListener('resize', handleResize);
-  };
+  return () => window.removeEventListener('resize', calculateHeights);
 }, [isMobile]);
 
 
