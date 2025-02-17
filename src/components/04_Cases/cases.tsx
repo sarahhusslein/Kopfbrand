@@ -276,6 +276,11 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
                 fontSize: 0,
                 opacity: isFirstCase && !showFirstImage ? 0 : 1,
                 transition: 'scaleY 0.5s ease',
+                willChange: 'transform'
+            }}
+            transition={{
+                duration: 0.5,
+                ease: "easeInOut"
             }}
         >
             <img 
