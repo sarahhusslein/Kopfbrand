@@ -116,53 +116,18 @@ export default function Home() {
   // Initial height calculation (only run this once)
   calculateHeights();
 
-  // Event listener for scroll
-  const onScroll = () => {
-    const scrollPosition = window.scrollY + window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-
-    // Check if we are near the bottom of the page (stop recalculating if we are)
-    if (scrollPosition < documentHeight - 1) {
-      // Allow heights to adjust normally when we're not at the bottom
-      calculateHeights();
-    }
-  };
-
-  // Add scroll event listener
-  window.addEventListener('scroll', onScroll);
-
-  // Cleanup scroll event listener on component unmount
   return () => {
-    window.removeEventListener('scroll', onScroll);
+    // Hier keine Bereinigung nötig, da wir den Scroll nicht mehr überwachen
   };
-}, [isMobile]);
+}, [isMobile]); 
 
-useEffect(() => {
-  const target = document.getElementById("main-container"); // Passe die ID an
-  if (!target) return;
 
-  const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-          if (mutation.type === "attributes" || mutation.type === "childList") {
-              console.log("Container height changed!", target.offsetHeight);
-          }
-      });
-  });
 
-  observer.observe(target, { attributes: true, childList: true, subtree: true });
-
-  return () => observer.disconnect();
-}, []);
 
 
 useEffect(() => {
   console.log("Total Height changed:", totalHeight);
 }, [totalHeight]);
-
-
-setTimeout(() => {
-  console.log("📏 casesOverviewContainer Höhe nach 3s:", casesOverviewRef.current?.offsetHeight);
-}, 3000);
 
 
 
