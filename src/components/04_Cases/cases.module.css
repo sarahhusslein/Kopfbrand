@@ -230,6 +230,7 @@ Adjustments for Larger Screens
         height: 42vh;
         bottom: -20px;
         left: 0;
+        margin: 0;
     }
 
     .textContainer {

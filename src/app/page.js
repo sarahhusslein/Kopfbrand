@@ -52,7 +52,8 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       const lenis = new Lenis({
         autoRaf: true,
-        normalizeWheel: true,
+        normalizeWheel: !isMobile,
+        smoothWheel: !isMobile,
       });
   
       // Attach lenis to the window object
@@ -273,7 +274,7 @@ export default function Home() {
             opacity: opacityCasesOverview
           }}
         >
-          
+
           <CasesOverviewNew />
         </motion.div>
 
