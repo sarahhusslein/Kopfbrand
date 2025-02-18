@@ -372,7 +372,7 @@ useEffect(() => {
               ...(footerSticky && {
                 position: 'sticky',
                 bottom: 0,
-                zIndex: 10,
+                zIndex: 5,
               }),
               opacity: opacityFooter,
             }}

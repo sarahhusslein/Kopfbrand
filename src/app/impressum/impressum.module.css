@@ -101,5 +101,56 @@
   text-decoration-color:var(--broom);
   color: rgb(87, 88, 68);
 }
+
+
+/***************************** 
+Adjustments for Mobile
+*****************************/
+@media (max-width: 768px) {
+  .imageContainer {
+    height: 22vh;
+    }
   
+  .clickableArea {
+    top: 20px;
+    right: 20px;
+  }
   
+  .headlineContainer {
+    height: 22vh;
+  }
+  
+  .h1 {
+    font-size: 3.25rem;
+    padding-top: 10vh;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .h3 {
+    padding-bottom: 12px;
+  }
+
+  .body {
+    padding-bottom: 30px;
+  }
+  
+  .emptyDiv {
+    height: 5vh;
+  }
+  
+  .emptyDivTwo {
+    height: calc(5vh - 16px);
+  }
+  
+  .textContainer {
+    padding: 0 20px;
+  }
+
+  .innerContainer {
+      max-width: none;
+      margin: 0;
+    }
+  
+
+}
