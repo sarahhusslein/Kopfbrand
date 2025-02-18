@@ -296,6 +296,7 @@ export default function Services() {
                         <motion.div className={styles.serviceSection} variants={itemAnimationMobile}>
                             <motion.div className={styles.animationContainer} >
                             <Lottie 
+                                    aria-label="Animation des Services"
                                     animationData={services[activeIndex].animation}
                                     className={styles.drawingAnimation}
                                     loop={true}
@@ -311,7 +312,7 @@ export default function Services() {
                 ) : (
                     services.map((service, index) => (
                         <React.Fragment key={service.id}>
-                            <SVG src="/illustrations/divider.svg" className={styles.divider} />
+                            <SVG aria-label="Divider" src="/illustrations/divider.svg" className={styles.divider} />
                             <motion.div 
                                 className={`${styles.serviceSection} ${index === activeIndex ? styles.hover : ''}`}
                                 style={{ 
@@ -329,6 +330,7 @@ export default function Services() {
                                 >
                                     <div className={styles.animationContainer} ref={tiltRef}>
                                     <Lottie 
+                                            aria-label="Animation des Services"
                                             animationData={service.animation}
                                             className={styles.drawingAnimation}
                                             loop={true}

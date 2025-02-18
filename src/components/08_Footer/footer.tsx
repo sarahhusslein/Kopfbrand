@@ -11,26 +11,28 @@ interface FooterItem {
     icon: string;
     text: string;
     url?: string;
+    label?: string;
   }
 
 interface AnimatedFooterItemProps {
     icon: string;
     text: string;
     url?: string;
+    label?: string;
 }
 
 const footerServiceItems: FooterItem[] = [
-    { icon: '/icons/strategie.svg', text: 'Strategie & Beratung' },
-    { icon: '/icons/konzeption.svg', text: 'Konzeption & Kreation' },
-    { icon: '/icons/contentDesign.svg', text: 'Digital Content Design' },
-    { icon: '/icons/prototyping.svg', text: 'Prototyping & Produktion' },
-    { icon: '/icons/versand_new.svg', text: 'Versand & Lagerung' },
+    { icon: '/icons/strategie.svg', text: 'Strategie & Beratung', label: 'Strategie & Beratung' },
+    { icon: '/icons/konzeption.svg', text: 'Konzeption & Kreation', label: 'Konzeption & Kreation' },
+    { icon: '/icons/contentDesign.svg', text: 'Digital Content Design', label: 'Digital Content Design' },
+    { icon: '/icons/prototyping.svg', text: 'Prototyping & Produktion', label: 'Prototyping & Produktion' },
+    { icon: '/icons/versand_new.svg', text: 'Versand & Lagerung', label: 'Versand & Lagerung' },
 ];
 
 const footerContactItems: FooterItem[] = [
-    { icon: '/icons/linkedIn.svg', text: 'LinkedIn', url: 'https://www.linkedin.com' },
-    { icon: '/icons/phone.svg', text: '089 24224281', url: 'tel:08924224281' },
-    { icon: '/icons/mail.svg', text: 'info@kopfbrand.com', url: 'mailto:info@kopfbrand.com' },
+    { icon: '/icons/linkedIn.svg', text: 'LinkedIn', url: 'https://www.linkedin.com', label: 'LinkedIn' },
+    { icon: '/icons/phone.svg', text: '089 24224281', url: 'tel:08924224281', label: 'Telefon' },
+    { icon: '/icons/mail.svg', text: 'info@kopfbrand.com', url: 'mailto:info@kopfbrand.com', label: 'E-Mail' },
 ];
 
 const DURATION = 0.3;
@@ -107,14 +109,14 @@ const STAGGER = 0;
 //     </motion.div>
 // );
 
-const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url }) => (
+const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url, label }) => (
     <motion.div 
         className={styles.item}
         whileHover="hovered"
         initial="initial"
         animate="initial"
     >
-        <SVG src={icon} className={styles.icon} />
+        <SVG aria-label={`${label} Icon`} src={icon} className={styles.icon} />
         {url ? (
             <a href={url} target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
                 <motion.div 
@@ -218,7 +220,7 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
             {/* Column 1 */}
             <div className={styles.column}>
                 <div className={styles.logoContainer} onClick={() => router.push('/')}>
-                    <SVG src="/logos/kopfbrand.svg" className={styles.logo}/>
+                    <SVG aria-label="Logo Kopfbrand" src="/logos/kopfbrand.svg" className={styles.logo}/>
                 </div>
                 <div className={styles.content}>
                     <p className={styles.highlightedText}>Agentur Kopfbrand</p>

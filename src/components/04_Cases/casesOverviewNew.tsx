@@ -88,6 +88,7 @@ export default function CasesOverview() {
                     <motion.div key={index} className={styles.element} style={{scale}}>
                         <div className={styles.imageContainer}>
                             <Image 
+                                aria-label={`Bild von ${images[index].alt}`}
                                 src={src}
                                 fill
                                 alt={images[index].alt}

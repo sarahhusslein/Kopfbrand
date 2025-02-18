@@ -313,7 +313,7 @@ export default function Creativity() {
                 </motion.p>
 
                 {/* Arrow */}
-                <SVG src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/>
+                <SVG aria-label="Pfeil" src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/>
               </div>
           </motion.div>
 
@@ -321,20 +321,20 @@ export default function Creativity() {
           <div className={styles.canvasContainer}> 
             <div className={styles.mockupWrapper}> 
               {/* Background layer */}
-              <motion.img src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1}}/>
+              <motion.img aria-label="Papier" src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1}} alt="Papier"/>
               
               
               {/* Middle layer */}
               <motion.div style={{ y: paletteY }}>
-                <SVG src={'illustrations/palette.svg'} className={styles.palette}/>
+                <SVG aria-label="Palette" src={'illustrations/palette.svg'} className={styles.palette}/>
               </motion.div>
               <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative' }}>
-                <SVG src={'illustrations/tools.svg'} className={styles.tools}/>
+                <SVG aria-label="Tools" src={'illustrations/tools.svg'} className={styles.tools}/>
               </motion.div>
 
               {/* Foreground layer */}
               <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4 }}>
-                <SVG src={'illustrations/iPhoneMockup.svg'} className={styles.mockup}/>
+                <SVG aria-label="iPhone Mockup" src={'illustrations/iPhoneMockup.svg'} className={styles.mockup}/>
                 <div 
                   className={`${styles.drawingContainer}`}
                   style={cursorStyle}
@@ -353,6 +353,7 @@ export default function Creativity() {
                   {!hasDrawn && (
                     <div className={styles.drawingPrompt}>
                       <Lottie 
+                          aria-label="Zeichnungsanimation"
                           animationData={drawingAnimation}
                           className={styles.drawingAnimation}
                           loop={true}
@@ -362,9 +363,9 @@ export default function Creativity() {
                   )}
                   {hasDrawn && ( 
                     <div className={styles.iconContainer}>
-                      <SVG src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
-                      <SVG src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
-                      <SVG src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
+                      <SVG aria-label="Farbwechsel" src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
+                      <SVG aria-label="Reset" src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
+                      <SVG aria-label="Screenshot" src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
                     </div>
                   )}
                 </div>
@@ -386,19 +387,19 @@ export default function Creativity() {
         >
             <div className={styles.mockupWrapper}>
               {/* Background layer */}
-              <motion.img src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1,}}/>
+              <motion.img aria-label="Papier" src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1,}} alt="Papier"/>
               
               {/* Middle layer */}
               <motion.div style={{ y: paletteY }}>
-                <SVG src={'illustrations/palette.svg'} className={styles.palette}/>
+                <SVG aria-label="Palette" src={'illustrations/palette.svg'} className={styles.palette}/>
               </motion.div>
               <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative',  }}>
-                <SVG src={'illustrations/tools.svg'} className={styles.tools}/>
+                <SVG aria-label="Tools" src={'illustrations/tools.svg'} className={styles.tools}/>
               </motion.div>
               
               {/* Foreground layer */}
               <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4}}>
-                <SVG src={'illustrations/iPadMockup.svg'} className={styles.mockup} />
+                <SVG aria-label="iPad Mockup" src={'illustrations/iPadMockup.svg'} className={styles.mockup} />
                 <div 
                   className={`${styles.drawingContainer}`}
                   style={cursorStyle}
@@ -418,6 +419,7 @@ export default function Creativity() {
                   {!hasDrawn && (
                     <div className={styles.drawingPrompt}>
                       <Lottie 
+                          aria-label="Zeichnungsanimation"
                           animationData={drawingAnimation}
                           className={styles.drawingAnimation}
                           loop={true}
@@ -427,9 +429,9 @@ export default function Creativity() {
                   )}
                   {hasDrawn && ( 
                     <div className={styles.iconContainer}>
-                      <SVG src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
-                      <SVG src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
-                      <SVG src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
+                      <SVG aria-label="Farbwechsel" src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
+                      <SVG aria-label="Reset" src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
+                      <SVG aria-label="Screenshot" src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
                     </div>
                   )}
                 </div>
@@ -481,7 +483,7 @@ export default function Creativity() {
                     {letter}
                   </motion.span>
                 ))}
-                <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG} />
+                <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG} />
               </span>
             </motion.h1>
           </div>

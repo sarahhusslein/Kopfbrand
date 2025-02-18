@@ -246,7 +246,7 @@ export default function NavigationBar() {
             className={styles.logo}
             onClick={scrollToTop}
             >
-                <SVG src="/logos/kopfbrand.svg" />
+                <SVG aria-label="Kopfbrand Logo" src="/logos/kopfbrand.svg" />
             </div>
 
             {!isMobile ? (

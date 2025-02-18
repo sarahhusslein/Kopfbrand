@@ -204,11 +204,16 @@ export default function Header() {
                         scale={1.1}
                     >
                         <motion.button 
+                            aria-label="Scroll zu Services"
                             className={styles.button} 
                             variants={itemAnimation} 
                             onClick={handleClick}
                         >
-                            <SVG src="/icons/arrowDown.svg" className={styles.arrowIcon} />
+                            <SVG 
+                                aria-label="Pfeil nach unten"
+                                src="/icons/arrowDown.svg" 
+                                className={styles.arrowIcon} 
+                            />
                         </motion.button>
                     </Tilt>
                 </motion.div>

@@ -41,6 +41,7 @@ export default function LogoSlider() {
                     {elements.map((element, index) => (
                         <div key={`first-${index}`} className={styles.iconContainer}>
                             <SVG
+                                aria-label={`Logo von ${element.icon.split('/').pop().split('.').shift()}`}
                                 src={element.icon}
                                 className={styles.icon}
                                 style={{ 

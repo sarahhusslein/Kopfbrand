@@ -98,6 +98,7 @@ export default function Contact() {
                         )}
                     </h2>
                     <Lottie 
+                        aria-label="Pfeil Animation"
                         animationData={arrowAnimation}
                         className={styles.arrowAnimation}
                         loop={true}
@@ -122,7 +123,7 @@ export default function Contact() {
                         LETS&nbsp;
                         <span className={styles.underline}> 
                         TALK!
-                        <SVG src={'/illustrations/underlineHanddrawnShort.svg'} className={styles.SVG}></SVG>
+                        <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawnShort.svg'} className={styles.SVG}></SVG>
                         </span>
                     </motion.h2>
                     <motion.p 
@@ -136,14 +137,14 @@ export default function Contact() {
                         <div className={styles.buttonContainer}>
                             <p className={`body ${styles.body}`}>Direkter Draht zu uns:</p>
                             <button className={styles.phoneButton} /* onClick={() => window.location.href = 'tel:+498924224281'} */> 
-                                <SVG src="/icons/phone.svg" className={styles.phoneIcon} />
+                                <SVG aria-label="Telefon" src="/icons/phone.svg" className={styles.phoneIcon} />
                                 Jetzt anrufen
                             </button>
                         </div>
                         <div className={styles.buttonContainer}>
                             <p className={`body ${styles.body}`}>Sag’s geschrieben:</p>
                             <button className={styles.mailButton} /*onClick={() => window.location.href = 'mailto:info@kopfbrand.com'} */>
-                                <SVG src="/icons/mail.svg" className={styles.mailIcon} />
+                                <SVG aria-label="E-Mail" src="/icons/mail.svg" className={styles.mailIcon} />
                                 Jetzt mailen
                             </button>
                         </div>

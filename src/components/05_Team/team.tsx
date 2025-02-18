@@ -364,7 +364,7 @@ export default function Team() {
                             ease: "easeOut"
                         }}
                     >
-                        <SVG src={'illustrations/arrowStraightRight.svg'} className={styles.arrow}/>
+                        <SVG aria-label="Pfeil" src={'illustrations/arrowStraightRight.svg'} className={styles.arrow}/>
                     </motion.div>
 
                     <motion.div
@@ -432,14 +432,14 @@ export default function Team() {
                                     animate={{ opacity: SwitchOn ? 0 : 1 }}
                                     transition={{ duration: 0.2 }}
                                 >
-                                    <SVG src='illustrations/switchOff.svg' onClick={handleSwitchToggle} />
+                                    <SVG aria-label="Schalter aus" src='illustrations/switchOff.svg' onClick={handleSwitchToggle} />
                                 </motion.div>
                                 <motion.div 
                                     className={styles.switchLayer}
                                     animate={{ opacity: SwitchOn ? 1 : 0 }}
                                     transition={{ duration: 0.2 }}
                                 >
-                                    <SVG src='illustrations/switchOn.svg' onClick={handleSwitchToggle} />
+                                    <SVG aria-label="Schalter an" src='illustrations/switchOn.svg' onClick={handleSwitchToggle} />
                                 </motion.div>
                             </div>
                         </motion.div>
@@ -448,7 +448,7 @@ export default function Team() {
 
                 {isMobile ? ( 
                     <div className={styles.teamImageContainerMobile}>
-                        <img src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="teamPicture" className={styles.teamPictureMobile}/>
+                        <img aria-label="Team Foto" src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="Team Foto" className={styles.teamPictureMobile}/>
                         <div className={styles.funFactRow}>
                             {teamMembers.map((member) => (
                                 <div className={styles.funFact} key={member.id}>
@@ -502,7 +502,7 @@ export default function Team() {
                             />
                         ))}
                     </div>
-                    <img src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="teamPicture" className={styles.teamPicture}/>
+                    <img aria-label="Team Foto" src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="Team Foto" className={styles.teamPicture}/>
                 </div>
                 )}
             </motion.div>

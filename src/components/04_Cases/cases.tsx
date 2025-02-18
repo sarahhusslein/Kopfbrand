@@ -324,6 +324,7 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
             }}
         >
             <img 
+                aria-label={`Bild von ${cases.company}`}
                 className={styles.image}
                 src={cases.image} 
                 alt={cases.company} 

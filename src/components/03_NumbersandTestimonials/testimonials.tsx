@@ -262,7 +262,7 @@ export default function Testimonials() {
                                                     ease: "easeOut"
                                                 }}
                                             >
-                                                <SVG src="/illustrations/quote.svg"/>
+                                                <SVG aria-label="Zitat Icon" src="/illustrations/quote.svg"/>
                                             </motion.div>
                                             <motion.div 
                                                 className={styles.textContent}
@@ -298,7 +298,7 @@ export default function Testimonials() {
                         <br />
                         <span className={styles.underline}> 
                             FUNK
-                            <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
+                            <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
                         </span>
                         </h1>
                     </motion.div>

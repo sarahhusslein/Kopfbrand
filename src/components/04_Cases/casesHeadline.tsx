@@ -62,7 +62,7 @@ export default function CasesHeadlineNew() {
                         KREATIV FÜR <br />KLASSE&nbsp;
                         <span className={styles.underline}> 
                             KUNDEN
-                            <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVGMask}></SVG>
+                            <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVGMask}></SVG>
                         </span>
                     </motion.h1>
                 )}
@@ -78,7 +78,7 @@ export default function CasesHeadlineNew() {
                     KREATIV FÜR <br />KLASSE&nbsp;
                     <span className={styles.underline}> 
                         KUNDEN
-                        <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG}></SVG>
+                        <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG}></SVG>
                     </span>
                 </motion.h1>
             </div>
