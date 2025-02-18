@@ -16,6 +16,7 @@ import Creativity from "@/components/06_Creativity/creativity";
 import Contact from "@/components/07_Contact/contact";
 import Footer from "@/components/08_Footer/footer";
 import FinalBar from "@/components/09_FinalBar/finalBar";
+import Inner from "@/components/10_Layout/inner";
 
 
 
@@ -235,7 +236,7 @@ useEffect(() => {
 
 
   return (
-    <div>
+    <Inner>
       <NavigationBar />
       <div
         ref={containerRef}
@@ -384,6 +385,6 @@ useEffect(() => {
 
 
       </div>
-    </div>
+    </Inner>
   );
 }

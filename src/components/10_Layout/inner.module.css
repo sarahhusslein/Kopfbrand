@@ -1,0 +1,20 @@
+.inner {
+    background-color: black;
+    position: relative;
+    overflow: hidden;
+}
+
+.page {
+    background-color: white;
+}
+
+.slide {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    z-index: 30;
+    border: 5px solid red;
+}

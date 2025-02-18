@@ -353,7 +353,6 @@ export default function Creativity() {
                   {!hasDrawn && (
                     <div className={styles.drawingPrompt}>
                       <Lottie 
-                          aria-label="Zeichnungsanimation"
                           animationData={drawingAnimation}
                           className={styles.drawingAnimation}
                           loop={true}
