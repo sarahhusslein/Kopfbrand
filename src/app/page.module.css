@@ -73,6 +73,7 @@
 
 .footerWrapper {
   background-color: var(--darkest-grey);
+  z-index: 5;
 }
 
 .footerContainer {

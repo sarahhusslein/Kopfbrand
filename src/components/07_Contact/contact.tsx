@@ -71,8 +71,8 @@ export default function Contact() {
     return (
         <div className={styles.outerContainer}>
             <Tilt 
-                tiltMaxAngleX={5} 
-                tiltMaxAngleY={5} 
+                tiltMaxAngleX={isMobile ? 0 : 5} 
+                tiltMaxAngleY={isMobile ? 0 : 5} 
                 glareEnable={false} 
                 transitionSpeed={3000}
                 transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
@@ -98,7 +98,6 @@ export default function Contact() {
                         )}
                     </h2>
                     <Lottie 
-                        aria-label="Pfeil Animation"
                         animationData={arrowAnimation}
                         className={styles.arrowAnimation}
                         loop={true}

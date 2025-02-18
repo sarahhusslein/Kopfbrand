@@ -13,7 +13,8 @@
     font-family: var(--font-inter);
     font-weight: 600;
     font-size: 1.125rem;            
-    letter-spacing: 0.05em;         
+    letter-spacing: 0.05em;
+    color: var(--darkest-grey);
   }
   
 

@@ -14,9 +14,9 @@ export default function Privacy() {
   return (
     <div className={styles.container}>
         <div className={styles.imageContainer}>
-            <Image src="/images/impressum.jpg" className={styles.image} width={1920} height={384} alt="Datenschutz"/>
+            <Image aria-label="Datenschutz" src="/images/impressum.jpg" className={styles.image} width={1920} height={384} alt="Datenschutz"/>
             <div className={styles.clickableArea} onClick={() => router.push('/')}>
-                <SVG src="/logos/flameWithCircle.svg" className={styles.logo}/>
+                <SVG aria-label="Logo Kopfbrand" src="/logos/flameWithCircle.svg" className={styles.logo}/>
             </div>
             <div className={styles.headlineContainer}>
                 <h1 className={`h1 ${styles.h1}`}> Datenschutzerklärung </h1>

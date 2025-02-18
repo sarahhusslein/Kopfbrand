@@ -296,7 +296,6 @@ export default function Services() {
                         <motion.div className={styles.serviceSection} variants={itemAnimationMobile}>
                             <motion.div className={styles.animationContainer} >
                             <Lottie 
-                                    aria-label="Animation des Services"
                                     animationData={services[activeIndex].animation}
                                     className={styles.drawingAnimation}
                                     loop={true}
@@ -330,7 +329,6 @@ export default function Services() {
                                 >
                                     <div className={styles.animationContainer} ref={tiltRef}>
                                     <Lottie 
-                                            aria-label="Animation des Services"
                                             animationData={service.animation}
                                             className={styles.drawingAnimation}
                                             loop={true}
