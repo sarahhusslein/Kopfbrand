@@ -185,7 +185,7 @@ useEffect(() => {
 
   const { scrollYProgress: footerScrollYProgress } = useScroll({
     target: contactRef,
-    offset: ["end end", "end 50vh"]
+    offset: ["end end", isMobile ? "end 25vh" : "end 50vh"]
   });
 
 
