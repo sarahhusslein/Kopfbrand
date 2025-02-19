@@ -1,23 +1,48 @@
 "use client"; 
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import styles from './inner.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function Inner({ children }) {
+export default function Inner({ children }: { children: React.ReactNode }) {
 
+  const router = useRouter();
   const pathname = usePathname();
-
-  
-  console.log('Current key:', pathname);
+  const [displayedPath, setDisplayedPath] = useState(pathname);
+  const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    console.log('Component mounted with pathname:', pathname);
-    return () => {
-      console.log('Component unmounted with pathname:', pathname);
-    };
-  }, [pathname]);
+    if (isExiting) {
+      const timeout = setTimeout(() => {
+        setDisplayedPath(pathname);
+        setIsExiting(false);
+      }, 300); // Exit-Animation Dauer
 
+      return () => clearTimeout(timeout);
+    }
+  }, [isExiting, pathname]);
+
+  const handleNavigation = (newPath: string) => {
+    setIsExiting(true);
+    setTimeout(() => router.push(newPath), 300); // Navigieren nach Exit-Animation
+  };
+
+  // 🛠️ Automatisch alle internen <Link>-Klicks abfangen
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest("a");
+      if (!target) return;
+
+      const href = target.getAttribute("href");
+      if (!href || href.startsWith("http") || href.startsWith("#")) return; // Externe Links ignorieren
+
+      e.preventDefault();
+      handleNavigation(href);
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
   const anim = (variants, name) => {
     return {
       initial: "initial",
@@ -27,12 +52,7 @@ export default function Inner({ children }) {
     };
   };
 
-  useEffect(() => {
-    console.log('Component mounted');
-    return () => {
-      console.log('Component unmounted');
-    };
-  }, []);
+
 
   const opacity = {
     initial: { 
@@ -87,8 +107,9 @@ export default function Inner({ children }) {
 
 
   return (
-    <AnimatePresence mode="wait" key={pathname} exitBeforeEnter>
+    <AnimatePresence mode="wait">
       <motion.div
+        key={displayedPath}
           {...anim(slide, "Slide")}
           className={styles.slide}
         />  

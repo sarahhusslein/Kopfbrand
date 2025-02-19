@@ -236,7 +236,7 @@ useEffect(() => {
 
 
   return (
-    <Inner>
+    <div>
       <NavigationBar />
       <div
         ref={containerRef}
@@ -385,6 +385,6 @@ useEffect(() => {
 
 
       </div>
-    </Inner>
+    </div>
   );
 }

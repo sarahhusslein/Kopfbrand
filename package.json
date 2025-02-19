@@ -14,6 +14,7 @@
     "lenis": "^1.1.18",
     "lottie-react": "^2.4.1",
     "next": "^15.0.1",
+    "next-transition-router": "^0.2.7",
     "react": "^18",
     "react-countup": "^6.5.3",
     "react-dom": "^18",

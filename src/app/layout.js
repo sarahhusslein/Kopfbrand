@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 import { Inter, Open_Sans } from "next/font/google";
-import { AnimatePresence } from "framer-motion"
 import "./globals.css";
+import { Providers } from "./providers";
 
 
 // Lokale Fonts (Roel)
@@ -79,7 +79,9 @@ export default function RootLayout({ children }) {
 
       </head>
       <body className={`${inter.variable} ${openSans.variable} ${roel.variable}`}>
-            {children}  
+          <Providers>
+              {children}  
+          </Providers>
       </body>
     </html>
   );

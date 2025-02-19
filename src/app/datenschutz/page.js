@@ -10,10 +10,11 @@ import Inner from '@/components/10_Layout/inner';
 export default function Privacy() {
 
   const router = useRouter();
+  
 
 
   return (
-    <Inner>
+    <div>
         <div className={styles.container}>
                 <div className={styles.imageContainer}>
                     <Image aria-label="Datenschutz" src="/images/impressum.jpg" className={styles.image} width={1920} height={384} alt="Datenschutz"/>
@@ -97,6 +98,6 @@ export default function Privacy() {
             <Footer />
             <FinalBar />
         </div>
-    </Inner>
+    </div>
   );
 }

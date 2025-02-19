@@ -14,6 +14,8 @@ export default function Header() {
 
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const videoSrc = isMobile ? '/videos/konfettiVideoMobile.mp4' : '/videos/konfettiVideoDesktop.mp4';
+    const imageSrc = isMobile ? '/images/fallbackImageMobile.png' : '/images/fallbackImageDesktop.png';
+    const [videoError, setVideoError] = useState(false);
     const { mousePosition, updateMousePosition } = useMousePosition();
     const [sparks, setSparks] = useState<Spark[]>([]);
     const isTouchingRef = useRef(false);
@@ -173,16 +175,21 @@ export default function Header() {
                     />
                 ))}
                 <div className={styles.imageWrapper}>
-                    <video 
-                        className={styles.heroVideo}  
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                    >
-                        <source src={videoSrc} />
-                    </video>
-                    {/* <img src="/images/heroImage.png" alt="header" className={styles.heroImage} /> */}
+                    {!videoError ? (
+                            <video 
+                                className={styles.heroVideo}  
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                poster={imageSrc}
+                                onError={() => setVideoError(true)}
+                            >
+                                <source src={videoSrc} />
+                            </video>
+                        ) : (
+                            <img src={imageSrc} alt="Fallback" className={styles.heroVideo} />
+                        )}
                     <div className={styles.overlay} />
                 </div>
                 <motion.div 

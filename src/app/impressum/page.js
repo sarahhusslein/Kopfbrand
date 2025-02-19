@@ -14,7 +14,7 @@ export default function Impressum() {
 const router = useRouter();
 
   return (
-    <Inner>
+    <div>
         <div className={styles.container}>
             <div className={styles.imageContainer}>
                 <Image aria-label="Impressum" src="/images/impressum.jpg" className={styles.image} width={1920} height={384} alt="Impressum"/>
@@ -116,6 +116,6 @@ const router = useRouter();
             <Footer />
             <FinalBar />
         </div>
-    </Inner>
+    </div>
   );
 }
