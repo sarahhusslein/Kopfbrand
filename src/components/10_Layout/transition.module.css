@@ -1,7 +1,5 @@
 .inner {
     background-color: black;
-    position: relative;
-    overflow: hidden;
 }
 
 .page {
@@ -14,7 +12,6 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: white;
-    z-index: 30;
-    border: 5px solid red;
+    background-color: var(--broom);
+    z-index: 4;
 }

@@ -1,8 +1,7 @@
 import localFont from "next/font/local";
 import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
-import { Providers } from "./providers";
-
+import Transition from "@/components/10_Layout/transition";
 
 // Lokale Fonts (Roel)
 const roel = localFont({
@@ -58,7 +57,11 @@ export const metadata = {
   manifest: "/manifest.json",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
 
 
   return (
@@ -79,9 +82,9 @@ export default function RootLayout({ children }) {
 
       </head>
       <body className={`${inter.variable} ${openSans.variable} ${roel.variable}`}>
-          <Providers>
+          <Transition>
               {children}  
-          </Providers>
+          </Transition>
       </body>
     </html>
   );

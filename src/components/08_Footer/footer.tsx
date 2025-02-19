@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation'; 
-import { TransitionLink } from '@/utils/TransitionLink';
+import Link from "next/link";
 import styles from './footer.module.css';
 import SVG from 'react-inlinesvg';
 
@@ -259,8 +259,8 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
                             />
                         ))}
                     </div>
-                <TransitionLink href="/impressum" className={styles.link}>Impressum</TransitionLink>
-                <TransitionLink href="/datenschutz" className={styles.link}>Datenschutzbedingungen</TransitionLink>
+                <Link href="/impressum" className={styles.link}>Impressum</Link>
+                <Link href="/datenschutz" className={styles.link}>Datenschutzbedingungen</Link>
                 </div>
             </div>
         </motion.div>

@@ -6,7 +6,6 @@ import Image from 'next/image';
 import SVG from 'react-inlinesvg';
 import Footer from '@/components/08_Footer/footer';
 import FinalBar from '@/components/09_FinalBar/finalBar';
-import Inner from '@/components/10_Layout/inner';
 
 
 export default function Impressum() {
