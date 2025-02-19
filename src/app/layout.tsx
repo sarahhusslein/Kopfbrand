@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
+import ScreenLoader from "@/components/10_Layout/screenLoader";
 import Transition from "@/components/10_Layout/transition";
 
 // Lokale Fonts (Roel)
@@ -82,9 +83,11 @@ export default function RootLayout({
 
       </head>
       <body className={`${inter.variable} ${openSans.variable} ${roel.variable}`}>
-          <Transition>
+          <ScreenLoader>
+            <Transition>
               {children}  
-          </Transition>
+            </Transition>
+          </ScreenLoader>
       </body>
     </html>
   );

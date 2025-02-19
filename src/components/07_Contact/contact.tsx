@@ -111,7 +111,7 @@ export default function Contact() {
                     ref={rightContainerRef} 
                     onTouchStart={handleTouchStart} 
                     onTouchEnd={handleTouchEnd}
-                    variants={itemAnimationMobile}
+                    variants={ isMobile ? itemAnimationMobile : {}}
                     initial="initial"
                     whileInView="inView"
                     viewport={{ once: false, amount: 0.5 }}

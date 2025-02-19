@@ -1,5 +1,6 @@
 .container {
     background-color: var(--darkest-grey);
+    // background-color: rgb(251, 253, 227);
     // background-image: radial-gradient(circle at 30% 30%, 
     //                   hsla(347.8, 84.83%, 28.43%, 1) 0%, 
     //                   hsla(18, 66.67%, 5.88%, 1) 50%), 
@@ -15,9 +16,17 @@
     //                   repeating-linear-gradient(160deg, 
     //                   #ac0e2e 52%, 
     //                   #c0b7ff 86%);
+
+    // background-image: url('/illustrations/gradient-dark.svg');
+    // background-size: cover;
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // overflow: hidden;
+
     width: 100vw;
     height: 140vh;
     border-radius: 20px 20px 0 0;
+
 
     .body, .mask {
         height: 100%;
@@ -40,12 +49,14 @@
 
 .h1 {
     color: white;
+    // color: var(--darkest-grey);
     text-align: center;
     cursor: none;
 }
 
 .h1Mask {
     color: black;
+    // color: white;
     text-align: center;
     cursor: none;
 }

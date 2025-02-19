@@ -50,6 +50,7 @@
     height: 18px;
     width: auto;
     cursor: var(--cursor-pointer-yellow), pointer;
+    fill: white;
 }
 
 .logo svg * {
