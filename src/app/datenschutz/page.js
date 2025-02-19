@@ -3,6 +3,7 @@ import styles from './privacy.module.css';
 import Image from 'next/image';
 import SVG from 'react-inlinesvg';
 import { useRouter } from 'next/navigation'; 
+import { motion } from 'framer-motion';
 import Footer from '@/components/08_Footer/footer';
 import FinalBar from '@/components/09_FinalBar/finalBar';
 
@@ -20,13 +21,25 @@ export default function Privacy() {
                     <div className={styles.clickableArea} onClick={() => router.push('/')}>
                     <SVG aria-label="Logo Kopfbrand" src="/logos/flameWithCircle.svg" className={styles.logo}/>
                 </div>
-                <div className={styles.headlineContainer}>
+                <motion.div 
+                    className={styles.headlineContainer}
+                    initial={{ y: 40, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0 }}
+                >
                     <h1 className={`h1 ${styles.h1}`}> Datenschutzerklärung </h1>
-                </div>
+                </motion.div>
             </div>
 
-            <div className={styles.textContainer}>
-                <div className={styles.innerContainer}>
+            <div 
+                className={styles.textContainer}
+            >
+                <motion.div 
+                className={styles.innerContainer}
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0, }}
+                >
                     <div className={styles.emptyDiv}></div>
                     {/* Datenschutz */}
                     <h3 className={`h3 ${styles.h3}`}> Datenschutz </h3>
@@ -92,7 +105,7 @@ export default function Privacy() {
                     <div className={styles.emptyDiv}></div>
                     <div className={styles.emptyDiv}></div>
 
-                </div>
+                </motion.div>
             </div>
             <Footer />
             <FinalBar />

@@ -89,7 +89,7 @@ export default function Services() {
         transition: {
             staggerChildren: 0.5,
             ease: "easeInOut",
-            duration: 0.7
+            duration: 1
         }
     }
     };  
@@ -102,7 +102,7 @@ export default function Services() {
             transition: {
                 staggerChildren: 0.2,
                 ease: "easeInOut",
-                duration: 0.5
+                duration: 1
             }
         }
     };

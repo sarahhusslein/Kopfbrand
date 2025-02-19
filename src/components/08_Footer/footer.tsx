@@ -214,8 +214,8 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
         className={styles.container}
         initial={{ y: 40, opacity: 0, }}
         whileInView={{ y: 0, opacity: 1,}}
-        viewport={{ once: false, amount: 0.05}}
-        transition={{ duration: 0.5, ease: "easeInOut"}}
+        viewport={{ once: false, amount: 0.1}}
+        transition={{ duration: 0.7, ease: "easeInOut"}}
         >
             {/* Column 1 */}
             <div className={styles.column}>

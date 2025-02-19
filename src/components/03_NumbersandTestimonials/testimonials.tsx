@@ -155,7 +155,7 @@ export default function Testimonials() {
                             initial={{ y: 40, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             viewport={{ once: false, amount: 0.5 }}
-                            transition={{ duration: 0.5, ease: "easeInOut"}}
+                            transition={{ duration: 0.7, ease: "easeInOut"}}
                         >
                         FLUR
                         <span className={styles.underline}> 

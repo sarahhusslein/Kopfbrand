@@ -126,14 +126,14 @@ export default function Header() {
     
 
     const itemAnimation = {
-        initial: { y: 20, opacity: 0 },
+        initial: { y: 40, opacity: 0 },
         inView: {
             y: 0,
             opacity: 1,
             transition: {
-                staggerChildren: 0.2,
-                ease: "easeInOut",
-                duration: 0.7
+                staggerChildren: 0.3,
+                ease: [0.76, 0, 0.24, 1],
+                duration: 1
             }
         }
     };
@@ -151,11 +151,11 @@ export default function Header() {
                     <motion.div
                         key={spark.id}
                         initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-                    animate={{
-                        x: [0, spark.velocityX * 2, spark.velocityX * 3 + spark.curveFactor],
-                        y: [0, spark.velocityY * 2, spark.velocityY * 3 + spark.curveFactor],
-                        opacity: [1, 0.8, 0.2, 0],
-                        scale: [1, 0.9, 0.6]
+                        animate={{
+                            x: [0, spark.velocityX * 2, spark.velocityX * 3 + spark.curveFactor],
+                            y: [0, spark.velocityY * 2, spark.velocityY * 3 + spark.curveFactor],
+                            opacity: [1, 0.8, 0.2, 0],
+                            scale: [1, 0.9, 0.6]
                     }}
                     transition={{ duration: spark.lifespan / 1000, type: "tween", ease: "backOut" }}
                     style={{

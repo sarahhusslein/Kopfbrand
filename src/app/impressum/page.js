@@ -2,6 +2,7 @@
 import React from 'react';
 import styles from './impressum.module.css';
 import { useRouter } from 'next/navigation'; 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import SVG from 'react-inlinesvg';
 import Footer from '@/components/08_Footer/footer';
@@ -20,13 +21,23 @@ const router = useRouter();
                 <div className={styles.clickableArea} onClick={() => router.push('/')}>
                     <SVG aria-label="Logo Kopfbrand" src="/logos/flameWithCircle.svg" className={styles.logo}/>
                 </div>
-                <div className={styles.headlineContainer}>
+                <motion.div 
+                    className={styles.headlineContainer}
+                    initial={{ y: 40, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0 }}
+                >
                     <h1 className={`h1 ${styles.h1}`}> Impressum </h1>
-                </div>
+                </motion.div>
             </div>
 
             <div className={styles.textContainer}>
-                <div className={styles.innerContainer}>
+            <motion.div 
+                className={styles.innerContainer}
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0, }}
+                >
                     <div className={styles.emptyDiv}></div>
                     {/* <h1 className={`h1 ${styles.h1}`}> Impressum </h1> */}
 
@@ -108,7 +119,7 @@ const router = useRouter();
                     <h3 className={`h3 ${styles.h3}`}> Besondere Nutzungsbedingungen </h3>
                     <p className={`body ${styles.body}`}>
                     Soweit besondere Bedingungen für einzelne Nutzungen dieser Website von den vorgenannten Paragraphen abweichen, wird an entsprechender Stelle ausdrücklich darauf hingewiesen. In diesem Falle gelten im jeweiligen Einzelfall die besonderen Nutzungsbedingungen.      </p>
-                </div>
+                </motion.div>
                 <div className={styles.emptyDiv}></div>
                 <div className={styles.emptyDiv}></div>
             </div>

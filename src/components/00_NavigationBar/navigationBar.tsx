@@ -178,7 +178,11 @@ export default function NavigationBar() {
 
     // Function to render nav items
     const renderNavItems = () => (
-        <div className={styles.navItems}>
+        <motion.div 
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
+        className={styles.navItems}>
             {navItems.map((item) => (
                 <motion.button 
                     key={item.id}
@@ -228,7 +232,7 @@ export default function NavigationBar() {
                     </motion.div>
                 </motion.button>
             ))}
-        </div>
+        </motion.div>
     );
 
 
@@ -242,12 +246,15 @@ export default function NavigationBar() {
             ${isFixed ? styles.fixed : ''}
             ${visible && isFixed ? styles.solid : styles.transparent}
         `} >
-            <div 
+            <motion.div 
+            initial={{ y: -80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
             className={styles.logo}
             onClick={scrollToTop}
             >
                 <SVG aria-label="Kopfbrand Logo" src="/logos/kopfbrand.svg" />
-            </div>
+            </motion.div>
 
             {!isMobile ? (
                 <Tilt
