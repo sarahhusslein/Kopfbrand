@@ -32,6 +32,9 @@ export default function ScreenLoader({ children }) {
                     key="loader"
                     className={styles.container}
                 >
+
+                    <SVG src="/illustrations/gradient-darkest2.svg" className={styles.svg}/>
+                    
                     <motion.div 
                         className={styles.logoContainer}
                         initial={{ y: 0 }}

@@ -1,26 +1,34 @@
 .container {
     position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 100vw;
-    top: 0;
-    left: 0;    
     z-index: 5;
-    /* background-color: #FAFF70;
-    background-color: #faff70a7; */
-    /* background-color: var(--darkest-grey); */
-    /* background-color: #171724; */
-    background-image: url('/illustrations/gradient-darkest2.svg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        overflow: hidden;
+    /* background: url('/illustrations/gradient-darkest2.svg');
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
     cursor: none;
 }
+
+.svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+}
+
+
 
 .slide {
     position: fixed;
@@ -41,6 +49,7 @@
     justify-content: center;
     height: 20vw;
     width: 50vw;
+    z-index: 6;
 }
 
 
