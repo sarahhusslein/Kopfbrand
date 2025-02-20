@@ -38,12 +38,12 @@ export default function CasesOverview() {
     const images = [
         {src: "/images/caseStudyHotelGrey.jpg", alt: "image", scale: scale1},
         {src: "/images/caseStudyMagazineKid.jpg", alt: "image", scale: scale2},
-        {src: "/images/caseStudyAbstractShape.jpg", alt: "image", scale: scale3},
-        {src: "/images/caseStudyCat.jpg", alt: "image", scale: scale4},
+        {src: "/images/caseStudyRubyHotel.jpg", alt: "image", scale: scale3},
+        {src: "/images/caseStudyPons.jpg", alt: "image", scale: scale4},
         {src: "/images/caseStudyBanners.png", alt: "image", scale: scale5},
         {src: "/images/caseStudyWall.jpg", alt: "image", scale: scale6},
-        {src: "/images/caseStudyDesignTable.jpg", alt: "image", scale: scale7},
-        {src: "/images/caseStudyHotelBrown.jpg", alt: "image", scale: scale8},
+        {src: "/images/storeWindowKopfbrand.jpg", alt: "image", scale: scale7},
+        {src: "/images/marioBarthCover.jpg", alt: "image", scale: scale8},
     ]
 
 

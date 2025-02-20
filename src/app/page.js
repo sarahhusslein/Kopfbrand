@@ -70,56 +70,81 @@ export default function Home() {
 
 
   /****** Heights ******/
-  useLayoutEffect(() => {
-    const calculateHeights = () => {
-      const newHeights = [
-        headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
-        casesRef, teamRef, creativityRef, contactRef, footerRef
-      ].map((ref) => ref.current?.offsetHeight || 0);
+  useEffect(() => {
+    const loadResources = () => {
+        const images = Array.from(document.images);
+        const videos = Array.from(document.querySelectorAll('video'));
 
-      // Apply adjustments for numbersHeight and casesOverviewHeight
-      const adjustedHeights = [
-        newHeights[0], // headerHeight
-        newHeights[1], // servicesHeight
-        isMobile ? newHeights[2] - (25 * window.innerHeight / 100) : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight adjustment
-        newHeights[3], // casesHeadlineHeight
-        newHeights[4] - (50 * window.innerHeight / 100), // casesOverviewHeight adjustment
-        newHeights[5], // casesHeight
-        newHeights[6], // teamHeight
-        newHeights[7], // creativityHeight
-        newHeights[8], // contactHeight
-        newHeights[9], // footerHeight
-      ];
+        const imagePromises = images.map((img) => {
+            return new Promise((resolve) => {
+                if (img.complete) {
+                    resolve();
+                } else {
+                    img.onload = resolve;
+                    img.onerror = resolve; // Resolve even if there's an error
+                }
+            });
+        });
 
+        const videoPromises = videos.map((video) => {
+            return new Promise((resolve) => {
+                if (video.readyState >= 3) { // HAVE_FUTURE_DATA
+                    resolve();
+                } else {
+                    video.onloadeddata = resolve;
+                    video.onerror = resolve; // Resolve even if there's an error
+                }
+            });
+        });
 
-      // Log each section's height
-      console.log('Heights:', {
-        headerHeight: adjustedHeights[0],
-        servicesHeight: adjustedHeights[1],
-        numbersHeight: adjustedHeights[2],
-        casesHeadlineHeight: adjustedHeights[3],
-        casesOverviewHeight: adjustedHeights[4],
-        casesHeight: adjustedHeights[5],
-        teamHeight: adjustedHeights[6],
-        creativityHeight: adjustedHeights[7],
-        contactHeight: adjustedHeights[8],
-        footerHeight: adjustedHeights[9],
+        return Promise.all([...imagePromises, ...videoPromises]);
+    };
+
+    loadResources().then(() => {
+        const calculateHeights = () => {
+            const newHeights = [
+                headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
+                casesRef, teamRef, creativityRef, contactRef, footerRef
+            ].map((ref) => ref.current?.offsetHeight || 0);
+
+            // Apply adjustments for numbersHeight and casesOverviewHeight
+            const adjustedHeights = [
+                newHeights[0], // headerHeight
+                newHeights[1], // servicesHeight
+                isMobile ? newHeights[2] - (25 * window.innerHeight / 100) : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight adjustment
+                newHeights[3], // casesHeadlineHeight
+                newHeights[4] - (50 * window.innerHeight / 100), // casesOverviewHeight adjustment
+                newHeights[5], // casesHeight
+                newHeights[6], // teamHeight
+                newHeights[7], // creativityHeight
+                newHeights[8], // contactHeight
+                newHeights[9], // footerHeight
+            ];
+
+            // Log each section's height
+            console.log('Heights:', {
+                headerHeight: adjustedHeights[0],
+                servicesHeight: adjustedHeights[1],
+                numbersHeight: adjustedHeights[2],
+                casesHeadlineHeight: adjustedHeights[3],
+                casesOverviewHeight: adjustedHeights[4],
+                casesHeight: adjustedHeights[5],
+                teamHeight: adjustedHeights[6],
+                creativityHeight: adjustedHeights[7],
+                contactHeight: adjustedHeights[8],
+                footerHeight: adjustedHeights[9],
+            });
+
+            const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
+            console.log('Total calculated height:', total);
+
+            setHeights(adjustedHeights);
+            setTotalHeight(total);
+        };
+
+        calculateHeights();
     });
-
-    const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
-    console.log('Total calculated height:', total);
-
-    setHeights(adjustedHeights);
-    setTotalHeight(total);
-  };
-
-  // Initial height calculation (only run this once)
-  calculateHeights();
-
-  return () => {
-    // Hier keine Bereinigung nötig, da wir den Scroll nicht mehr überwachen
-  };
-}, [isMobile]); 
+}, [isMobile]);
 
 
 

@@ -190,10 +190,260 @@ export default function Creativity() {
   
 
   return (
-    <div className={styles.container}>
+    
+      <div className={styles.container}>
 
-      {isMobile ? ( 
-        <div>
+        {isMobile ? ( 
+          <div>
+            {/* Text Container */}
+            <motion.div 
+            className={styles.textContainer} 
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: false, amount: 0.05 }}
+            transition={{ duration: 0.7, ease: "easeInOut"}}
+            >
+                {/* Headline */}
+                <div ref={headlineRef} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+                  <motion.h1 
+                    className={`h1 ${styles.h1}`}
+                  >
+                    {"KREAT".split('').map((letter, index) => (
+                      <motion.span
+                        key={index}
+                        style={{
+                          display: 'inline-block',
+                          margin: '0 2px',
+                          rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index], 0])
+                        }}
+                      >
+                        {letter}
+                      </motion.span>
+                    ))}
+                    <br />
+                    <span className={styles.underline}>
+                      {"IVITÄT".split('').map((letter, index) => (
+                        <motion.span
+                          key={index}
+                          style={{
+                            display: 'inline-block',
+                            margin: '0 2px',
+                            rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index + 5], 0])
+                          }}
+                        >
+                          {letter}
+                        </motion.span>
+                      ))}
+                      <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG} />
+                    </span>
+                  </motion.h1>
+                </div>
+
+                {/* Handschrift and Arrow */}
+                <div className={styles.textAndArrowContainer}>
+                  <motion.p 
+                    className={`handschrift ${styles.handschrift}`}
+                    viewport={{ 
+                      once: false,  
+                      amount: 0.9   
+                    }}
+                    onViewportEnter={() => {
+                      controls.start("visible");
+                    }}
+                    onViewportLeave={() => {
+                      controls.start("hidden");
+                    }}
+                  >
+                    <span>
+                      {line1.map((segment, segmentIndex) => (
+                        <span key={segmentIndex}>
+                          {segment.isSpace ? (
+                            <span className={styles.smallSpace}>{segment.text}</span>
+                          ) : (
+                            segment.text.split('').map((char, charIndex) => (
+                              <motion.span
+                                key={`line1-${segmentIndex}-${charIndex}`}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={controls}
+                                variants={{
+                                  hidden: { opacity: 0, y: 20 },
+                                  visible: { opacity: 1, y: 0 }
+                                }}
+                                transition={{
+                                  duration: 0.05,
+                                  delay: (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
+                                  ease: "easeOut"
+                                }}
+                              >
+                                {char}
+                              </motion.span>
+                            ))
+                          )}
+                        </span>
+                      ))}
+                    </span>
+                    <br />
+                    <span>
+                      {line2.map((segment, segmentIndex) => (
+                        <span key={segmentIndex}>
+                          {segment.isSpace ? (
+                            <span className={styles.smallSpace}>{segment.text}</span>
+                          ) : (
+                            segment.text.split('').map((char, charIndex) => (
+                              <motion.span
+                                key={`line2-${segmentIndex}-${charIndex}`}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={controls}
+                                variants={{
+                                  hidden: { opacity: 0, y: 20 },
+                                  visible: { opacity: 1, y: 0 }
+                                }}
+                                transition={{
+                                  duration: 0.05,
+                                  delay: (line1.length * 0.1) + (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
+                                  ease: "easeOut"
+                                }}
+                              >
+                                {char}
+                              </motion.span>
+                            ))
+                          )}
+                        </span>
+                      ))}
+                    </span>
+                  </motion.p>
+
+                  {/* Arrow */}
+                  <SVG aria-label="Pfeil" src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/>
+                </div>
+            </motion.div>
+
+            {/* Canvas Container */}
+            <div className={styles.canvasContainer}> 
+              <div className={styles.mockupWrapper}> 
+                {/* Background layer */}
+                <motion.img aria-label="Papier" src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1}} alt="Papier"/>
+                
+                
+                {/* Middle layer */}
+                <motion.div style={{ y: paletteY }}>
+                  <SVG aria-label="Palette" src={'illustrations/palette.svg'} className={styles.palette}/>
+                </motion.div>
+                <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative' }}>
+                  <SVG aria-label="Tools" src={'illustrations/tools.svg'} className={styles.tools}/>
+                </motion.div>
+
+                {/* Foreground layer */}
+                <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4 }}>
+                  <SVG aria-label="iPhone Mockup" src={'illustrations/iPhoneMockup.svg'} className={styles.mockup}/>
+                  <div 
+                    className={`${styles.drawingContainer}`}
+                    style={cursorStyle}
+                  >
+                    <ReactSketchCanvas 
+                      className={styles.reactSketchCanvas}
+                      ref={canvasRef} 
+                      width="100%"
+                      height="100%"
+                      canvasColor="#000000"
+                      strokeWidth={2}
+                      strokeColor={strokeColor}
+                      allowOnlyPointerType="all" 
+                      onChange={handleDrawing} 
+                    />
+                    {!hasDrawn && (
+                      <div className={styles.drawingPrompt}>
+                        <Lottie 
+                            animationData={drawingAnimation}
+                            className={styles.drawingAnimation}
+                            loop={true}
+                            autoplay={true}
+                        />
+                      </div>
+                    )}
+                    {hasDrawn && ( 
+                      <div className={styles.iconContainer}>
+                        <SVG aria-label="Farbwechsel" src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
+                        <SVG aria-label="Reset" src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
+                        <SVG aria-label="Screenshot" src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
+                      </div>
+                    )}
+                  </div>
+                  {hasDrawn && (
+                    <p className={`body-highlighted ${styles.bodyHighlighted}`}>
+                      Fertig gezaubert? Klick auf die Kamera und schick uns dein Meisterwerk.
+                    </p>
+                  )}
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+          {/* Canvas Container */}
+          <div 
+          ref={container}
+          className={styles.canvasContainer} 
+          >
+              <div className={styles.mockupWrapper}>
+                {/* Background layer */}
+                <motion.img aria-label="Papier" src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1,}} alt="Papier"/>
+                
+                {/* Middle layer */}
+                <motion.div style={{ y: paletteY }}>
+                  <SVG aria-label="Palette" src={'illustrations/palette.svg'} className={styles.palette}/>
+                </motion.div>
+                <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative',  }}>
+                  <SVG aria-label="Tools" src={'illustrations/tools.svg'} className={styles.tools}/>
+                </motion.div>
+                
+                {/* Foreground layer */}
+                <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4}}>
+                  <SVG aria-label="iPad Mockup" src={'illustrations/iPadMockup.svg'} className={styles.mockup} />
+                  <div 
+                    className={`${styles.drawingContainer}`}
+                    style={cursorStyle}
+                    ref={drawingContainerRef}
+                  >
+                    <ReactSketchCanvas 
+                      className={styles.reactSketchCanvas}
+                      ref={canvasRef} 
+                      width="100%"
+                      height="100%"
+                      canvasColor="#262626"
+                      strokeWidth={3}
+                      strokeColor={strokeColor}
+                      allowOnlyPointerType="all" 
+                      onChange={handleDrawing} 
+                    />
+                    {!hasDrawn && (
+                      <div className={styles.drawingPrompt}>
+                        <Lottie 
+                            animationData={drawingAnimation}
+                            className={styles.drawingAnimation}
+                            loop={true}
+                            autoplay={true}
+                        />
+                      </div>
+                    )}
+                    {hasDrawn && ( 
+                      <div className={styles.iconContainer}>
+                        <SVG aria-label="Farbwechsel" src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
+                        <SVG aria-label="Reset" src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
+                        <SVG aria-label="Screenshot" src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
+                      </div>
+                    )}
+                  </div>
+                  {hasDrawn && (
+                    <p className={`body-highlighted ${styles.bodyHighlighted}`}>
+                      Fertig gezaubert? Klick auf die Kamera und schick uns dein Meisterwerk.
+                    </p>
+                  )}
+                </motion.div>
+              </div>
+          </div>
+
+          
           {/* Text Container */}
           <motion.div 
           className={styles.textContainer} 
@@ -202,368 +452,119 @@ export default function Creativity() {
           viewport={{ once: false, amount: 0.05 }}
           transition={{ duration: 0.7, ease: "easeInOut"}}
           >
-              {/* Headline */}
-              <div ref={headlineRef} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-                <motion.h1 
-                  className={`h1 ${styles.h1}`}
-                >
-                  {"KREAT".split('').map((letter, index) => (
-                    <motion.span
-                      key={index}
-                      style={{
-                        display: 'inline-block',
-                        margin: '0 2px',
-                        rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index], 0])
-                      }}
-                    >
-                      {letter}
-                    </motion.span>
-                  ))}
-                  <br />
-                  <span className={styles.underline}>
-                    {"IVITÄT".split('').map((letter, index) => (
-                      <motion.span
-                        key={index}
-                        style={{
-                          display: 'inline-block',
-                          margin: '0 2px',
-                          rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index + 5], 0])
-                        }}
-                      >
-                        {letter}
-                      </motion.span>
-                    ))}
-                    <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG} />
-                  </span>
-                </motion.h1>
-              </div>
-
-              {/* Handschrift and Arrow */}
-              <div className={styles.textAndArrowContainer}>
-                <motion.p 
-                  className={`handschrift ${styles.handschrift}`}
-                  viewport={{ 
-                    once: false,  
-                    amount: 0.9   
-                  }}
-                  onViewportEnter={() => {
-                    controls.start("visible");
-                  }}
-                  onViewportLeave={() => {
-                    controls.start("hidden");
-                  }}
-                >
-                  <span>
-                    {line1.map((segment, segmentIndex) => (
-                      <span key={segmentIndex}>
-                        {segment.isSpace ? (
-                          <span className={styles.smallSpace}>{segment.text}</span>
-                        ) : (
-                          segment.text.split('').map((char, charIndex) => (
-                            <motion.span
-                              key={`line1-${segmentIndex}-${charIndex}`}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={controls}
-                              variants={{
-                                hidden: { opacity: 0, y: 20 },
-                                visible: { opacity: 1, y: 0 }
-                              }}
-                              transition={{
-                                duration: 0.05,
-                                delay: (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
-                                ease: "easeOut"
-                              }}
-                            >
-                              {char}
-                            </motion.span>
-                          ))
-                        )}
-                      </span>
-                    ))}
-                  </span>
-                  <br />
-                  <span>
-                    {line2.map((segment, segmentIndex) => (
-                      <span key={segmentIndex}>
-                        {segment.isSpace ? (
-                          <span className={styles.smallSpace}>{segment.text}</span>
-                        ) : (
-                          segment.text.split('').map((char, charIndex) => (
-                            <motion.span
-                              key={`line2-${segmentIndex}-${charIndex}`}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={controls}
-                              variants={{
-                                hidden: { opacity: 0, y: 20 },
-                                visible: { opacity: 1, y: 0 }
-                              }}
-                              transition={{
-                                duration: 0.05,
-                                delay: (line1.length * 0.1) + (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
-                                ease: "easeOut"
-                              }}
-                            >
-                              {char}
-                            </motion.span>
-                          ))
-                        )}
-                      </span>
-                    ))}
-                  </span>
-                </motion.p>
-
-                {/* Arrow */}
-                <SVG aria-label="Pfeil" src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/>
-              </div>
-          </motion.div>
-
-          {/* Canvas Container */}
-          <div className={styles.canvasContainer}> 
-            <div className={styles.mockupWrapper}> 
-              {/* Background layer */}
-              <motion.img aria-label="Papier" src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1}} alt="Papier"/>
-              
-              
-              {/* Middle layer */}
-              <motion.div style={{ y: paletteY }}>
-                <SVG aria-label="Palette" src={'illustrations/palette.svg'} className={styles.palette}/>
-              </motion.div>
-              <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative' }}>
-                <SVG aria-label="Tools" src={'illustrations/tools.svg'} className={styles.tools}/>
-              </motion.div>
-
-              {/* Foreground layer */}
-              <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4 }}>
-                <SVG aria-label="iPhone Mockup" src={'illustrations/iPhoneMockup.svg'} className={styles.mockup}/>
-                <div 
-                  className={`${styles.drawingContainer}`}
-                  style={cursorStyle}
-                >
-                  <ReactSketchCanvas 
-                    className={styles.reactSketchCanvas}
-                    ref={canvasRef} 
-                    width="100%"
-                    height="100%"
-                    canvasColor="#000000"
-                    strokeWidth={2}
-                    strokeColor={strokeColor}
-                    allowOnlyPointerType="all" 
-                    onChange={handleDrawing} 
-                  />
-                  {!hasDrawn && (
-                    <div className={styles.drawingPrompt}>
-                      <Lottie 
-                          animationData={drawingAnimation}
-                          className={styles.drawingAnimation}
-                          loop={true}
-                          autoplay={true}
-                      />
-                    </div>
-                  )}
-                  {hasDrawn && ( 
-                    <div className={styles.iconContainer}>
-                      <SVG aria-label="Farbwechsel" src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
-                      <SVG aria-label="Reset" src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
-                      <SVG aria-label="Screenshot" src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
-                    </div>
-                  )}
-                </div>
-                {hasDrawn && (
-                  <p className={`body-highlighted ${styles.bodyHighlighted}`}>
-                    Fertig gezaubert? Klick auf die Kamera und schick uns dein Meisterwerk.
-                  </p>
-                )}
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <>
-        {/* Canvas Container */}
-        <div 
-        ref={container}
-        className={styles.canvasContainer} 
-        >
-            <div className={styles.mockupWrapper}>
-              {/* Background layer */}
-              <motion.img aria-label="Papier" src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1,}} alt="Papier"/>
-              
-              {/* Middle layer */}
-              <motion.div style={{ y: paletteY }}>
-                <SVG aria-label="Palette" src={'illustrations/palette.svg'} className={styles.palette}/>
-              </motion.div>
-              <motion.div style={{ y: toolsY, zIndex: 3, position: 'relative',  }}>
-                <SVG aria-label="Tools" src={'illustrations/tools.svg'} className={styles.tools}/>
-              </motion.div>
-              
-              {/* Foreground layer */}
-              <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4}}>
-                <SVG aria-label="iPad Mockup" src={'illustrations/iPadMockup.svg'} className={styles.mockup} />
-                <div 
-                  className={`${styles.drawingContainer}`}
-                  style={cursorStyle}
-                  ref={drawingContainerRef}
-                >
-                  <ReactSketchCanvas 
-                    className={styles.reactSketchCanvas}
-                    ref={canvasRef} 
-                    width="100%"
-                    height="100%"
-                    canvasColor="#262626"
-                    strokeWidth={3}
-                    strokeColor={strokeColor}
-                    allowOnlyPointerType="all" 
-                    onChange={handleDrawing} 
-                  />
-                  {!hasDrawn && (
-                    <div className={styles.drawingPrompt}>
-                      <Lottie 
-                          animationData={drawingAnimation}
-                          className={styles.drawingAnimation}
-                          loop={true}
-                          autoplay={true}
-                      />
-                    </div>
-                  )}
-                  {hasDrawn && ( 
-                    <div className={styles.iconContainer}>
-                      <SVG aria-label="Farbwechsel" src={iconSrc} className={`${styles.iconColorToggle} ${toggleBackground}`} onClick={handleColorChange} />
-                      <SVG aria-label="Reset" src="icons/reset.svg" className={styles.iconReset} onClick={handleReset} />
-                      <SVG aria-label="Screenshot" src="icons/screenshot.svg" className={styles.iconScreenshot} onClick={handleScreenshot} />
-                    </div>
-                  )}
-                </div>
-                {hasDrawn && (
-                  <p className={`body-highlighted ${styles.bodyHighlighted}`}>
-                    Fertig gezaubert? Klick auf die Kamera und schick uns dein Meisterwerk.
-                  </p>
-                )}
-              </motion.div>
-            </div>
-        </div>
-
-        
-        {/* Text Container */}
-        <motion.div 
-        className={styles.textContainer} 
-        initial={{ y: 30, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: false, amount: 0.05 }}
-        transition={{ duration: 0.7, ease: "easeInOut"}}
-        >
-          <div ref={headlineRef} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-            <motion.h1 
-              className={`h1 ${styles.h1}`}
-            >
-              {"KREAT".split('').map((letter, index) => (
-                <motion.span
-                  key={index}
-                  style={{
-                    display: 'inline-block',
-                    margin: '0 2px',
-                    rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index], 0])
-                  }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-              <br />
-              <span className={styles.underline}>
-                {"IVITÄT".split('').map((letter, index) => (
+            <div ref={headlineRef} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+              <motion.h1 
+                className={`h1 ${styles.h1}`}
+              >
+                {"KREAT".split('').map((letter, index) => (
                   <motion.span
                     key={index}
                     style={{
                       display: 'inline-block',
                       margin: '0 2px',
-                      rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index + 5], 0])
+                      rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index], 0])
                     }}
                   >
                     {letter}
                   </motion.span>
                 ))}
-                <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG} />
+                <br />
+                <span className={styles.underline}>
+                  {"IVITÄT".split('').map((letter, index) => (
+                    <motion.span
+                      key={index}
+                      style={{
+                        display: 'inline-block',
+                        margin: '0 2px',
+                        rotate: useTransform(scrollYProgress, [0, 0.9], [initialRotations[index + 5], 0])
+                      }}
+                    >
+                      {letter}
+                    </motion.span>
+                  ))}
+                  <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG} />
+                </span>
+              </motion.h1>
+            </div>
+            
+
+            <motion.p 
+              className={`handschrift ${styles.handschrift}`}
+              viewport={{ 
+                once: false,  
+                amount: 0.9   
+              }}
+              onViewportEnter={() => {
+                controls.start("visible");
+              }}
+              onViewportLeave={() => {
+                controls.start("hidden");
+              }}
+            >
+              <span>
+                {line1.map((segment, segmentIndex) => (
+                  <span key={segmentIndex}>
+                    {segment.isSpace ? (
+                      <span className={styles.smallSpace}>{segment.text}</span>
+                    ) : (
+                      segment.text.split('').map((char, charIndex) => (
+                        <motion.span
+                          key={`line1-${segmentIndex}-${charIndex}`}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={controls}
+                          variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0 }
+                          }}
+                          transition={{
+                            duration: 0.05,
+                            delay: (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
+                            ease: "easeOut"
+                          }}
+                        >
+                          {char}
+                        </motion.span>
+                      ))
+                    )}
+                  </span>
+                ))}
               </span>
-            </motion.h1>
-          </div>
-          
-
-          <motion.p 
-            className={`handschrift ${styles.handschrift}`}
-            viewport={{ 
-              once: false,  
-              amount: 0.9   
-            }}
-            onViewportEnter={() => {
-              controls.start("visible");
-            }}
-            onViewportLeave={() => {
-              controls.start("hidden");
-            }}
-          >
-            <span>
-              {line1.map((segment, segmentIndex) => (
-                <span key={segmentIndex}>
-                  {segment.isSpace ? (
-                    <span className={styles.smallSpace}>{segment.text}</span>
-                  ) : (
-                    segment.text.split('').map((char, charIndex) => (
-                      <motion.span
-                        key={`line1-${segmentIndex}-${charIndex}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={controls}
-                        variants={{
-                          hidden: { opacity: 0, y: 20 },
-                          visible: { opacity: 1, y: 0 }
-                        }}
-                        transition={{
-                          duration: 0.05,
-                          delay: (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
-                          ease: "easeOut"
-                        }}
-                      >
-                        {char}
-                      </motion.span>
-                    ))
-                  )}
-                </span>
-              ))}
-            </span>
-            <br />
-            <span>
-              {line2.map((segment, segmentIndex) => (
-                <span key={segmentIndex}>
-                  {segment.isSpace ? (
-                    <span className={styles.smallSpace}>{segment.text}</span>
-                  ) : (
-                    segment.text.split('').map((char, charIndex) => (
-                      <motion.span
-                        key={`line2-${segmentIndex}-${charIndex}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={controls}
-                        variants={{
-                          hidden: { opacity: 0, y: 20 },
-                          visible: { opacity: 1, y: 0 }
-                        }}
-                        transition={{
-                          duration: 0.05,
-                          delay: (line1.length * 0.1) + (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
-                          ease: "easeOut"
-                        }}
-                      >
-                        {char}
-                      </motion.span>
-                    ))
-                  )}
-                </span>
-              ))}
-            </span>
-          </motion.p>
-          {/* <SVG src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/> */}
-        </motion.div>
-        </>
-      )
-      }
-
-    </div>
+              <br />
+              <span>
+                {line2.map((segment, segmentIndex) => (
+                  <span key={segmentIndex}>
+                    {segment.isSpace ? (
+                      <span className={styles.smallSpace}>{segment.text}</span>
+                    ) : (
+                      segment.text.split('').map((char, charIndex) => (
+                        <motion.span
+                          key={`line2-${segmentIndex}-${charIndex}`}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={controls}
+                          variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0 }
+                          }}
+                          transition={{
+                            duration: 0.05,
+                            delay: (line1.length * 0.1) + (segmentIndex * 0.1) + (charIndex * 0.02) + (Math.random() * 0.03),
+                            ease: "easeOut"
+                          }}
+                        >
+                          {char}
+                        </motion.span>
+                      ))
+                    )}
+                  </span>
+                ))}
+              </span>
+            </motion.p>
+            {/* <SVG src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/> */}
+          </motion.div>
+          </>
+        )
+        }
+      </div>
+    
   );
 }

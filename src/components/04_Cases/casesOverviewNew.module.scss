@@ -47,21 +47,21 @@
             }
         }
 
-        // caseStudyAbstractShape (middle left)
+        // caseStudyRubyHotel (middle left)
         &:nth-of-type(3) {
             .imageContainer {
-                top: -12.5vh;
-                left: -27.5vw;
-                width: 22.5vw;
-                height: 55vh;
+                top: -17vh;
+                left: -26.5vw;
+                width: 21vw;
+                height: 65vh;
             }
         }
 
-        // caseStudyCat (middle right)
+        // caseStudyPons (middle right)
         &:nth-of-type(4) {
             .imageContainer {
-                left: 27.5vw;
-                width: 22.5vw;
+                left: 31vw;
+                width: 30vw;
                 height: 30vh;
             }
         }
@@ -86,23 +86,23 @@
             }
         }
 
-        // caseStudyDesignTable (bottom right)
+        // storeWindowKopfbrand (bottom right)
         &:nth-of-type(7) {
             .imageContainer {
-                top: 25vh;
+                top: 29.5vh;
                 left: 29vw;
                 width: 15vw;
-                height: 15vh;
+                height: 24vh;
             }
         }
 
-        // caseStudyHotelBrown (top right)
+        // marioBarthCover (top right)
         &:nth-of-type(8) {
             .imageContainer {
-                top: -27.5vh;
+                top: -31.5vh;
                 left: 31vw;
                 width: 10vw;
-                height: 20vh;
+                height: 28vh;
             }
         }
     }
@@ -128,17 +128,22 @@
             }
         }
 
-        // caseStudyAbstractShape (middle left)
+        // caseStudyRubyHotel (middle left)
         .element:nth-of-type(3) {
             .imageContainer {
-                left: -29.5vw;
+                top: -7.5vh;
+                left: -33vw;
+                width: 30vw;
+                height: 45vh;
             }
         }
 
-        // caseStudyCat (middle right)
+        // caseStudyPons (middle right)
         .element:nth-of-type(4) {
             .imageContainer {
-                left: 28.5vw;
+                left: 33vw;
+                width: 30vw;
+                height: 30vh;
             }
         }
 
@@ -157,19 +162,23 @@
             }
         }
 
-        // caseStudyDesignTable (bottom right)
+        // storeWindowKopfbrand (bottom right)
         .element:nth-of-type(7) {
             .imageContainer {
-                top: 24vh;
-                left: 30vw;
+                top: 22.5vh;
+                left: 34vw;
+                width: 22vw;
+                height: 12vh;
             }
         }
 
-        // caseStudyHotelBrown (top right)
+        // marioBarthCover (top right)
         .element:nth-of-type(8) {
             .imageContainer {
-                top: -26.5vh;
-                left: 32vw;
+                top: -25vh;
+                left: 38vw;
+                width: 21vw;
+                height: 17vh;
             }
         }
     }

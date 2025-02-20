@@ -16,8 +16,8 @@ const cases = [
     },
     {
         id: 2,
-        image: "/images/caseStudyCat.jpg",
-        company: "Kunde Zwei",
+        image: "/images/caseStudyPons.jpg",
+        company: "Pons",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         tags: ["Branding", "Digital Design", "Animation"],
     },
