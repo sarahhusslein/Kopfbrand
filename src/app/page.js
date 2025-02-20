@@ -135,7 +135,7 @@ export default function Home() {
                 footerHeight: adjustedHeights[9],
             });
 
-            const total = adjustedHeights.reduce((sum, height) => sum + height, 0);
+            const total = adjustedHeights.reduce((sum, height) => sum + height + 20, 0);
             console.log('Total calculated height:', total);
 
             setHeights(adjustedHeights);

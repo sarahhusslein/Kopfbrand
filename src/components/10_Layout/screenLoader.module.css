@@ -17,6 +17,10 @@
     cursor: none;
 }
 
+.container * {
+    pointer-events: none !important;
+}
+
 
 
 .slide {
