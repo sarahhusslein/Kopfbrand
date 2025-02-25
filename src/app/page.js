@@ -152,7 +152,7 @@ export default function Home() {
       setTimeout(() => {
         console.log("⏳ Warte kurz, um sicherzustellen, dass das Layout bereit ist...");
         waitForMediaLoad();
-      }, 1500); // Timeout von 1500ms, um sicherzustellen, dass Firefox genug Zeit hat
+      }, 3000); // Timeout von 1500ms, um sicherzustellen, dass Firefox genug Zeit hat
     } else {
       // Für andere Browser sofort berechnen
       calculateHeights();
