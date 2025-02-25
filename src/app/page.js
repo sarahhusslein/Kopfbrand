@@ -117,12 +117,38 @@ useLayoutEffect(() => {
   // 🟢 Direkt berechnen für schnelle Animationen
   calculateHeights();
 
-  // 🟢 🔥 Workaround für Firefox: Verzögerte Berechnung nach Rendering
-  if (navigator.userAgent.toLowerCase().includes('firefox')) {
-    setTimeout(() => {
-      console.log('🔥 Firefox Workaround: Recalculating after delay...');
+   // 🟢 Funktion wartet, bis ALLE Bilder & Videos geladen sind
+   const waitForMediaLoad = () => {
+    const mediaElements = document.querySelectorAll('img, video');
+    
+    if (mediaElements.length === 0) {
+      console.log("✅ Keine Medien gefunden, direkt berechnen.");
       calculateHeights();
-    }, 150);
+      return;
+    }
+
+    console.log(`⏳ Warte auf ${mediaElements.length} Medien...`);
+
+    Promise.all(Array.from(mediaElements).map((media) => {
+      return new Promise((resolve) => {
+        if (media.complete || (media.readyState >= 3)) {
+          resolve();
+        } else {
+          media.addEventListener('load', resolve);
+          media.addEventListener('error', resolve); // Falls Bild nicht geladen wird
+        }
+      });
+    })).then(() => {
+      console.log("✅ Alle Medien geladen, Berechnung starten...");
+      calculateHeights();
+    });
+  };
+
+  if (navigator.userAgent.toLowerCase().includes('firefox')) {
+    console.log("🔥 Firefox erkannt, warte auf vollständiges Laden...");
+    waitForMediaLoad();
+  } else {
+    calculateHeights();
   }
 
   window.addEventListener('resize', calculateHeights);
