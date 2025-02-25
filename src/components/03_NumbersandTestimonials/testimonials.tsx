@@ -4,9 +4,13 @@ import { useMediaQuery } from 'react-responsive';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import styles from './testimonials.module.css';
 import SVG from 'react-inlinesvg';
-import satelliteAnimation from '../../../public/animations/satelliteAnimation.json';
-import satelliteAnimationRed from '../../../public/animations/satelliteAnimationRed.json';
 
+
+
+/***************************** 
+Type Declarations and Arrays
+*****************************/
+// 🟢 Types for the testimonials
 interface Testimonial {
     id: number;
     name: string;
@@ -14,6 +18,10 @@ interface Testimonial {
     description: Array<string | { text: string, highlight: boolean }>;
 }
 
+// 🟢 Type for the page state
+type PageState = [number, number];
+
+// 🟢 Testimonials array
 const testimonials: Testimonial[] = [
     {
         id: 1,
@@ -48,6 +56,11 @@ const testimonials: Testimonial[] = [
 ];
 
 
+
+/***************************** 
+Functions
+*****************************/
+// 🟢 Function to render the description
 const renderDescription = (description: Array<string | { text: string, highlight: boolean }>) => {
     return description.map((part, index) => {
         if (typeof part === 'string') {
@@ -61,17 +74,25 @@ const renderDescription = (description: Array<string | { text: string, highlight
     });
 };
 
-type PageState = [number, number];
+
 
 export default function Testimonials() {
 
+    /***************************** 
+    State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const [[page, direction], setPage] = useState<PageState>([0, 0]);
 
-    // Normalize the page number to handle infinite loop
+    // 🟢 Normalize the page number to handle infinite loop
     const activeIndex = ((page % testimonials.length) + testimonials.length) % testimonials.length;
 
 
+    /***************************** 
+    Functions
+    *****************************/
+    // 🟢 Function to paginate
     const paginate = (newDirection: number) => {
         setPage([page + newDirection, newDirection]);
     };

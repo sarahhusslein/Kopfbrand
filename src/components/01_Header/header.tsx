@@ -12,6 +12,10 @@ import useMousePosition from '@/utils/useMousePosition';
 
 export default function Header() {
 
+    /***************************** 
+    State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const videoSrc = isMobile ? '/videos/konfettiVideoMobile.mp4' : '/videos/konfettiVideoDesktop.mp4';
     const imageSrc = isMobile ? '/images/fallbackImageMobile.png' : '/images/fallbackImageDesktop.png';
@@ -23,6 +27,7 @@ export default function Header() {
     const touchPosRef = useRef({ x: 0, y: 0 });
 
 
+    // 🟢 Type Declaration
     interface Spark {
         id: number;
         x: number;
@@ -35,8 +40,13 @@ export default function Header() {
         curveFactor: number;
         acceleration: number;
     }
-    
 
+
+
+    /***************************** 
+    Functions
+    *****************************/
+    // 🟢 Function to get random flame color
     const getRandomFlameColor = () => {
         const r = Math.floor(228 + Math.random() * (230 - 228)); 
         const g = Math.floor(Math.random() * 256); 
@@ -44,78 +54,79 @@ export default function Header() {
         return `rgb(${r}, ${g}, ${b})`;
     };
 
-        // ✅ Extracted addSpark function for reuse
-        const addSpark = (x: number, y: number) => {
-            const id = Date.now();
-            const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 20 + 8;
-    
-            const newSpark: Spark = {
-                id,
-                x,
-                y,
-                size: Math.random() * 16 + 4,
-                color: getRandomFlameColor(),
-                velocityX: Math.cos(angle) * speed,
-                velocityY: Math.sin(angle) * speed,
-                curveFactor: (Math.random() - 0.5) * 30,
-                acceleration: Math.random() * 0.8 + 0.05,
-                lifespan: Math.random() * 3000 + 500,
-            };
-    
-            setSparks((prev) => [...prev, newSpark]);
-    
-            setTimeout(() => {
-                setSparks((prev) => prev.filter((spark) => spark.id !== id));
-            }, newSpark.lifespan);
-        };
-    
-        // ✅ Kept desktop logic unchanged
-        useEffect(() => {
-            if (mousePosition.x !== 0 && mousePosition.y !== 0) {
-                addSpark(mousePosition.x, mousePosition.y);
-            }
-        }, [mousePosition]);
-    
-        // 📱 Mobile Touch Handling
-        const handleTouchStart = (e: React.TouchEvent) => {
-            e.preventDefault();
-            isTouchingRef.current = true;
-            const touch = e.touches[0];
-            
-            // 🔄 Speichere aktuelle Touch-Position in der Ref
-            touchPosRef.current = { x: touch.clientX, y: touch.clientY };
-            updateMousePosition({ x: touch.clientX, y: touch.clientY });
-        
-            if (!intervalRef.current) {
-                intervalRef.current = setInterval(() => {
-                    if (isTouchingRef.current) {
-                        addSpark(touchPosRef.current.x, touchPosRef.current.y);
-                    }
-                }, 50); // Adjust the interval time as needed
-            }
-        };
-    
-        const handleTouchMove = (e: React.TouchEvent) => {
-            e.preventDefault(); 
-            const touch = e.touches[0];
-        
-            // 🔄 Update der aktuellen Touch-Position in der Ref
-            touchPosRef.current = { x: touch.clientX, y: touch.clientY };
-            updateMousePosition({ x: touch.clientX, y: touch.clientY });
-        };
-    
-        const handleTouchEnd = () => {
-            isTouchingRef.current = false;
-            if (intervalRef.current) {
-                clearInterval(intervalRef.current);
-                intervalRef.current = null;
-            }
+    // 🟢 Extracted addSpark function for reuse
+    const addSpark = (x: number, y: number) => {
+        const id = Date.now();
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 20 + 8;
+
+        const newSpark: Spark = {
+            id,
+            x,
+            y,
+            size: Math.random() * 16 + 4,
+            color: getRandomFlameColor(),
+            velocityX: Math.cos(angle) * speed,
+            velocityY: Math.sin(angle) * speed,
+            curveFactor: (Math.random() - 0.5) * 30,
+            acceleration: Math.random() * 0.8 + 0.05,
+            lifespan: Math.random() * 3000 + 500,
         };
 
+        setSparks((prev) => [...prev, newSpark]);
+
+        setTimeout(() => {
+            setSparks((prev) => prev.filter((spark) => spark.id !== id));
+        }, newSpark.lifespan);
+    };
+
+    // 🟢 Effect to add sparks when mouse moves
+    useEffect(() => {
+        if (mousePosition.x !== 0 && mousePosition.y !== 0) {
+            addSpark(mousePosition.x, mousePosition.y);
+        }
+    }, [mousePosition]);
+
+    // 🟢 Mobile Touch Handling
+    const handleTouchStart = (e: React.TouchEvent) => {
+        e.preventDefault();
+        isTouchingRef.current = true;
+        const touch = e.touches[0];
+        
+        // 🟢 Store current touch position in the ref
+        touchPosRef.current = { x: touch.clientX, y: touch.clientY };
+        updateMousePosition({ x: touch.clientX, y: touch.clientY });
     
+        if (!intervalRef.current) {
+            intervalRef.current = setInterval(() => {
+                if (isTouchingRef.current) {
+                    addSpark(touchPosRef.current.x, touchPosRef.current.y);
+                }
+            }, 50); 
+        }
+    };
+
+    // 🟢 Handle touch move
+    const handleTouchMove = (e: React.TouchEvent) => {
+        e.preventDefault(); 
+        const touch = e.touches[0];
+    
+        touchPosRef.current = { x: touch.clientX, y: touch.clientY };
+        updateMousePosition({ x: touch.clientX, y: touch.clientY });
+    };
+
+    // 🟢 Handle touch end
+    const handleTouchEnd = () => {
+        isTouchingRef.current = false;
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+    };
+
+    // 🟢 Handle click to scroll to services
     const handleClick = () => {
-        if (typeof window !== 'undefined') { // Check if running in the browser
+        if (typeof window !== 'undefined') { 
             const element = document.getElementById('services');
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
@@ -125,6 +136,10 @@ export default function Header() {
 
     
 
+    /***************************** 
+    Animations
+    *****************************/
+    // 🟢 Animation constants
     const itemAnimation = {
         initial: { y: 40, opacity: 0 },
         inView: {
@@ -147,7 +162,9 @@ export default function Header() {
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
             >
-            {sparks.map((spark) => (
+
+                {/****** Sparks ******/}
+                {sparks.map((spark) => (
                     <motion.div
                         key={spark.id}
                         initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
@@ -174,6 +191,8 @@ export default function Header() {
                     }}
                     />
                 ))}
+
+                {/****** Video ******/}
                 <div className={styles.imageWrapper}>
                     {!videoError ? (
                             <video 
@@ -192,12 +211,14 @@ export default function Header() {
                         )}
                     <div className={styles.overlay} />
                 </div>
+
+                {/****** Text and Button ******/}
                 <motion.div 
-                className={styles.content}
-                variants={itemAnimation}
-                initial="initial"
-                whileInView="inView"
-                viewport={{ once: true}}
+                    className={styles.content}
+                    variants={itemAnimation}
+                    initial="initial"
+                    whileInView="inView"
+                    viewport={{ once: true}}
                 >
                     <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimation}>UNSERE KÖPFE</motion.h1>
                     <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus ut similique ipsum aut neque dolorem in quia doloremque aut officia quae.</motion.h4>

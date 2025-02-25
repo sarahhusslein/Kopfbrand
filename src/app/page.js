@@ -24,12 +24,17 @@ import FinalBar from "@/components/09_FinalBar/finalBar";
 
 export default function Home() {
 
-  // Device Types
+  /***************************** 
+  Device Types
+  *****************************/
+  // 🟢 Device Types
   const isMobile = useMediaQuery({ maxWidth: 768 });
 
 
-  /****** States ******/
-  // Ref States
+  /***************************** 
+  Ref States
+  *****************************/
+  // 🟢 Ref States
   const containerRef = useRef(null);
   const headerRef = useRef(null);
   const servicesRef = useRef(null);
@@ -42,12 +47,14 @@ export default function Home() {
   const contactRef = useRef(null);
   const footerRef = useRef(null);
 
-  // Height States
+  // 🟢 Height States
   const [heights, setHeights] = useState([]);
   const [totalHeight, setTotalHeight] = useState(0);
 
 
-  /****** Smooth Scrolling ******/
+  /***************************** 
+  Smooth Scrolling
+  *****************************/
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const lenis = new Lenis({
@@ -69,7 +76,57 @@ export default function Home() {
   }, []);
 
 
-  /****** Heights ******/
+  /***************************** 
+  Heights
+  *****************************/
+  // 🟢 Calculate Heights
+  useLayoutEffect(() => {
+    const calculateHeights = () => {
+        const newHeights = [
+            headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
+            casesRef, teamRef, creativityRef, contactRef, footerRef
+        ].map((ref) => ref.current?.offsetHeight || 0);
+
+        // Apply adjustments for numbersHeight and casesOverviewHeight
+        const adjustedHeights = [
+            newHeights[0], // headerHeight
+            newHeights[1], // servicesHeight
+            isMobile ? newHeights[2] - (25 * window.innerHeight / 100) : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight adjustment
+            newHeights[3], // casesHeadlineHeight
+            newHeights[4] - (50 * window.innerHeight / 100), // casesOverviewHeight adjustment
+            newHeights[5], // casesHeight
+            newHeights[6], // teamHeight
+            newHeights[7], // creativityHeight
+            newHeights[8], // contactHeight
+            newHeights[9], // footerHeight
+        ];
+
+        console.log('Initial Heights:', adjustedHeights);
+
+        const total = adjustedHeights.reduce((sum, height) => sum + height + 20, 0);
+        console.log('Initial Total Height:', total);
+
+        setHeights(adjustedHeights);
+        setTotalHeight(total);
+    };
+
+    // 🟢 Run height calculation immediately for animations
+    calculateHeights();
+
+    // 🟢 Extra short delay calculation to stabilize initial values
+    setTimeout(() => {
+        console.log('Recalculating heights after small delay...');
+        calculateHeights();
+    }, 50);
+
+    window.addEventListener('resize', calculateHeights);
+
+    return () => {
+        window.removeEventListener('resize', calculateHeights);
+    };
+  }, [isMobile]);
+
+  // 🟢 Stable Layout after media loads  
   useEffect(() => {
     const loadResources = () => {
         const images = Array.from(document.images);
@@ -81,18 +138,18 @@ export default function Home() {
                     resolve();
                 } else {
                     img.onload = resolve;
-                    img.onerror = resolve; // Resolve even if there's an error
+                    img.onerror = resolve; 
                 }
             });
         });
 
         const videoPromises = videos.map((video) => {
             return new Promise((resolve) => {
-                if (video.readyState >= 3) { // HAVE_FUTURE_DATA
+                if (video.readyState >= 3) { 
                     resolve();
                 } else {
                     video.onloadeddata = resolve;
-                    video.onerror = resolve; // Resolve even if there's an error
+                    video.onerror = resolve; 
                 }
             });
         });
@@ -100,73 +157,23 @@ export default function Home() {
         return Promise.all([...imagePromises, ...videoPromises]);
     };
 
+    // 🟢 Final height calculation after all media loads
     loadResources().then(() => {
-        const calculateHeights = () => {
-            const newHeights = [
-                headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
-                casesRef, teamRef, creativityRef, contactRef, footerRef
-            ].map((ref) => ref.current?.offsetHeight || 0);
-
-            // Apply adjustments for numbersHeight and casesOverviewHeight
-            const adjustedHeights = [
-                newHeights[0], // headerHeight
-                newHeights[1], // servicesHeight
-                isMobile ? newHeights[2] - (25 * window.innerHeight / 100) : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight adjustment
-                newHeights[3], // casesHeadlineHeight
-                newHeights[4] - (50 * window.innerHeight / 100), // casesOverviewHeight adjustment
-                newHeights[5], // casesHeight
-                newHeights[6], // teamHeight
-                newHeights[7], // creativityHeight
-                newHeights[8], // contactHeight
-                newHeights[9], // footerHeight
-            ];
-
-            // Log each section's height
-            console.log('Heights:', {
-                headerHeight: adjustedHeights[0],
-                servicesHeight: adjustedHeights[1],
-                numbersHeight: adjustedHeights[2],
-                casesHeadlineHeight: adjustedHeights[3],
-                casesOverviewHeight: adjustedHeights[4],
-                casesHeight: adjustedHeights[5],
-                teamHeight: adjustedHeights[6],
-                creativityHeight: adjustedHeights[7],
-                contactHeight: adjustedHeights[8],
-                footerHeight: adjustedHeights[9],
-            });
-
-            const total = adjustedHeights.reduce((sum, height) => sum + height + 20, 0);
-            console.log('Total calculated height:', total);
-
-            setHeights(adjustedHeights);
-            setTotalHeight(total);
-        };
-
-        calculateHeights();
+        console.log("All media loaded, recalculating heights.");
+        calculateHeights(); 
     });
-}, [isMobile]);
+  }, []);
 
 
 
 
-
-useEffect(() => {
-  console.log("Total Height changed:", totalHeight);
-}, [totalHeight]);
-
-
-
-
-
-
-
-
-
-
-  /****** Scroll Progress ******/
-
-  // Calculate offsets based on device type
-  const headerOffset = isMobile ? [`${heights[0]}px end`, `${heights[0]}px start`] : [`${heights[0]}px end`, `${heights[0] * 1.5}px start`];
+  /***************************** 
+  Scroll Progress
+  *****************************/
+  // 🟢 Calculate offsets based on device type
+  const headerOffset = isMobile
+  ? [`${heights[0]}px end`, `${heights[0]}px start`]
+  : [`${heights[0]}px end`, `${heights[0] * 1.5}px start`];
 
   const { scrollYProgress: headerScrollYProgress } = useScroll({
     target: containerRef,
@@ -214,8 +221,10 @@ useEffect(() => {
   });
 
 
-  /****** Transformations ******/
-  // Y positions
+  /***************************** 
+  Transformations
+  *****************************/
+  // 🟢 Y positions
   const headerY = useTransform(headerScrollYProgress, [0, 1], [0, 100]); 
   const servicesY = useTransform(servicesScrollYProgress, [0, 1], [0, 400]); 
   const numbersY = useTransform(numbersScrollYProgress, [0, 1], [0, 400]); 
@@ -223,11 +232,11 @@ useEffect(() => {
   const casesY = useTransform(casesScrollProgress, [0, 1], [0, 400]); 
   const teamY = useTransform(teamScrollYProgress, [0, 1], [0, 400]); 
 
-  // Scale and rotate
+  // 🟢 Scale and rotate
   const scaleHeader = useTransform(headerScrollYProgress, [0, 1], isMobile ? [1, 0.1] : [1, 0.6]);
   const rotateHeader = useTransform(headerScrollYProgress, [0, 1], [0, -6]);
 
-  // Opacities
+  // 🟢 Opacities
   const opacityHeader = useTransform(headerScrollYProgress, [0, 1], [1, 0]);
   const opacityServices = useTransform(servicesOpacityScrollProgress, [0, 1], [1, 0]);
   const opacityNumbers = useTransform(numbersScrollYProgress, [0, 1], [1, 0.7]);
@@ -236,7 +245,7 @@ useEffect(() => {
   const opacityFooter = useTransform(footerScrollYProgress, [0, 1], [0.4, 1]);
 
 
-  // Footer Sticky
+  // 🟢 Sticky Footer
   const [footerSticky, setFooterSticky] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -245,7 +254,6 @@ useEffect(() => {
       const contactRect = contactRef.current.getBoundingClientRect();
       const footerRect = footerRef.current.getBoundingClientRect();
   
-      // Prüfen, ob der Kontaktbereich sein unteres Ende erreicht hat
       if (contactRect.bottom <= window.innerHeight) {
         setFooterSticky(true);
       } else {

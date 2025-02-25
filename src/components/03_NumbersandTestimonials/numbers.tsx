@@ -8,12 +8,19 @@ import SVG from 'react-inlinesvg';
 import CountUp from 'react-countup';
 
 
+
+
+/***************************** 
+Type Declarations and Arrays
+*****************************/
+// 🟢 Types for the numbers
 interface Number {
     id: number;
     start: number;
     keyword: string;
   }
 
+// 🟢 Numbers array
 const numbers: Number[] = [
     {
         id: 1,
@@ -40,11 +47,15 @@ const numbers: Number[] = [
 
 export default function Numbers() {
 
+    /***************************** 
+     State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types  
     const isMobile = useMediaQuery({ maxWidth: 768 });
-
     const ref = useRef<HTMLDivElement | null>(null);
     const [inView, setInView] = useState<boolean>(false);
 
+    // 🟢 Intersection Observer
     useEffect(() => {
         const observer = new IntersectionObserver(
           ([entry]) => setInView(entry.isIntersecting),
@@ -73,12 +84,14 @@ export default function Numbers() {
         glareEnable={false} 
       >
         <div className={styles.content}>
+
+            {/****** Headline ******/}
             <motion.div 
-            className={styles.headline}
-            initial={{ y: 40, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 0.5 }}
-            transition={{ duration: 0.5, ease: "easeInOut"}}
+              className={styles.headline}
+              initial={{ y: 40, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.5, ease: "easeInOut"}}
             >
                 <h2 className={`h2 ${styles.h2}`}>
                 UNSERE
@@ -89,13 +102,15 @@ export default function Numbers() {
                 </span>
                 </h2>
             </motion.div>
+            
+            {/****** Numbers ******/}
             <motion.div 
-            className={styles.numbersRow} 
-            ref={ref}
-            initial={{ y: 40, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 0.5 }}
-            transition={{ duration: 0.6, ease: "easeInOut"}}
+              className={styles.numbersRow} 
+              ref={ref}
+              initial={{ y: 40, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.6, ease: "easeInOut"}}
             >
                 {numbers.map((number) => (
                     <div className={styles.numbersColumn} key={number.id}>

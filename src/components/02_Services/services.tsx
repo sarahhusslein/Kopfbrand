@@ -14,6 +14,10 @@ import versandAnimation from '/public/animations/versand.json';
 
 
 
+/***************************** 
+Type Declarations and Arrays
+*****************************/
+// 🟢 Types for the services
 interface Service {
     id: number;
     animation: any; 
@@ -23,6 +27,7 @@ interface Service {
     paddingTop: number;
 }
 
+// 🟢 Services array
 const services: Service[] = [
   {
       id: 1,
@@ -67,33 +72,44 @@ const services: Service[] = [
 
 ];
 
+// 🟢 Lottie component
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
+
+
 
 export default function Services() {
 
- 
-    
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-  const isLargeDesktop = useMediaQuery({ minWidth: 1920 });
-  const [activeIndex, setActiveIndex] = useState<number>(isMobile ? 0 : 2); // Start with first or third service active  
-  const servicesRef = useRef<HTMLDivElement | null>(null);
-  const tiltRef = React.useRef(null);
+    /***************************** 
+     State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types  
+    const isMobile = useMediaQuery({ maxWidth: 768 });
+    const isLargeDesktop = useMediaQuery({ minWidth: 1920 });
+    const [activeIndex, setActiveIndex] = useState<number>(isMobile ? 0 : 2); 
+    const servicesRef = useRef<HTMLDivElement | null>(null);
+    const tiltRef = React.useRef(null);
 
-  const DURATION = 0.3;
-  const STAGGER = 0.02;
-  const itemAnimation = {
-    initial: { y: 40, opacity: 0 },
-    inView: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.5,
-            ease: "easeInOut",
-            duration: 1
+
+    /***************************** 
+    Animations
+    *****************************/
+    // 🟢 Animation constants
+    const DURATION = 0.3;
+    const STAGGER = 0.02;
+    const itemAnimation = {
+        initial: { y: 40, opacity: 0 },
+        inView: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.5,
+                ease: "easeInOut",
+                duration: 1
+            }
         }
-    }
     };  
 
+    // 🟢 Animation for mobile
     const itemAnimationMobile = {
         initial: { y: 40, opacity: 0 },
         inView: {
@@ -108,19 +124,20 @@ export default function Services() {
     };
 
 
-    // First phase: Initial movement to staggered positions
+    // 🟢 Scroll progress for initial movement
     const { scrollYProgress: initialProgress } = useScroll({
         target: servicesRef,
         offset: ["start end", "start 10vh"]
     });
 
-    // Second phase: Final alignment
+    // 🟢 Scroll progress for final alignment
     const { scrollYProgress: finalProgress } = useScroll({
         target: servicesRef,
         offset: ["start 10vh", "end 70vh"]
     });
 
 
+    // 🟢 Y positions for services
     const serviceY = [
         useTransform(
             [initialProgress, finalProgress], 
@@ -132,33 +149,34 @@ export default function Services() {
         useTransform(
             [initialProgress, finalProgress], 
             ([i, f]: [number, number]) => {
-                if (i < 1) return 230 + (80 - 230) * i;  // First phase: 200 -> 80
+                if (i < 1) return 230 + (80 - 230) * i;  // First phase: 230 -> 80
                 return 80 + (10 - 80) * f;  // Second phase: 80 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
             ([i, f]: [number, number]) => {
-                if (i < 1) return 230 + (25 - 230) * i;  // First phase: 200 -> 25
+                if (i < 1) return 230 + (25 - 230) * i;  // First phase: 230 -> 25
                 return 25 + (10 - 25) * f;  // Second phase: 25 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
             ([i, f]: [number, number]) => {
-                if (i < 1) return 230 + (40 - 230) * i;  // First phase: 200 -> 40
+                if (i < 1) return 230 + (40 - 230) * i;  // First phase: 230 -> 40
                 return 40 + (10 - 40) * f;  // Second phase: 40 -> 10
             }
         ),
         useTransform(
             [initialProgress, finalProgress], 
             ([i, f]: [number, number]) => {
-                if (i < 1) return 230 + (45 - 230) * i;  // First phase: 300 -> 45
+                if (i < 1) return 230 + (45 - 230) * i;  // First phase: 230 -> 45
                 return 45 + (10 - 45) * f;  // Second phase: 45 -> 10
             }
         ),
     ];
 
+    // 🟢 Y positions for large desktop
     const serviceYLargeDesktop = [
         useTransform(
             [initialProgress, finalProgress], 
@@ -201,11 +219,13 @@ export default function Services() {
 
   return (
     <div className={styles.container}>
+
+        {/****** Title ******/}
         <motion.div
-        variants={isMobile ? itemAnimationMobile : itemAnimation}
-        initial="initial"
-        whileInView="inView"
-        viewport={{ once: false, amount: 0.3 }}
+            variants={isMobile ? itemAnimationMobile : itemAnimation}
+            initial="initial"
+            whileInView="inView"
+            viewport={{ once: false, amount: 0.3 }}
         >
             {isMobile ? (
                     <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimationMobile}>
@@ -270,12 +290,16 @@ export default function Services() {
                     </motion.h1>
                 )}
 
+
+            {/****** Subtitle ******/}
             <motion.h4 className={`subtitle ${styles.h4}`} variants={isMobile ? itemAnimationMobile : itemAnimation}>
                 Wir konzipieren, gestalten, und kreieren. Von der Idee bis zum Prototyping. 
                 {isMobile ? ' ' : <br />}
                 Lorem ipsum text.
             </motion.h4>
 
+
+            {/****** Services ******/}
             <motion.div 
                 ref={servicesRef}
                 className={styles.servicesWrapper}

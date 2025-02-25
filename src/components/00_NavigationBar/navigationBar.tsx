@@ -7,7 +7,11 @@ import styles from './navigationBar.module.css';
 import SVG from 'react-inlinesvg';
 
 
-// Type for the navigation items
+
+/***************************** 
+Type Declarations
+*****************************/
+// 🟢 Types for the navigation items
 interface NavItem {
     id: number;
     title: string;
@@ -24,8 +28,12 @@ interface NavItem {
 
 
 
-
 export default function NavigationBar() {
+
+    /***************************** 
+    State Declarations
+    *****************************/
+    // 🟢 States and Device Types
     const [activeSection, setActiveSection] = useState<string>('header');
     const [visible, setVisible] = useState<boolean>(true);
     const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
@@ -36,13 +44,15 @@ export default function NavigationBar() {
 
 
 
-    // Capture initial positions on mount, accounting for any offsets
+    /***************************** 
+    Initial Positions
+    *****************************/
+    // 🟢 Capture initial positions on mount, accounting for any offsets
     useEffect(() => {
         const positions: Record<string, number> = {};
         navItems.forEach(item => {
             const element = document.getElementById(item.section);
             if (element) {
-                // Get the exact position without any offset
                 const rect = element.getBoundingClientRect();
                 positions[item.section] = window.scrollY + rect.top;
             }
@@ -51,13 +61,17 @@ export default function NavigationBar() {
     }, []); 
 
 
-    // Handle scroll behavior for showing/hiding navbar
+
+    /***************************** 
+    Scroll Behavior
+    *****************************/
+    // 🟢 Handle scroll behavior for showing/hiding navbar
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollPos = window.scrollY;
             const scrollThreshold = 10;
 
-            // Only start hiding/showing after scrolling past the first viewport
+            // 🟢 Only start hiding/showing after scrolling past the first viewport
             if (currentScrollPos > window.innerHeight) {
                 setShouldHide(true);
                 setIsFixed(true);
@@ -67,11 +81,11 @@ export default function NavigationBar() {
             }
             
             if (shouldHide) {
-                // Only show navbar if scrolled up more than threshold
+                // 🟢 Only show navbar if scrolled up more than threshold
                 if (prevScrollPos - currentScrollPos > scrollThreshold) {
                     setVisible(true);
                 } else if (currentScrollPos > prevScrollPos) {
-                    // Hide immediately when scrolling down
+                    // 🟢 Hide immediately when scrolling down
                     setVisible(false);
                 }
             }
@@ -86,7 +100,7 @@ export default function NavigationBar() {
         };
     }, [prevScrollPos, shouldHide]);
 
-    // Scroll to section smoothly and set the active section
+    // 🟢 Scroll to section smoothly and set the active section
     const scrollToSection = (section: string) => {
         if ((window as any).lenis && initialPositions[section] !== undefined) {
             const targetY = initialPositions[section];
@@ -122,6 +136,7 @@ export default function NavigationBar() {
         }
     };
 
+    // 🟢 Scroll to top
     const scrollToTop = () => {
         if ((window as any).lenis) {
             (window as any).lenis.scrollTo(0, {
@@ -143,46 +158,52 @@ export default function NavigationBar() {
         }
     };
       
-      
+    
+    // 🟢 Update the active section based on scroll position
+    useEffect(() => {
+        const handleSectionChange = () => {
+        const scrollPos = window.scrollY;
 
-  // Update the active section based on scroll position
-  useEffect(() => {
-    const handleSectionChange = () => {
-      const scrollPos = window.scrollY;
+        navItems.forEach((item) => {
+            const section = document.getElementById(item.section);
+            if (section) {
+            const offsetTop = section.offsetTop;
+            const offsetHeight = section.offsetHeight;
 
-      navItems.forEach((item) => {
-        const section = document.getElementById(item.section);
-        if (section) {
-          const offsetTop = section.offsetTop;
-          const offsetHeight = section.offsetHeight;
+            // If the scroll position is within the current section
+            if (scrollPos >= offsetTop - 50 && scrollPos < offsetTop + offsetHeight - 50) {
+                setActiveSection(item.section);
+            }
+            }
+        });
+        };
 
-          // If the scroll position is within the current section
-          if (scrollPos >= offsetTop - 50 && scrollPos < offsetTop + offsetHeight - 50) {
-            setActiveSection(item.section);
-          }
-        }
-      });
-    };
+        window.addEventListener("scroll", handleSectionChange);
 
-    window.addEventListener("scroll", handleSectionChange);
-
-    return () => {
-      window.removeEventListener("scroll", handleSectionChange);
-    };
-  }, []);
+        return () => {
+            window.removeEventListener("scroll", handleSectionChange);
+        };
+    }, []);
 
 
+
+    /***************************** 
+    Animations
+    *****************************/
+    // 🟢 Animation Declarations
     const DURATION = 0.3;
     const STAGGER = 0;
 
 
-    // Function to render nav items
+    // 🟢 Function to render nav items
     const renderNavItems = () => (
         <motion.div 
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
-        className={styles.navItems}>
+            initial={{ y: -80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
+            className={styles.navItems}
+        >
+            {/****** Buttons ******/}
             {navItems.map((item) => (
                 <motion.button 
                     key={item.id}
@@ -192,6 +213,7 @@ export default function NavigationBar() {
                     whileHover="hovered"
                     initial="initial"
                 >
+                    {/****** Animated Text ******/}
                     <motion.div className={styles.animatedText}>
                         <div className={styles.textWrapper}>
                             {item.title.split('').map((letter, index) => (
@@ -238,24 +260,26 @@ export default function NavigationBar() {
 
  
     return (
-
         <nav 
             className={`
-            ${styles.navbar} 
-            ${shouldHide ? (visible ? styles.visible : styles.hidden) : ''}
-            ${isFixed ? styles.fixed : ''}
-            ${visible && isFixed ? styles.solid : styles.transparent}
-        `} >
+                ${styles.navbar} 
+                ${shouldHide ? (visible ? styles.visible : styles.hidden) : ''}
+                ${isFixed ? styles.fixed : ''}
+                ${visible && isFixed ? styles.solid : styles.transparent}
+            `} >
+
+            {/****** Logo ******/}
             <motion.div 
-            initial={{ y: -80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
-            className={styles.logo}
-            onClick={scrollToTop}
+                initial={{ y: -80, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
+                className={styles.logo}
+                onClick={scrollToTop}
             >
                 <SVG aria-label="Kopfbrand Logo" src="/logos/kopfbrand.svg" />
             </motion.div>
 
+            {/****** Nav Items ******/}
             {!isMobile ? (
                 <Tilt
                     tiltMaxAngleX={7} 
