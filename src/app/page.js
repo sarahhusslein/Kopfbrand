@@ -121,10 +121,44 @@ export default function Home() {
 
     // 🟢 Workaround für Firefox: Verzögerte Berechnung nach Rendering
     if (navigator.userAgent.toLowerCase().includes('firefox')) {
-      setTimeout(() => {
-        console.log('🔥 Firefox Workaround: Recalculating after delay...');
-        calculateHeights();
-      }, 250);
+      const loadResources = () => {
+        const images = Array.from(document.images);
+        const videos = Array.from(document.querySelectorAll('video'));
+
+        const imagePromises = images.map((img) => {
+            return new Promise((resolve) => {
+                if (img.complete) {
+                    resolve();
+                } else {
+                    img.onload = resolve;
+                    img.onerror = resolve; 
+                }
+            });
+        });
+
+        const videoPromises = videos.map((video) => {
+            return new Promise((resolve) => {
+                if (video.readyState >= 3) { 
+                    resolve();
+                } else {
+                    video.onloadeddata = resolve;
+                    video.onerror = resolve; 
+                }
+            });
+        });
+
+        return Promise.all([...imagePromises, ...videoPromises]);
+    };
+
+    // 🟢 Final height calculation after all media loads
+    loadResources().then(() => {
+        console.log("All media loaded, recalculating heights.");
+        calculateHeights(); 
+    });
+      // setTimeout(() => {
+      //   console.log('🔥 Firefox Workaround: Recalculating after delay...');
+      //   calculateHeights();
+      // }, 250);
     }
 
     window.addEventListener('resize', calculateHeights);
