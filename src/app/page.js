@@ -178,15 +178,18 @@ export default function Home() {
       
 
     // Sicherstellen, dass alle Ressourcen geladen sind, bevor die Höhen berechnet werden
-    loadResources()
-    .then(() => {
-      console.log("All media loaded, recalculating heights.");
-      console.log('Initial Heights Firefox:', adjustedHeights);
-      calculateHeights();
-    })
+
+    setTimeout(() => {
+      loadResources()
+      .then(() => {
+        console.log("All media loaded, recalculating heights.");
+        console.log('Initial Heights Firefox:', adjustedHeights);
+        calculateHeights();
+      })
     .catch((error) => {
       console.error('Error loading resources:', error);
     });
+    }, 2000);
     } else {
       // 🟢 Direkt berechnen für schnelle Animationen (nicht Firefox)
       calculateHeights();
@@ -205,39 +208,59 @@ useEffect(() => {
   const loadResources = () => {
     const images = Array.from(document.images);
     const videos = Array.from(document.querySelectorAll('video'));
-
+  
     const imagePromises = images.map((img) => {
       return new Promise((resolve) => {
         if (img.complete) {
+          console.log('Image already loaded:', img);
           resolve();
         } else {
-          img.onload = resolve;
-          img.onerror = resolve; 
+          img.onload = () => {
+            console.log('Image loaded:', img);
+            resolve();
+          };
+          img.onerror = (error) => {
+            console.error('Image failed to load:', img, error);
+            resolve(); // Resolve even on error to prevent hang
+          };
         }
       });
     });
-
+  
     const videoPromises = videos.map((video) => {
       return new Promise((resolve) => {
-        if (video.readyState >= 3) { 
+        if (video.readyState >= 3) {
+          console.log('Video already can play through:', video);
           resolve();
         } else {
-          video.onloadeddata = resolve;
-          video.onerror = resolve; 
+          video.oncanplaythrough = () => {
+            console.log('Video can play through:', video);
+            resolve();
+          };
+          video.onerror = (error) => {
+            console.error('Video failed to load:', video, error);
+            resolve(); // Resolve instead of rejecting to avoid breaking Promise.all
+          };
         }
       });
     });
-
+  
     return Promise.all([...imagePromises, ...videoPromises]);
   };
 
-  // 🟢 Final height calculation after all media loads (nur für Firefox)
-  if (navigator.userAgent.toLowerCase().includes('firefox')) {
-    loadResources().then(() => {
-      console.log("All media loaded, recalculating heights.");
-      calculateHeights(); 
-    });
-  }
+  Promise.race([
+    loadResources(), 
+    new Promise((_, reject) => setTimeout(() => reject('Timeout: Resources took too long to load'), 5000))
+  ])
+  .then(() => {
+    console.log("All media loaded, recalculating heights.");
+    calculateHeights();
+  })
+  .catch((error) => {
+    console.error('Error loading resources:', error);
+    calculateHeights(); // Fallback to ensure heights are calculated even if resources fail
+  });
+  
 }, []);
 
 

@@ -66,7 +66,7 @@
             }
         }
 
-        // caseStudyBanners (bottom middle)
+        // caseStudyLBV (bottom middle)
         &:nth-of-type(5) {
             .imageContainer {
                 top: 30vh;
@@ -76,13 +76,13 @@
             }
         }
 
-        // caseStudyWall (bottom left)
+        // caseStudyLangenscheidt (bottom left)
         &:nth-of-type(6) {
             .imageContainer {
-                top: 35vh;
+                top: 31.5vh;
                 left: -20vw;
-                width: 27.5vw;
-                height: 35vh;
+                width: 28vw;
+                height: 28vh;
             }
         }
 
@@ -154,11 +154,13 @@
             }
         }
 
-        // caseStudyWall (bottom left)
+        // caseStudyLangenscheidt (bottom left)
         .element:nth-of-type(6) {
             .imageContainer {
                 top: 34vh;
                 left: -21vw;
+                width: 27.5vw;
+                height: 35vh;
             }
         }
 

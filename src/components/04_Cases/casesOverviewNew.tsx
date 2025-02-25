@@ -10,7 +10,7 @@ import styles from './casesOverviewNew.module.scss';
 
 export default function CasesOverview() {
 
-     /***************************** 
+    /***************************** 
     State Declarations
     *****************************/
     // 🟢 States, Refs and Device Types
@@ -52,8 +52,8 @@ export default function CasesOverview() {
         {src: "/images/caseStudyMagazineKid.jpg", alt: "image", scale: scale2},
         {src: "/images/caseStudyRubyHotel.jpg", alt: "image", scale: scale3},
         {src: "/images/caseStudyPons.jpg", alt: "image", scale: scale4},
-        {src: "/images/caseStudyBanners.png", alt: "image", scale: scale5},
-        {src: "/images/caseStudyWall.jpg", alt: "image", scale: scale6},
+        {src: "/images/caseStudyLBV.jpg", alt: "image", scale: scale5},
+        {src: "/images/caseStudyLangenscheidt.jpg", alt: "image", scale: scale6},
         {src: "/images/storeWindowKopfbrand.jpg", alt: "image", scale: scale7},
         {src: "/images/marioBarthCover.jpg", alt: "image", scale: scale8},
     ]
