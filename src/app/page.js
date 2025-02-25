@@ -79,129 +79,106 @@ export default function Home() {
   /***************************** 
   Heights
   *****************************/
-  // 🟢 Calculate Heights
-  useLayoutEffect(() => {
-    const calculateHeights = () => {
-      requestAnimationFrame(() => {
-        const newHeights = [
-          headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
-          casesRef, teamRef, creativityRef, contactRef, footerRef
-        ].map((ref) => ref.current?.getBoundingClientRect().height || 0);
+// 🟢 Calculate Heights
+useLayoutEffect(() => {
+  const calculateHeights = () => {
+    requestAnimationFrame(() => {
+      const newHeights = [
+        headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
+        casesRef, teamRef, creativityRef, contactRef, footerRef
+      ].map((ref) => ref.current?.getBoundingClientRect().height || 0);
 
-        // 🎯 Anpassungen für spezielle Abschnitte
-        const adjustedHeights = [
-          newHeights[0], // headerHeight
-          newHeights[1], // servicesHeight
-          isMobile 
-            ? newHeights[2] - (25 * window.innerHeight / 100) 
-            : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight
-          newHeights[3], // casesHeadlineHeight
-          newHeights[4] - (50 * window.innerHeight / 100), // casesOverviewHeight
-          newHeights[5], // casesHeight
-          newHeights[6], // teamHeight
-          newHeights[7], // creativityHeight
-          newHeights[8], // contactHeight
-          newHeights[9], // footerHeight
-        ];
+      // 🎯 Anpassungen für spezielle Abschnitte
+      const adjustedHeights = [
+        newHeights[0], // headerHeight
+        newHeights[1], // servicesHeight
+        isMobile 
+          ? newHeights[2] - (25 * window.innerHeight / 100) 
+          : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight
+        newHeights[3], // casesHeadlineHeight
+        newHeights[4] - (50 * window.innerHeight / 100), // casesOverviewHeight
+        newHeights[5], // casesHeight
+        newHeights[6], // teamHeight
+        newHeights[7], // creativityHeight
+        newHeights[8], // contactHeight
+        newHeights[9], // footerHeight
+      ];
 
-        console.log('Initial Heights:', adjustedHeights);
+      console.log('Initial Heights:', adjustedHeights);
 
-        const total = adjustedHeights.reduce((sum, height) => sum + height + 20, 0);
-        console.log('Initial Total Height:', total);
+      const total = adjustedHeights.reduce((sum, height) => sum + height + 20, 0);
+      console.log('Initial Total Height:', total);
 
-        setHeights(adjustedHeights);
-        setTotalHeight(total);
+      setHeights(adjustedHeights);
+      setTotalHeight(total);
+    });
+  };
+
+  // 🟢 Funktion wartet, bis ALLE Bilder & Videos geladen sind
+  const loadResources = () => {
+    const images = Array.from(document.images);
+    const videos = Array.from(document.querySelectorAll('video'));
+
+    const imagePromises = images.map((img) => {
+      return new Promise((resolve) => {
+        if (img.complete) {
+          resolve();
+        } else {
+          img.onload = resolve;
+          img.onerror = resolve; 
+        }
       });
-    };
+    });
 
-    // 🟢 Direkt berechnen für schnelle Animationen
-    calculateHeights();
-
-    // 🟢 Funktion wartet, bis ALLE Bilder & Videos geladen sind
-    const waitForMediaLoad = () => {
-      const mediaElements = document.querySelectorAll('img, video');
-      
-      if (mediaElements.length === 0) {
-        console.log("✅ Keine Medien gefunden, direkt berechnen.");
-        calculateHeights();
-        return;
-      }
-  
-      console.log(`⏳ Warte auf ${mediaElements.length} Medien...`);
-  
-      Promise.all(Array.from(mediaElements).map((media) => {
-        return new Promise((resolve) => {
-          if (media.complete || (media.readyState >= 3)) {
-            resolve();
-          } else {
-            media.addEventListener('load', resolve);
-            media.addEventListener('error', resolve); // Falls Bild nicht geladen wird
-          }
-        });
-      })).then(() => {
-        console.log("✅ Alle Medien geladen, Berechnung starten...");
-        calculateHeights();
+    const videoPromises = videos.map((video) => {
+      return new Promise((resolve) => {
+        if (video.readyState >= 3) { 
+          resolve();
+        } else {
+          video.onloadeddata = resolve;
+          video.onerror = resolve; 
+        }
       });
-    };
-  
-    // Wenn Firefox erkannt wird, versuche die Höhen nach einer kurzen Verzögerung zu berechnen
-    if (navigator.userAgent.toLowerCase().includes('firefox')) {
-      console.log("🔥 Firefox erkannt, versuche Berechnung nach Verzögerung...");
-  
-      // Führe die Höhenberechnung nach einer kurzen Verzögerung aus
-      setTimeout(() => {
-        console.log("⏳ Warte kurz, um sicherzustellen, dass das Layout bereit ist...");
-        waitForMediaLoad();
-      }, 3000); // Timeout von 1500ms, um sicherzustellen, dass Firefox genug Zeit hat
-    } else {
-      // Für andere Browser sofort berechnen
+    });
+
+    return Promise.all([...imagePromises, ...videoPromises]);
+  };
+
+  // 🟢 Berechnung nach Medienladen ausführen
+  const waitForMediaLoad = () => {
+    loadResources().then(() => {
+      console.log("Alle Medien geladen, Berechnung wird ausgeführt...");
       calculateHeights();
-    }
-  
-    window.addEventListener('resize', calculateHeights);
-  
-    return () => {
-      window.removeEventListener('resize', calculateHeights);
-    };
-  }, [isMobile]);
+    });
+  };
 
-    // 🟢 Stable Layout after media loads  
-    useEffect(() => {
-      const loadResources = () => {
-          const images = Array.from(document.images);
-          const videos = Array.from(document.querySelectorAll('video'));
+  // Wenn Firefox erkannt wird, versuche die Höhen nach Verzögerung zu berechnen (nur beim Initialrender)
+  if (navigator.userAgent.toLowerCase().includes('firefox')) {
+    console.log("🔥 Firefox erkannt, versuche Berechnung nach Verzögerung...");
 
-          const imagePromises = images.map((img) => {
-              return new Promise((resolve) => {
-                  if (img.complete) {
-                      resolve();
-                  } else {
-                      img.onload = resolve;
-                      img.onerror = resolve; 
-                  }
-              });
-          });
+    // Führe die Höhenberechnung nach dem Laden aller Medien aus
+    setTimeout(() => {
+      console.log("⏳ Warte kurz, um sicherzustellen, dass das Layout bereit ist...");
+      waitForMediaLoad(); // Warten auf alle Medien
+    }, 3000); // Timeout von 3000ms für Firefox
+  } else {
+    // Für alle anderen Browser: sofort warten, bis Medien geladen sind
+    waitForMediaLoad(); // Warten auf alle Medien für alle Browser
+  }
 
-          const videoPromises = videos.map((video) => {
-              return new Promise((resolve) => {
-                  if (video.readyState >= 3) { 
-                      resolve();
-                  } else {
-                      video.onloadeddata = resolve;
-                      video.onerror = resolve; 
-                  }
-              });
-          });
+  // 🟢 Direkt berechnen für schnelle Animationen, falls keine Medien geladen werden müssen
+  if (document.querySelectorAll('img, video').length === 0) {
+    console.log("✅ Keine Medien gefunden, sofort berechnen.");
+    calculateHeights();
+  }
 
-          return Promise.all([...imagePromises, ...videoPromises]);
-      };
+  window.addEventListener('resize', calculateHeights);
 
-      // 🟢 Final height calculation after all media loads
-      loadResources().then(() => {
-          console.log("All media loaded, recalculating heights.");
-          calculateHeights(); 
-      });
-    }, []);
+  return () => {
+    window.removeEventListener('resize', calculateHeights);
+  };
+}, [isMobile]);
+
 
 
 
