@@ -87,7 +87,8 @@ export default function Home() {
           headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
           casesRef, teamRef, creativityRef, contactRef, footerRef
         ].map((ref) => ref.current?.getBoundingClientRect().height || 0);
-
+      
+  
         // 🎯 Anpassungen für spezielle Abschnitte
         const adjustedHeights = [
           newHeights[0], // headerHeight
@@ -105,6 +106,7 @@ export default function Home() {
         ];
 
         console.log('Initial Heights:', adjustedHeights);
+        console.log("Header Height (newHeights[0]):", newHeights[0]);
 
         const total = adjustedHeights.reduce((sum, height) => sum + height + 20, 0);
         console.log('Initial Total Height:', total);
@@ -114,51 +116,80 @@ export default function Home() {
       });
     };
 
-    // 🟢 Direkt berechnen für schnelle Animationen
-    if (!navigator.userAgent.toLowerCase().includes('firefox')) {
+      // 🟢 Workaround für Firefox: Verzögerte Berechnung nach Rendering
+      if (navigator.userAgent.toLowerCase().includes('firefox')) {
+        console.log('Firefox detected, waiting for media to load...');
+        const loadResources = () => {
+          const images = Array.from(document.images);
+          const videos = Array.from(document.querySelectorAll('video'));
+        
+          const imagePromises = images.map((img) => {
+            return new Promise((resolve) => {
+              if (img.complete) {
+                console.log('Image already loaded:', img);
+                resolve();
+              } else {
+                img.onload = () => {
+                  console.log('Image loaded:', img);
+                  resolve();
+                };
+                img.onerror = (error) => {
+                  console.error('Image failed to load:', img, error);
+                  resolve(); // Resolve even on error to prevent hang
+                };
+              }
+            });
+          });
+        
+          const videoPromises = videos.map((video) => {
+            return new Promise((resolve) => {
+              if (video.readyState >= 3) {
+                console.log('Video already can play through:', video);
+                resolve();
+              } else {
+                video.oncanplaythrough = () => {
+                  console.log('Video can play through:', video);
+                  resolve();
+                };
+                video.onerror = (error) => {
+                  console.error('Video failed to load:', video, error);
+                  resolve(); // Resolve instead of rejecting to avoid breaking Promise.all
+                };
+              }
+            });
+          });
+        
+          return Promise.all([...imagePromises, ...videoPromises]);
+        };
+
+        Promise.race([
+          loadResources(), 
+          new Promise((_, reject) => setTimeout(() => reject('Timeout: Resources took too long to load'), 5000))
+        ])
+        .then(() => {
+          console.log("All media loaded, recalculating heights.");
+          calculateHeights();
+        })
+        .catch((error) => {
+          console.error('Error loading resources:', error);
+          calculateHeights(); // Fallback to ensure heights are calculated even if resources fail
+        });
+        
+      
+
+    // Sicherstellen, dass alle Ressourcen geladen sind, bevor die Höhen berechnet werden
+    loadResources()
+    .then(() => {
+      console.log("All media loaded, recalculating heights.");
+      console.log('Initial Heights Firefox:', adjustedHeights);
       calculateHeights();
-    }
-
-    // 🟢 Workaround für Firefox: Verzögerte Berechnung nach Rendering
-    if (navigator.userAgent.toLowerCase().includes('firefox')) {
-      const loadResources = () => {
-        const images = Array.from(document.images);
-        const videos = Array.from(document.querySelectorAll('video'));
-
-        const imagePromises = images.map((img) => {
-            return new Promise((resolve) => {
-                if (img.complete) {
-                    resolve();
-                } else {
-                    img.onload = resolve;
-                    img.onerror = resolve; 
-                }
-            });
-        });
-
-        const videoPromises = videos.map((video) => {
-            return new Promise((resolve) => {
-                if (video.readyState >= 3) { 
-                    resolve();
-                } else {
-                    video.onloadeddata = resolve;
-                    video.onerror = resolve; 
-                }
-            });
-        });
-
-        return Promise.all([...imagePromises, ...videoPromises]);
-    };
-
-    // 🟢 Final height calculation after all media loads
-    loadResources().then(() => {
-        console.log("All media loaded, recalculating heights.");
-        calculateHeights(); 
+    })
+    .catch((error) => {
+      console.error('Error loading resources:', error);
     });
-      // setTimeout(() => {
-      //   console.log('🔥 Firefox Workaround: Recalculating after delay...');
-      //   calculateHeights();
-      // }, 250);
+    } else {
+      // 🟢 Direkt berechnen für schnelle Animationen (nicht Firefox)
+      calculateHeights();
     }
 
     window.addEventListener('resize', calculateHeights);
@@ -166,45 +197,52 @@ export default function Home() {
     return () => {
       window.removeEventListener('resize', calculateHeights);
     };
-  }, [isMobile]);
+    }, [isMobile]);
 
-  // 🟢 Stable Layout after media loads  
-  useEffect(() => {
-    const loadResources = () => {
-        const images = Array.from(document.images);
-        const videos = Array.from(document.querySelectorAll('video'));
 
-        const imagePromises = images.map((img) => {
-            return new Promise((resolve) => {
-                if (img.complete) {
-                    resolve();
-                } else {
-                    img.onload = resolve;
-                    img.onerror = resolve; 
-                }
-            });
-        });
+// 🟢 Stable Layout after media loads  
+useEffect(() => {
+  const loadResources = () => {
+    const images = Array.from(document.images);
+    const videos = Array.from(document.querySelectorAll('video'));
 
-        const videoPromises = videos.map((video) => {
-            return new Promise((resolve) => {
-                if (video.readyState >= 3) { 
-                    resolve();
-                } else {
-                    video.onloadeddata = resolve;
-                    video.onerror = resolve; 
-                }
-            });
-        });
-
-        return Promise.all([...imagePromises, ...videoPromises]);
-    };
-
-    // 🟢 Final height calculation after all media loads
-    loadResources().then(() => {
-        console.log("All media loaded, recalculating heights.");
-        calculateHeights(); 
+    const imagePromises = images.map((img) => {
+      return new Promise((resolve) => {
+        if (img.complete) {
+          resolve();
+        } else {
+          img.onload = resolve;
+          img.onerror = resolve; 
+        }
+      });
     });
-  }, []);
+
+    const videoPromises = videos.map((video) => {
+      return new Promise((resolve) => {
+        if (video.readyState >= 3) { 
+          resolve();
+        } else {
+          video.onloadeddata = resolve;
+          video.onerror = resolve; 
+        }
+      });
+    });
+
+    return Promise.all([...imagePromises, ...videoPromises]);
+  };
+
+  // 🟢 Final height calculation after all media loads (nur für Firefox)
+  if (navigator.userAgent.toLowerCase().includes('firefox')) {
+    loadResources().then(() => {
+      console.log("All media loaded, recalculating heights.");
+      calculateHeights(); 
+    });
+  }
+}, []);
+
+
+
+
 
 
 
