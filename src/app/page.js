@@ -79,52 +79,58 @@ export default function Home() {
   /***************************** 
   Heights
   *****************************/
-  // 🟢 Calculate Heights
-  useLayoutEffect(() => {
-    const calculateHeights = () => {
-        const newHeights = [
-            headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
-            casesRef, teamRef, creativityRef, contactRef, footerRef
-        ].map((ref) => ref.current?.offsetHeight || 0);
+// 🟢 Calculate Heights
+useLayoutEffect(() => {
+  const calculateHeights = () => {
+    requestAnimationFrame(() => {
+      const newHeights = [
+        headerRef, servicesRef, numbersRef, casesHeadlineRef, casesOverviewRef,
+        casesRef, teamRef, creativityRef, contactRef, footerRef
+      ].map((ref) => ref.current?.getBoundingClientRect().height || 0);
 
-        // Apply adjustments for numbersHeight and casesOverviewHeight
-        const adjustedHeights = [
-            newHeights[0], // headerHeight
-            newHeights[1], // servicesHeight
-            isMobile ? newHeights[2] - (25 * window.innerHeight / 100) : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight adjustment
-            newHeights[3], // casesHeadlineHeight
-            newHeights[4] - (50 * window.innerHeight / 100), // casesOverviewHeight adjustment
-            newHeights[5], // casesHeight
-            newHeights[6], // teamHeight
-            newHeights[7], // creativityHeight
-            newHeights[8], // contactHeight
-            newHeights[9], // footerHeight
-        ];
+      // 🎯 Anpassungen für spezielle Abschnitte
+      const adjustedHeights = [
+        newHeights[0], // headerHeight
+        newHeights[1], // servicesHeight
+        isMobile 
+          ? newHeights[2] - (25 * window.innerHeight / 100) 
+          : newHeights[2] - (40 * window.innerHeight / 100), // numbersHeight
+        newHeights[3], // casesHeadlineHeight
+        newHeights[4] - (50 * window.innerHeight / 100), // casesOverviewHeight
+        newHeights[5], // casesHeight
+        newHeights[6], // teamHeight
+        newHeights[7], // creativityHeight
+        newHeights[8], // contactHeight
+        newHeights[9], // footerHeight
+      ];
 
-        console.log('Initial Heights:', adjustedHeights);
+      console.log('Initial Heights:', adjustedHeights);
 
-        const total = adjustedHeights.reduce((sum, height) => sum + height + 20, 0);
-        console.log('Initial Total Height:', total);
+      const total = adjustedHeights.reduce((sum, height) => sum + height + 20, 0);
+      console.log('Initial Total Height:', total);
 
-        setHeights(adjustedHeights);
-        setTotalHeight(total);
-    };
+      setHeights(adjustedHeights);
+      setTotalHeight(total);
+    });
+  };
 
-    // 🟢 Run height calculation immediately for animations
-    calculateHeights();
+  // 🟢 Direkt berechnen für schnelle Animationen
+  calculateHeights();
 
-    // 🟢 Extra short delay calculation to stabilize initial values
+  // 🟢 🔥 Workaround für Firefox: Verzögerte Berechnung nach Rendering
+  if (navigator.userAgent.toLowerCase().includes('firefox')) {
     setTimeout(() => {
-        console.log('Recalculating heights after small delay...');
-        calculateHeights();
-    }, 50);
+      console.log('🔥 Firefox Workaround: Recalculating after delay...');
+      calculateHeights();
+    }, 150);
+  }
 
-    window.addEventListener('resize', calculateHeights);
+  window.addEventListener('resize', calculateHeights);
 
-    return () => {
-        window.removeEventListener('resize', calculateHeights);
-    };
-  }, [isMobile]);
+  return () => {
+    window.removeEventListener('resize', calculateHeights);
+  };
+}, [isMobile]);
 
   // 🟢 Stable Layout after media loads  
   useEffect(() => {
