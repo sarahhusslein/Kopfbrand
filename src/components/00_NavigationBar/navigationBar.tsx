@@ -258,7 +258,9 @@ export default function NavigationBar() {
     );
 
 
- 
+    /***************************** 
+    Render
+    *****************************/
     return (
         <nav 
             className={`

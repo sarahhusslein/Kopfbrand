@@ -73,6 +73,9 @@ export default function Numbers() {
 
 
 
+  /***************************** 
+  Render
+  *****************************/
   return (
     <div>
       <Tilt 

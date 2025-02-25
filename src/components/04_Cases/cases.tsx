@@ -6,6 +6,12 @@ import SVG from 'react-inlinesvg';
 import Tilt from 'react-parallax-tilt';
 import styles from './cases.module.css';
 
+
+
+/***************************** 
+Type Declarations and Arrays
+*****************************/
+// 🟢 Cases array
 const cases = [
     {
         id: 1,
@@ -46,29 +52,37 @@ const cases = [
 
 
 
-
   export default function Cases() {
+
+    /***************************** 
+    State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types
     const [activeCase, setActiveCase] = useState(cases[0]);
     const [showFirstImage, setShowFirstImage] = useState(true);
     const [showFirstContent, setShowFirstContent] = useState(false);
     const ref = React.useRef<HTMLDivElement>(null);
     const isMobile = useMediaQuery({ maxWidth: 768 }); 
 
-    // Scroll progress tracking for pagination
+
+    /***************************** 
+    Animations
+    *****************************/
+    // 🟢 Scroll progress tracking for pagination
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start start", "end start"]
     });
 
-    // Motion value for the active dot
+    // 🟢 Motion value for the active dot
     const activeDot = useTransform(
         scrollYProgress,
-        // Breakpoints for each case study (adjust based on number of cases)
+        // 🟢 Breakpoints for each case study (adjust based on number of cases)
         [0, 0.2, 0.4, 0.6, 0.8],
         [0, 1, 2, 3, 4]
     );
 
-    // Watch for case changes
+    // 🟢 Watch for case changes
     useEffect(() => {
         const unsubscribe = activeDot.on('change', (value) => {
             const currentIndex = Math.floor(value);
@@ -86,6 +100,7 @@ const cases = [
         return () => unsubscribe();
     }, [activeDot]);
     
+    // 🟢 Effect to handle image scaling
     useEffect(() => {
         const handleImageScaled = (event: CustomEvent) => {
             if (event.detail.image === "/images/caseStudyHotelGrey.jpg") {
@@ -102,7 +117,11 @@ const cases = [
         };
     }, []);
 
-  
+
+    /***************************** 
+    Functions
+    *****************************/
+    // 🟢 Function to handle dot click
     const handleDotClick = (index: number) => {
         if (typeof window !== 'undefined') { 
             const containerHeight = ref.current?.offsetHeight || 0;
@@ -119,11 +138,16 @@ const cases = [
         }
     };
 
+
+    /***************************** 
+    Render
+    *****************************/
     return (
         <div>
             <div className={styles.outerContainer} ref={ref}>
                 <div className={styles.stickyWrapper}>
-                    {/* Pagination */}
+
+                    {/****** Pagination ******/}
                     <div className={styles.paginationWrapper}>
                         <div className={styles.pagination}>
                             {cases.map((_, index) => {
@@ -165,7 +189,7 @@ const cases = [
                         </div>
                     </div>
 
-                    {/* Cases Text */}
+                    {/****** Cases Text ******/}
                     <div className={styles.textWrapper}>
                         {isMobile ? (
                             <div className={styles.overlay}>
@@ -281,7 +305,7 @@ const cases = [
                     </div>
                 </div>
 
-                {/* Cases Image Scrolling */}
+                {/****** Cases Image Scrolling ******/}
                 <div className={styles.casesContainer} >
                     {cases.map((caseItem, index) => (
                         <CaseStudyImage 
@@ -298,6 +322,11 @@ const cases = [
     );
 }
 
+
+
+/***************************** 
+Single Case Study Image
+*****************************/
 const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
     const ref = useRef<HTMLDivElement>(null);
     const isMobile = useMediaQuery({ maxWidth: 768 }); 
@@ -320,7 +349,6 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
                 lineHeight: 0,
                 fontSize: 0,
                 opacity: isFirstCase && !showFirstImage ? 0 : 1,
-                // willChange: 'transform',
             }}
         >
             <img 

@@ -5,6 +5,11 @@ import { LayoutRouterContext } from "next/dist/shared/lib/app-router-context.sha
 import { useContext, useEffect, useRef } from "react";
 import styles from "./transition.module.css";
  
+
+/***************************** 
+Helper Functions
+*****************************/
+// 🟢 Previous Value
 function usePreviousValue<T>(value: T): T | undefined {
   const prevValue = useRef<T>();
  
@@ -17,7 +22,11 @@ function usePreviousValue<T>(value: T): T | undefined {
  
   return prevValue.current;
 }
- 
+
+
+/***************************** 
+FrozenRouter
+*****************************/
 function FrozenRouter(props: { children: React.ReactNode }) {
   const context = useContext(LayoutRouterContext);
   const prevContext = usePreviousValue(context) || null;
@@ -39,7 +48,10 @@ function FrozenRouter(props: { children: React.ReactNode }) {
  
 
 
-
+/***************************** 
+Animations
+*****************************/
+// 🟢 Animated Component
 const anim = (variants, name) => {
   return {
     initial: "initial",
@@ -51,6 +63,7 @@ const anim = (variants, name) => {
 
 
 
+// 🟢 Opacity Animation
 const opacity = {
   initial: { 
       opacity: 0 
@@ -67,6 +80,7 @@ const opacity = {
   }
 };
 
+// 🟢 Slide Exit Animation
 const slideExit = {
   initial: { 
       top: "100vh" 
@@ -83,6 +97,7 @@ const slideExit = {
   },
 };
 
+// 🟢 Slide Enter Animation
 const slideEnter = {
   initial: { 
       top: "0vh" 
@@ -99,6 +114,7 @@ const slideEnter = {
   },
 };
 
+// 🟢 Perspective Animation
 const perspective = {
   initial: { 
       y: 0,
@@ -122,7 +138,12 @@ const perspective = {
       }
   },
 };
- 
+
+
+
+/***************************** 
+Render
+*****************************/
 const Transition = ({children} : {children: React.ReactNode}) => {
   const segment = useSelectedLayoutSegment();
  

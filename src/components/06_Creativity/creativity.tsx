@@ -11,27 +11,15 @@ import drawingAnimation from '../../../public/animations/drawingAnimation.json';
 
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
+
 export default function Creativity() {
 
+  /***************************** 
+  State Declarations
+  *****************************/
+  // 🟢 States, Refs and Device Types
   const isMobile = useMediaQuery({ maxWidth: 768 });
   const container = useRef(null);
-
-  const { scrollYProgress: parallaxScrollYProgress } = useScroll({
-    target: container,
-    offset: ["start end", "start 30vh"]
-  });
-
-  // Background (slowest)
-  const paperY = useTransform(parallaxScrollYProgress, [0, 1], [100, 0]);  
-
-  // Middle layer (medium speed)
-  const paletteY = useTransform(parallaxScrollYProgress, [0, 1], [150, 100]);
-  const toolsY = useTransform(parallaxScrollYProgress, [0, 1], [170, 0]);
-
-  // Foreground (fastest)
-  const canvasY = useTransform(parallaxScrollYProgress, [0, 1], [300, 0]);  
-
-  // Ref for the canvas
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
   const drawingContainerRef = useRef<HTMLDivElement>(null);
   const [isYellowActive, setIsYellowActive] = useState(true);
@@ -40,34 +28,69 @@ export default function Creativity() {
   const iconSrc = isYellowActive ? 'icons/colorChangeRed.svg' : 'icons/colorChangeYellow.svg';
   const toggleBackground = isYellowActive ? styles.toggleRed : styles.toggleYellow;
   const [hasDrawn, setHasDrawn] = useState (false); 
+  const cursorStyle = {
+    '--cursor-url': `url(${cursorUrl})`
+  } as React.CSSProperties;
+  const headlineRef = useRef<HTMLDivElement>(null);
+  const [initialRotations, setInitialRotations] = useState<number[]>([]);
+  const controls = useAnimation();
 
+
+
+
+  /***************************** 
+  Animations
+  *****************************/
+  // 🟢 Effect to handle scroll progress tracking
+  const { scrollYProgress: parallaxScrollYProgress } = useScroll({
+    target: container,
+    offset: ["start end", "start 30vh"]
+  });
+
+  const { scrollYProgress } = useScroll({
+    target: headlineRef,
+    offset: ["start 95%", "end 50%"] 
+  });
+
+  // 🟢 Parallax animations for the layers
+  const paperY = useTransform(parallaxScrollYProgress, [0, 1], [100, 0]);  
+  const paletteY = useTransform(parallaxScrollYProgress, [0, 1], [150, 100]);
+  const toolsY = useTransform(parallaxScrollYProgress, [0, 1], [170, 0]);
+  const canvasY = useTransform(parallaxScrollYProgress, [0, 1], [300, 0]);  
+
+  // 🟢 Effect to set initial rotations for the headline
+  useEffect(() => {
+    const rotations = "KREATIVITÄT".split('').map(() => Math.random() * 360 - 180);
+    setInitialRotations(rotations);
+  }, []); // Only on the first client render
+
+
+  /***************************** 
+  Functions
+  *****************************/
+  // 🟢 Handle reset
   const handleReset = () => {
     canvasRef.current?.resetCanvas(); // Optional chaining to avoid null reference
     setHasDrawn(false);
     console.log(hasDrawn);
   };
 
+  // 🟢 Handle color change
   const handleColorChange = () => {
     setIsYellowActive(!isYellowActive);
   };
 
-
-  const cursorStyle = {
-    '--cursor-url': `url(${cursorUrl})`
-  } as React.CSSProperties;
-
-
-
+  // 🟢 Handle drawing
   const handleDrawing = (drawingData: any) => { 
     console.log("Drawing detected."); 
-    if (drawingData.length > 0) { // Ensure drawing data is not empty
+    if (drawingData.length > 0) { 
       setHasDrawn(true);
     }
   };
 
+  // 🟢 Handle screenshot
   async function handleScreenshot() {
-    if (typeof window !== 'undefined') { // Check if running in the browser
-        // Blitz-Effekt anzeigen
+    if (typeof window !== 'undefined') { 
         const flashEffect = document.createElement('div');
         flashEffect.id = 'flashEffect';
 
@@ -76,7 +99,7 @@ export default function Creativity() {
 
         if (drawingContainerRef.current) {
             const drawingContainer = drawingContainerRef.current;
-            drawingContainer.appendChild(flashEffect);  // Blitz-Effekt wird dem drawingContainer hinzugefügt
+            drawingContainer.appendChild(flashEffect);  
             flashEffect.classList.add('flash');
             flashEffect.style.position = 'absolute';
             flashEffect.style.top = '0';
@@ -85,29 +108,28 @@ export default function Creativity() {
             flashEffect.style.height = '100%';
             flashEffect.style.backgroundColor = 'rgba(255, 255, 255, 1)';
             flashEffect.style.zIndex = '9999';
-            flashEffect.style.opacity = '0'; // Anfangs unsichtbar
+            flashEffect.style.opacity = '0'; 
             flashEffect.style.pointerEvents = 'none';
-            flashEffect.style.transition = 'opacity 0.3s ease-in-out'; // Schneller Übergang
+            flashEffect.style.transition = 'opacity 0.3s ease-in-out'; 
 
-            // Blitz-Effekt anzeigen (mit einer kleinen Verzögerung)
             setTimeout(() => {
-                flashEffect.style.opacity = '1'; // Blitz wird sichtbar
-            }, 50); // Sehr kurze Verzögerung für ein schnelles Aufblitzen
+                flashEffect.style.opacity = '1'; 
+            }, 50); 
 
-            // Blitz-Effekt nach einer kurzen Dauer langsam wieder verschwinden lassen
+            // 🟢 Flash effect after a short duration
             setTimeout(() => {
-                flashEffect.style.opacity = '1'; // Sanftes, langsames Ausblenden
-            }, 100); // 0.2 Sekunden nach dem Aufblitzen
+                flashEffect.style.opacity = '1'; 
+            }, 100); 
 
-            // Blitz-Effekt nach einer weiteren kurzen Zeit vollständig entfernen
+            // 🟢 Flash effect after a further short duration
             setTimeout(() => {
-                flashEffect.style.opacity = '0'; // Letztes Ausblenden
-            }, 400); // Nach der Dauer der sanften Fade-Animation
+                flashEffect.style.opacity = '0'; 
+            }, 400); 
 
-            // Blitz-Effekt nach dem Ausblenden aus dem DOM entfernen
+            // 🟢 Flash effect after the fade-out
             setTimeout(() => {
-                flashEffect.remove(); // Blitz-Effekt aus dem DOM entfernen
-            }, 700); // Entfernen nach der vollständigen Animation
+                flashEffect.remove(); 
+            }, 700); 
         } else {
             console.log('drawingContainerRef ist nicht gesetzt!');
         }
@@ -127,48 +149,9 @@ export default function Creativity() {
     }
   }
 
-  useEffect(() => {
-    console.log("hasDrawn:", hasDrawn);
-  }, [hasDrawn]); // Runs whenever hasDrawn changes
 
 
-  // Scroll-controlled animation for the headline
-  const headlineRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: headlineRef,
-    offset: ["start 95%", "end 50%"] //Animation will start when the element's start is 95% down the viewport and end when the element's end is 40% down the viewport.
-  });
-
-  const [initialRotations, setInitialRotations] = useState<number[]>([]);
-
-  useEffect(() => {
-    const rotations = "KREATIVITÄT".split('').map(() => Math.random() * 360 - 180);
-    setInitialRotations(rotations);
-  }, []); // Nur beim ersten Client-Renden
-
-
-  
-
-  // const [randomDelays, setRandomDelays] = useState<number[]>([]);
-  // const [randomDelays2, setRandomDelays2] = useState<number[]>([]);
-
-
-  // // Führe dies im useEffect aus, um den Zufallswert nur auf dem Client zu generieren.
-  // useEffect(() => {
-  //   const delays = Array.from({ length: line1.length }).map(() => Math.random() * 0.03);
-  //   setRandomDelays(delays);
-  // }, []);
-
-  // useEffect(() => {
-  //   const delays = Array.from({ length: line2.length }).map(() => Math.random() * 0.03);
-  //   setRandomDelays2(delays);
-  // }, [line2.length]); // Setzt die Zufallswerte jedes Mal neu, wenn sich line2 ändert
-  
-
-
-  const controls = useAnimation();
-  const [isInView, setIsInView] = useState(false);
-
+  // 🟢 Text arrays for the handwriting animation
   const line1 = [
     { text: "Leben", isSpace: false },
     { text: " ", isSpace: true },
@@ -189,21 +172,26 @@ export default function Creativity() {
 
   
 
+  /***************************** 
+  Render
+  *****************************/
   return (
     
       <div className={styles.container}>
 
         {isMobile ? ( 
           <div>
-            {/* Text Container */}
+
+            {/****** Text Container ******/}
             <motion.div 
-            className={styles.textContainer} 
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: false, amount: 0.05 }}
-            transition={{ duration: 0.7, ease: "easeInOut"}}
+              className={styles.textContainer} 
+              initial={{ y: 30, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: false, amount: 0.05 }}
+              transition={{ duration: 0.7, ease: "easeInOut"}}
             >
-                {/* Headline */}
+
+                {/****** Headline ******/}
                 <div ref={headlineRef} style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
                   <motion.h1 
                     className={`h1 ${styles.h1}`}
@@ -239,7 +227,7 @@ export default function Creativity() {
                   </motion.h1>
                 </div>
 
-                {/* Handschrift and Arrow */}
+                {/****** Handschrift and Arrow ******/}
                 <div className={styles.textAndArrowContainer}>
                   <motion.p 
                     className={`handschrift ${styles.handschrift}`}
@@ -313,19 +301,19 @@ export default function Creativity() {
                     </span>
                   </motion.p>
 
-                  {/* Arrow */}
+                  {/****** Arrow ******/}
                   <SVG aria-label="Pfeil" src={'illustrations/arrowBottomLeft.svg'} className={styles.arrow}/>
                 </div>
             </motion.div>
 
-            {/* Canvas Container */}
+            {/****** Canvas Container ******/}
             <div className={styles.canvasContainer}> 
               <div className={styles.mockupWrapper}> 
-                {/* Background layer */}
+                {/****** Background layer ******/}
                 <motion.img aria-label="Papier" src={'images/paper.png'} className={styles.paper} style={{ y: paperY, zIndex: 1}} alt="Papier"/>
                 
                 
-                {/* Middle layer */}
+                {/****** Middle layer ******/}
                 <motion.div style={{ y: paletteY }}>
                   <SVG aria-label="Palette" src={'illustrations/palette.svg'} className={styles.palette}/>
                 </motion.div>
@@ -333,7 +321,7 @@ export default function Creativity() {
                   <SVG aria-label="Tools" src={'illustrations/tools.svg'} className={styles.tools}/>
                 </motion.div>
 
-                {/* Foreground layer */}
+                {/****** Foreground layer ******/}
                 <motion.div className={styles.canvas} style={{ y: canvasY, zIndex: 4 }}>
                   <SVG aria-label="iPhone Mockup" src={'illustrations/iPhoneMockup.svg'} className={styles.mockup}/>
                   <div 
@@ -380,7 +368,7 @@ export default function Creativity() {
           </div>
         ) : (
           <>
-          {/* Canvas Container */}
+          {/****** Canvas Container ******/}
           <div 
           ref={container}
           className={styles.canvasContainer} 
@@ -444,7 +432,7 @@ export default function Creativity() {
           </div>
 
           
-          {/* Text Container */}
+          {/****** Text Container ******/}
           <motion.div 
           className={styles.textContainer} 
           initial={{ y: 30, opacity: 0 }}

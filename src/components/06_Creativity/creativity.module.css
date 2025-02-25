@@ -18,6 +18,7 @@
 
 .container * {
     cursor: var(--cursor-flame-red), auto !important;
+    pointer-events: auto !important;
 }
 
 

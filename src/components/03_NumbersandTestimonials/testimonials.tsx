@@ -89,6 +89,7 @@ export default function Testimonials() {
     const activeIndex = ((page % testimonials.length) + testimonials.length) % testimonials.length;
 
 
+
     /***************************** 
     Functions
     *****************************/
@@ -97,11 +98,12 @@ export default function Testimonials() {
         setPage([page + newDirection, newDirection]);
     };
 
+    // 🟢 Function to handle drag end
     const dragEndHandler = (event: any, info: any) => {
         const swipeThreshold = 20; // Match this with dragConstraints
         const velocityThreshold = 20; // Lower this to make it less sensitive
         
-        // Only trigger swipe if offset is significant OR velocity is high enough
+        // 🟢 Only trigger swipe if offset is significant OR velocity is high enough
         if (Math.abs(info.offset.x) > swipeThreshold || Math.abs(info.velocity.x) > velocityThreshold) {
             if (info.offset.x > 0) {
                 paginate(-1);
@@ -111,6 +113,7 @@ export default function Testimonials() {
         }
     };
 
+    // 🟢 Function to calculate card style
     const calculateCardStyle = (index: number) => {
         let diff = index - activeIndex;
         const totalItems = testimonials.length;
@@ -136,161 +139,81 @@ export default function Testimonials() {
         };
     };
 
+    // 🟢 Animation controls
     const controls = useAnimation();
 
+    // 🟢 Function to handle card click
     const handleCardClick = (clickedIndex: number) => {
-        // Skip if clicking the active card
+        // 🟢 Skip if clicking the active card
         if (clickedIndex === activeIndex) return;
         
-        // Calculate the shortest path to the clicked card
+        // 🟢 Calculate the shortest path to the clicked card
         let diff = clickedIndex - activeIndex;
         const totalItems = testimonials.length;
         
-        // Adjust for wrapping (e.g., going from last to first card)
+        // 🟢 Adjust for wrapping (e.g., going from last to first card)
         if (diff > totalItems / 2) diff -= totalItems;
         if (diff < -totalItems / 2) diff += totalItems;
         
-        // Trigger the animation: first set opacity to 0
+        // 🟢 Trigger the animation: first set opacity to 0
         controls.start({ opacity: 0 }).then(() => {
-            // After a short delay, set opacity to 1
+            // 🟢 After a short delay, set opacity to 1
             setTimeout(() => {
                 controls.start({ opacity: 1 });
             }, 50);
         });
         
-        // Paginate in the appropriate direction
+        // 🟢 Paginate in the appropriate direction
         paginate(diff > 0 ? 1 : -1);
     };
 
 
+    /***************************** 
+    Render
+    *****************************/
+    return (
+        <div>
+            {isMobile ? (
+                    <div className={styles.container}>
 
-  return (
-    <div>
-        {isMobile ? (
-                <div className={styles.container}>
-                    <motion.div 
-                        className={styles.headlineSection}
-                    >
-                        <motion.h1 
-                            className={`h1 ${styles.h1}`}
+                        {/****** Headline ******/}
+                        <motion.div 
+                            className={styles.headlineSection}
+                        >
+                            <motion.h1 
+                                className={`h1 ${styles.h1}`}
+                                initial={{ y: 40, opacity: 0 }}
+                                whileInView={{ y: 0, opacity: 1 }}
+                                viewport={{ once: false, amount: 0.5 }}
+                                transition={{ duration: 0.7, ease: "easeInOut"}}
+                            >
+                            FLUR
+                            <span className={styles.underline}> 
+                                FUNK
+                                <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
+                            </span>
+                            </motion.h1>
+                        </motion.div>
+
+                        {/****** Testimonials ******/}
+                        <motion.div 
+                            className={styles.testimonialRowContainer}
                             initial={{ y: 40, opacity: 0 }}
                             whileInView={{ y: 0, opacity: 1 }}
                             viewport={{ once: false, amount: 0.5 }}
-                            transition={{ duration: 0.7, ease: "easeInOut"}}
+                            transition={{ duration: 0.5, ease: "easeInOut"}}
                         >
-                        FLUR
-                        <span className={styles.underline}> 
-                            FUNK
-                            <SVG src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
-                        </span>
-                        </motion.h1>
-                    </motion.div>
-                    <motion.div 
-                        className={styles.testimonialRowContainer}
-                        initial={{ y: 40, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: false, amount: 0.5 }}
-                        transition={{ duration: 0.5, ease: "easeInOut"}}
-                    >
-                        <div className={styles.testimonialRow}>
-                            {testimonials.map((testimonial, index) => (
-                                <div
-                                    key={index}
-                                    className={styles.testimonialCardMobile}
-                                >
-                                    <div className={styles.quoteContainer}>
-                                        <div className={styles.quoteSVG}>
-                                            <SVG src="/illustrations/quote.svg"/>
-                                        </div>
-                                        <div className={styles.textContent}>
-                                            <h3 className={`h3 ${styles.name}`}>
-                                                {testimonial.name}
-                                            </h3>
-                                            <p className={`body-light ${styles.position}`}>
-                                                {testimonial.position}
-                                            </p>
-                                            <p className={`body ${styles.description}`}>
-                                                {renderDescription(testimonial.description)}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-                </div>
-            ) : (
-                <div className={styles.container}>
-                    <motion.div 
-                        className={styles.animation}
-                        initial={{ y: 30, opacity: 0.2 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        viewport={{ once: false, amount: 0.6 }}
-                        transition={{ duration: 0.7, ease: "easeInOut"}}
-                    >
-                        <SVG src="/illustrations/arrowBottomRight.svg"/>
-                        {/* <div className={styles.animation}>
-                            <Lottie 
-                                animationData={satelliteAnimation}
-                                className={styles.satelliteAnimation}
-                                loop={true}
-                                autoplay={true}
-                            />
-                        </div > */}
-                    </motion.div>
-                    <motion.div 
-                        className={styles.testimonialSection}
-                        initial={{ y: 50, opacity: 0, scale: 0.8 }}
-                        whileInView={{ y: 0, opacity: 1, scale: 1 }}
-                        viewport={{ once: false, amount: 0.6 }}
-                        transition={{ duration: 0.7, ease: "easeInOut"}}
-                    >
-                        <div className={styles.carousel}>
-                            <AnimatePresence initial={false} mode="popLayout">
+                            <div className={styles.testimonialRow}>
                                 {testimonials.map((testimonial, index) => (
-                                    <motion.div
-                                        key={testimonial.id}
-                                        className={`${styles.testimonialCard} ${
-                                            index === activeIndex 
-                                                ? styles.activeCard 
-                                                : Math.abs(index - activeIndex) === 1 
-                                                    ? styles.neighborCard 
-                                                    : ''
-                                        }`}
-                                        style={{ position: 'absolute', zIndex: index === activeIndex ? 10 : 1 }}
-                                        animate={calculateCardStyle(index)}
-                                        drag="x"
-                                        dragConstraints={{ left: -60, right: 60 }}
-                                        dragElastic={0.2}
-                                        dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-                                        onDragEnd={dragEndHandler}
-                                        onClick={() => handleCardClick(index)}
-                                        whileHover={{
-                                            scale: calculateCardStyle(index).hover,
-                                            transition: { duration: 0.2 }
-                                        }}
-                                        custom={calculateCardStyle(index)}
-                                >
+                                    <div
+                                        key={index}
+                                        className={styles.testimonialCardMobile}
+                                    >
                                         <div className={styles.quoteContainer}>
-                                            <motion.div
-                                                className={styles.quoteSVG}
-                                                initial={{ scale: 0.3}}
-                                                animate={{ 
-                                                    scale: index === activeIndex ? 1 : 0.3, 
-                                                }}
-                                                transition={{
-                                                    duration: 0.5,
-                                                    ease: "easeOut"
-                                                }}
-                                            >
-                                                <SVG aria-label="Zitat Icon" src="/illustrations/quote.svg"/>
-                                            </motion.div>
-                                            <motion.div 
-                                                className={styles.textContent}
-                                                initial={{ opacity: 1, y: 10 }}
-                                                animate={index === activeIndex ? controls : { opacity: 0.9, y: 0 }}
-                                                transition={{ duration: 0.2, ease: "easeInOut" }}
-                                            >
+                                            <div className={styles.quoteSVG}>
+                                                <SVG src="/illustrations/quote.svg"/>
+                                            </div>
+                                            <div className={styles.textContent}>
                                                 <h3 className={`h3 ${styles.name}`}>
                                                     {testimonial.name}
                                                 </h3>
@@ -300,34 +223,126 @@ export default function Testimonials() {
                                                 <p className={`body ${styles.description}`}>
                                                     {renderDescription(testimonial.description)}
                                                 </p>
-                                            </motion.div>
+                                            </div>
                                         </div>
-                                    </motion.div>
+                                    </div>
                                 ))}
-                            </AnimatePresence>
-                        </div>
-                    </motion.div>
-                    <motion.div 
-                    className={styles.headlineSection}
-                    initial={{ y: 40, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    viewport={{ once: false, amount: 0.5 }}
-                    transition={{ duration: 0.7, ease: "easeInOut"}}
-                    >
-                        <h1 className={`h1 ${styles.h1}`}>
-                        FLUR
-                        <br />
-                        <span className={styles.underline}> 
-                            FUNK
-                            <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
-                        </span>
-                        </h1>
-                    </motion.div>
-                </div>
-            )
-        }
-    </div>
-  );
+                            </div>
+                        </motion.div>
+                    </div>
+                ) : (
+                    <div className={styles.container}>
+                        <motion.div 
+                            className={styles.animation}
+                            initial={{ y: 30, opacity: 0.2 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            viewport={{ once: false, amount: 0.6 }}
+                            transition={{ duration: 0.7, ease: "easeInOut"}}
+                        >
+                            <SVG src="/illustrations/arrowBottomRight.svg"/>
+                            {/* <div className={styles.animation}>
+                                <Lottie 
+                                    animationData={satelliteAnimation}
+                                    className={styles.satelliteAnimation}
+                                    loop={true}
+                                    autoplay={true}
+                                />
+                            </div > */}
+                        </motion.div>
+                        <motion.div 
+                            className={styles.testimonialSection}
+                            initial={{ y: 50, opacity: 0, scale: 0.8 }}
+                            whileInView={{ y: 0, opacity: 1, scale: 1 }}
+                            viewport={{ once: false, amount: 0.6 }}
+                            transition={{ duration: 0.7, ease: "easeInOut"}}
+                        >
+
+                            {/****** Testimonials Carousel ******/}
+                            <div className={styles.carousel}>
+                                <AnimatePresence initial={false} mode="popLayout">
+                                    {testimonials.map((testimonial, index) => (
+                                        <motion.div
+                                            key={testimonial.id}
+                                            className={`${styles.testimonialCard} ${
+                                                index === activeIndex 
+                                                    ? styles.activeCard 
+                                                    : Math.abs(index - activeIndex) === 1 
+                                                        ? styles.neighborCard 
+                                                        : ''
+                                            }`}
+                                            style={{ position: 'absolute', zIndex: index === activeIndex ? 10 : 1 }}
+                                            animate={calculateCardStyle(index)}
+                                            drag="x"
+                                            dragConstraints={{ left: -60, right: 60 }}
+                                            dragElastic={0.2}
+                                            dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+                                            onDragEnd={dragEndHandler}
+                                            onClick={() => handleCardClick(index)}
+                                            whileHover={{
+                                                scale: calculateCardStyle(index).hover,
+                                                transition: { duration: 0.2 }
+                                            }}
+                                            custom={calculateCardStyle(index)}
+                                    >
+                                            <div className={styles.quoteContainer}>
+                                                <motion.div
+                                                    className={styles.quoteSVG}
+                                                    initial={{ scale: 0.3}}
+                                                    animate={{ 
+                                                        scale: index === activeIndex ? 1 : 0.3, 
+                                                    }}
+                                                    transition={{
+                                                        duration: 0.5,
+                                                        ease: "easeOut"
+                                                    }}
+                                                >
+                                                    <SVG aria-label="Zitat Icon" src="/illustrations/quote.svg"/>
+                                                </motion.div>
+                                                <motion.div 
+                                                    className={styles.textContent}
+                                                    initial={{ opacity: 1, y: 10 }}
+                                                    animate={index === activeIndex ? controls : { opacity: 0.9, y: 0 }}
+                                                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                                                >
+                                                    <h3 className={`h3 ${styles.name}`}>
+                                                        {testimonial.name}
+                                                    </h3>
+                                                    <p className={`body-light ${styles.position}`}>
+                                                        {testimonial.position}
+                                                    </p>
+                                                    <p className={`body ${styles.description}`}>
+                                                        {renderDescription(testimonial.description)}
+                                                    </p>
+                                                </motion.div>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </AnimatePresence>
+                            </div>
+                        </motion.div>
+
+                        {/****** Headline ******/}
+                        <motion.div 
+                            className={styles.headlineSection}
+                            initial={{ y: 40, opacity: 0 }}
+                            whileInView={{ y: 0, opacity: 1 }}
+                            viewport={{ once: false, amount: 0.5 }}
+                            transition={{ duration: 0.7, ease: "easeInOut"}}
+                        >
+                            <h1 className={`h1 ${styles.h1}`}>
+                            FLUR
+                            <br />
+                            <span className={styles.underline}> 
+                                FUNK
+                                <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.underlineSVG}/>
+                            </span>
+                            </h1>
+                        </motion.div>
+                    </div>
+                )
+            }
+        </div>
+    );
 }
 
 

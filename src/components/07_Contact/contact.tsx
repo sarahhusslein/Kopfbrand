@@ -13,15 +13,24 @@ import arrowAnimation from '/public/animations/arrowRightAnimation.json';
 
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
+
+
 export default function Contact() {
 
-
+    /***************************** 
+    State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const rightContainerRef = useRef<HTMLDivElement | null>(null);
     const { ref: textRef, inView } = useInView({
         threshold: 0.5, 
     });
 
+    /***************************** 
+    Functions
+    *****************************/
+    // 🟢 Effect to handle mouse movement
     useEffect(() => {
         const container = rightContainerRef.current;
         if (!container) return;
@@ -31,7 +40,7 @@ export default function Contact() {
             const x = e.clientX - rect.left; // mouse position relative to container
             const y = e.clientY - rect.top;
 
-            // Update the radial gradient position
+            // 🟢 Update the radial gradient position
             container.style.setProperty('--mouse-x', `${x}px`);
             container.style.setProperty('--mouse-y', `${y}px`);
         };
@@ -53,6 +62,10 @@ export default function Contact() {
       };
 
 
+    /***************************** 
+    Animations
+    *****************************/
+    // 🟢 Animation for the right container
     const itemAnimationMobile = {
     initial: { y: 40, opacity: 0 },
     inView: {
@@ -68,6 +81,9 @@ export default function Contact() {
 
 
 
+    /***************************** 
+    Render
+    *****************************/
     return (
         <div className={styles.outerContainer}>
             <Tilt 
@@ -84,7 +100,7 @@ export default function Contact() {
                 viewport={{ once: false, amount: 0.05}}
                 transition={{ duration: 0.7, ease: "easeInOut"}}
             >
-                {/* Left Container */}
+                {/****** Left Container ******/}
                 <div className={styles.leftContainer}>
                 <h2 className={`h2 ${styles.h2}`} ref={textRef}>
                         {inView && (
@@ -105,7 +121,7 @@ export default function Contact() {
                     />
                 </div>
 
-                {/* Right Container */}
+                {/****** Right Container ******/}
                 <motion.div 
                     className={ styles.rightContainer} 
                     ref={rightContainerRef} 

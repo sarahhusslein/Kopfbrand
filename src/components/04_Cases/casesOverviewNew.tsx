@@ -6,11 +6,22 @@ import { useMediaQuery } from 'react-responsive';
 import styles from './casesOverviewNew.module.scss';
 
 
+
+
 export default function CasesOverview() {
 
+     /***************************** 
+    State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types
     const container = useRef(null);
     const isMobile = useMediaQuery({ maxWidth: 768 }); 
 
+
+    /***************************** 
+    Animations
+    *****************************/
+    // 🟢 Effect to handle scroll progress tracking
     const { scrollYProgress: scaleProgress } = useScroll({
         target: container,
         offset: ["start start", isMobile ? "end -50%" : "end end"]
@@ -21,8 +32,10 @@ export default function CasesOverview() {
         offset: ["50vh end", "start start"]
     });
 
+    // 🟢 Base max scale
     const baseMaxScale : number = isMobile ? 100/26.5 : 100/25;
 
+    // 🟢 Scale animations for the images
     const scale1 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale]);
     const scale2 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 1.5]);
     const scale3 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.25]);
@@ -32,9 +45,8 @@ export default function CasesOverview() {
     const scale7 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.5]);
     const scale8 = useTransform(scaleProgress, [0, isMobile ? 0.5 : 1], [1, baseMaxScale * 2.75]);
 
-    const overviewOpacity = useTransform(overviewProgress, [0, 1], [0.1, 1]);
 
-
+    // 🟢 Images array
     const images = [
         {src: "/images/caseStudyHotelGrey.jpg", alt: "image", scale: scale1},
         {src: "/images/caseStudyMagazineKid.jpg", alt: "image", scale: scale2},
@@ -46,8 +58,10 @@ export default function CasesOverview() {
         {src: "/images/marioBarthCover.jpg", alt: "image", scale: scale8},
     ]
 
+    // 🟢 Opacity animation for the overview
+    const overviewOpacity = useTransform(overviewProgress, [0, 1], [0.1, 1]);
 
-    // Share scroll progress with Cases component
+    // 🟢 Share scroll progress with Cases component
     useEffect(() => {
         const unsubscribe = scaleProgress.on('change', (latest) => {
 
@@ -79,11 +93,14 @@ export default function CasesOverview() {
 
     
     
-
-
+    /***************************** 
+    Render
+    *****************************/
     return (
         <div className={styles.container} ref={container} >
             <motion.div className={styles.sticky} style={{opacity: overviewOpacity}}>
+
+                {/****** Images ******/}
                 {images.map(({src, scale}, index) => (
                     <motion.div key={index} className={styles.element} style={{scale}}>
                         <div className={styles.imageContainer}>

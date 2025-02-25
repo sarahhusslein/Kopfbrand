@@ -4,6 +4,12 @@ import styles from './logoSlider.module.css';
 import SVG from 'react-inlinesvg';
 import Marquee from "react-fast-marquee";
 
+
+
+/***************************** 
+Type Declarations and Arrays
+*****************************/
+// 🟢 Elements array
 const elements = [
     {icon: '/logos/powerbar.svg', height: { mobile: '25px', default: '30px', largeDesktop: '35px' }},
     {icon: '/logos/pons.svg', height: { mobile: '25px', default: '30px', largeDesktop: '35px' }},
@@ -22,11 +28,19 @@ const elements = [
 ];
 
 
+
 export default function LogoSlider() {
 
+    /***************************** 
+    State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const isLargeDesktop = useMediaQuery({ minWidth: 1920 });
 
+    /***************************** 
+    Render
+    *****************************/
     return (
         <div className={styles.marqueeWrapper}>
             <Marquee 

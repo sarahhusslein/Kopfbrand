@@ -7,6 +7,10 @@ import styles from './team.module.css';
 import SVG from 'react-inlinesvg';
 
 
+/***************************** 
+Type Declarations and Arrays
+*****************************/
+// 🟢 Type for the team members
 interface TeamMember {
     id: number;
     name: string;
@@ -14,7 +18,7 @@ interface TeamMember {
     keywords: string[];
 }
 
-
+// 🟢 Team members array
 const teamMembers: TeamMember[] = [
     {
         id: 1,
@@ -48,6 +52,7 @@ const teamMembers: TeamMember[] = [
     }
 ];
 
+// 🟢 Type for the mouse position
 interface MousePosition {
     x: number;
     y: number;
@@ -55,6 +60,7 @@ interface MousePosition {
     tiltAngle?: number;
 }
 
+// 🟢 Type for the sparks
 interface Spark {
     id: number;
     x: number;
@@ -67,8 +73,13 @@ interface Spark {
 }
 
 
+
 export default function Team() {
 
+    /***************************** 
+    State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types
     const isMobile = useMediaQuery({ maxWidth: 768 });
     const [SwitchOn, setSwitchOn] = useState<boolean>(false);
     const [sparks, setSparks] = useState<Spark[]>([]);
@@ -81,10 +92,10 @@ export default function Team() {
         y: 0, 
         shouldOffsetLeft: false,
     });
-
     const controls = useAnimation();
     const svgControls = useAnimation();
 
+    // 🟢 Warning text array
     const warningText = [
         { text: "Nicht", isSpace: false },
         { text: " ", isSpace: true },
@@ -93,14 +104,19 @@ export default function Team() {
 
     
 
+    // 🟢 Ref and inView state for the team image
     const { ref: teamImageRef, inView } = useInView({
         threshold: 0.8, // Trigger when 80% of the component is visible
     });
+    
 
-    // Trigger default member display when component comes into view
+    /***************************** 
+    Functions
+    *****************************/
+    // 🟢 Trigger default member display when component comes into view
     useEffect(() => {
         if (inView) {
-            const defaultMember = teamMembers[2]; // Index 2 is the third person
+            const defaultMember = teamMembers[2]; 
             setHoveredMember(defaultMember.id);
             setMousePosition({
                 x: window.innerWidth / 2,
@@ -112,17 +128,19 @@ export default function Team() {
     }, [inView]); 
 
 
+    // 🟢 Handle switch toggle
     const handleSwitchToggle = () => {
         setSwitchOn(prevState => !prevState); 
     };
 
+    // 🟢 Animate text for the hovered member
     const animateText = (member: TeamMember) => {
-        // Reset all text when starting new animation
+        // 🟢 Reset all text when starting new animation
         setDisplayName('');
         setDisplayPosition('');
         setDisplayKeywords('');
         
-        // Animate name first
+        // 🟢 Animate name first
         let nameIndex = 0;
         const nameTimer = setInterval(() => {
             if (nameIndex <= member.name.length) {
@@ -130,7 +148,7 @@ export default function Team() {
                 nameIndex++;
             } else {
                 clearInterval(nameTimer);
-                // Start position animation only after name is complete
+                // 🟢 Start position animation only after name is complete
                 let posIndex = 0;
                 const posTimer = setInterval(() => {
                     if (posIndex <= member.position.length) {
@@ -138,7 +156,7 @@ export default function Team() {
                         posIndex++;
                     } else {
                         clearInterval(posTimer);
-                        // Start keywords animation only after position is complete
+                        // 🟢 Start keywords animation only after position is complete
                         let keywordsText = member.keywords.join('\n');
                         let keyIndex = 0;
                         const keyTimer = setInterval(() => {
@@ -155,31 +173,31 @@ export default function Team() {
         }, 10);
     };
 
+    // 🟢 Handle mouse move for the hovered member
     const handleMouseMove = (e: React.MouseEvent, memberId: number) => {
-        if (typeof window !== 'undefined') { // Check if running in the browser
+        if (typeof window !== 'undefined') { // 🟢 Check if running in the browser
             const containerRect = e.currentTarget.closest(`.${styles.teamImageContainer}`).getBoundingClientRect();
             const x = e.clientX - containerRect.left;
             const y = e.clientY - containerRect.top;
 
-            // Calculate relative position (0 to 1) across the width
+            // 🟢 Calculate relative position (0 to 1) across the width
             const relativeX = x / containerRect.width;
             
-            // Calculate tilt angle (-15 to 15 degrees)
+            // 🟢 Calculate tilt angle (-15 to 15 degrees)
             // Center (0.5) = 0 degrees, Left edge = -15 degrees, Right edge = 15 degrees
             const tiltAngle = (relativeX - 0.5) * 30;
             
-            // Calculate if the bubble would go off-screen
+            // 🟢 Calculate if the bubble would go off-screen
             const bubbleWidth = 290; // width from CSS
             const screenWidth = window.innerWidth;
             const bubbleRightEdge = e.clientX + bubbleWidth;
             
-            // Determine which transform to use
+            // 🟢 Determine which transform to use
             const shouldOffsetLeft = bubbleRightEdge > screenWidth;
 
             if (memberId !== hoveredMember) {
-                // Only trigger animation when hovering a new member
-                const member = teamMembers[memberId - 1];  // Get the correct team member data
-                animateText(member);  // Start animation with this member's data
+                const member = teamMembers[memberId - 1];  
+                animateText(member);  
             }
         
             setMousePosition({
@@ -188,13 +206,17 @@ export default function Team() {
                 shouldOffsetLeft: shouldOffsetLeft,
                 tiltAngle: tiltAngle
             });
-             // Only update hoveredMember if it's different
+             
             if (memberId !== hoveredMember) {
                 setHoveredMember(memberId);
             }
         }
     };
 
+    /***************************** 
+    Animations
+    *****************************/
+    // 🟢 Item animation for the team container
     const itemAnimation = {
         initial: { y: 40, opacity: 0 },
         inView: {
@@ -208,6 +230,7 @@ export default function Team() {
         }
     }; 
 
+    // 🟢 Handwriting animation for the switch
     const handwritingAnimation = {
         initial: { opacity: 0 },
         inView: { opacity: 1, transition: { duration: 0.5, ease: "easeInOut" } }
@@ -215,7 +238,7 @@ export default function Team() {
 
     
 
-    // Calculate total duration of text animation
+    // 🟢 Calculate total duration of text animation
     const totalTextDuration = warningText.reduce((total, segment) => {
         if (!segment.isSpace) {
             return total + (segment.text.length * 0.02) + 0.1; // char delay + word delay
@@ -223,7 +246,7 @@ export default function Team() {
         return total;
     }, 0);
 
-    // Add useEffect to start the handwriting animation after parent animations
+    // 🟢 Add useEffect to start the handwriting animation after parent animations
     useEffect(() => {
         if (inView) {
             const enterTimeout = setTimeout(() => {
@@ -243,6 +266,7 @@ export default function Team() {
     }, [inView]); 
 
 
+    // 🟢 Get random flame color
     const getRandomFlameColor = () => {
         const r = Math.floor(228 + Math.random() * (230 - 228)); 
         const g = Math.floor(Math.random() * 256); 
@@ -250,18 +274,19 @@ export default function Team() {
         return `rgb(${r}, ${g}, ${b})`;
     };
 
+    // 🟢 Effect to handle switch toggle
     useEffect(() => {
-        if (!SwitchOn) return; // Nur ausführen, wenn SwitchOn true wird
+        if (!SwitchOn) return; 
     
         const button = document.querySelector(`.${styles.switchWrapper}`);
         if (!button) return;
     
     
-        // Erstelle 100 Sparks in einem Kreis, die sich explosionsartig bewegen
+        // 🟢 Create 100 sparks in a circle, moving explosively
         const newSparks = Array.from({ length: 100 }, () => {
             const id = Date.now() + Math.random();
-            const angle = Math.random() * Math.PI * 2; // Zufälliger Winkel (0 - 2π)
-            const speed = Math.random() * 150 + 150; // Viel höherer Speed für "Schuss"
+            const angle = Math.random() * Math.PI * 2; 
+            const speed = Math.random() * 150 + 150; 
     
             return {
                 id,
@@ -275,29 +300,33 @@ export default function Team() {
             };
         });
     
-        setSparks(newSparks); // Direkt 100 Sparks setzen
+        setSparks(newSparks); 
     
-        // Entferne sie nach der maximalen Lebensdauer
+
         setTimeout(() => {
             setSparks([]);
         }, Math.max(...newSparks.map(s => s.lifespan)));
     
-    }, [SwitchOn]); // Nur triggern, wenn sich `SwitchOn` von false → true ändert
+    }, [SwitchOn]); 
     
     
     
 
 
-
+    /***************************** 
+    Render
+    *****************************/
     return (
         <div className={styles.container}>
 
             <motion.div 
-            variants={itemAnimation}
-            initial="initial"
-            whileInView="inView"
-            viewport={{ once: false, amount: 0.3 }}
+                variants={itemAnimation}
+                initial="initial"
+                whileInView="inView"
+                viewport={{ once: false, amount: 0.3 }}
             >
+
+                {/****** Headline ******/}
                 <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimation}>
                     WIR STELLEN UNS VOR
                 </motion.h1>
@@ -306,6 +335,8 @@ export default function Team() {
                     {isMobile ? ' ' : <br />}
                     85 Jahre Berufserfahrung, 7000 Stunden Calls und ein Lächeln auf Knopfdruck - das ist unser Team.
                 </motion.h4>
+
+                {/****** Switch  including handwriting text animation******/}
                 <div className={styles.switchContainer}>
                     <motion.p 
                         className={`handschrift-small ${styles.handschrift}`}
@@ -352,6 +383,7 @@ export default function Team() {
                         ))}
                     </motion.p>
 
+                    {/****** Arrow ******/}
                     <motion.div
                         initial={{ opacity: 0, x: -10 }}
                         animate={svgControls}
@@ -367,6 +399,7 @@ export default function Team() {
                         <SVG aria-label="Pfeil" src={'illustrations/arrowStraightRight.svg'} className={styles.arrow}/>
                     </motion.div>
 
+                    {/****** Switch Pulse ******/}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={svgControls}
@@ -402,6 +435,8 @@ export default function Team() {
                             }}
                         >
                             <div className={styles.switchWrapper}>
+
+                                {/****** Sparks Effect ******/}
                                 <div className={styles.sparkContainer}>
                                 {sparks.map((spark) => (
                                     <motion.div
@@ -412,7 +447,7 @@ export default function Team() {
                                             x: spark.velocityX, 
                                             y: spark.velocityY, 
                                             opacity: 0, // Smooth ausfaden
-                                            scale: [1, 0.8, 0.6] // Leicht kleiner werden
+                                            scale: [1, 0.8, 0.6] 
                                         }}
                                         transition={{ duration: spark.lifespan / 1000, type: "tween", ease: "backOut" }}
                                         style={{
@@ -448,7 +483,11 @@ export default function Team() {
 
                 {isMobile ? ( 
                     <div className={styles.teamImageContainerMobile}>
+
+                        {/****** Team Picture ******/}
                         <img aria-label="Team Foto" src={SwitchOn ? 'images/teamFunny.png' : 'images/team.png'} alt="Team Foto" className={styles.teamPictureMobile}/>
+
+                        {/****** Fun Facts ******/}
                         <div className={styles.funFactRow}>
                             {teamMembers.map((member) => (
                                 <div className={styles.funFact} key={member.id}>
@@ -469,6 +508,8 @@ export default function Team() {
                 ) : (
 
                 <div className={styles.teamImageContainer} ref={teamImageRef}>
+
+                    {/****** Fun FactHovered Member ******/}
                     {hoveredMember && (
                         <div 
                             className={styles.personFunFact}

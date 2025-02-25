@@ -217,6 +217,9 @@ export default function Services() {
 
 
 
+  /***************************** 
+  Render
+  *****************************/       
   return (
     <div className={styles.container}>
 

@@ -7,6 +7,11 @@ import styles from './footer.module.css';
 import SVG from 'react-inlinesvg';
 
 
+
+/***************************** 
+Type Declarations and Arrays
+*****************************/
+// 🟢 Footer Item
 interface FooterItem {
     icon: string;
     text: string;
@@ -14,6 +19,7 @@ interface FooterItem {
     label?: string;
   }
 
+// 🟢 Animated Footer Item
 interface AnimatedFooterItemProps {
     icon: string;
     text: string;
@@ -21,6 +27,7 @@ interface AnimatedFooterItemProps {
     label?: string;
 }
 
+// 🟢 Footer Service Items array
 const footerServiceItems: FooterItem[] = [
     { icon: '/icons/strategie.svg', text: 'Strategie & Beratung', label: 'Strategie & Beratung' },
     { icon: '/icons/konzeption.svg', text: 'Konzeption & Kreation', label: 'Konzeption & Kreation' },
@@ -29,12 +36,18 @@ const footerServiceItems: FooterItem[] = [
     { icon: '/icons/versand_new.svg', text: 'Versand & Lagerung', label: 'Versand & Lagerung' },
 ];
 
+// 🟢 Footer Contact Items array
 const footerContactItems: FooterItem[] = [
     { icon: '/icons/linkedIn.svg', text: 'LinkedIn', url: 'https://www.linkedin.com', label: 'LinkedIn' },
     { icon: '/icons/phone.svg', text: '089 24224281', url: 'tel:08924224281', label: 'Telefon' },
     { icon: '/icons/mail.svg', text: 'info@kopfbrand.com', url: 'mailto:info@kopfbrand.com', label: 'E-Mail' },
 ];
 
+
+/***************************** 
+Animations
+*****************************/
+// 🟢 Duration and Stagger
 const DURATION = 0.3;
 const STAGGER = 0;
 
@@ -109,6 +122,7 @@ const STAGGER = 0;
 //     </motion.div>
 // );
 
+// 🟢 Animated Footer Item
 const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url, label }) => (
     <motion.div 
         className={styles.item}
@@ -204,20 +218,25 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
 );
 
  
+
   export default function Footer(): JSX.Element {
 
     const router = useRouter();
 
+
+    /***************************** 
+    Render
+    *****************************/
     return (
       <div className={styles.bar}>
         <motion.div 
-        className={styles.container}
-        initial={{ y: 40, opacity: 0, }}
-        whileInView={{ y: 0, opacity: 1,}}
-        viewport={{ once: false, amount: 0.1}}
-        transition={{ duration: 0.7, ease: "easeInOut"}}
+            className={styles.container}
+            initial={{ y: 40, opacity: 0, }}
+            whileInView={{ y: 0, opacity: 1,}}
+            viewport={{ once: false, amount: 0.1}}
+            transition={{ duration: 0.7, ease: "easeInOut"}}
         >
-            {/* Column 1 */}
+            {/****** Column 1 ******/}
             <div className={styles.column}>
                 <div className={styles.logoContainer} onClick={() => router.push('/')}>
                     <SVG aria-label="Logo Kopfbrand" src="/logos/kopfbrand.svg" className={styles.logo}/>
@@ -231,7 +250,7 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
                 </div>
             </div>
 
-            {/* Column 2 */}
+            {/****** Column 2 ******/}
             <div className={styles.column}>
                 <h4 className={styles.h4}>Wir unterstützen dich bei</h4>
                 <div className={styles.text}>
@@ -245,7 +264,7 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
                 </div>
             </div>
 
-            {/* Column 3 */}
+            {/****** Column 3 ******/}
             <div className={styles.column}>
                 <h4 className={styles.h4}>Kontakt 👋🏼</h4>
                 <div className={styles.content}>

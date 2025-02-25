@@ -7,15 +7,24 @@ import SVG from 'react-inlinesvg';
 
 
 export default function ScreenLoader({ children }) {
+
+  /***************************** 
+  State Declarations
+  *****************************/
   const [loading, setLoading] = useState(true);
 
+  /***************************** 
+  Animations
+  *****************************/
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
   
-
+  /***************************** 
+  Render
+  *****************************/
   return (
     <>
       <AnimatePresence mode="wait">
@@ -32,6 +41,8 @@ export default function ScreenLoader({ children }) {
                     key="loader"
                     className={styles.container}
                 >
+                    
+                    {/****** Logo ******/}
                     <motion.div 
                         className={styles.logoContainer}
                         initial={{ y: 0 }}
@@ -47,6 +58,8 @@ export default function ScreenLoader({ children }) {
                             <SVG aria-label="Kopfbrand Logo" src="/logos/kopfbrand.svg" className={styles.logo}/>
                         </motion.div>
                         <div className={styles.textContainer}>
+
+                            {/****** Handwriting ******/}
                             <motion.p
                                 className={`handschrift ${styles.handschrift}`}
                                 initial="hidden"

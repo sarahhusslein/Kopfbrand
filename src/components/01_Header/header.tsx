@@ -153,6 +153,9 @@ export default function Header() {
         }
     };
 
+    /***************************** 
+    Render
+    *****************************/
     return (
         <div className={styles.container}>
             <div 

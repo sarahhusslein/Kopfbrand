@@ -8,6 +8,11 @@ import { useMediaQuery } from 'react-responsive';
 
 
 export default function CasesHeadlineNew() {
+
+    /***************************** 
+    State Declarations
+    *****************************/
+    // 🟢 States, Refs and Device Types
     const [isHovered, setIsHovered] = useState(false);
     const [hasEnteredFromTop, setHasEnteredFromTop] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
@@ -17,6 +22,11 @@ export default function CasesHeadlineNew() {
     const size = isHovered ? 300 : 40;
     const isMobile = useMediaQuery({ maxWidth: 768 });
 
+
+    /***************************** 
+    Animations
+    *****************************/
+    // 🟢 Effect to handle scroll progress tracking
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
@@ -33,11 +43,16 @@ export default function CasesHeadlineNew() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isInView, lastScrollY]);
 
+
+    /***************************** 
+    Render
+    *****************************/
     return (
         <div 
             className={styles.container}
             onMouseMove={updateMousePosition}
         >
+            {/****** Mask ******/}
             <motion.div 
                 className={styles.mask} 
                 animate={{
@@ -67,6 +82,8 @@ export default function CasesHeadlineNew() {
                     </motion.h1>
                 )}
             </motion.div>
+
+            {/****** Body ******/}
             <div className={styles.body}>
                 <motion.h1 
                     className={`h1 ${styles.h1}`}
