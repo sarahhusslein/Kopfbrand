@@ -223,8 +223,8 @@ export default function Header() {
                     whileInView="inView"
                     viewport={{ once: true}}
                 >
-                    <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimation}>UNSERE KÖPFE</motion.h1>
-                    <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus ut similique ipsum aut neque dolorem in quia doloremque aut officia quae.</motion.h4>
+                    <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimation}>KOPFSACHE</motion.h1>
+                    <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>Als inhabergeführte Kreativagentur in München vereint Kopfbrand Strategie, Design, Produktion - für ganzheitliche Kommunikation in Print und Digital. </motion.h4>
                     <Tilt
                         tiltMaxAngleX={15} 
                         tiltMaxAngleY={15} 

@@ -298,7 +298,7 @@ export default function Services() {
             <motion.h4 className={`subtitle ${styles.h4}`} variants={isMobile ? itemAnimationMobile : itemAnimation}>
                 Wir konzipieren, gestalten, und kreieren. Von der Idee bis zum Prototyping. 
                 {isMobile ? ' ' : <br />}
-                Lorem ipsum text.
+                Entdecke unsere Services.
             </motion.h4>
 
 
