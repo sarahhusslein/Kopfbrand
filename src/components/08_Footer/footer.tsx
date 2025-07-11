@@ -242,7 +242,7 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
                     <SVG aria-label="Logo Kopfbrand" src="/logos/kopfbrand.svg" className={styles.logo}/>
                 </div>
                 <div className={styles.content}>
-                    <p className={styles.highlightedText}>Agentur Kopfbrand</p>
+                    <p className={styles.highlightedText}>Kopfbrand GmbH</p>
                     <p className={styles.text}>Rumfordstraße 21, 80469 München</p>
                     <p className={styles.text + " " + styles.invisible}>Invisible</p>
                     <p className={styles.highlightedText}>Kopfbrand Manufaktur</p>
@@ -252,7 +252,7 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
 
             {/****** Column 2 ******/}
             <div className={styles.column}>
-                <h4 className={styles.h4}>Wir unterstützen dich bei</h4>
+                <h4 className={styles.h4}>Kompetenzen</h4>
                 <div className={styles.text}>
                     {footerServiceItems.map(( item, index) => (
                         <AnimatedFooterItem 

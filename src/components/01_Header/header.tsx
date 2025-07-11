@@ -223,8 +223,8 @@ export default function Header() {
                     whileInView="inView"
                     viewport={{ once: true}}
                 >
-                    <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimation}>KOPFSACHE</motion.h1>
-                    <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>Als inhabergeführte Kreativagentur in München vereint Kopfbrand Strategie, Design, Produktion - für ganzheitliche Kommunikation in Print und Digital. </motion.h4>
+                    <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimation}>VOLLJÄHRIG</motion.h1>
+                    <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>Als inhabergeführte Kreativagentur in München vereint Kopfbrand Strategie, Design und Produktion - für ganzheitliche Kommunikation in Digital und Print. Seit 18 Jahren. </motion.h4>
                     <Tilt
                         tiltMaxAngleX={15} 
                         tiltMaxAngleY={15} 
@@ -234,7 +234,7 @@ export default function Header() {
                         transitionEasing='cubic-bezier(0.1, 1, 0.1, 1)'
                         scale={1.1}
                     >
-                        <motion.button 
+                        {/* <motion.button 
                             aria-label="Scroll zu Services"
                             className={styles.button} 
                             variants={itemAnimation} 
@@ -245,7 +245,7 @@ export default function Header() {
                                 src="/icons/arrowDown.svg" 
                                 className={styles.arrowIcon} 
                             />
-                        </motion.button>
+                        </motion.button> */}
                     </Tilt>
                 </motion.div>
             </div>

@@ -11,11 +11,11 @@ Type Declarations and Arrays
 *****************************/
 // 🟢 Elements array
 const elements = [
-    {icon: '/logos/powerbar.svg', height: { mobile: '25px', default: '30px', largeDesktop: '35px' }},
-    {icon: '/logos/pons.svg', height: { mobile: '25px', default: '30px', largeDesktop: '35px' }},
-    {icon: '/logos/langenscheidt.svg', height: { mobile: '50px', default: '65px', largeDesktop: '70px' }},
+    {icon: '/logos/powerbar.svg', height: { mobile: '20px', default: '25px', largeDesktop: '30px' }},
+    {icon: '/logos/pons.svg', height: { mobile: '20px', default: '25px', largeDesktop: '30px' }},
+    {icon: '/logos/langenscheidt.svg', height: { mobile: '45px', default: '60px', largeDesktop: '65px' }},
     {icon: '/logos/wiedemann.svg', height: { mobile: '30px', default: '40px', largeDesktop: '45px' }},
-    {icon: '/logos/adidas.svg', height: { mobile: '30px', default: '30px', largeDesktop: '35px' }},
+    {icon: '/logos/adidas.svg', height: { mobile: '40px', default: '40px', largeDesktop: '45px' }},
     {icon: '/logos/rubyWorkspaces.svg', height: { mobile: '50px', default: '50px', largeDesktop: '55px' }},
     {icon: '/logos/rubyHotels.svg', height: { mobile: '50px', default: '50px', largeDesktop: '55px' }},
     {icon: '/logos/deloitte.svg', height: { mobile: '25px', default: '25px', largeDesktop: '25px' }},

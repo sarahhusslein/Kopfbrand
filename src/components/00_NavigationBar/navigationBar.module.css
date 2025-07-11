@@ -96,7 +96,7 @@
     color: var(--broom);
 }
 
-.button:last-child {
+/* .button:last-child {
     background: transparent;
     border: 1px solid var(--broom);
     color: var(--broom);
@@ -105,7 +105,7 @@
 .button:last-child:hover {
     background: rgba(245, 255, 0, 0.2);
     color: var(--broom);
-}
+} */
 
 .animatedText {
     position: relative;
@@ -166,9 +166,9 @@ Adjustments for Larger Screens
         padding: 14px 16px;
     }
 
-    .button:last-child {
+    /* .button:last-child {
         border: 1.5px solid var(--broom);
-    }
+    } */
 }
 
 
@@ -211,8 +211,8 @@ Adjustments for Mobile
         pointer-events: all !important;
     }
 
-    .button:last-child {
+    /* .button:last-child {
         border: 2px solid var(--broom);
-    }
+    } */
 
 }

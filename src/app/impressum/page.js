@@ -43,8 +43,8 @@ const router = useRouter();
 
                     <h3 className={`h3 ${styles.h3}`}> Angaben gemäß § 5 TMG </h3>
                     <p className={`body ${styles.body}`}>
-                        Agentur Kopfbrand<br />
-                        Firmeninhaber: Christoph Bäumler<br />
+                        Kopfbrand GmbH<br />
+                        GF: Christoph Bäumler<br />
                         Rumfordstraße 21<br />
                         80469 München<br />
                         Deutschland
@@ -53,8 +53,8 @@ const router = useRouter();
                     <h3 className={`h3 ${styles.h3}`}> Registereintrag </h3>
                     <p className={`body ${styles.body}`}>
                         Sitz der Gesellschaft: München<br />
-                        Handelsregister: Amtsgericht München, HRA 73151<br />
-                        USt-IdNr.: DE194247058 (gem. §27a Umsatzsteuergesetz)
+                        Handelsregister: Amtsgericht München, HRB 301680<br />
+                        USt-IdNr.: DE455128445 (gem. §27a Umsatzsteuergesetz)
                     </p>
 
                     <h3 className={`h3 ${styles.h3}`}> Kontakt </h3>
@@ -67,7 +67,7 @@ const router = useRouter();
                     <h3 className={`h3 ${styles.h3}`}> Verantwortlich für den Inhalt (<span className={styles.highlightedText}>gem. § 55 Abs. 2 RStV</span>) </h3> 
                     <p className={`body ${styles.body}`}>
                         Christoph Bäumler<br />
-                        Agentur Kopfbrand<br />
+                        Kopfbrand GmbH<br />
                         Rumfordstraße 21<br />
                         80469 München
                     </p>
@@ -75,17 +75,15 @@ const router = useRouter();
                     <h3 className={`h3 ${styles.h3}`}> Bildrechte </h3>
                     <p className={`body ${styles.body}`}>
                         Christoph Bäumler<br />
-                        Agentur Kopfbrand<br />
+                        Kopfbrand GmbH<br />
                         Rumfordstraße 21<br />
                         80469 München
                         <br />
                         <br />
                         <strong>Auf der Website verwendete Bilder</strong> <br />
-                        Bild 01 - Placeholder | Adobe Stock <br />
-                        Bild 02 - Placeholder | Adobe Stock <br />
-                        Bild 03 - Placeholder | Adobe Stock <br />
-                        Bild 04 - Placeholder | Adobe Stock <br />
-                        Bild 05 - Placeholder | Adobe Stock <br />
+                        Ruby GmbH Fotostock <br />
+                        istockphoto-626172712 <br />
+                        mockups-design.com <br />
                     </p>
 
 

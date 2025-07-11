@@ -5,7 +5,8 @@
     height: 100vh;
     width: 100vw;
     z-index: 5;
-    background: url('/illustrations/gradient-darkest2.svg');
+    /* background: url('/illustrations/gradient-darkest2.svg'); */
+    background-color: black;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -29,7 +30,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: var(--broom);
+    background-color: black;
     z-index: 7;
     pointer-events: none;
     cursor: none;

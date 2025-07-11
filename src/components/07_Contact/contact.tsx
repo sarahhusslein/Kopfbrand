@@ -144,20 +144,20 @@ export default function Contact() {
                     <motion.p 
                         className={`body-light ${styles.bodyLight}`}
                     >
-                        Große Pläne, kleiner Plausch oder einfach nur Lust auf Kaffee? Wir freuen uns, von dir zu hören.
+                        Große Pläne, kleiner Plausch oder einfach nur Lust auf Kaffee? Wir freuen uns, von Ihnen zu hören.
                     </motion.p>
                     <motion.div 
                         className={styles.buttonRow}
                     >
                         <div className={styles.buttonContainer}>
-                            <p className={`body ${styles.body}`}>Direkter Draht zu uns:</p>
+                            {/* <p className={`body ${styles.body}`}>Direkter Draht zu uns:</p> */}
                             <button className={styles.phoneButton} /* onClick={() => window.location.href = 'tel:+498924224281'} */> 
                                 <SVG aria-label="Telefon" src="/icons/phone.svg" className={styles.phoneIcon} />
                                 Jetzt anrufen
                             </button>
                         </div>
                         <div className={styles.buttonContainer}>
-                            <p className={`body ${styles.body}`}>Sag’s geschrieben:</p>
+                            {/* <p className={`body ${styles.body}`}>Sag’s geschrieben:</p> */}
                             <button className={styles.mailButton} /*onClick={() => window.location.href = 'mailto:info@kopfbrand.com'} */>
                                 <SVG aria-label="E-Mail" src="/icons/mail.svg" className={styles.mailIcon} />
                                 Jetzt mailen

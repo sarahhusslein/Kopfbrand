@@ -24,32 +24,32 @@ const teamMembers: TeamMember[] = [
         id: 1,
         name: "Christoph Bäumler",
         position: "Gründer & CEO",
-        keywords: ["#fastfoodjunkie 🍔", "#berghüttenbesitzer 🏔️️️", "#grünerdaumen 🌱 "],
+        keywords: ["#fastfoodjunkie", "#aufderberghütte", "#grünerdaumen"],
     },
     {
         id: 2,
         name: "Victoria Reuter",
         position: "Art Direction",
-        keywords: ["#rundumversorgerin 🌟", "#coffeejunkie ☕️️", "#fellnasenliebhaberin 🦮"],
+        keywords: ["#rundumversorgerin", "#coffeejunkie", "#dogmommy"],
     },
     {
         id: 3,
         name: "Christina Hansen",
-        position: "Freelance Art Direction",
-        keywords: ["#mrssunshine ☀️", "#gipfelstürmerin 🏔️️️", "#everydayisthebestday 🌈 "],
+        position: "Art Direction",
+        keywords: ["#mrssunshine", "#gipfelstürmerin", "#everydayisthebestday"],
     },
     {
         id: 4,
         name: "Corinna Moritz",
-        position: "Freelance Art Direction",
-        keywords: ["#immerbilderimkopf 🎨", "#anappleeachday 🍏", "#fürjedenspasszuhaben 🎉 "],
+        position: "Art Direction",
+        keywords: ["#immerbilderimkopf", "#anappleeachday", "#fürjedenspasszuhaben"],
     },
-    {
-        id: 5,
-        name: "Patricia Reiter",
-        position: "Werkstudentin",
-        keywords: ["#agenturküken 🐣", "#bäckerinmitleidenschaft 🧁", "#filmgeek 🎬 "],
-    }
+    // {
+    //     id: 5,
+    //     name: "Patricia Reiter",
+    //     position: "Werkstudentin",
+    //     keywords: ["#agenturküken", "#bäckerinmitleidenschaft", "#filmgeek"],
+    // }
 ];
 
 // 🟢 Type for the mouse position
@@ -328,12 +328,12 @@ export default function Team() {
 
                 {/****** Headline ******/}
                 <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimation}>
-                    WIR STELLEN UNS VOR
+                    KREATIVE KÖPFE
                 </motion.h1>
                 <motion.h4 className={`subtitle ${styles.h4}`} variants={itemAnimation}>
-                    Jetzt mal ehrlich, hast du dich uns so vorgestellt? 
-                    {isMobile ? ' ' : <br />}
-                    85 Jahre Berufserfahrung, 7000 Stunden Calls und ein Lächeln auf Knopfdruck - das ist unser Team.
+                    125 Jahre Berufserfahrung, 7000 Stunden Calls und ein Lächeln auf Knopfdruck - das ist unser Team!
+                    {/* {isMobile ? ' ' : <br />}
+                    85 Jahre Berufserfahrung, 7000 Stunden Calls und ein Lächeln auf Knopfdruck - das ist unser Team. */}
                 </motion.h4>
 
                 {/****** Switch  including handwriting text animation******/}

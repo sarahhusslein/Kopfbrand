@@ -35,7 +35,7 @@ export default function ScreenLoader({ children }) {
                     initial={{ top: "100vh" }}
                     animate={{ top: "100vh" }}
                     exit={{ top: "0vh" }}
-                    transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
+                    transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
                 />
                 <motion.div
                     key="loader"
@@ -46,13 +46,13 @@ export default function ScreenLoader({ children }) {
                     <motion.div 
                         className={styles.logoContainer}
                         initial={{ y: 0 }}
-                        exit={{ y: "-100vh" }}
-                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                        exit={{ y: 0, opacity: 0, scale: 0.7 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
                     >
                         <motion.div
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1, }}
+                            transition={{ duration: 0.5, }}
                             style={{ transformOrigin: 'center' }}
                         >
                             <SVG aria-label="Kopfbrand Logo" src="/logos/kopfbrand.svg" className={styles.logo}/>
@@ -75,7 +75,7 @@ export default function ScreenLoader({ children }) {
                                     },
                                 }}
                                 >
-                                {"Immer eins mehr".split("").map((char, index) => (
+                                {"immer eins mehr".split("").map((char, index) => (
                                     <motion.span
                                     key={index}
                                     variants={{

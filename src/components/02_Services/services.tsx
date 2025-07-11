@@ -34,7 +34,7 @@ const services: Service[] = [
       animation: serviceAnimation,
       number: "01",
       title: "Strategie & Beratung",
-      description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
+      description: "Gemeinsam mit Ihnen definieren wir Ziele und erarbeiten Marketingmaßnahmen, die speziell an die Bedürfnisse und Möglichkeiten Ihrer Marke geknüpft sind. Darauf aufbauend erarbeiten wir individuelle Lösungen und kreative Strategien, die Ihre Marke nicht nur definieren, sondern auch differenzieren.",
       paddingTop: 20,
   },
   {
@@ -42,15 +42,15 @@ const services: Service[] = [
       animation: konzeptionAnimaton,
       number: "02",
       title: "Konzeption & Kreation",
-      description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
+      description: "Ein gutes Projekt braucht ein noch besseres Konzept. Unsere Expertise reicht von der tiefgreifenden Analyse bis zur kreativen Umsetzung, stets mit dem Ziel, Ihre Marke nach vorne zu bringen. Unsere Kernkompetenzen liegen im Bereich Print, Corporate- und Packaging-Design.",
       paddingTop: 80,
   },
   {
       id: 3,
       animation: contentcreationAnimation,
       number: "03",
-      title: "Digital Content Design",
-      description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
+      title: "Content Creation & Social Media",
+      description: "Wir platzieren Ihre Marke dort, wo sie von der richtigen Zielgruppe gesehen wird. Wir verstehen Online Marketing als die Kunst, digitale Präsenzen effektiv zu nutzen. Social Media wird mit uns zu einem mutigen, kreativen Spielfeld, auf dem Ihre Marke nicht nur gesehen, sondern wirklich erlebt wird.",
       paddingTop: 25,
   },
   {
@@ -58,15 +58,15 @@ const services: Service[] = [
       animation: prototypingAnimation,
       number: "04",
       title: "Prototyping & Produktion",
-      description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
+      description: "In der Prototyping Phase nehmen wir Ihre Vision in die Hand und gestalten erste Ent- würfe, die zum Leben erwachen. Das ermöglicht uns, Design und Funktionalität früh- zeitig zu evaluieren, bevor wir in die finale Produktion gehen. Wir beraten zu Materia- lien, Veredelungen, Drucktechniken, Qualität und Auflagezahlen.",
       paddingTop: 40,
   },
   {
       id: 5,
       animation: versandAnimation,
       number: "05",
-      title: "Versand & Lagerung",
-      description: "Lorem ipsum dolor sit amet. Ea eaque magni et possimus possimus eum nihil repellendus nla possimus eum nihil repellendus nla.",
+      title: "Lagerung & Versand",
+      description: "Hand in Hand mit der Produktion geht unser internes Warenmanagement. Die KOPFBRAND Manufaktur (unsere Produktions- und Lagerräume) bietet die Möglichkeit Produktionen auflagenstark und kosteneffizient zu realisieren. Durch Einlagerung können wir auch zusätzlich auf spontane Bestellungen reagieren. Darüber hinaus realisieren wir den nationalen und internationalen Versand Ihrer Produkte.",
       paddingTop: 45,
   },
 
@@ -296,9 +296,9 @@ export default function Services() {
 
             {/****** Subtitle ******/}
             <motion.h4 className={`subtitle ${styles.h4}`} variants={isMobile ? itemAnimationMobile : itemAnimation}>
-                Wir konzipieren, gestalten, und kreieren. Von der Idee bis zum Prototyping. 
-                {isMobile ? ' ' : <br />}
-                Entdecke unsere Services.
+                Seit 2007 gestalten wir Markenidentitäten und Kampagnen. Unser kreatives Team verbindet brandheiße Ideen mit Know-how, um maßgeschneiderte Lösungen zu schaffen. Lassen Sie uns Ihre Vision realisieren - nach dem Motto: "Immer eins mehr!" 
+                {/* {isMobile ? ' ' : <br />}
+                Entdecke unsere Services. */}
             </motion.h4>
 
 

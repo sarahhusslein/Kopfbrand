@@ -30,12 +30,12 @@ const numbers: Number[] = [
     {
         id: 2,
         start: 22,
-        keyword: "Agentur-Flamingos",
+        keyword: "Agentur Flamingos",
     },
     {
         id: 3,
         start: 50,
-        keyword: "EUR versteckte Kosten",
+        keyword: "Versteckte Kosten",
     },
     {
         id: 4,

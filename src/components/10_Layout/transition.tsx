@@ -75,7 +75,7 @@ const opacity = {
         ease: [0.76, 0, 0.24, 1]
   },
   exit: {
-      opacity: 1,
+      opacity: 0,
     }
   }
 };
@@ -91,7 +91,7 @@ const slideExit = {
   exit: { 
       top: "0vh",
       transition: {
-          duration: 1,
+          duration: 0.01,
           ease: [0.76, 0, 0.24, 1]
       }
   },
@@ -105,7 +105,7 @@ const slideEnter = {
   enter: { 
     top: "-100vh",
     transition: {
-      duration: 0.7,
+      duration: 0.01,
       ease: [0.76, 0, 0.24, 1]
   }
   },
@@ -130,10 +130,10 @@ const perspective = {
 
   exit: { 
       y: -100,
-      scale: 0.9,
-      opacity: 0.5,
+      scale: 0,
+      opacity: 0,
       transition: {
-          duration: 1.2,
+          duration: 0.01,
           ease: [0.76, 0, 0.24, 1]
       }
   },

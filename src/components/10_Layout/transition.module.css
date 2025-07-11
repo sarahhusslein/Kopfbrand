@@ -3,7 +3,7 @@
 }
 
 .page {
-    background-color: white;
+    background-color: black;
 }
 
 .slide {
@@ -12,6 +12,6 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: var(--broom);
+    background-color: black;
     z-index: 4;
 }
