@@ -25,7 +25,7 @@ export default function Creativity() {
   const [isYellowActive, setIsYellowActive] = useState(true);
   const cursorUrl = isYellowActive ? '/icons/cursorDrawingYellow.svg' : '/icons/cursorDrawingRed.svg';
   const strokeColor = isYellowActive ? '#EEFF04' : '#E4003E';
-  const iconSrc = isYellowActive ? 'icons/colorChangeRed.svg' : 'icons/colorChangeYellow.svg';
+  const iconSrc = isYellowActive ? 'icons/colorChangeYellow.svg' : 'icons/colorChangeRed.svg';
   const toggleBackground = isYellowActive ? styles.toggleRed : styles.toggleYellow;
   const [hasDrawn, setHasDrawn] = useState (false); 
   const cursorStyle = {

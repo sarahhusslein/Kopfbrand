@@ -124,8 +124,8 @@ export default function Testimonials() {
         const isActive = diff === 0;
         
         return {
-            rotateY: diff * 60,
-            x: diff * 50,
+            rotateY: diff * 50,
+            x: diff * 60,
             z: Math.abs(diff) * -100,
             // Hide cards that are more than 1 position away
             scale: Math.abs(diff) > 1 ? 0 : Math.max(0.7, 1 - Math.abs(diff) * 0.2),
@@ -210,9 +210,9 @@ export default function Testimonials() {
                                         className={styles.testimonialCardMobile}
                                     >
                                         <div className={styles.quoteContainer}>
-                                            <div className={styles.quoteSVG}>
+                                            {/* <div className={styles.quoteSVG}>
                                                 <SVG src="/illustrations/quote.svg"/>
-                                            </div>
+                                            </div> */}
                                             <div className={styles.textContent}>
                                                 <h3 className={`h3 ${styles.name}`}>
                                                     {testimonial.name}
@@ -285,7 +285,7 @@ export default function Testimonials() {
                                             custom={calculateCardStyle(index)}
                                     >
                                             <div className={styles.quoteContainer}>
-                                                <motion.div
+                                                {/* <motion.div
                                                     className={styles.quoteSVG}
                                                     initial={{ scale: 0.3}}
                                                     animate={{ 
@@ -297,7 +297,7 @@ export default function Testimonials() {
                                                     }}
                                                 >
                                                     <SVG aria-label="Zitat Icon" src="/illustrations/quote.svg"/>
-                                                </motion.div>
+                                                </motion.div> */}
                                                 <motion.div 
                                                     className={styles.textContent}
                                                     initial={{ opacity: 1, y: 10 }}

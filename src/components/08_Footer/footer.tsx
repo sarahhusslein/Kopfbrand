@@ -25,15 +25,16 @@ interface AnimatedFooterItemProps {
     text: string;
     url?: string;
     label?: string;
+    onClick?: () => void;
 }
 
 // 🟢 Footer Service Items array
 const footerServiceItems: FooterItem[] = [
-    { icon: '/icons/strategie.svg', text: 'Strategie & Beratung', label: 'Strategie & Beratung' },
-    { icon: '/icons/konzeption.svg', text: 'Konzeption & Kreation', label: 'Konzeption & Kreation' },
-    { icon: '/icons/contentDesign.svg', text: 'Digital Content Design', label: 'Digital Content Design' },
-    { icon: '/icons/prototyping.svg', text: 'Prototyping & Produktion', label: 'Prototyping & Produktion' },
-    { icon: '/icons/versand_new.svg', text: 'Versand & Lagerung', label: 'Versand & Lagerung' },
+    { icon: '/icons/strategie.svg', text: 'Strategie & Beratung', label: 'Strategie & Beratung', url: '#services' },
+    { icon: '/icons/konzeption.svg', text: 'Konzeption & Kreation', label: 'Konzeption & Kreation', url: '#services' },
+    { icon: '/icons/contentDesign.svg', text: 'Digital Content Design', label: 'Digital Content Design', url: '#services' },
+    { icon: '/icons/prototyping.svg', text: 'Prototyping & Produktion', label: 'Prototyping & Produktion', url: '#services' },
+    { icon: '/icons/versand_new.svg', text: 'Versand & Lagerung', label: 'Versand & Lagerung', url: '#services' },
 ];
 
 // 🟢 Footer Contact Items array
@@ -122,10 +123,20 @@ const STAGGER = 0;
 //     </motion.div>
 // );
 
+// 🟢 Handle click to scroll to services
+const handleClick = () => {
+    if (typeof window !== 'undefined') { 
+        const element = document.getElementById('services');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+};
+
 // 🟢 Animated Footer Item
 const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url, label }) => (
     <motion.div 
-        className={styles.item}
+        className={`${styles.item} ${url ? styles.clickableItem : ''}`}
         whileHover="hovered"
         initial="initial"
         animate="initial"
@@ -175,7 +186,7 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
                 </motion.div>
             </a>
         ) : (
-            <motion.div className={styles.animatedText}>
+            <motion.div className={styles.animatedText} onClick={handleClick}>
                 <div className={styles.textWrapper}>
                     {text.split('').map((letter, i) => (
                         <motion.span 
@@ -216,6 +227,7 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
         )}
     </motion.div>
 );
+
 
  
 
@@ -259,6 +271,7 @@ const AnimatedFooterItem: React.FC<AnimatedFooterItemProps> = ({ icon, text, url
                         key={index}
                         icon={item.icon}
                         text={item.text}
+                        onClick={handleClick}
                         />
                     ))}
                 </div>

@@ -74,9 +74,9 @@ export default function CasesHeadlineNew() {
                         animate={hasEnteredFromTop ? { y: 0, opacity: 1, scale: 1 } : {}}
                         transition={{ duration: 0.7, ease: "easeInOut" }}
                     >
-                        KREATIV FÜR <br />KLASSE&nbsp;
+                        CASE STUDIES <br />IN THE&nbsp;
                         <span className={styles.underline}> 
-                            KUNDEN
+                            SPOTLIGHT
                             <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVGMask}></SVG>
                         </span>
                     </motion.h1>
@@ -92,9 +92,9 @@ export default function CasesHeadlineNew() {
                     animate={hasEnteredFromTop ? { y: 0, opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.7, ease: "easeInOut" }}
                 >
-                    KREATIV FÜR <br />KLASSE&nbsp;
+                    CASE STUDIES <br />IN THE&nbsp;
                     <span className={styles.underline}> 
-                        KUNDEN
+                        SPOTLIGHT
                         <SVG aria-label="Unterstreichung" src={'/illustrations/underlineHanddrawn.svg'} className={styles.SVG}></SVG>
                     </span>
                 </motion.h1>

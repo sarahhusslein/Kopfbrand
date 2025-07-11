@@ -197,11 +197,13 @@
 }
 
 .toggleRed {
-    background-color: rgba(228, 0, 62, 0.2);
+    /* background-color: rgba(228, 0, 62, 0.2); */
+    background-color: rgba(245, 255, 0, 0.2);
 }
 
 .toggleYellow {
-    background-color: rgba(245, 255, 0, 0.2);
+    /* background-color: rgba(245, 255, 0, 0.2); */
+    background-color: rgba(228, 0, 62, 0.2);
 }
 
 .iconScreenshot {

@@ -94,6 +94,11 @@
     white-space: nowrap;
 }
 
+.animatedText * {
+  cursor: var(--cursor-pointer-yellow), pointer !important;
+}
+
+
 .textWrapper {
     position: relative;
     display: inline-block;
@@ -119,7 +124,9 @@
     flex-direction: row;
     align-items: center;
     overflow: hidden;
+
 }
+
 
 .icon {
     height: 19px;

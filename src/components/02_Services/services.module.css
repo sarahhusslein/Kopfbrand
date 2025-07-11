@@ -136,11 +136,17 @@
 Adjustments for Larger Screens
 *****************************/
 @media (min-width: 1920px) {
+
+    .h4 {
+        padding: 40px 150px;
+    }
     .servicesWrapper {
         width: calc(100vw - 300px);
-        margin: 0;
-        gap: 50px;
+        margin: 0 150px;
+        gap: 30px;
     }
+
+
 
 
     .animationContainer {
