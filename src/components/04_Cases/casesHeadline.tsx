@@ -17,7 +17,7 @@ export default function CasesHeadlineNew() {
     const [hasEnteredFromTop, setHasEnteredFromTop] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
     const ref = React.useRef(null);
-    const isInView = useInView(ref, { amount: 0.6 });
+    const isInView = useInView(ref, { amount: 0.1 });
     const { mousePosition, updateMousePosition } = useMousePosition();   
     const size = isHovered ? 300 : 40;
     const isMobile = useMediaQuery({ maxWidth: 768 });

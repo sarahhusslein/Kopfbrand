@@ -228,7 +228,7 @@ export default function Services() {
             variants={isMobile ? itemAnimationMobile : itemAnimation}
             initial="initial"
             whileInView="inView"
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: false, amount: 0.2 }}
         >
             {isMobile ? (
                     <motion.h1 className={`h1 ${styles.h1}`} variants={itemAnimationMobile}>
