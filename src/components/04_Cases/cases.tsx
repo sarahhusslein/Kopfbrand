@@ -16,36 +16,41 @@ const cases = [
     {
         id: 1,
         image: "/images/caseStudyHotelGrey.jpg", 
-        company: "RUBY HOTELS",
-        description: "Visuelle Gestaltung der kompletten Hotelausstattung von der Bodylotion bis zur Keycard.",
-        tags: ["Konzeption", "Werbemittel", "Verpackungsdesign"],
+        company: "RUBY HOTELS & WORKSPACES",
+        description: "Seit über 12 Jahren begleiten wir die Marke RUBY beim Aufbau und der Weiterentwicklung ihres visuellen Markenauftritts, vom ersten Logo bis zum aktuellen Corporate Design. Aktuell betreuen wir 21 Hotels und 8 Workspaces der RUBY Gruppe und verantworteten die gesamte Markenkommunikation, inklusive Collaterals, Büroausstattungen, Kampagnen, Printanzeigen und Out-of-Home-Maßnahmen in Europa.",
+        services: "KONZEPTION . CORPORATE DESIGN . BRANDING . PACKAGING . PRODUKTION",
+        tags: ["KONZEPTION", "CORPORATE DESIGN", "BRANDING", "PACKAGING", "PRODUKTION"],
     },
     {
         id: 2,
         image: "/images/caseStudyPons.jpg",
-        company: "Pons",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        company: "PONS LANGENSCHEIDT GMBH",
+        description: "Seit 2010 entwickeln wir für PONS und LANGENSCHEIDT aufmerksamkeitsstarke Kampagnen, die Sprache sprechen – visuell und inhaltlich. Für die jährliche Plakatkampagne in Deutschland, Österreich und der Schweiz übernehmen wir Konzeption von Text und Bild. Zudem gestalten wir verkaufsstarke POS-Aufsteller mit klarer Botschaft, markenpräzisem Design und Gespür für den Moment.",
+        services: "KONZEPTION . WORDING . BILDBEARBEITUNG . FOTOSHOOTING",
         tags: ["Branding", "Digital Design", "Animation"],
     },
     {
         id: 3,
-        image: "/images/caseStudyBanners.png",
-        company: "Dritter Kunde",
-        description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        image: "/images/caseStudyLangenscheidt.jpg",
+        company: "LANGENSCHEIDT VERLAG",
+        description: "Von 2009 bis 2019 begleiteten wir den LANGENSCHEIDT Verlag bei der Weiterentwicklung seiner Programme „Sprachen“ und „Entertainment“. Wir gestalteten zahlreiche Buchcover, darunter das humorvolle Werk „Katze-Deutsch, Deutsch-Katze“, das 2011 in die Top 10 der SPIEGEL-Bestsellerliste einstieg. Zudem entwickelten wir das visuelle Erscheinungsbild aller Verlagsvorschauen neu und setzten die Kinder- und Jugendbuchvorschauen vollständig um.",
+        services: "KONZEPTION . EDITORIAL . SATZ . DRUCKVORSTUFE",
         tags: ["Print", "Editorial", "Fotografie"],
     },
     {
         id: 4,
-        image: "/images/caseStudyWall.jpg",
-        company: "Case Study Vier",
-        description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        image: "/images/caseStudyRubyPhone.jpg",
+        company: "RUBY GMBH",
+        description: "Seit Gründung entwickeln wir für die RUBY GmbH wirkungsvolle Social-Media-Kampagnen und digitale Content-Strategien, um die Markenbekanntheit nachhaltig zu steigern. Im Fokus stehen kreative Ideen, die auffallen, relevante Inhalte und ein einheitlicher Markenauftritt über alle digitalen Kanäle hinweg.",
+        services: "KONZEPTION . ANIMATION . CONTENTERSTELLUNG ",
         tags: ["UX Design", "Webdesign", "Development"],
     },
     {
         id: 5,
-        image: "/images/caseStudyMagazineKid.jpg",
-        company: "Fünfte Case Study", 
-        description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        image: "/images/caseStudyLBV.jpg",
+        company: "LBV LANDESBUND FÜR VOGELSCHUTZ", 
+        description: "Seit über 15 Jahren begleiten wir den LBV – Landesbund für Vogelschutz (Kreisgruppe München) bei der Entwicklung wirkungsvoller Kommunikationsmittel im Umwelt- und Naturschutz. Wir erstellen Broschüren, Schautafeln, Ratgeber und betreuen die reichweitenstarke Newsletter-Kampagne. Unsere Leistungen umfassen Planung, Gestaltung, Umsetzung und fundierter Datenauswertung der vierteljährlichen Kampagne.",
+        services: "KONZEPTION . BRANDING . ONLINE-MARKETING . E-MAIL-MARKETING",
         tags: ["Illustration", "Motion Design", "Kampagne"],
     },
 ];
@@ -214,16 +219,16 @@ const cases = [
                                             bottom: 70
                                         }}
                                     >
-                                        <motion.h2 
-                                            className={`h2 ${styles.h2}`}
+                                        <motion.h3 
+                                            className={`h3 ${styles.h2}`}
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.3, ease: "easeOut" }}
                                         >
                                                 {activeCase.company}
-                                        </motion.h2>
+                                        </motion.h3>
                                         <motion.h4 
-                                            className={`subtitle ${styles.subtitle}`}
+                                            className={`body ${styles.subtitle}`}
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.3, ease: "easeOut" }}
@@ -272,23 +277,31 @@ const cases = [
                                             bottom: 70
                                         }}
                                     >
-                                        <motion.h2 
-                                            className={`h2 ${styles.h2}`}
+                                        <motion.h3 
+                                            className={`h3 ${styles.h2}`}
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.3, ease: "easeOut" }}
                                         >
                                                 {activeCase.company}
-                                        </motion.h2>
-                                        <motion.h4 
-                                            className={`subtitle ${styles.subtitle}`}
+                                        </motion.h3>
+                                        <motion.div 
+                                            className={`body ${styles.body}`}
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.3, ease: "easeOut" }}
                                         >
                                             {activeCase.description}
-                                        </motion.h4>
+                                        </motion.div>
                                         <motion.div 
+                                            className={`body ${styles.bodyServices}`}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeOut" }}
+                                        >
+                                            {activeCase.services}
+                                        </motion.div>
+                                        {/* <motion.div 
                                             className={styles.tagRow}
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
@@ -297,7 +310,7 @@ const cases = [
                                             {activeCase.tags.map((tag, index) => (
                                                 <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
                                             ))}
-                                        </motion.div>
+                                        </motion.div> */}
                                     </motion.div>
                                 </AnimatePresence>
                             </Tilt>

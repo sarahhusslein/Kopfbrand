@@ -49,7 +49,7 @@ export default function CasesOverview() {
     // 🟢 Images array
     const images = [
         {src: "/images/caseStudyHotelGrey.jpg", alt: "image", scale: scale1},
-        {src: "/images/caseStudyMagazineKid.jpg", alt: "image", scale: scale2},
+        {src: "/images/caseStudyRubyPhone.jpg", alt: "image", scale: scale2},
         {src: "/images/caseStudyRubyHotel.jpg", alt: "image", scale: scale3},
         {src: "/images/caseStudyPons.jpg", alt: "image", scale: scale4},
         {src: "/images/caseStudyLBV.jpg", alt: "image", scale: scale5},
