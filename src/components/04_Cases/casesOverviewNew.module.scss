@@ -40,20 +40,20 @@
         // caseStudyRubyPhone (top middle)
         &:nth-of-type(2) {
             .imageContainer {
-                top: -34vh;
-                left: 5vw;
-                width: 40vw;
-                height: 33vh;
+                top: -32vh;
+                left: -2.5vw;
+                width: 25vw;
+                height: 30vh;
             }
         }
 
         // caseStudyRubyHotel (middle left)
         &:nth-of-type(3) {
             .imageContainer {
-                top: -17vh;
-                left: -26.5vw;
-                width: 21vw;
-                height: 65vh;
+                top: -14vh;
+                left: -24vw;
+                width: 16vw;
+                height: 58vh;
             }
         }
 
@@ -99,8 +99,8 @@
         // marioBarthCover (top right)
         &:nth-of-type(8) {
             .imageContainer {
-                top: -31.5vh;
-                left: 31vw;
+                top: -31vh;
+                left: 16vw;
                 width: 10vw;
                 height: 28vh;
             }
@@ -123,18 +123,20 @@
         // caseStudyRubyPhone (top middle)
         .element:nth-of-type(2) {
             .imageContainer {
-                top: -33vh;
-
+                top: -29vh;
+                left: 0vw;
+                width: 30vw;
+                height: 25vh;
             }
         }
 
         // caseStudyRubyHotel (middle left)
         .element:nth-of-type(3) {
             .imageContainer {
-                top: -7.5vh;
+                top: -2.5vh;
                 left: -33vw;
                 width: 30vw;
-                height: 45vh;
+                height: 35vh;
             }
         }
 
@@ -143,7 +145,8 @@
             .imageContainer {
                 left: 33vw;
                 width: 30vw;
-                height: 30vh;
+                height: 35vh;
+                top: -2.5vh;
             }
         }
 
@@ -167,18 +170,18 @@
         // storeWindowKopfbrand (bottom right)
         .element:nth-of-type(7) {
             .imageContainer {
-                top: 22.5vh;
+                top: 27.5vh;
                 left: 34vw;
                 width: 22vw;
-                height: 12vh;
+                height: 22vh;
             }
         }
 
         // marioBarthCover (top right)
         .element:nth-of-type(8) {
             .imageContainer {
-                top: -25vh;
-                left: 38vw;
+                top: -30vh;
+                left: 28.5vw;
                 width: 21vw;
                 height: 17vh;
             }

@@ -47,16 +47,40 @@ export default function CasesOverview() {
 
 
     // 🟢 Images array
-    const images = [
-        {src: "/images/caseStudyHotelGrey.jpg", alt: "image", scale: scale1},
-        {src: "/images/caseStudyRubyPhone.jpg", alt: "image", scale: scale2},
-        {src: "/images/caseStudyRubyHotel.jpg", alt: "image", scale: scale3},
-        {src: "/images/caseStudyPons.jpg", alt: "image", scale: scale4},
-        {src: "/images/caseStudyLBV.jpg", alt: "image", scale: scale5},
-        {src: "/images/caseStudyLangenscheidt.jpg", alt: "image", scale: scale6},
-        {src: "/images/storeWindowKopfbrand.jpg", alt: "image", scale: scale7},
-        {src: "/images/marioBarthCover.jpg", alt: "image", scale: scale8},
-    ]
+    // const images = [
+    //     {src: "/images/caseStudyHotelGrey.jpg", alt: "image", scale: scale1},
+    //     {src: "/images/caseStudyRubyPhone.jpg", alt: "image", scale: scale2},
+    //     {src: "/images/caseStudyRubyHotel.jpg", alt: "image", scale: scale3},
+    //     {src: "/images/caseStudyPons.jpg", alt: "image", scale: scale4},
+    //     {src: "/images/caseStudyLBV.jpg", alt: "image", scale: scale5},
+    //     {src: "/images/caseStudyLangenscheidt.jpg", alt: "image", scale: scale6},
+    //     {src: "/images/storeWindowKopfbrand.jpg", alt: "image", scale: scale7},
+    //     {src: "/images/caseStudyMarioBarthCover.jpg", alt: "image", scale: scale8},
+    // ]
+
+    const imageSources = [
+        "caseStudyHotelGrey.jpg",
+        "caseStudyRubyPhone.jpg",
+        "caseStudyRubyHotel.jpg",
+        "caseStudyPons.jpg",
+        "caseStudyLBV.jpg",
+        "caseStudyLangenscheidt.jpg",
+        "storeWindowKopfbrand.jpg",
+        "caseStudyMarioBarthCover.jpg"
+    ];
+    
+    const scales = [scale1, scale2, scale3, scale4, scale5, scale6, scale7, scale8];
+    
+    const images = imageSources.map((filename, index) => {
+        const [name, ext] = filename.split(".");
+        const src = `/images/${isMobile ? `${name}Mobile.${ext}` : filename}`;
+        
+        return {
+            src,
+            alt: "image",
+            scale: scales[index]
+        };
+    });
 
     // 🟢 Opacity animation for the overview
     const overviewOpacity = useTransform(overviewProgress, [0, 1], [0.1, 1]);

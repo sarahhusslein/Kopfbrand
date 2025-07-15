@@ -17,7 +17,7 @@ export default function ScreenLoader({ children }) {
   Animations
   *****************************/
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000);
+    const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -35,7 +35,8 @@ export default function ScreenLoader({ children }) {
                     initial={{ top: "100vh" }}
                     animate={{ top: "100vh" }}
                     exit={{ top: "0vh" }}
-                    transition={{ duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+                    transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1],}}
+                    
                 />
                 <motion.div
                     key="loader"
@@ -46,13 +47,13 @@ export default function ScreenLoader({ children }) {
                     <motion.div 
                         className={styles.logoContainer}
                         initial={{ y: 0 }}
-                        exit={{ y: 0, opacity: 0, scale: 0.7 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        exit={{ y: 0, opacity: 0.1, scale: 0.7 }}
+                        transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1]}}
                     >
                         <motion.div
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5, }}
+                            transition={{ duration: 0.7, }}
                             style={{ transformOrigin: 'center' }}
                         >
                             <SVG aria-label="Kopfbrand Logo" src="/logos/kopfbrand.svg" className={styles.logo}/>
@@ -69,7 +70,7 @@ export default function ScreenLoader({ children }) {
                                     visible: {
                                     transition: {
                                         staggerChildren: 0.05, 
-                                        delayChildren: 1,
+                                        delayChildren: 0.7,
                                         
                                     },
                                     },
@@ -82,7 +83,7 @@ export default function ScreenLoader({ children }) {
                                         hidden: { opacity: 0, y: 20 },
                                         visible: { opacity: 1, y: 0 },
                                     }}
-                                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                                    transition={{ duration: 0.5, ease: "easeInOut" }}
                                     >
                                     {char}
                                     </motion.span>

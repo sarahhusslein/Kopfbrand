@@ -16,6 +16,7 @@ const cases = [
     {
         id: 1,
         image: "/images/caseStudyHotelGrey.jpg", 
+        imageMobile: "/images/caseStudyHotelGreyMobile.jpg",
         company: "RUBY HOTELS & WORKSPACES",
         description: "Seit über 12 Jahren begleiten wir die Marke RUBY beim Aufbau und der Weiterentwicklung ihres visuellen Markenauftritts, vom ersten Logo bis zum aktuellen Corporate Design. Aktuell betreuen wir 21 Hotels und 8 Workspaces der RUBY Gruppe und verantworteten die gesamte Markenkommunikation, inklusive Collaterals, Büroausstattungen, Kampagnen, Printanzeigen und Out-of-Home-Maßnahmen in Europa.",
         services: "KONZEPTION . CORPORATE DESIGN . BRANDING . PACKAGING . PRODUKTION",
@@ -24,6 +25,7 @@ const cases = [
     {
         id: 2,
         image: "/images/caseStudyPons.jpg",
+        imageMobile: "/images/caseStudyPonsMobile.jpg",
         company: "PONS LANGENSCHEIDT GMBH",
         description: "Seit 2010 entwickeln wir für PONS und LANGENSCHEIDT aufmerksamkeitsstarke Kampagnen, die Sprache sprechen – visuell und inhaltlich. Für die jährliche Plakatkampagne in Deutschland, Österreich und der Schweiz übernehmen wir Konzeption von Text und Bild. Zudem gestalten wir verkaufsstarke POS-Aufsteller mit klarer Botschaft, markenpräzisem Design und Gespür für den Moment.",
         services: "KONZEPTION . WORDING . BILDBEARBEITUNG . FOTOSHOOTING",
@@ -32,6 +34,7 @@ const cases = [
     {
         id: 3,
         image: "/images/caseStudyLangenscheidt.jpg",
+        imageMobile: "/images/caseStudyLangenscheidtMobile.jpg", 
         company: "LANGENSCHEIDT VERLAG",
         description: "Von 2009 bis 2019 begleiteten wir den LANGENSCHEIDT Verlag bei der Weiterentwicklung seiner Programme „Sprachen“ und „Entertainment“. Wir gestalteten zahlreiche Buchcover, darunter das humorvolle Werk „Katze-Deutsch, Deutsch-Katze“, das 2011 in die Top 10 der SPIEGEL-Bestsellerliste einstieg. Zudem entwickelten wir das visuelle Erscheinungsbild aller Verlagsvorschauen neu und setzten die Kinder- und Jugendbuchvorschauen vollständig um.",
         services: "KONZEPTION . EDITORIAL . SATZ . DRUCKVORSTUFE",
@@ -40,6 +43,7 @@ const cases = [
     {
         id: 4,
         image: "/images/caseStudyRubyPhone.jpg",
+        imageMobile: "/images/caseStudyRubyPhoneMobile.jpg",
         company: "RUBY GMBH",
         description: "Seit Gründung entwickeln wir für die RUBY GmbH wirkungsvolle Social-Media-Kampagnen und digitale Content-Strategien, um die Markenbekanntheit nachhaltig zu steigern. Im Fokus stehen kreative Ideen, die auffallen, relevante Inhalte und ein einheitlicher Markenauftritt über alle digitalen Kanäle hinweg.",
         services: "KONZEPTION . ANIMATION . CONTENTERSTELLUNG ",
@@ -48,6 +52,7 @@ const cases = [
     {
         id: 5,
         image: "/images/caseStudyLBV.jpg",
+        imageMobile: "/images/caseStudyLBVMobile.jpg",
         company: "LBV LANDESBUND FÜR VOGELSCHUTZ", 
         description: "Seit über 15 Jahren begleiten wir den LBV – Landesbund für Vogelschutz (Kreisgruppe München) bei der Entwicklung wirkungsvoller Kommunikationsmittel im Umwelt- und Naturschutz. Wir erstellen Broschüren, Schautafeln, Ratgeber und betreuen die reichweitenstarke Newsletter-Kampagne. Unsere Leistungen umfassen Planung, Gestaltung, Umsetzung und fundierter Datenauswertung der vierteljährlichen Kampagne.",
         services: "KONZEPTION . BRANDING . ONLINE-MARKETING . E-MAIL-MARKETING",
@@ -228,7 +233,7 @@ const cases = [
                                                 {activeCase.company}
                                         </motion.h3>
                                         <motion.h4 
-                                            className={`body ${styles.subtitle}`}
+                                            className={`body ${styles.body}`}
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.3, ease: "easeOut" }}
@@ -236,6 +241,14 @@ const cases = [
                                             {activeCase.description}
                                         </motion.h4>
                                         <motion.div 
+                                            className={`body ${styles.bodyServices}`}
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeOut" }}
+                                        >
+                                            {activeCase.services}
+                                        </motion.div>
+                                        {/* <motion.div 
                                             className={styles.tagRow}
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
@@ -244,7 +257,7 @@ const cases = [
                                             {activeCase.tags.map((tag, index) => (
                                                 <p key={index} className={`tag ${styles.tag}`}>{tag}</p>
                                             ))}
-                                        </motion.div>
+                                        </motion.div> */}
                                     </motion.div>
                                 </AnimatePresence>
                             </div>
@@ -367,7 +380,7 @@ const CaseStudyImage = ({ cases, isFirstCase, showFirstImage }) => {
             <img 
                 aria-label={`Bild von ${cases.company}`}
                 className={styles.image}
-                src={cases.image} 
+                src={isMobile && cases.imageMobile ? cases.imageMobile : cases.image} 
                 alt={cases.company} 
             />
         </motion.div>

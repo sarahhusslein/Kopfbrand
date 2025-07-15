@@ -91,7 +91,7 @@ const slideExit = {
   exit: { 
       top: "0vh",
       transition: {
-          duration: 0.01,
+          duration: 0.1,
           ease: [0.76, 0, 0.24, 1]
       }
   },
@@ -105,7 +105,7 @@ const slideEnter = {
   enter: { 
     top: "-100vh",
     transition: {
-      duration: 0.01,
+      duration: 0.1,
       ease: [0.76, 0, 0.24, 1]
   }
   },
