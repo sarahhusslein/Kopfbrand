@@ -30,7 +30,7 @@ interface NavItem {
     services: 100,  // "WAS"
     cases: 430,     // "WIE"
     team: 430,      // "WER" 
-    contact: 200,   // "WO"
+    contact: 250,   // "WO"
     footer: 250,    // "LETS TALK"
   };
 
