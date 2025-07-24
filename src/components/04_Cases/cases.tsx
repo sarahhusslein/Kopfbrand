@@ -54,7 +54,7 @@ const cases = [
         image: "/images/caseStudyLBV.jpg",
         imageMobile: "/images/caseStudyLBVMobile.jpg",
         company: "LBV LANDESBUND FÜR VOGELSCHUTZ", 
-        description: "Seit über 15 Jahren begleiten wir den LBV – Landesbund für Vogelschutz (Kreisgruppe München) bei der Entwicklung wirkungsvoller Kommunikationsmittel im Umwelt- und Naturschutz. Wir erstellen Broschüren, Schautafeln, Ratgeber und betreuen die reichweitenstarke Newsletter-Kampagne. Unsere Leistungen umfassen Planung, Gestaltung, Umsetzung und fundierter Datenauswertung der vierteljährlichen Kampagne.",
+        description: "Seit über 15 Jahren begleiten wir den LBV – Landesbund für Vogelschutz (Kreisgruppe München) bei der Entwicklung wirkungsvoller Kommunikationsmittel im Umwelt- und Naturschutz. Wir erstellen Broschüren, Schautafeln, Ratgeber und betreuen die reichweitenstarke Newsletter-Kampagne. Unsere Leistungen umfassen Planung, Gestaltung, Umsetzung und fundierte Datenauswertung der vierteljährlichen Kampagne.",
         services: "KONZEPTION . BRANDING . ONLINE-MARKETING . E-MAIL-MARKETING",
         tags: ["Illustration", "Motion Design", "Kampagne"],
     },
