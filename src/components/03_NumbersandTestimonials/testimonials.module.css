@@ -36,12 +36,15 @@
 
 .carousel {
     position: relative;
-    width: 100%;
+    /* width: 100%; */
     height: 100%;
     transform-style: preserve-3d;
     backface-visibility: hidden;
     display: flex;
     justify-content: center;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .testimonialCard {
@@ -158,7 +161,11 @@ Adjustments for Larger Screens
         height: 590px;
         padding: 0px 70px 0px 70px;
         transform-origin: center center -300px;
-        backface-visibility: hidden;
+        will-change: transform;
+    }
+
+    .neighborCard * {
+        cursor: pointer !important;
     }
 
     .textContent {

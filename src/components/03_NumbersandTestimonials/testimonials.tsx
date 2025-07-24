@@ -279,7 +279,7 @@ export default function Testimonials() {
                                             style={{ position: 'absolute', zIndex: index === activeIndex ? 10 : 1 }}
                                             animate={calculateCardStyle(index)}
                                             drag="x"
-                                            dragConstraints={{ left: -60, right: 60 }}
+                                            dragConstraints={{ left: isLargeDesktop ? -80 : -60, right: isLargeDesktop ? 80 : 60 }}
                                             dragElastic={0.2}
                                             dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
                                             onDragEnd={dragEndHandler}
