@@ -58,7 +58,7 @@ const services: Service[] = [
       animation: prototypingAnimation,
       number: "04",
       title: "Prototyping & Produktion",
-      description: "In der Prototyping Phase nehmen wir Ihre Vision in die Hand und gestalten erste Ent- würfe, die zum Leben erwachen. Das ermöglicht uns, Design und Funktionalität früh- zeitig zu evaluieren, bevor wir in die finale Produktion gehen. Wir beraten zu Materia- lien, Veredelungen, Drucktechniken, Qualität und Auflagezahlen.",
+      description: "In der Prototyping Phase nehmen wir Ihre Vision in die Hand und gestalten erste Entwürfe, die zum Leben erwachen. Das ermöglicht uns, Design und Funktionalität frühzeitig zu evaluieren, bevor wir in die finale Produktion gehen. Wir beraten zu Materialien, Veredelungen, Drucktechniken, Qualität und Auflagezahlen.",
       paddingTop: 40,
   },
   {
@@ -296,7 +296,7 @@ export default function Services() {
 
             {/****** Subtitle ******/}
             <motion.h4 className={`subtitle ${styles.h4}`} variants={isMobile ? itemAnimationMobile : itemAnimation}>
-                Seit 2007 gestalten wir Markenidentitäten und Kampagnen. Unser kreatives Team verbindet brandheiße Ideen mit Know-how, um maßgeschneiderte Lösungen zu schaffen. Lassen Sie uns Ihre Vision realisieren - nach dem Motto: "Immer eins mehr!" 
+                Seit 2007 gestaltet die Münchner Kreativagentur KOPFBRAND Markenidentitäten und Kampagnen. Unser kreatives Team verbindet brandheiße Ideen mit Know-how, um maßgeschneiderte Lösungen zu schaffen. Lassen Sie uns Ihre Vision realisieren - nach dem Motto: "Immer eins mehr!" 
                 {/* {isMobile ? ' ' : <br />}
                 Entdecke unsere Services. */}
             </motion.h4>
