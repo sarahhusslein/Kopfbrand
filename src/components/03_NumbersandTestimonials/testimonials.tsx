@@ -83,6 +83,7 @@ export default function Testimonials() {
     *****************************/
     // 🟢 States, Refs and Device Types
     const isMobile = useMediaQuery({ maxWidth: 768 });
+    const isLargeDesktop = useMediaQuery({ minWidth: 1920 });
     const [[page, direction], setPage] = useState<PageState>([0, 0]);
 
     // 🟢 Normalize the page number to handle infinite loop
@@ -122,11 +123,16 @@ export default function Testimonials() {
         if (diff < -totalItems / 2) diff += totalItems;
     
         const isActive = diff === 0;
+
+        // 🎯 Unterschiedliche Werte für large Desktop
+        const rotationMultiplier = isLargeDesktop ? 50 : 50;
+        const spacingX = isLargeDesktop ? 80 : 60;
+        const spacingZ = isLargeDesktop ? -150 : -100;
         
         return {
-            rotateY: diff * 50,
-            x: diff * 60,
-            z: Math.abs(diff) * -100,
+            rotateY: diff === 0 ? 0 : diff * rotationMultiplier,
+            x: diff * spacingX,
+            z: Math.abs(diff) * spacingZ,
             // Hide cards that are more than 1 position away
             scale: Math.abs(diff) > 1 ? 0 : Math.max(0.7, 1 - Math.abs(diff) * 0.2),
             opacity: Math.abs(diff) > 1 ? 0 : Math.max(0.5, 1 - Math.abs(diff) * 0.5),
@@ -284,6 +290,7 @@ export default function Testimonials() {
                                             }}
                                             custom={calculateCardStyle(index)}
                                     >
+                                    
                                             <div className={styles.quoteContainer}>
                                                 {/* <motion.div
                                                     className={styles.quoteSVG}
