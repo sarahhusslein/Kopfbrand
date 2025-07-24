@@ -26,6 +26,22 @@ interface NavItem {
     { id: 5, title: 'LETS TALK', section: 'footer' },
   ];
 
+  const sectionOffsetsDesktop: Record<string, number> = {
+    services: 100,  // "WAS"
+    cases: 430,     // "WIE"
+    team: 430,      // "WER" 
+    contact: 200,   // "WO"
+    footer: 250,    // "LETS TALK"
+  };
+
+  const sectionOffsetsMobile: Record<string, number> = {
+    services: 100,
+    cases: 100,
+    team: 150,
+    contact: 150,
+    footer: 80,
+  };
+
 
 
 export default function NavigationBar() {
@@ -111,7 +127,9 @@ export default function NavigationBar() {
             const duration = Math.min(baseDuration + (distance / 6000), 2.8);
 
             ((window as any).lenis).scrollTo(targetY, {
-                offset: 75,
+                offset: isMobile 
+                ? (sectionOffsetsMobile[section] ?? 60) 
+                : (sectionOffsetsDesktop[section] ?? 75),
                 duration: duration,
                 easing: (t: number) => {
                     const ts = t * t;

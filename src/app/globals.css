@@ -81,7 +81,7 @@ Typography Desktop
 .h2 {
   font-family: 'Inter', bold;
   font-size: 2.75rem; /* 44px */
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .h3 {

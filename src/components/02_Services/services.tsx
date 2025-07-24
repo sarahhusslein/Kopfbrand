@@ -33,7 +33,7 @@ const services: Service[] = [
       id: 1,
       animation: serviceAnimation,
       number: "01",
-      title: "Strategie & Beratung",
+      title: "Strategie &\nBeratung",
       description: "Gemeinsam mit Ihnen definieren wir Ziele und erarbeiten Marketingmaßnahmen, die speziell an die Bedürfnisse und Möglichkeiten Ihrer Marke geknüpft sind. Darauf aufbauend erarbeiten wir individuelle Lösungen und kreative Strategien, die Ihre Marke nicht nur definieren, sondern auch differenzieren.",
       paddingTop: 20,
   },
@@ -41,7 +41,7 @@ const services: Service[] = [
       id: 2,
       animation: konzeptionAnimaton,
       number: "02",
-      title: "Konzeption & Kreation",
+      title: "Konzeption &\nKreation",
       description: "Ein gutes Projekt braucht ein noch besseres Konzept. Unsere Expertise reicht von der tiefgreifenden Analyse bis zur kreativen Umsetzung, stets mit dem Ziel, Ihre Marke nach vorne zu bringen. Unsere Kernkompetenzen liegen im Bereich Print, Corporate- und Packaging-Design.",
       paddingTop: 80,
   },
@@ -57,7 +57,7 @@ const services: Service[] = [
       id: 4,
       animation: prototypingAnimation,
       number: "04",
-      title: "Prototyping & Produktion",
+      title: "Prototyping &\nProduktion",
       description: "In der Prototyping Phase nehmen wir Ihre Vision in die Hand und gestalten erste Entwürfe, die zum Leben erwachen. Das ermöglicht uns, Design und Funktionalität frühzeitig zu evaluieren, bevor wir in die finale Produktion gehen. Wir beraten zu Materialien, Veredelungen, Drucktechniken, Qualität und Auflagezahlen.",
       paddingTop: 40,
   },
@@ -65,7 +65,7 @@ const services: Service[] = [
       id: 5,
       animation: versandAnimation,
       number: "05",
-      title: "Lagerung & Versand",
+      title: "Lagerung &\nVersand",
       description: "Hand in Hand mit der Produktion geht unser internes Warenmanagement. Die KOPFBRAND Manufaktur (unsere Produktions- und Lagerräume) bietet die Möglichkeit Produktionen auflagenstark und kosteneffizient zu realisieren. Durch Einlagerung können wir auch zusätzlich auf spontane Bestellungen reagieren. Darüber hinaus realisieren wir den nationalen und internationalen Versand Ihrer Produkte.",
       paddingTop: 45,
   },
@@ -365,7 +365,16 @@ export default function Services() {
                                 </Tilt>
                                 <div className={styles.textContent}>
                                     <span className={`numbers ${styles.number}`}>{service.number}</span>
-                                    <h3 className={`subtitle-highlighted ${styles.serviceTitle}`}>{service.title}</h3>
+                                    <h3 className={`subtitle-highlighted ${styles.serviceTitle}`}>
+                                    {service.title.includes('\n')
+                                        ? service.title.split('\n').map((line, i) => (
+                                            <React.Fragment key={i}>
+                                            {line}
+                                            <br />
+                                            </React.Fragment>
+                                        ))
+                                        : service.title}
+                                    </h3>
                                     <p className={`body ${styles.description}`}>{service.description}</p>
                                 </div>
                             </motion.div>
