@@ -83,7 +83,7 @@ export default function Testimonials() {
     *****************************/
     // 🟢 States, Refs and Device Types
     const isMobile = useMediaQuery({ maxWidth: 768 });
-    const isLargeDesktop = useMediaQuery({ minWidth: 1920 });
+    const isLargeDesktop = useMediaQuery({ minWidth: 1800 });
     const [[page, direction], setPage] = useState<PageState>([0, 0]);
 
     // 🟢 Normalize the page number to handle infinite loop
@@ -126,7 +126,7 @@ export default function Testimonials() {
 
         // 🎯 Unterschiedliche Werte für large Desktop
         const rotationMultiplier = isLargeDesktop ? 50 : 50;
-        const spacingX = isLargeDesktop ? 80 : 60;
+        const spacingX = isLargeDesktop ? 70 : 60;
         const spacingZ = isLargeDesktop ? -150 : -100;
         
         return {

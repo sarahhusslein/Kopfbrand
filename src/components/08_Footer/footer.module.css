@@ -174,7 +174,7 @@ Adjustments for larger screens
   }
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 1800px) {
   .container {
     padding: 80px 150px;
   }

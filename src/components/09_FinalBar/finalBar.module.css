@@ -33,7 +33,7 @@ Adjustments for larger screens
   }
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 1800px) {
   .text {
     font-size: 1.4rem;            
   }

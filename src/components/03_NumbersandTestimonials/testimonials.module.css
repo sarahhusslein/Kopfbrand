@@ -134,7 +134,7 @@
 
 .underlineSVG {
     position: absolute; 
-    bottom: -8px;
+    bottom: -24px;
     left: 0;
     fill: white;
     width: 100%;
@@ -145,7 +145,7 @@
 /***************************** 
 Adjustments for Larger Screens
 *****************************/
-@media (min-width: 1920px) {
+@media (min-width: 1800px) {
 
     .satelliteAnimation {
         width: 350px;
@@ -160,7 +160,7 @@ Adjustments for Larger Screens
     .testimonialCard {
         height: 590px;
         padding: 0px 70px 0px 70px;
-        transform-origin: center center -300px;
+        transform-origin: center center -320px;
         will-change: transform;
     }
 

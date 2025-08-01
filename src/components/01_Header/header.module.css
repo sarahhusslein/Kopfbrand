@@ -101,11 +101,13 @@
 /***************************** 
 Adjustments for Larger Screens
 *****************************/
-@media (min-width: 1920px) {
+@media (min-width: 1800px) {
 
     .content {
-        bottom: 15%;
+        bottom: 12%;
     }
+
+
 
     .h4 {
         padding: 0;

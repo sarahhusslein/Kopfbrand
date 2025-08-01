@@ -61,7 +61,7 @@
 /***************************** 
 Adjustments for Larger Screens
 *****************************/
-@media (min-width: 1920px) {
+@media (min-width: 1800px) {
     .container {
         margin: 0 150px;
         padding-top: 70px;
