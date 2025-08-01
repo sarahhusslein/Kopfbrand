@@ -71,11 +71,16 @@ const opacity = {
   enter: { 
       opacity: 1, 
       transition: {
-        duration: 0.7,
-        ease: [0.76, 0, 0.24, 1]
+        duration: 0.5,
+        ease: [0.76, 0, 0.24, 1],
+        delay: 0.1 // Add a small delay to ensure slide animation completes first
   },
   exit: {
       opacity: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.76, 0, 0.24, 1]
+      }
     }
   }
 };
@@ -91,7 +96,7 @@ const slideExit = {
   exit: { 
       top: "0vh",
       transition: {
-          duration: 0.1,
+          duration: 0.3,
           ease: [0.76, 0, 0.24, 1]
       }
   },
@@ -105,7 +110,7 @@ const slideEnter = {
   enter: { 
     top: "-100vh",
     transition: {
-      duration: 0.1,
+      duration: 0.3,
       ease: [0.76, 0, 0.24, 1]
   }
   },
@@ -126,6 +131,10 @@ const perspective = {
     y: 0,
     scale: 1,
     opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: [0.76, 0, 0.24, 1]
+    }
 },
 
   exit: { 
@@ -133,7 +142,7 @@ const perspective = {
       scale: 0,
       opacity: 0,
       transition: {
-          duration: 0.01,
+          duration: 0.3,
           ease: [0.76, 0, 0.24, 1]
       }
   },
@@ -152,6 +161,9 @@ const Transition = ({children} : {children: React.ReactNode}) => {
       <motion.div
         key={segment}
         className={styles.inner}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
       >
         <motion.div className={styles.slide} {...anim(slideExit, "SlideExit")}/>
         <motion.div className={styles.slide} {...anim(slideEnter, "SlideEnter")} />
