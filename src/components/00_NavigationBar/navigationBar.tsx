@@ -27,7 +27,7 @@ interface NavItem {
   ];
 
   const sectionOffsetsDesktop: Record<string, number> = {
-    services: 100,  // "WAS"
+    services: 500,  // "WAS"
     cases: 450,     // "WIE"
     team: 450,      // "WER" 
     contact: 250,   // "WO"
@@ -140,8 +140,9 @@ export default function NavigationBar() {
             }
     
             // 🔁 Normaler Ablauf für andere Sections
-            if (initialPositions[section] !== undefined) {
-                const targetY = initialPositions[section];
+            const element = document.getElementById(section);
+            if (element ) {
+                const targetY = element.offsetTop;
                 const currentScroll = window.scrollY;
                 const isScrollingUp = targetY < currentScroll;
                 const distance = Math.abs(currentScroll - targetY);
