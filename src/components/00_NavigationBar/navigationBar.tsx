@@ -35,10 +35,10 @@ interface NavItem {
   };
 
   const sectionOffsetsMobile: Record<string, number> = {
-    services: 100,
+    services: 40,
     cases: 100,
     team: 150,
-    contact: 150,
+    contact: 170,
     footer: 80,
   };
 
