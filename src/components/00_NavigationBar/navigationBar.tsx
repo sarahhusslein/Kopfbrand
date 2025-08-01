@@ -28,9 +28,9 @@ interface NavItem {
 
   const sectionOffsetsDesktop: Record<string, number> = {
     services: 200,  // "WAS"
-    cases: 200,     // "WIE"
-    team: 300,      // "WER" 
-    contact: 250,   // "WO"
+    cases: 100,     // "WIE"
+    team: 150,      // "WER" 
+    contact: 200,   // "WO"
     footer: 0,    // "LETS TALK"
   };
 
