@@ -93,7 +93,16 @@ export default function ScreenLoader({ children }) {
                 className={styles.contentWrapper}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                transition={{ duration: 0.3, delay: 0.2 }}
+                onAnimationComplete={() => {
+                  // Remove the fixed container after animation completes
+                  const container = document.querySelector(`.${styles.container}`) as HTMLElement;
+                  if (container) {
+                    container.style.position = 'static';
+                    container.style.zIndex = 'auto';
+                    container.style.pointerEvents = 'auto';
+                  }
+                }}
             >
                 {children}
             </motion.div>
