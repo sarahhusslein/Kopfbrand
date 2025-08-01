@@ -21,6 +21,22 @@ export default function ScreenLoader({ children }) {
     return () => clearTimeout(timer);
   }, []);
 
+  // Remove fixed positioning after complete animation
+  useEffect(() => {
+    if (!loading) {
+      const timer = setTimeout(() => {
+        const container = document.querySelector(`.${styles.container}`) as HTMLElement;
+        if (container) {
+          container.style.position = 'static';
+          container.style.zIndex = 'auto';
+          container.style.pointerEvents = 'auto';
+        }
+      }, 1000); // 0.5s loader exit + 0.3s content fade + 0.2s delay + buffer
+      
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
+
   
   /***************************** 
   Render
@@ -94,15 +110,6 @@ export default function ScreenLoader({ children }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, delay: 0.2 }}
-                onAnimationComplete={() => {
-                  // Remove the fixed container after animation completes
-                  const container = document.querySelector(`.${styles.container}`) as HTMLElement;
-                  if (container) {
-                    container.style.position = 'static';
-                    container.style.zIndex = 'auto';
-                    container.style.pointerEvents = 'auto';
-                  }
-                }}
             >
                 {children}
             </motion.div>
