@@ -28,10 +28,10 @@ interface NavItem {
 
   const sectionOffsetsDesktop: Record<string, number> = {
     services: 100,  // "WAS"
-    cases: 430,     // "WIE"
-    team: 430,      // "WER" 
+    cases: 450,     // "WIE"
+    team: 450,      // "WER" 
     contact: 250,   // "WO"
-    footer: 250,    // "LETS TALK"
+    footer: 0,    // "LETS TALK"
   };
 
   const sectionOffsetsMobile: Record<string, number> = {
@@ -70,7 +70,7 @@ export default function NavigationBar() {
             const element = document.getElementById(item.section);
             if (element) {
                 const rect = element.getBoundingClientRect();
-                positions[item.section] = window.scrollY + rect.top;
+                positions[item.section] = element.offsetTop;
             }
         });
         setInitialPositions(positions);
@@ -118,39 +118,62 @@ export default function NavigationBar() {
 
     // 🟢 Scroll to section smoothly and set the active section
     const scrollToSection = (section: string) => {
-        if ((window as any).lenis && initialPositions[section] !== undefined) {
-            const targetY = initialPositions[section];
-            const currentScroll = window.scrollY;
-            const isScrollingUp = targetY < currentScroll;
-            const distance = Math.abs(currentScroll - targetY);
-            const baseDuration = isScrollingUp ? 2.0 : 1.6;
-            const duration = Math.min(baseDuration + (distance / 6000), 2.8);
-
-            ((window as any).lenis).scrollTo(targetY, {
-                offset: isMobile 
-                ? (sectionOffsetsMobile[section] ?? 60) 
-                : (sectionOffsetsDesktop[section] ?? 75),
-                duration: duration,
-                easing: (t: number) => {
-                    const ts = t * t;
-                    const tc = ts * t;
-                    
-                    if (isScrollingUp) {
-                        return t < 0.35
-                            ? 4 * tc
-                            : 1 - Math.pow(1 - t, 4);
-                    } else {
+        if ((window as any).lenis) {
+            if (section === 'footer') {
+                // 🔽 Ganz ans Seitenende scrollen
+                (window as any).lenis.scrollTo(document.body.scrollHeight, {
+                    duration: 2.0,
+                    easing: (t: number) => {
+                        const ts = t * t;
+                        const tc = ts * t;
                         return t < 0.25
                             ? 3.5 * ts
                             : 1 - (1 - t) * (1 - t) * (1 - t);
+                    },
+                    lock: true,
+                    immediate: false,
+                    onComplete: () => {
+                        setActiveSection(section);
                     }
-                },
-                lock: true,
-                immediate: false,
-                onComplete: () => {
-                    setActiveSection(section);
-                }
-            });
+                });
+                return;
+            }
+    
+            // 🔁 Normaler Ablauf für andere Sections
+            if (initialPositions[section] !== undefined) {
+                const targetY = initialPositions[section];
+                const currentScroll = window.scrollY;
+                const isScrollingUp = targetY < currentScroll;
+                const distance = Math.abs(currentScroll - targetY);
+                const baseDuration = isScrollingUp ? 2.0 : 1.6;
+                const duration = Math.min(baseDuration + (distance / 6000), 2.8);
+    
+                ((window as any).lenis).scrollTo(targetY, {
+                    offset: isMobile 
+                        ? (sectionOffsetsMobile[section] ?? 60) 
+                        : (sectionOffsetsDesktop[section] ?? 75),
+                    duration: duration,
+                    easing: (t: number) => {
+                        const ts = t * t;
+                        const tc = ts * t;
+    
+                        if (isScrollingUp) {
+                            return t < 0.35
+                                ? 4 * tc
+                                : 1 - Math.pow(1 - t, 4);
+                        } else {
+                            return t < 0.25
+                                ? 3.5 * ts
+                                : 1 - (1 - t) * (1 - t) * (1 - t);
+                        }
+                    },
+                    lock: true,
+                    immediate: false,
+                    onComplete: () => {
+                        setActiveSection(section);
+                    }
+                });
+            }
         }
     };
 
