@@ -1,76 +1,41 @@
-.container {
+.loaderWrapper {
     position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    z-index: 5;
-    /* background: url('/illustrations/gradient-darkest2.svg'); */
+    inset: 0;
     background-color: black;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     overflow: hidden;
+  }
+  
+  .logoContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    cursor: none;
-    transition: opacity 0.3s ease;
-}
-
-.loaderContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-}
-
-.contentWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: var(--background);
-}
-
-.container * {
-    pointer-events: none !important;
-}
-
-
-
-.logoContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 20vw;
-    width: 50vw;
-    z-index: 6;
-}
-
-
-.logo {
+  }
+  
+  .logo {
     width: 40vw;
     height: auto;
-    /* fill: var(--darkest-grey); */
     fill: white;
-}
-
-.textContainer {
+  }
+  
+  .textContainer {
     padding-top: 12px;
     width: 50vw;
     display: flex;
     justify-content: flex-end;
-}
-
-.handschrift {
+  }
+  
+  .handschrift {
     transform: rotate(-2deg);
-    /* color: var(--darkest-grey); */
     color: var(--broom);
-
-}
+  }
+  
+  .content {
+    position: relative;
+    z-index: 0;
+  }
+  

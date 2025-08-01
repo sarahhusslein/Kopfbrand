@@ -84,9 +84,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${openSans.variable} ${roel.variable}`}>
           <ScreenLoader>
-            {/* <Transition> */}
               {children}  
-            {/* </Transition> */}
           </ScreenLoader>
       </body>
     </html>
